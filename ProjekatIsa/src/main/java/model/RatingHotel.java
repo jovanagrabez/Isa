@@ -10,18 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "room")
-public class Room implements Serializable{
+@Table(name = "rating_hotel")
+public class RatingHotel implements Serializable {
 
-	private static final long serialVersionUID = 883;
-
+	private static final long serialVersionUID = 996;
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id", nullable = false, updatable = false)
+    @Column(name = "ratingHotel_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "room_number", nullable = false, updatable = false)
-	private int number;
+	@Column(name = "value", nullable = false)
+    private int value;
 
 	public Long getId() {
 		return id;
@@ -31,24 +31,24 @@ public class Room implements Serializable{
 		this.id = id;
 	}
 
-	public int getNumber() {
-		return number;
+	public int getValue() {
+		return value;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setValue(int value) {
+		this.value = value;
 	}
 
-	public Room(Long id,int number) {
+	public RatingHotel(int value) {
 		super();
-		this.id = id;
-		this.number = number;
+		this.value = value;
 	}
 
-	public Room() {
+	public RatingHotel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 }
