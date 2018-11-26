@@ -1,6 +1,6 @@
-package DTO;
+package com.example.ProjekatIsa.DTO;
 
-import model.Hotel;
+import com.example.ProjekatIsa.model.Hotel;
 
 public class HotelDTO {
   

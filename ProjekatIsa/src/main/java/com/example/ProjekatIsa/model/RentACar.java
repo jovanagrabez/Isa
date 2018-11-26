@@ -1,4 +1,4 @@
-package model;
+package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
 
@@ -10,18 +10,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "hotel")
-public class Hotel implements Serializable{
-
-	private static final long serialVersionUID = 225;
-
+@Table (name = "rentacar")
+public class RentACar implements Serializable {
+	
+	
+	private static final long serialVersionUID = 1L;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "hotel_id", nullable = false, updatable = false)
+	@Column(name = "rentacar_id", nullable = false, updatable = false)
     private Long id;
-
-	@Column(name = "name", nullable = false, columnDefinition="VARCHAR(40)")
+	
+	@Column(name = "name", nullable = false, unique = true, columnDefinition="VARCHAR(40)")
     private String name;
 	
 	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
@@ -62,11 +62,7 @@ public class Hotel implements Serializable{
 		this.description = description;
 	}
 	
-	public Hotel() {
-		super();
-	}
-
-	public Hotel(Long id, String name, String adress, String description) {
+	public RentACar(Long id, String name, String adress, String description) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -74,5 +70,11 @@ public class Hotel implements Serializable{
 		this.description = description;
 	}
 
+	public RentACar() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
+	
+
 }

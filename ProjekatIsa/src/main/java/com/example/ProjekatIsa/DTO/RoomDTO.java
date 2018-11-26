@@ -1,6 +1,6 @@
-package DTO;
+package com.example.ProjekatIsa.DTO;
 
-import model.Room;
+import com.example.ProjekatIsa.model.Room;
 
 public class RoomDTO {
 

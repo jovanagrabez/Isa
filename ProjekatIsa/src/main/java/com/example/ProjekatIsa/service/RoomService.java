@@ -1,11 +1,11 @@
-package service;
+package com.example.ProjekatIsa.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
-import model.Room;
-import repository.RoomRepository;
+import com.example.ProjekatIsa.model.Room;
+import com.example.ProjekatIsa.repository.RoomRepository;
 
 public class RoomService {
 

@@ -1,8 +1,8 @@
-package repository;
+package com.example.ProjekatIsa.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import model.Hotel;
+import com.example.ProjekatIsa.model.Hotel;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 

@@ -1,4 +1,4 @@
-package DTO;
+package com.example.ProjekatIsa.DTO;
 
 public class RatingRoomDTO {
 	
