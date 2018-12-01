@@ -48,7 +48,7 @@ public class RentACar implements Serializable {
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "filijale", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "filijale_id"))   
-	private Set<Tickets> ticket;
+	private Set<Car> filijale;
 	
 	
 
