@@ -19,6 +19,9 @@ public class RatingCar implements Serializable {
     @Column(name = "ratingCar_id", nullable = false, updatable = false)
     private Long id;
 	
+	
+	//klijent
+	
 	@Column(name = "value", nullable = false)
     private int value;
 
