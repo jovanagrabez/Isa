@@ -6,19 +6,21 @@ public class RoomDTO {
 
 	private Long id;
 	private int number;
+	private int price;
 	
 	public RoomDTO() {
 		
 	}
 
-	public RoomDTO(Long id, int number) {
+	public RoomDTO(Long id, int number, int price) {
 		super();
 		this.id = id;
 		this.number = number;
+		this.price = price;
 	}
 
 	public RoomDTO(Room room) {
-		this(room.getId(), room.getNumber());
+		this(room.getId(), room.getNumber(), room.getPrice());
 	}
 	
 	
@@ -35,6 +37,14 @@ public class RoomDTO {
 		this.number = number;
 	}
 
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
 	
 	
 }

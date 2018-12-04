@@ -23,6 +23,17 @@ public class Room implements Serializable{
 	@Column(name = "room_number", nullable = false, updatable = false)
 	private int number;
 
+	@Column(name = "room_price", nullable = false, updatable = false)
+	private int price;
+	
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
 	public Long getId() {
 		return id;
 	}
@@ -39,10 +50,11 @@ public class Room implements Serializable{
 		this.number = number;
 	}
 
-	public Room(Long id,int number) {
+	public Room(Long id,int number, int price) {
 		super();
 		this.id = id;
 		this.number = number;
+		this.price = price;
 	}
 
 	public Room() {
