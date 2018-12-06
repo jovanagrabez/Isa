@@ -43,7 +43,7 @@ public class Hotel implements Serializable{
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "room_price", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
-	private Set<Car> price;
+	private Set<Room> price;
 	
 	public Long getId() {
 		return id;
