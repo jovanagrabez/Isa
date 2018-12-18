@@ -36,7 +36,7 @@ public class Hotel implements Serializable{
 	
 	@Column(name = "description", nullable = false, columnDefinition="VARCHAR(50)")
     private String description;
-
+	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "hotel_room", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
 	private Set<Room> room;

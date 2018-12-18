@@ -7,6 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewHotelsComponent implements OnInit {
 
+  private hotelsArray: any;
+  private selectedHotel: any;
+  
+  private loggedInUser: any;
+  private isAdmin: any;
+  
+  private currentRate = 2.5;
+  
   constructor() { }
 
   ngOnInit() {
