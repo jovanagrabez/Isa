@@ -1,10 +1,32 @@
-<div id = "container">
-	<app-home-guest></app-home-guest>
-	
-	
-	<div id = "content">
-	<router-outlet></router-outlet>
-</div>
-	
- </div>
+<body>
+	<header id="fh5co-header-section">
+			<div class="container">
+				<div class="nav-header">				
+					<h1 id="fh5co-logo"><a href=""><img src="assets/images/globe.png">  Dream Air</a></h1>
+					<!-- START #fh5co-menu-wrap -->
+					<nav id="fh5co-menu-wrap" role="navigation">
+						<ul class="sf-menu" id="fh5co-primary-menu">
+							<li class="active"><a href="home">Početna</a></li>
+							<li><a href="avioCompanies">Avio kompanije</a></li>
+							<li><a href="hotels">Hoteli</a></li>
+							<li><a href="rentalCars">Rental cars</a></li>
+							<li><a href="">Kontat</a></li>
+							<li><a routerLink="login">Loguj se</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+	</header>
+
+<router-outlet>
+</router-outlet>
+</body>
+
+
+
+
+
+
+
+
 

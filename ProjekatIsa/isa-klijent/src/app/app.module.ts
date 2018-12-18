@@ -3,16 +3,20 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginLogoutComponent } from './login-logout/login-logout.component';
-import { HomeGuestComponent } from './home-guest/home-guest.component';
 import { LoginComponent } from './login/login.component';
+import { HomeGuestSearchComponent } from './home-guest-search/home-guest-search.component';
+import { ViewAvioCompaniesComponent } from './view-avio-companies/view-avio-companies.component';
+import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
+import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginLogoutComponent,
-    HomeGuestComponent,
-    LoginComponent
+    LoginComponent,
+    HomeGuestSearchComponent,
+    ViewAvioCompaniesComponent,
+    ViewHotelsComponent,
+    ViewRentalCarsComponent
   ],
   imports: [
     BrowserModule,
