@@ -8,6 +8,7 @@ import { HomeGuestSearchComponent } from './home-guest-search/home-guest-search.
 import { ViewAvioCompaniesComponent } from './view-avio-companies/view-avio-companies.component';
 import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
 import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.com
     HomeGuestSearchComponent,
     ViewAvioCompaniesComponent,
     ViewHotelsComponent,
-    ViewRentalCarsComponent
+    ViewRentalCarsComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,
