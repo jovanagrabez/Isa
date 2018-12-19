@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "aviocompany")
+@Table(name = "ticket")
 public class Tickets {
 
 	@Id
