@@ -1,13 +1,21 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "user")
@@ -37,6 +45,14 @@ public class User implements Serializable {
     
     @Column(name="phone_number",nullable=true)
     private String phoneNumber;
+    
+    @Column(name = "enabled", nullable = true)
+    private boolean enabled;
+    
+    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<MyRole> roles;
+    
 
 	public Long getId() {
 		return id;
@@ -93,10 +109,28 @@ public class User implements Serializable {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
+	
+	 public Set<MyRole> getRoles(){
+	    	return roles;
+	    }
+	    
+		public void setRoles(Set<MyRole> roles) {
+			this.roles = roles;
+		}
+		
+		public boolean isEnabled() {
+			return enabled;
+		}
+
+		public void setEnabled(boolean enabled) {
+			this.enabled = enabled;
+		}
+
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
+		roles=new HashSet<MyRole>();
+		enabled=false;
 	}
 
 	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber) {
@@ -108,6 +142,16 @@ public class User implements Serializable {
 		this.city = city;
 		this.phoneNumber = phoneNumber;
 	}
+	
+	@Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email +
+                ", passwordHash='" + passwordHash.substring(0, 10) +
+                ", role=" + roles +
+                '}';
+    }
     
     
     

@@ -20,3 +20,5 @@ insert into aviocompany (name, adress, description) values ('AirN', 'Beograd', '
 insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Instambul', 'opis');
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
+
+insert into user (first_name,last_name,email,password_hash,enabled) values ('Sara','Celik','isasara@gmail.com','123456',false);

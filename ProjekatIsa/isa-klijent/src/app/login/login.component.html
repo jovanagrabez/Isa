@@ -12,10 +12,16 @@
       <button>create</button>
       <p class="message">Already registered? <a href="#">Sign In</a></p>
     </form>
-    <form class="login-form">
-      <input type="text" placeholder="Korisničko ime"/>
-      <input type="password" placeholder="Lozinka"/>
-      <button>Prijava</button>
+    <form role="form" action="/login" method="post">
+		<!--<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />-->
+      <input type="email" placeholder="Korisničko ime"
+				name="email" id="email" required autofocus #email/>
+      <input type="password" placeholder="Lozinka" name="password" id="password" required #password/>
+      
+      <label for="remember-me">Remember me</label> <input type="checkbox"
+				name="remember-me" id="remember-me" #rememberMe/>
+        <button (click) = "onSubmit(email.value, password.value,rememberMe.value)"id="submit" type="button" value="submit" class="btn btn-primary center">Prijava</button>
       <p class="message">Niste registrovani? <a href="registracija">Kreirajte nalog</a></p>
     </form>
   </div>
