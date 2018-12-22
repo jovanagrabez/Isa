@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ViewHotelsService } from '../services/view-hotels.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-hotels',
@@ -15,9 +18,27 @@ export class ViewHotelsComponent implements OnInit {
   
   private currentRate = 2.5;
   
-  constructor() { }
+  hotel$: Object;
+  
+  constructor(private router : Router, private viewHotelsService : ViewHotelsService) { }
 
   ngOnInit() {
+  
+  this.viewHotelsService.getHotels().subscribe(
+  	data => this.hotel$ = data
+  )
+  
+  /*this.viewHotelsService.getHotels()
+  .subscribe(
+  	data=> 
+  	{
+  	this.hotelsArray = data;
+    console.log(this.hotelsArray);
+
+  	
+  	}
+  );
+  */
   }
 
 }

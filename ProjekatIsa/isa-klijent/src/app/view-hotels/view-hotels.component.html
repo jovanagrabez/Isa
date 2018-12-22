@@ -1,8 +1,10 @@
 <h1>Spisak svih hotela</h1>
-<div>
-	  <div *ngFor="let c of cinemasArray; let i = index">
-	  
-	  
-	  </div>
-
-</div>
+	<ul>
+		<li *ngFor= 'let h of hotel$'>
+			<a routerLink="/details/{{h.id}}">{{h.name}}</a>
+			<ul>
+				<li>{{h.adress}}</li>
+			</ul>
+		
+		</li>
+	</ul>

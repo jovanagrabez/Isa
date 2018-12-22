@@ -21,16 +21,16 @@ public class HotelController {
 	@Autowired
 	private HotelService hotelService;
 	
-	@Autowired
-	private RatingHotelRepository ratingHotelService;
+	//@Autowired
+	//private RatingHotelRepository ratingHotelService;
 	
 	@RequestMapping(
 			value = "/getAll", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Hotel>  getCinemas() {
+	public List<Hotel>  getHotels() {
 		
-		System.out.println("Number of cinemas: " + hotelService.getAll().size());
+		System.out.println("Number of hotels: " + hotelService.getAll().size());
 		
 		return hotelService.getAll();
 }}
