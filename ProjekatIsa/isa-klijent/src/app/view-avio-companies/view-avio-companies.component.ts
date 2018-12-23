@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AviocompanySService } from '../services/aviocompany-s.service';
 
-
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-avio-companies',
@@ -11,45 +11,48 @@ import { AviocompanySService } from '../services/aviocompany-s.service';
 })
 export class ViewAvioCompaniesComponent implements OnInit {
 
-   private avioArray: any;
-    
-   private data: any[] = [
-    {id: 1, name: 'Hydrogen', age: 23},
-    {id: 2, name: 'Helium', age: 30},
-    {id: 3, name: 'Lithium', age: 2},
-    {id: 4, name: 'Beryllium', age: 10},
-    {id: 5, name: 'Boron', age: 15}]
-  private selectedCinema : any;
+   private niz$:any ;
+      private selectedCompany : any;
 
- 
 
-  private latitudes : any[] = [];
-  private longitudes : any[] = []; 
-
-  public currentRate="fdfdsfdsf";
+  currentRate:string;
    
-constructor(private router : Router, private avioService : AviocompanySService) {
+constructor(private router: Router, private data : AviocompanySService) {
 
   
   }
 
   ngOnInit() {
       
-      this.currentRate="fdfdsds";
+     this.currentRate="bla bla bla";
       
-     this.avioService.getAvioCompany()
-      .subscribe(
-        data=> 
-        {
-          this.avioArray = data;
+    
+         this.data.getAvioCompany().subscribe(
+      res => {
+          this.niz$ = res;
           
-          console.log(this.avioArray);
-
-         }
-          );
+          console.log(this.niz$);
+          }
+    );
 
 
 
   }
+    
+    
+   onClickCompanyDetails(Aviocompany : any) :void {
+    this.selectedCompany = Aviocompany; 
+    this.data.selectAviocompany(Aviocompany);
+    this.data.currentCompany.subscribe(
+      currentCompany => 
+      {
+      console.log("Current company: " +  currentCompany);
+      }
+    );
+
+    this.router.navigateByUrl('/profilcompany');
+
+  }
+
 
 }

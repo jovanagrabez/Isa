@@ -1,39 +1,46 @@
-	<div class="fh5co-hero">
-		<div class="fh5co-overlay"></div>		
-<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
+<body>
 
+<div  class="fh5co-section-gray">
+			<div class="container">
+		
+					<div class=" text-center  heading-section ">
+					<span></span>
+						<h3>Avio kompanije</h3>
+						<p>Jednom godisnje, idite na neko mesto na kome nikada to tada niste bili. (Dalaj Lama)</p>
+					</div>
+				
+	</div>
+	</div>
 
-
-      
-      <h1>Avio kompanije
-      </h1>
-   
-    <p> kcdsk</p>
-    
-    
-      <div *ngFor="let c of avioArray">
-           <p>{{c.name}}</p>
-   
-            <div class="row">
-              <div class="col-md-5">
-                  <div class="row">
-                      <div class="col"><h3>{{c.name}}</h3></div>
-                      <div class="col">
-                      </div>
-                    </div>
-                
-                <br>
-                <p><b>Address: </b> {{c.adress}}</p>
-                <p> <b>Description: </b>{{c.description}}</p>
-                
-                <br>
-                </div>
-                </div>
-                </div>
-               
-               
-              
-                
+ <div class="fh5co-hero">
+	<div class="fh5co-overlay"></div>
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5"
+		style="background-image: url(assets/images/pic.png);">
+	
+			
+				
+				<div class="row row-bottom-padded-md">
+					<div *ngFor="let a of niz$">
+						<div class="row-md-4 row-sm-6 fh5co-tours animate-box"
+							data-animate-effect="fadeIn">
+							<div href="profil">
+								<img src="assets/images/avio.jpg"  width="400" height="300">
+								<div class="desc">
+									<span></span>
+									<h3>{{a.name}}</h3>
+									<h3>{{a.description}}</h3>
+									<span>{{a.adress}}</span> <a
+									(click)="onClickCompanyDetails(a)"	class="btn btn-primary btn-outline" >Detaljnije <i
+										class="icon-arrow-right22"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
 </div>
 </div>
+	
+</body>
+
+

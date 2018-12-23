@@ -9,9 +9,11 @@ import org.springframework.stereotype.Service;
 
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
+
 @Service
 public interface AviocompanyService {
 
 	List<Aviocompany> getAll();
+	Aviocompany getCompanyByID(Long id);
 	
 }

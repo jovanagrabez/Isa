@@ -17,7 +17,7 @@ insert into hotel (name,adress,description) values ('Sheraton','Novi Sad','gdfgf
 insert into hotel (name,adress,description) values ('Biser','Derventa','gdfgfd');
 
 insert into aviocompany (name, adress, description) values ('AirN', 'Beograd', 'opis');
-insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Instambul', 'opis');
+insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Istanbul', 'opis');
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
 

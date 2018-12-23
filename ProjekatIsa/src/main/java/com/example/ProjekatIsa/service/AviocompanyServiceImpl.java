@@ -9,6 +9,7 @@ import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.HotelRepository;
+
 @Service
 public class AviocompanyServiceImpl  implements AviocompanyService{
 	
@@ -20,5 +21,12 @@ public class AviocompanyServiceImpl  implements AviocompanyService{
 		return avioRepository.findAll();
 	}
 
+	
+	@Override
+	public Aviocompany getCompanyByID(Long id) {
+		
+		return avioRepository.findOneById(id);
+		
+	}
 
 }
