@@ -223,8 +223,9 @@ figure {
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
 }
 .fh5co-cover .desc .price {
-  font-size: 60px;
+  font-size: 30px;
   font-weight: bold;
+  color: 
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover .desc .desc2 {
@@ -812,9 +813,9 @@ div.cs-select span {
   margin-bottom: 5px;
 }
 .fh5co-tours > div .desc .price {
-  font-size: 30px;
+  font-size: 23px;
   font-weight: bold;
-  color: #fff;
+  color: #646464;
 }
 .fh5co-tours > div .desc .btn {
   opacity: 1;

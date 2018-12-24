@@ -1,7 +1,7 @@
 package com.example.ProjekatIsa.DTO;
 
 import com.example.ProjekatIsa.model.Aviocompany;
-import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.*;
 
 public class AviocompanyDTO {
    

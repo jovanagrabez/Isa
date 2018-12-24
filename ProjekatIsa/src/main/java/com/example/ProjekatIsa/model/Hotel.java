@@ -38,7 +38,7 @@ public class Hotel implements Serializable{
     private String description;
 	
 	@Column(name = "average_rating", nullable = true)
-	private Double averageRating;
+	private Double average_rating;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "hotel_room", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
@@ -85,27 +85,25 @@ public class Hotel implements Serializable{
 		this.description = description;
 	}
 	
-	
-	
-	public Double getAverageRating() {
-		return averageRating;
+	public Double getAverage_rating() {
+		return average_rating;
 	}
 
-	public void setAverageRating(Double averageRating) {
-		this.averageRating = averageRating;
+	public void setAverage_rating(Double average_rating) {
+		this.average_rating = average_rating;
 	}
 
 	public Hotel() {
 		super();
 	}
 
-	public Hotel(Long id, String name, String adress, String description, Double averageRating) {
+	public Hotel(Long id, String name, String adress, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
-		this.averageRating = averageRating;
+		this.average_rating = average_rating;
 	}
 
 	
