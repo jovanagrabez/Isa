@@ -6,6 +6,7 @@ import { ViewAvioCompaniesComponent } from './view-avio-companies/view-avio-comp
 import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
 import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,11 @@ const routes: Routes = [
     {
         path: 'registracija',
         component: RegistrationComponent
+    },
+    {
+    	path: 'hotel-details',
+    	component: HotelDetailsComponent
+    	
     }
 	
 	

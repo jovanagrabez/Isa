@@ -1,10 +1,37 @@
-<h1>Spisak svih hotela</h1>
-	<ul>
-		<li *ngFor= 'let h of hotel$'>
-			<a routerLink="/details/{{h.id}}">{{h.name}}</a>
-			<ul>
-				<li>{{h.adress}}</li>
-			</ul>
-		
-		</li>
-	</ul>
+		<div id="fh5co-tours" class="fh5co-section-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>Popularne hotel &amp; hostel destinacije</h3>
+						<p>Pretražite ponude i otkrijte iskustva širom sveta,od udobnih seoskih kuća do šik gradskih stanova</p>
+					</div>
+				</div>
+				
+				
+				
+				<div class="row row-bottom-padded-md" >
+					<div  *ngFor= 'let h of hotel$'>
+						<div >
+							<div (click)="onClickShowDetails(h)" class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+								<div class="hotel-box">
+									<div class="desc">
+							
+										<h3>{{h.name}}</h3>
+										<h4>{{h.adress}}</h4>
+										<span></span>
+										<span>{{h.description}}</span>
+										<span><b>Vaša ocena:</b></span>
+										<span *ngIf="!(h.average_rating == null)" class="price" >
+                       					 {{c.average_rating}}
+                       					</span>
+										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>

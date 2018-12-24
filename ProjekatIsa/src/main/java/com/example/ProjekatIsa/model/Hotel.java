@@ -30,12 +30,15 @@ public class Hotel implements Serializable{
 
 	@Column(name = "name", nullable = false, columnDefinition="VARCHAR(40)")
     private String name;
-	
+
 	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
     private String adress;
 	
 	@Column(name = "description", nullable = false, columnDefinition="VARCHAR(50)")
     private String description;
+	
+	@Column(name = "average_rating", nullable = true)
+	private Double averageRating;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "hotel_room", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
@@ -44,6 +47,11 @@ public class Hotel implements Serializable{
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "room_price", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
 	private Set<Room> price;
+
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "hotel_rating_hotel", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "ratingHotel_id"))
+    private Set<RatingHotel> cinemaRatings;
+    
 	
 	public Long getId() {
 		return id;
@@ -77,16 +85,27 @@ public class Hotel implements Serializable{
 		this.description = description;
 	}
 	
+	
+	
+	public Double getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(Double averageRating) {
+		this.averageRating = averageRating;
+	}
+
 	public Hotel() {
 		super();
 	}
 
-	public Hotel(Long id, String name, String adress, String description) {
+	public Hotel(Long id, String name, String adress, String description, Double averageRating) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
+		this.averageRating = averageRating;
 	}
 
 	

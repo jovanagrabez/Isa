@@ -28,17 +28,22 @@ export class ViewHotelsService {
 	    return this.http.get('http://localhost:8080/hotels/getAll')
 	
 	
-	/*const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
+			/*const headers = new Headers();
+		    headers.append('Content-Type', 'application/json');
+		
+		    return this.http.get("http://localhost:8080/hotels/getAll", {headers:headers}).map(data => data.json())
+			//return this.http.get('https://jsonplaceholder.typicode.com/users')
+			
+			.catch((err:HttpErrorResponse) =>
+			{
+			// alert(err.status + " " + err.error.error + " \n" + err.error.message);
+			return Observable.throw(err);
+			});
+		  */
+  }
+  
+   selectHotel(hotel : any) {
 
-    return this.http.get("http://localhost:8080/hotels/getAll", {headers:headers}).map(data => data.json())
-	//return this.http.get('https://jsonplaceholder.typicode.com/users')
-	
-	.catch((err:HttpErrorResponse) =>
-	{
-	// alert(err.status + " " + err.error.error + " \n" + err.error.message);
-	return Observable.throw(err);
-	});
-  */
+    this.h.next(hotel);
   }
 }

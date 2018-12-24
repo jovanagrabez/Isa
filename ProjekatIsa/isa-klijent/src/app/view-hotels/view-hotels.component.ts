@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-view-hotels',
   templateUrl: './view-hotels.component.html',
-  styleUrls: ['./view-hotels.component.css']
+  styleUrls: ['./view-hotels.component.css', './animate.css']
 })
 export class ViewHotelsComponent implements OnInit {
 
@@ -26,19 +26,33 @@ export class ViewHotelsComponent implements OnInit {
   
   this.viewHotelsService.getHotels().subscribe(
   	data => this.hotel$ = data
-  )
-  
-  /*this.viewHotelsService.getHotels()
-  .subscribe(
-  	data=> 
-  	{
-  	this.hotelsArray = data;
-    console.log(this.hotelsArray);
-
-  	
-  	}
   );
-  */
-  }
+  
+					  /*this.viewHotelsService.getHotels()
+					  .subscribe(
+					  	data=> 
+					  	{
+					  	this.hotelsArray = data;
+					    console.log(this.hotelsArray);
+					
+					  	
+					  	}
+					  );
+					  */
+	
+	 }
+	onClickShowDetails(Hotel:any) : void {
+		this.selectedHotel = Hotel;
+		console.log("Hotel: " + Hotel);  
+    	this.viewHotelsService.selectHotel(Hotel);
+		this.viewHotelsService.currentHotel.subscribe(
+     		currentHotel => 
+	     	{
+	      		console.log("Current hotel: " +  currentHotel);
+	      	}
+    	);
+
+    	this.router.navigateByUrl('/hotel-details');
+	}
 
 }
