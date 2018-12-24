@@ -11,28 +11,25 @@ import { Observable } from 'rxjs';
 })
 export class ViewAvioCompaniesComponent implements OnInit {
 
-   private niz$:any ;
+       niz$: Object ;
       private selectedCompany : any;
 
 
   currentRate:string;
    
-constructor(private router: Router, private data : AviocompanySService) {
+constructor(private router: Router, private avioService : AviocompanySService) {
 
   
   }
 
+    
   ngOnInit() {
       
-     this.currentRate="bla bla bla";
+   //  this.currentRate="bla bla bla";
       
     
-         this.data.getAvioCompany().subscribe(
-      res => {
-          this.niz$ = res;
-          
-          console.log(this.niz$);
-          }
+         this.avioService.getAvioCompany().subscribe(
+    data => this.niz$ = data
     );
 
 
@@ -42,8 +39,8 @@ constructor(private router: Router, private data : AviocompanySService) {
     
    onClickCompanyDetails(Aviocompany : any) :void {
     this.selectedCompany = Aviocompany; 
-    this.data.selectAviocompany(Aviocompany);
-    this.data.currentCompany.subscribe(
+    this.avioService.selectAviocompany(Aviocompany);
+    this.avioService.currentCompany.subscribe(
       currentCompany => 
       {
       console.log("Current company: " +  currentCompany);

@@ -17,9 +17,16 @@ import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
 import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
 import { RegistrationComponent } from './registration/registration.component';
 
-
 import { AviocompanySService } from './services/aviocompany-s.service';
+import {ViewHotelsService} from './services/view-hotels.service';
+import { ProfilcompanyComponent } from './profilcompany/profilcompany.component';
+import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
 
+
+import { OrderModule } from 'ngx-order-pipe';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -29,19 +36,26 @@ import { AviocompanySService } from './services/aviocompany-s.service';
     ViewAvioCompaniesComponent,
     ViewHotelsComponent,
     ViewRentalCarsComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ProfilcompanyComponent,
+    HotelDetailsComponent
   ],
   imports: [
+   OrderModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpModule,
+   NgbModule.forRoot()
+  
   ],
-  providers: [HttpClientModule,AviocompanySService,
-  {
-        provide: Http,
-    
+  providers: [ HttpClientModule,AviocompanySService, ViewHotelsService
+  /*{
+       provide: Http,
       deps: [XHRBackend, RequestOptions, Router]
-    }
-      ],
+  
+  }*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

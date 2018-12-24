@@ -19,22 +19,20 @@ import { HttpHeaders, HttpClient, HttpErrorResponse, HttpParams  } from '@angula
 })
 export class AviocompanySService {
        
-    uri='http://localhost:8080';
+
     
     private a = new BehaviorSubject<any>(null);
   currentCompany = this.a.asObservable();
 
 
-  constructor(private http: Http) { 
+  constructor(private http: HttpClient) { 
 
   }
 
   getAvioCompany(){
-const headers = new Headers();
-    headers.append('Content-Type', 'application/json');
 
-
-       return this.http.get('http://localhost:8080/avioCompany/getAll').map(res=>res.json());
+   
+       return this.http.get('http://localhost:8080/avioCompany/getAll')//.map(res=>res.json());
    /* const headers = new Headers();
     headers.append('Content-Type', 'application/json');
    
