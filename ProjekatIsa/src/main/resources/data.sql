@@ -5,16 +5,16 @@ insert into room (room_number,room_price) values (4,210);
 insert into room (room_number,room_price) values (5,2135);
 insert into room (room_number,room_price) values (6,2160);
 
-insert into hotel (name,adress,description) values ('Vojvodina','Novi Sad','gdfgfd');
-insert into hotel (name,adress,description) values ('Grand hotel','Novi Sad','gdfgfd');
-insert into hotel (name,adress,description) values ('Butique','Beograd','gdfgfd');
-insert into hotel (name,adress,description) values ('Prezident','Novi Sad','gdfgfd');
-insert into hotel (name,adress,description) values ('City hotel','Novi Sad','gdfgfd');
-insert into hotel (name,adress,description) values ('Hilton','Beograd','gdfgfd');
-insert into hotel (name,adress,description) values ('Crown Plaza','Beograd','gdfgfd');
-insert into hotel (name,adress,description) values ('Sheraton','Beograd','gdfgfd');
-insert into hotel (name,adress,description) values ('Sheraton','Novi Sad','gdfgfd');
-insert into hotel (name,adress,description) values ('Biser','Derventa','gdfgfd');
+insert into hotel (name,adress,description,average_rating) values ('Vojvodina','Novi Sad','U samom centru grada. Stara arhitektura',4.3);
+insert into hotel (name,adress,description,average_rating) values ('Grand hotel','Novi Sad','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
+insert into hotel (name,adress,description,average_rating) values ('Butique','Beograd','Pro eu dolore vivendo ponderum.',4.3);
+insert into hotel (name,adress,description,average_rating) values ('Prezident','Novi Sad',' Eos ad oblique adolescens moderatius.',3.9);
+insert into hotel (name,adress,description,average_rating) values ('City hotel','Novi Sad','His at quis dico impedit, mea verear imperdiet ea.',4.7);
+insert into hotel (name,adress,description) values ('Hilton','Beograd','Eam inani senserit id.');
+insert into hotel (name,adress,description) values ('Crown Plaza','Beograd','Sed vidit prompta dissentiet at.');
+insert into hotel (name,adress,description,average_rating) values ('Sheraton','Beograd','Eu vix solum assentior voluptatum.',4.4);
+insert into hotel (name,adress,description,average_rating) values ('Sheraton','Novi Sad','Tantas recusabo ut pro.',4.1);
+insert into hotel (name,adress,description,average_rating) values ('Biser','Derventa','Cu sit sint ignota, sit id scaevola.',4.5);
 
 insert into aviocompany (name, adress, description) values ('AirN', 'Beograd', 'opis');
 insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Istanbul', 'opis');
