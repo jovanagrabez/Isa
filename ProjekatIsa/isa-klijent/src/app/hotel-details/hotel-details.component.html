@@ -1,3 +1,51 @@
-<p>
-  hotel-details works! 
-</p>
+		<div id="fh5co-tours" class="fh5co-section-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>{{currentHotel.name}}</h3>
+						<p>{{currentHotel.adress}}</p>
+						<p>{{currentHotel.description}}</p>
+					</div>
+				</div>
+				
+				<div class="row row-bottom-padded-md" >
+					<div *ngFor="let r of currentHotel.rooms">
+						<div >
+							<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+								<div class="hotel-box">
+									<div class="desc">
+							
+										<h3>Broj sobe: {{r.number}}</h3>
+										<span>{{r.room_description}}</span>
+										<span class="price">Cena sobe: {{r.price}}€ <b>/</b> 1 noć</span>
+										
+										<span *ngIf="!(r.room_average_rating == null)" class="price">Vaša ocena: <b>{{r.room_average_rating}}</b></span>
+										<span *ngIf="(r.room_average_rating == null)" class="price"><br/></span>
+										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h4>Sadržaji</h4>
+						<p>Pretražite sve dodatne sadrzaje koje Vam nudi "{{currentHotel.name}}"</p>
+					</div>
+				</div>
+				
+				<div class="row row-bottom-padded-md">
+					<div *ngFor="let s of currentHotel.additional_services">
+						<div class="two-columns">
+							<h4>{{s.name}} : {{s.price}}€</h4>
+							<span><br/></span>
+						</div>				
+					
+					</div>
+				</div>
+
+			</div>
+		</div>

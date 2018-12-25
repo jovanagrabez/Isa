@@ -775,7 +775,7 @@ div.cs-select span {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 30px;
+  padding: 20px;
   z-index: 12;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -1918,6 +1918,18 @@ div.cs-select span {
 
 .row-bottom-padded-md {
   padding-bottom: 4em;
+}
+
+.row-bottom-padded-md:after{
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 50%;
+  width: 100px;
+  margin-left: -50px;
+  height: 2px;
+  background: #F78536;
+	
 }
 @media screen and (max-width: 768px) {
   .row-bottom-padded-md {

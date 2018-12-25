@@ -21,9 +21,8 @@
 										<span></span>
 										<span>{{h.description}}</span>
 										<span *ngIf="!(h.average_rating == null)" class="price">Vaša ocena: {{h.average_rating}}</span>
-										<span>
-                       					 
-                       					</span>
+										<span *ngIf="(h.average_rating == null)" class="price"><br/></span>
+
 										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
 										
 									</div>

@@ -9,27 +9,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ProjekatIsa.model.Hotel;
-import com.example.ProjekatIsa.service.HotelService;
+import com.example.ProjekatIsa.model.Room;
+import com.example.ProjekatIsa.service.RoomService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/hotels")
-public class HotelController {
+@RequestMapping("/rooms")
+public class RoomController {
 
 	@Autowired
-	private HotelService hotelService;
-	
-	//@Autowired
-	//private RatingHotelRepository ratingHotelService;
+	private RoomService roomService;
 	
 	@RequestMapping(
 			value = "/getAll", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Hotel>  getHotels() {
+	public List<Room>  getRooms() {
 		
-		System.out.println("Number of hotels: " + hotelService.getAll().size());
+		System.out.println("Number of rooms: " + roomService.getAll().size());
 		
-		return hotelService.getAll();
-}}
+		return roomService.getAll();
+	}
+}

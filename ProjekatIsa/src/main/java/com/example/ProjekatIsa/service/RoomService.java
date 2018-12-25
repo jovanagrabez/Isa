@@ -1,18 +1,12 @@
 package com.example.ProjekatIsa.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
+import org.springframework.stereotype.Service;
 import com.example.ProjekatIsa.model.Room;
-import com.example.ProjekatIsa.repository.RoomRepository;
 
-public class RoomService {
+@Service
+public interface RoomService {
 
-	@Autowired
-	private RoomRepository roomRepository;
-	
-	public Page<Room> findAll(Pageable page) {
-		return roomRepository.findAll(page);
-	}
+	List<Room> getAll();
 }

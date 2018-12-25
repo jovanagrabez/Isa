@@ -46,4 +46,10 @@ export class ViewHotelsService {
 
     this.h.next(hotel);
   }
+  
+  getRooms(){
+  	
+  	    return this.http.get('http://localhost:8080/rooms/getAll')
+  
+  }
 }

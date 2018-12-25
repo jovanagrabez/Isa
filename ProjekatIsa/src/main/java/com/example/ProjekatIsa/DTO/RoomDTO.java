@@ -7,20 +7,25 @@ public class RoomDTO {
 	private Long id;
 	private int number;
 	private int price;
+	private String room_description;
+	private Double room_average_rating;
 	
 	public RoomDTO() {
 		
 	}
 
-	public RoomDTO(Long id, int number, int price) {
+	public RoomDTO(Long id, int number, int price, String room_description, Double room_average_rating) {
 		super();
 		this.id = id;
 		this.number = number;
 		this.price = price;
+		this.room_description = room_description;
+		this.room_average_rating = room_average_rating;
+		
 	}
 
 	public RoomDTO(Room room) {
-		this(room.getId(), room.getNumber(), room.getPrice());
+		this(room.getId(), room.getNumber(), room.getPrice(),room.getRoom_description(),room.getRoom_average_rating());
 	}
 	
 	
@@ -43,6 +48,22 @@ public class RoomDTO {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getRoom_description() {
+		return room_description;
+	}
+
+	public void setRoom_description(String room_description) {
+		this.room_description = room_description;
+	}
+
+	public Double getRoom_average_rating() {
+		return room_average_rating;
+	}
+
+	public void setRoom_average_rating(Double room_average_rating) {
+		this.room_average_rating = room_average_rating;
 	}
 	
 	

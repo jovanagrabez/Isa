@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -41,18 +40,42 @@ public class Hotel implements Serializable{
 	private Double average_rating;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "hotel_room", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
-	private Set<Room> room;
+	@JoinTable(name = "hotel_rooms", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
+	private Set<Room> rooms;
 	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "room_price", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
-	private Set<Room> price;
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "hotel_additional_service", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "additional_service_id"))   
+	private Set<AdditionalServiceForHotel> additional_services;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "hotel_rating_hotel", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "ratingHotel_id"))
-    private Set<RatingHotel> cinemaRatings;
+    private Set<RatingHotel> hotel_ratings;
     
 	
+	public Set<AdditionalServiceForHotel> getAdditional_services() {
+		return additional_services;
+	}
+
+	public void setAdditional_services(Set<AdditionalServiceForHotel> additional_services) {
+		this.additional_services = additional_services;
+	}
+
+	public Set<Room> getRooms() {
+		return rooms;
+	}
+
+	public void setRooms(Set<Room> rooms) {
+		this.rooms = rooms;
+	}
+	
+	public Set<RatingHotel> getHotel_ratings() {
+		return hotel_ratings;
+	}
+
+	public void setHotel_ratings(Set<RatingHotel> hotel_ratings) {
+		this.hotel_ratings = hotel_ratings;
+	}
+
 	public Long getId() {
 		return id;
 	}
