@@ -2,26 +2,27 @@
 			<div class="fh5co-overlay"></div>
 <div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
 
+
 <div class="login-page">
 
   <div class="form">
-    <form class="register-form">
-      <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p class="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form role="form" action="/login" method="post">
+
+    <form (ngSubmit)="login()" class="form-signin">
 		<!--<input type="hidden" name="${_csrf.parameterName}"
 			value="${_csrf.token}" />-->
-      <input type="email" placeholder="Korisničko ime"
-				name="email" id="email" required autofocus #email/>
-      <input type="password" placeholder="Lozinka" name="password" id="password" required #password/>
-      
-      <label for="remember-me">Remember me</label> <input type="checkbox"
+      <div>
+			<label for="inputEmail" class="sr-only">Email address</label>
+			 <input type="email" [(ngModel)]="user.email" name="email" id="email"  class="form-control inputs" placeholder="Email address" />
+		</div>
+		<div>
+			<label for="inputPassword" class="sr-only">Password</label>
+			 <input type="password" name="password" [(ngModel)]="user.password" name="password" id="inputPassword" class="form-control inputs" placeholder="Password" required />
+		</div>
+		<div>
+			<label for="remember-me">Remember me</label> <input type="checkbox"
 				name="remember-me" id="remember-me" #rememberMe/>
-        <button (click) = "onSubmit(email.value, password.value,rememberMe.value)"id="submit" type="button" value="submit" class="btn btn-primary center">Prijava</button>
+		</div>        
+		 <button class="btn btn-lg btn-primary btn-block" type="submit">Prijava</button>
       <p class="message">Niste registrovani? <a href="registracija">Kreirajte nalog</a></p>
     </form>
   </div>

@@ -1,3 +1,37 @@
-<p>
-  view-rental-cars works!
-</p>
+		<div id="fh5co-tours" class="fh5co-section-gray">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>Najpovoljniji rent a car servisi &amp; najbolja ponuda automobila</h3>
+						<p>Pretražite ponude i otkrijte iskustva širom sveta,od malih i praktičnih do luksuznih i komfornih automobila</p>
+					</div>
+				</div>
+				
+				
+				
+				<div class="row row-bottom-padded-md" >
+					<div  *ngFor= 'let r of rentalcars$'>
+						<div >
+							<div (click)="onClickShowDetails(r)" class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+								<div class="hotel-box">
+									<div class="desc">
+							
+										<h3>{{r.name}}</h3>
+										<h4>{{r.adress}}</h4>
+										<span></span>
+										<span>{{r.description}}</span>
+										<span *ngIf="!(r.average_rating == null)" class="price">Vaša ocena: {{r.average_rating}}</span>
+										<span>
+                       					 
+                       					</span>
+										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>

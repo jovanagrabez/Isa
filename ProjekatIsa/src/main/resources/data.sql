@@ -25,7 +25,7 @@ insert into hotel (name,adress,description,average_rating) values ('Sheraton','B
 insert into hotel (name,adress,description,average_rating) values ('Sheraton','Novi Sad','Tantas recusabo ut pro.',4.1);
 insert into hotel (name,adress,description,average_rating) values ('Biser','Derventa','Cu sit sint ignota, sit id scaevola.',4.5);
 
-insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,1);
+/*insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,1);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,2);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,3);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,4);
@@ -39,7 +39,7 @@ insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,11);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,12);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,13);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,14);
-insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,15);
+insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,15);*/
 
 
 insert into additional_service_hotel (name,price) values ('Transfer do aerodorma', 50);
@@ -70,4 +70,29 @@ insert into aviocompany (name, adress, description) values ('TurkishAirlines', '
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
 
-insert into user (first_name,last_name,email,password_hash,enabled) values ('Sara','Celik','isasara@gmail.com','123456',false);
+insert into users (first_name,last_name,email,password_hash,enabled,verified) values ('Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into users (first_name,last_name,email,password_hash,enabled,verified) values ('Pera','Peric','isapredmet@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+
+
+insert into role (name) values ('USER');
+insert into role (name) values ('SYSTEM_ADMIN');
+insert into role (name) values ('AVIO_ADMIN');
+insert into role (name) values ('HOTEL_ADMIN');
+insert into role (name) values ('CAR_ADMIN');
+
+INSERT INTO user_roles(user_id, role_id) VALUES(1,1);
+INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
+
+
+
+insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Beograd','adjiaisdj',4.2);
+insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Beograd','bla bla bla',3.9);
+insert into rentalcars (name,adress,description,average_rating) values ('EuropeCar','Beograd','cccc',4.8);
+insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Najpovoljnije usluge',4.6);
+insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','luux',3.3);
+
+insert into car (car_name,car_number,car_price) values ('BMW',1,500);
+insert into car (car_name,car_number,car_price) values ('Audi',2,450);
+insert into car (car_name,car_number,car_price) values ('Peugeot',5,300);
+insert into car (car_name,car_number,car_price) values ('Mercedes-Benz',7,550);
+insert into car (car_name,car_number,car_price) values ('Fiat',4,350);

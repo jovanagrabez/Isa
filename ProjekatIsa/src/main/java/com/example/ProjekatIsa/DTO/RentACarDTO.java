@@ -8,17 +8,19 @@ public class RentACarDTO {
     private String name;
     private String adress;
     private String description;
+    private Double average_rating;
     
     public RentACarDTO(RentACar rentacar) {
-		this(rentacar.getId(), rentacar.getName(), rentacar.getAdress(), rentacar.getDescription());
+		this(rentacar.getId(), rentacar.getName(), rentacar.getAdress(), rentacar.getDescription(),rentacar.getAverage_rating());
 	}
 
-	public RentACarDTO(Long id, String name, String adress, String description) {
+	public RentACarDTO(Long id, String name, String adress, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
+		this.average_rating = average_rating;
 	}
 
 	public RentACarDTO() {
@@ -57,6 +59,16 @@ public class RentACarDTO {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Double getAverage_rating() {
+		return average_rating;
+	}
+
+	public void setAverage_rating(Double average_rating) {
+		this.average_rating = average_rating;
+	}
+	
+	
     
     
 

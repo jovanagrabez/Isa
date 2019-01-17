@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table (name = "rentacar")
+@Table (name = "rentalcars")
 public class RentACar implements Serializable {
 	
 	
@@ -37,9 +37,12 @@ public class RentACar implements Serializable {
 	@Column(name = "description", nullable = false, columnDefinition="VARCHAR(50)")
     private String description;
 	
+	@Column(name = "average_rating", nullable = true)
+	private Double average_rating;
+	
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "cars_id", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
+	@JoinTable(name = "cars", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
 	private Set<Car> car;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -50,7 +53,39 @@ public class RentACar implements Serializable {
 	@JoinTable(name = "filijale", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "filijale_id"))   
 	private Set<Car> filijale;
 	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "rent_rating_car", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
+    private Set<RatingRentACar> rentacarRatings;
+   
 	
+	
+	
+	
+	
+
+	public Set<Car> getCar() {
+		return car;
+	}
+
+	public void setCar(Set<Car> car) {
+		this.car = car;
+	}
+
+	public Set<Car> getPrice() {
+		return price;
+	}
+
+	public void setPrice(Set<Car> price) {
+		this.price = price;
+	}
+
+	public Set<Car> getFilijale() {
+		return filijale;
+	}
+
+	public void setFilijale(Set<Car> filijale) {
+		this.filijale = filijale;
+	}
 
 	public Long getId() {
 		return id;
@@ -84,12 +119,23 @@ public class RentACar implements Serializable {
 		this.description = description;
 	}
 	
-	public RentACar(Long id, String name, String adress, String description) {
+	
+	
+	public Double getAverage_rating() {
+		return average_rating;
+	}
+
+	public void setAverage_rating(Double average_rating) {
+		this.average_rating = average_rating;
+	}
+
+	public RentACar(Long id, String name, String adress, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
+		this.average_rating = average_rating;
 	}
 
 	public RentACar() {

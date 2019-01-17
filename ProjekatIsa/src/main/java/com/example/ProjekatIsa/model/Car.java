@@ -30,9 +30,22 @@ public class Car implements Serializable {
 	@Column(name = "car_number", nullable = false, updatable = false)
 	private int number;
 	
+	@Column(name = "car_name", nullable = false, updatable = false)
+	private String name;
+	
 	@Column(name = "car_price", nullable = false, updatable = false)
 	private int price;
 	
+	
+	
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public int getPrice() {
 		return price;
 	}
@@ -58,11 +71,12 @@ public class Car implements Serializable {
 	}
 	
 	
-	public Car(Long id, int number, int price) {
+	public Car(Long id, int number, int price,String name) {
 		super();
 		this.id = id;
 		this.number = number;
 		this.price = price;
+		this.name = name;
 	}
 	
 	public Car() {

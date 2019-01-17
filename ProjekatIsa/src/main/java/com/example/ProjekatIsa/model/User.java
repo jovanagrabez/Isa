@@ -1,7 +1,9 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,11 +17,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import com.example.ProjekatIsa.DTO.MyRoleDTO;
 
 @Entity
-@Table(name = "user")
-public class User implements Serializable {
+@Table(name = "users")
+public class User implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 155L;
 
@@ -34,6 +41,8 @@ public class User implements Serializable {
     @Column(name = "last_name", nullable = false)
     private String lastName;
     
+    
+    @Email
     @Column(name = "email", nullable = false)
     private String email;
     
@@ -49,9 +58,14 @@ public class User implements Serializable {
     @Column(name = "enabled", nullable = true)
     private boolean enabled;
     
-    @ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<MyRole> roles;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<MyRole> roles;
+    
+    @Column
+	private boolean verified;
     
 
 	public Long getId() {
@@ -110,11 +124,11 @@ public class User implements Serializable {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	 public Set<MyRole> getRoles(){
+	 public List<MyRole> getRoles(){
 	    	return roles;
 	    }
 	    
-		public void setRoles(Set<MyRole> roles) {
+		public void setRoles(List<MyRole> roles) {
 			this.roles = roles;
 		}
 		
@@ -127,13 +141,19 @@ public class User implements Serializable {
 		}
 
 
+	public User(String email) {
+		super();
+		this.email = email;
+	}
+	
 	public User() {
 		super();
-		roles=new HashSet<MyRole>();
-		enabled=false;
+		
+		
 	}
 
-	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber) {
+
+	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber,boolean verified) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -141,8 +161,13 @@ public class User implements Serializable {
 		this.passwordHash = passwordHash;
 		this.city = city;
 		this.phoneNumber = phoneNumber;
+		this.verified = verified;
 	}
 	
+	public void setVerified(boolean verified) {
+		this.verified = verified;
+	}
+
 	@Override
     public String toString() {
         return "User{" +
@@ -152,6 +177,49 @@ public class User implements Serializable {
                 ", role=" + roles +
                 '}';
     }
+
+	public boolean isVerified() {
+		return verified;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		//return this.roles;
+		return null;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.passwordHash;
+	}
+
+	@Override
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+	
     
     
     

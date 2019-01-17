@@ -5,6 +5,8 @@ import { HttpModule,Http } from '@angular/http';
 
 import {RequestOptions, XHRBackend} from '@angular/http';
 import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
 
 
 
@@ -21,12 +23,17 @@ import { AviocompanySService } from './services/aviocompany-s.service';
 import {ViewHotelsService} from './services/view-hotels.service';
 import { ProfilcompanyComponent } from './profilcompany/profilcompany.component';
 import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
+import { AuthServiceService } from './services/auth-service.service';
+import { TokensService } from './auth/tokens/tokens.service';
+
+
 
 
 import { OrderModule } from 'ngx-order-pipe';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +45,10 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
     ViewRentalCarsComponent,
     RegistrationComponent,
     ProfilcompanyComponent,
-    HotelDetailsComponent
+    HotelDetailsComponent,
+    RentacarDetailsComponent
+    
+   
   ],
   imports: [
    OrderModule,
@@ -46,12 +56,13 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     HttpModule,
-   NgbModule.forRoot()
+   NgbModule.forRoot(),
+   FormsModule
   
   ],
   providers: [ HttpClientModule,AviocompanySService, ViewHotelsService
-  /*{
-       provide: Http,
+/*  {
+      // provide: Http,
       deps: [XHRBackend, RequestOptions, Router]
   
   }*/

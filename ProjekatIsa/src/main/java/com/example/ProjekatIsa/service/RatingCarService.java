@@ -5,15 +5,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import com.example.ProjekatIsa.model.RatingCar;
-import com.example.ProjekatIsa.repository.RatingCarRepository;
+//import com.example.ProjekatIsa.repository.RatingCarRepository;
 
 public class RatingCarService {
 	
-	@Autowired
-	private RatingCarRepository ratingCarRepository;
+	//@Autowired
+	//private RatingCarRepository ratingCarRepository;
 	
-	public Page<RatingCar> findAll(Pageable page) {
-		return ratingCarRepository.findAll(page);
+	//public Page<RatingCar> findAll(Pageable page) {
+		//return ratingCarRepository.findAll(page);
 	}
 
-}
+//}

@@ -2,6 +2,7 @@ package com.example.ProjekatIsa.model;
 
 
 
+import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 

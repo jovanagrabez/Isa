@@ -8,6 +8,8 @@ import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.com
 import { RegistrationComponent } from './registration/registration.component';
 import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
 import {ProfilcompanyComponent } from './profilcompany/profilcompany.component';
+import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
+
 
 const routes: Routes = [
 	
@@ -49,7 +51,11 @@ const routes: Routes = [
         path: 'profilcompany',
         component: ProfilcompanyComponent
         
-    }
+    },
+     {
+         path: 'rentacar-details',
+         component : RentacarDetailsComponent
+     }
     
 	
 	

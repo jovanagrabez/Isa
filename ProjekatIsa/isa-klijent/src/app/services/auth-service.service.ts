@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AuthServiceService {
 
   constructor() { }
@@ -22,7 +20,7 @@ export class AuthServiceService {
     return this.token || localStorage.getItem('token') || '';
   }
 
-  public setUser(user: /*{ id: number }*/any): void {
+  public setUser(user : any): void {
     this.user = user;
     localStorage.setItem('user', JSON.stringify(user));
   }

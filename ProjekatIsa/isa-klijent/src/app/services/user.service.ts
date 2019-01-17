@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import {Http, Response, Headers} from "@angular/http";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
+
+
 import 'rxjs/Rx'
 
 
@@ -33,6 +35,10 @@ export class UserService {
         return Observable.throw(err);
     });
       }
+    
+   
+    
+    
     
    //  getUsers(){
    //return this.http.get("http://localhost:8080/getOnlyUsers").map(data => data.json())

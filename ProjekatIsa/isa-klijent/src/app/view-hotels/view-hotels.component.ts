@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewHotelsService } from '../services/view-hotels.service';
 import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-view-hotels',
@@ -19,8 +21,14 @@ export class ViewHotelsComponent implements OnInit {
   private currentRate = 2.5;
   
   hotel$: Object;
-  
-  constructor(private router : Router, private viewHotelsService : ViewHotelsService) { }
+    
+     getAll(): Observable<any> {
+    return this.http.get('//localhost:8080/hotels/getAll');
+   }
+  constructor(private router : Router, private viewHotelsService : ViewHotelsService,private http: HttpClient) { }
+    
+   
+ 
 
   ngOnInit() {
   

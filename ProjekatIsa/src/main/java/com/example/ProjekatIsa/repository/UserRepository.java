@@ -15,13 +15,11 @@ import com.example.ProjekatIsa.model.User;
 
 
 public interface UserRepository extends JpaRepository<User, Long>{
-	
-	Optional<User> findOneByEmail(String email);
+    
+	Optional<User> findByEmail(String email);
+
 	Set<User> findByIdIn(Set<Long> ids);
 	List<User> findAll();
-	User findOneById(Long id);
-	@Query("Select u from User u where UPPER(u.firstName)LIKE CONCAT('%',UPPER(:firstName),'%') or UPPER(u.lastName)LIKE CONCAT('%',UPPER(:lastName),'%')")
-	List<User> findAllUsersFandL(@Param("firstName") String username,@Param("lastName")String lastName);
-
+	
 
 }
