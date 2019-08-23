@@ -60,12 +60,9 @@ import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.co
    FormsModule
   
   ],
-  providers: [ HttpClientModule,AviocompanySService, ViewHotelsService
-/*  {
-      // provide: Http,
-      deps: [XHRBackend, RequestOptions, Router]
-  
-  }*/
+  providers: [ HttpClientModule, AviocompanySService, ViewHotelsService,
+    AuthServiceService
+
   ],
   bootstrap: [AppComponent]
 })

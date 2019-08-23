@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
+import {TokensService} from '../auth/tokens/tokens.service';
 
 @Injectable()
 export class AuthServiceService {
 
-  constructor() { }
+  constructor( private tokenStorage: TokensService) { }
   private token: string;
   private user:/*{ id: number }*/any | null;
+  roles: string[] = [] ;
 
   public logoutUser(){
     this.token=null;
@@ -28,5 +30,23 @@ export class AuthServiceService {
   public setToken(token: string): void {
     this.token = token;
     localStorage.setItem('token', token);
+  }
+  public getRole(): string {
+    this.roles = this.tokenStorage.getAuthorities();
+    let userRole = '';
+      for (const role of this.roles) {
+        if (role === 'SYSTEM_ADMIN') {
+          userRole = 'SYSTEM_ADMIN';
+        } else if (role === 'USER') {
+          userRole = 'USER';
+        } else if (role === 'AVIO_ADMIN') {
+          userRole = 'AVIO_ADMIN';
+        } else if (role === 'HOTEL_ADMIN') {
+          userRole = 'HOTEL_ADMIN';
+        } else {
+          userRole = 'CAR_ADMIN';
+        }
+      }
+    return userRole;
   }
 }

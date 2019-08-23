@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AviocompanySService } from '../services/aviocompany-s.service';
 
 import { Observable } from 'rxjs';
+import {AuthServiceService} from '../services/auth-service.service';
 
 @Component({
   selector: 'app-view-avio-companies',
@@ -17,20 +18,18 @@ export class ViewAvioCompaniesComponent implements OnInit {
 
   currentRate:string;
    
-constructor(private router: Router, private avioService : AviocompanySService) {
+constructor(private router: Router, private avioService: AviocompanySService , private  role: AuthServiceService) {
 
   
   }
 
     
   ngOnInit() {
-      
-   //  this.currentRate="bla bla bla";
-      
-    
-         this.avioService.getAvioCompany().subscribe(
+
+  this.avioService.getAvioCompany().subscribe(
     data => this.niz$ = data
     );
+         console.log();
 
 
 
