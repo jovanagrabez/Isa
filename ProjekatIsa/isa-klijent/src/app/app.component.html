@@ -1,13 +1,23 @@
 <body>
 	<header id="fh5co-header-section">
 			<div class="container">
-				<div class="nav-header">				
+				<div class="nav-header">
+          <div class="dropdown">
 					<h1 id="fh5co-logo"><a href=""><img src="assets/images/globe.png">  Dream Air</a></h1>
 					<!-- START #fh5co-menu-wrap -->
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu" id="fh5co-primary-menu">
 							<li class="active"><a href="home">Pocetna</a></li>
-							<li><a href="avioCompany">Avio kompanije</a></li>
+
+              <!--<div class="dropdown">-->
+              <li><a href="avioCompany">Avio kompanije</a>
+                <div class="dropdown-content">
+                  <a href="addAviocompany">Dodaj avio kompaniju</a>
+                  <a href="#">Link 2</a>
+                  <a href="#">Link 3</a>
+                </div>
+              </li>
+
 							<li><a href="hotels">Hoteli</a></li>
 							<li><a href="rentalCars">Rental cars</a></li>
 							<li><a href="">Kontat</a></li>
@@ -16,6 +26,7 @@
 					</nav>
 				</div>
 			</div>
+      </div>
 	</header>
 
 

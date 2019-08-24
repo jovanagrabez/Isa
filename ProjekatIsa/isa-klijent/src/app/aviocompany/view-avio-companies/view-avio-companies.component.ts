@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AviocompanySService } from '../services/aviocompany-s.service';
+import { AviocompanySService } from '../../services/aviocompany-s.service';
 
 import { Observable } from 'rxjs';
-import {AuthServiceService} from '../services/auth-service.service';
+import {AuthServiceService} from '../../services/auth-service.service';
 
 @Component({
   selector: 'app-view-avio-companies',
@@ -47,6 +47,13 @@ constructor(private router: Router, private avioService: AviocompanySService , p
     );
 
     this.router.navigateByUrl('/profilcompany');
+
+  }
+
+  onClickDelete(Aviocompany: any): void {
+    this.avioService.deleteAviocompany(Aviocompany.id).subscribe(a => {
+      this.ngOnInit();
+    });
 
   }
 

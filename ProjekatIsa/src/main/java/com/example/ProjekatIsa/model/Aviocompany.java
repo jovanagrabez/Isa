@@ -16,6 +16,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.AviocompanyDTO;
+
 
 @Entity
 @Table(name = "aviocompany")
@@ -79,6 +81,14 @@ public class Aviocompany implements Serializable{
 		this.adress = adress;
 	}
 
+	
+	public Aviocompany(AviocompanyDTO a) {
+		 setId(a.getId());
+	     setName(a.getName());
+	     setDescription(a.getDescription());
+	     setAdress(a.getAdress());
+		
+	}
 	public Aviocompany() {
 		super();
 		// TODO Auto-generated constructor stub

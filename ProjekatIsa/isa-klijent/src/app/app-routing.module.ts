@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeGuestSearchComponent } from './home-guest-search/home-guest-search.component';
-import { ViewAvioCompaniesComponent } from './view-avio-companies/view-avio-companies.component';
+import { ViewAvioCompaniesComponent } from './aviocompany/view-avio-companies/view-avio-companies.component';
 import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
 import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
-import {ProfilcompanyComponent } from './profilcompany/profilcompany.component';
+import {ProfilcompanyComponent } from './aviocompany/profilcompany/profilcompany.component';
 import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
+import {AddAviocompanyComponent} from './aviocompany/add-aviocompany/add-aviocompany.component';
 
 
 const routes: Routes = [
@@ -55,7 +56,12 @@ const routes: Routes = [
      {
          path: 'rentacar-details',
          component : RentacarDetailsComponent
-     }
+     },
+
+  {
+    path: 'addAviocompany',
+    component : AddAviocompanyComponent
+  }
     
 	
 	

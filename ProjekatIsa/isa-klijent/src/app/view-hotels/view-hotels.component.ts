@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-view-hotels',
   templateUrl: './view-hotels.component.html',
-  styleUrls: ['./view-hotels.component.css', './animate.css']
+  styleUrls: ['./view-hotels.component.css', '../aviocompany/view-avio-companies/animate.css']
 })
 export class ViewHotelsComponent implements OnInit {
 

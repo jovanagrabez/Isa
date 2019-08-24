@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-view-rental-cars',
   templateUrl: './view-rental-cars.component.html',
-  styleUrls: ['./view-rental-cars.component.css', './animate.css']
+  styleUrls: ['./view-rental-cars.component.css', '../view-hotels/animate.css']
 })
 export class ViewRentalCarsComponent implements OnInit {
         

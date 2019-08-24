@@ -2,7 +2,7 @@
 
 <div  class="fh5co-section-gray">
 			<div class="container">
-		
+
 					<div class=" text-center  heading-section ">
 					<span></span>
 						<h3>Avio kompanije</h3>
@@ -24,14 +24,18 @@
 						<div class="row-md-4 row-sm-6 fh5co-tours animate-box"
 							data-animate-effect="fadeIn">
 							<div href="profil">
-								<img src="assets/images/avio.jpg"  width="400" height="300">
+								<img src="assets/images/box.png"  width="400" height="300">
 								<div class="desc">
 									<span></span>
 									<h3>{{a.name}}</h3>
 									<h3>{{a.description}}</h3>
 									<span>{{a.adress}}</span> <a
-									(click)="onClickCompanyDetails(a)"	class="btn btn-primary btn-outline" >Detaljnije <i
-										class="icon-arrow-right22"></i></a>
+                  (click)="onClickCompanyDetails(a)"	class="btn btn-primary btn-outline" >Detaljnije <i
+                  class="icon-arrow-right22"></i></a>
+
+                  <a
+                    (click)="onClickDelete(a)"	class="btn btn-primary btn-outline" >Izbrisi <i
+                    class="icon-arrow-right22"></i></a>
 								</div>
 							</div>
 						</div>
