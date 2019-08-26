@@ -51,5 +51,12 @@ export class AviocompanySService {
 
     this.a.next(company);
   }
- 
+
+  addAviocompany(aviocompany) {
+    return this.http.post('http://localhost:8080/avioCompany', aviocompany);
+
+  }
+  deleteAviocompany(id: string) {
+    return this.http.delete('http://localhost:8080/avioCompany/'.concat(id));
+  }
 }

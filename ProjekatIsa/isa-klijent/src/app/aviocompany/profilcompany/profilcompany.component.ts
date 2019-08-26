@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AviocompanySService } from '../services/aviocompany-s.service';
+import { AviocompanySService } from '../../services/aviocompany-s.service';
 
 
 @Component({

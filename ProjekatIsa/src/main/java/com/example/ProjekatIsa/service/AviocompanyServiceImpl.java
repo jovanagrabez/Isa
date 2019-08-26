@@ -28,5 +28,21 @@ public class AviocompanyServiceImpl  implements AviocompanyService{
 		return avioRepository.findOneById(id);
 		
 	}
+	
+	@Override
+	public Aviocompany addAvioCompany(Aviocompany avioCompany) {
+		return this.avioRepository.save(avioCompany);
+	}
+	
+	@Override
+    public boolean deleteAirline(Aviocompany aviocompany) {
+
+        try {
+            this.avioRepository.delete(aviocompany);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
 }

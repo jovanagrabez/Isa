@@ -1,0 +1,56 @@
+<body >
+
+<div class="container" >
+
+  <div class="row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+
+<form (ngSubmit)="f.form.valid && addAviocompany()"  name="form" #f="ngForm">
+  <div class="form-group">
+    <label >Name*</label>
+    <!--<div class="col-sm-10">-->
+      <input type="text" class="form-control" id="inputName3" placeholder="Name" [(ngModel)]="airline.name" name="name" #name="ngModel"
+             [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
+    <!--</div>-->
+    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+      <div *ngIf="name.errors.required">Airline name is required</div>
+    </div>
+  </div>
+
+  <!--<div class="container">-->
+  <div class="form-group ">
+    <label for="inputName3">Address</label>
+    <!--<div  class="col-sm-10">-->
+      <input type="text" class="form-control" id="inputName4" placeholder="Address" [(ngModel)]="airline.adress" name="address" #name="ngModel"
+             [ngClass]="{ 'is-invalid': f.submitted && name.invalid }" required />
+    <!--</div>-->
+    <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+      <div *ngIf="search.required">Address selection is required</div>
+    </div>
+  </div>
+
+  <!--</div>-->
+
+  <div class="form-group">
+    <label >Description*</label>
+    <textarea class="form-control" id="descriptionTextarea1" rows="3" [(ngModel)]="airline.description" name="description"
+              #description="ngModel" [ngClass]="{ 'is-invalid': f.submitted && description.invalid }" required ></textarea>
+    <div *ngIf="f.submitted && description.invalid" class="invalid-feedback">
+      <div *ngIf="description.errors.required">Advertising description is required</div>
+    </div>
+  </div>
+
+  <br />
+  <div class="form-group row" align="right">
+    <div class="col-sm-10">
+      <button type="submit"  class="btn btn-primary">Create</button>
+    </div>
+  </div>
+</form>
+    </div>
+  </div>
+</div>
+
+
+</body>
