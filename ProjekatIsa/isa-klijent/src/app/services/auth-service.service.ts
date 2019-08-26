@@ -1,22 +1,49 @@
 import { Injectable } from '@angular/core';
-import {TokensService} from '../auth/tokens/tokens.service';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable()
 export class AuthServiceService {
-
-  constructor( private tokenStorage: TokensService) { }
   private token: string;
-  private user:/*{ id: number }*/any | null;
-  roles: string[] = [] ;
+  constructor(private http: HttpClient) { this.token = "jwtToken"; }
+  
+  //private user:/*{ id: number }*/any | null;
+  //roles: string[] = [] ;
+    
+    
+  getJwtToken() {
+    return localStorage.getItem(this.token);
+  };
 
-  public logoutUser(){
+   setJwtToken(token) {
+      localStorage.setItem(this.token, token);
+  };
+
+  removeJwtToken() {
+      localStorage.removeItem(this.token);
+  };
+
+   createAuthorizationTokenHeader() {
+      var token = this.getJwtToken();
+      if (token) {
+          return {
+            "Authorization": "Bearer " + token,
+            'Content-Type': 'application/json'
+          };
+      } else {
+          return {
+            'Content-Type': 'application/json'
+          };
+      }
+  }
+
+  /*public logoutUser(){
     this.token=null;
     this.user=null;
     localStorage.clear();
   }
-  public getUser():/* { id: number }*/any | null {
-    return this.user || JSON.parse(localStorage.getItem('user'));
-  }
+  public getUser():/* { id: number }any | null {
+    //return this.user || JSON.parse(localStorage.getItem('user'));
+  /*}
 
   public getToken(): string {
     return this.token || localStorage.getItem('token') || '';
@@ -48,5 +75,5 @@ export class AuthServiceService {
         }
       }
     return userRole;
-  }
+  }*/
 }

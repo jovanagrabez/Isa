@@ -1,5 +1,6 @@
 package com.example.ProjekatIsa.service;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
@@ -13,6 +14,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.example.ProjekatIsa.model.MyRole;
@@ -21,36 +26,18 @@ import com.example.ProjekatIsa.model.User;
 import com.example.ProjekatIsa.model.UserCreateForm;
 import com.example.ProjekatIsa.repository.RoleRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
+
+
 import org.springframework.stereotype.Service;
+
+
 @Service
-
-
 public class UserServiceImpl implements UserService {
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 	
    
    @Autowired
 	private UserRepository userRepository;
-   
-   @Override
-	public Optional<User> findByEmail(String email) throws AccessDeniedException  {
-		return userRepository.findByEmail(email);
-	}
-	
-	
-   @Override
-	public Optional<User> login(User user) {
-		Optional<User> _user = userRepository.findByEmail(user.getEmail());
-		
-		if(_user != null) {
-			if(_user.get().getPasswordHash().equals(user.getPasswordHash())) {
-				return _user;
-			} else {
-				return null;
-			}
-		}
-		return null;
-	}
    
    @Override
 	public List<User> findAll() {
@@ -72,14 +59,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 
-	@Override
-	public User getOne(Long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-
-	@Override
+	/*@Override
 	public User update(User old_user, User new_user) {
 		// TODO Auto-generated method stub
 		if( new_user.getFirstName() != null){
@@ -98,14 +79,57 @@ public class UserServiceImpl implements UserService {
 		
 
 		return userRepository.save(old_user);
-	}
+	}*/
 
 
 	@Override
 	public List<User> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		return userRepository.findAll();
 	}
+
+	@Override
+	public User findUserByMail(String mail) {
+		// TODO Auto-generated method stub
+		System.out.println("Usao u findUserbyMail");
+		return userRepository.findOneByEmail(mail);
+	}
+
+	
+	
+	
+private Collection<? extends GrantedAuthority> getAuthorities(Collection<Role> roles) {
+		
+		return getGrantedAuthorities(getPrivileges(roles));
+	
+	}
+private List<String> getPrivileges(Collection<Role> roles) {
+	  
+    List<String> privileges = new ArrayList<>();
+    List<MyRole> collection = new ArrayList<>();
+    for (Role role : roles) {
+        collection.addAll(role.getPrivileges());
+    }
+    for (MyRole item : collection) {
+        privileges.add(item.getName());
+    }
+    return privileges;
+}
+private List<GrantedAuthority> getGrantedAuthorities(List<String> privileges) {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+    for (String privilege : privileges) {
+        authorities.add(new SimpleGrantedAuthority(privilege));
+    }
+    return authorities;
+}
+
+
+@Override
+public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundException {
+	// TODO Auto-generated method stub
+	 User user = userRepository.findOneByEmail(mail);
+	 return user;
+}
 
 
 }

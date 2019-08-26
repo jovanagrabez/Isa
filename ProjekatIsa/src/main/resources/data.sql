@@ -70,18 +70,28 @@ insert into aviocompany (name, adress, description) values ('TurkishAirlines', '
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
 
-insert into users (first_name,last_name,email,password_hash,enabled,verified) values ('Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into users (first_name,last_name,email,password_hash,enabled,verified) values ('Pera','Peric','isapredmet@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (first_name,last_name,email,password_hash,enabled,verified) values ('Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (first_name,last_name,email,password_hash,enabled,verified) values ('Pera','Peric','isapredmet@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
-insert into role (name) values ('USER');
-insert into role (name) values ('SYSTEM_ADMIN');
-insert into role (name) values ('AVIO_ADMIN');
-insert into role (name) values ('HOTEL_ADMIN');
-insert into role (name) values ('CAR_ADMIN');
+insert into role (id,name) values (1,'USER');
+insert into role (id,name) values (2,'SYSTEM_ADMIN');
+insert into role (id,name) values (3,'AVIO_ADMIN');
+insert into role (id,name) values (4,'HOTEL_ADMIN');
+insert into role (id,name) values (5,'CAR_ADMIN');
 
 INSERT INTO user_roles(user_id, role_id) VALUES(1,1);
 INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
+
+insert into myrole (id,name) values (1,'registrationAgent');
+insert into myrole (id,name) values (2,'login');
+insert into myrole (id,name) values (3,'loginAdmin');
+insert into myrole (id,name) values (4,'loginUser');
+
+insert into myrole (id,name) values (6,'myProfile');
+
+insert into roles_privileges(role_id,privilege_id) values (1,2);
+
 
 
 

@@ -8,13 +8,11 @@ import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { AuthService } from '../auth/service/auth.service';
 import { AuthLoginInfo } from '../auth/forms/login-info';
 import { TokensService } from '../auth/tokens/tokens.service';
-
-
-
 import { Subscription } from 'rxjs/Subscription';
-
-import {  UserService} from '../../app/services/user.service';
+import { UserService} from '../../app/services/user-service/user.service';
 import { AuthServiceService } from '../../app/services/auth-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
 
 
 
@@ -28,6 +26,8 @@ import { AuthServiceService } from '../../app/services/auth-service.service';
 export class LoginComponent implements OnInit {
 
   user: User = new User();
+  htmlStr: string;
+
   @Input() verified : boolean;
   private loginInfo : AuthLoginInfo;
   isLoggedIn = false;
@@ -35,10 +35,9 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
 
-  constructor(
-              private authService : AuthService, 
-              private router: Router, 
-              private tokenStorage : TokensService) { }
+  constructor(private userService : UserService,
+              private auth : AuthServiceService, 
+              private router: Router) { }
  
   ngOnInit() {
       
@@ -47,14 +46,71 @@ export class LoginComponent implements OnInit {
   }
 
 login() {
-     this.loginInfo = new AuthLoginInfo(
+    
+    console.log('Dodavanje' + this.user.email + 'email' + this.user.password);
+    
+    if (this.checkEmail(this.user.email)) {
+          this.userService.loginUser(this.user).subscribe(podaci => { this.checkUser(podaci);
+          } , err => {this.handleAuthError(err); });    
+      } else {
+        this.htmlStr = 'The e-mail is not valid.';
+      }
+      
+           }  
+    
+ 
+checkUser(logged) {
+        let user_token= logged as Token;
+        // tslint:disable-next-line:triple-equals
+        if(user_token.accessToken == 'error') {
+          this.htmlStr = 'The e-mail or password is not correct.';
+        } else {
+          this.auth.setJwtToken(user_token.accessToken);
+          console.log(user_token.accessToken);
+          console.log("prije getLogged");
+          this.userService.getLogged(user_token.accessToken).subscribe(podaci => {
+              console.log("u getLogged");
+              var currentUser=podaci as User; 
+              console.log("cuvam u json currentusera: ");
+              console.log(podaci);
+              
+              localStorage.setItem('user', JSON.stringify(currentUser));
+              //this.ssCertificate(podaci);
+              window.location.href = 'http://localhost:4200';
+             
+     });
+  }
+    }
+    
+    
+    checkEmail(text): boolean {
+    //const patternMail = /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/;
+    // tslint:disable-next-line:max-line-length
+    const patternMail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+   // return re.test(String(email).toLowerCase());
+    if (!patternMail.test(text)) {
+      alert('Incorrect email.');
+      return false;
+    }
+    return true;
+  }
+
+
+  handleAuthError(err: HttpErrorResponse) {
+    if (err.status === 404) {
+      alert('Entered email is not valid!');
+    }
+  }
+    
+    
+    }
+     /*this.loginInfo = new AuthLoginInfo(
                       this.user.email,
                       this.user.password);
     
             console.log("BLA");
            
 
-    //MILAN: prosirio sam metodu servisa da prosledim kredencijale jer ih nigde ne prosledjujete na server u zahtevu
     this.authService.attemptAuth(this.user.email, this.user.password).subscribe(
       data => {
                   console.log("BLA")  
@@ -66,17 +122,17 @@ login() {
         this.roles = this.tokenStorage.getAuthorities();
         localStorage["sent"] = false;
         
-            this.router.navigateByUrl('/rentalCars');
+        this.router.navigateByUrl('/rentalCars');
         
         /*if(this.roles.includes('CAR_ADMIN')) {
           this.router.navigate(['/rentalCars']);
         }*/
-        console.log("BLA")  
+        //console.log("ulogovan")  
         //MILAN: dodao sam cuvanje tokena u localStorage ovde cisto da bih proverio da li ce raditi pozivi
-        localStorage.setItem("token", data.accessToken);
+       // localStorage.setItem("token", data.accessToken);
 
       
-      },
+     /* },
       error => {
         console.log(error);
         this.errorMessage = error.error.message;
@@ -104,5 +160,5 @@ login() {
    });*/  
   
 
-}
-    }
+//}
+    //}

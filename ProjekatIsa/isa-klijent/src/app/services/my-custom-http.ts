@@ -1,4 +1,4 @@
-import {ConnectionBackend, Headers, Http, RequestOptions, RequestOptionsArgs, Response} from '@angular/http';
+/*import {ConnectionBackend, Headers, Http, RequestOptions, RequestOptionsArgs, Response} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import { AuthServiceService } from './auth-service.service';
 import { Router } from '@angular/router';
@@ -108,4 +108,4 @@ export class MyCustomHttp extends Http {
     }
     return Observable.throw(error);
   }
-}
+}*/
