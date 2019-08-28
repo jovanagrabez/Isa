@@ -12,7 +12,11 @@ import javax.mail.MessagingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Sort;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -37,7 +41,13 @@ public class UserServiceImpl implements UserService {
 	
    
    @Autowired
-	private UserRepository userRepository;
+   private UserRepository userRepository;
+   
+   @Autowired
+   private Environment env;
+   
+   @Autowired
+   private JavaMailSender javaMailSender;
    
    @Override
 	public List<User> findAll() {
@@ -54,6 +64,21 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void sendVerificationMail(User user) {
 		// TODO Auto-generated method stub
+		
+		System.out.println("Slanje emaila...");
+		System.out.println("Saljemo mail na adresu:  " + user.getEmail());
+		
+		SimpleMailMessage mail = new SimpleMailMessage();
+		
+		mail.setTo(user.getEmail());
+		//spring.mail.username definisan u app.properties fajlu
+		mail.setFrom(env.getProperty("spring.mail.username"));
+		mail.setSubject("Potvrda registracije");
+		mail.setText("Pozdrav " + user.getFirstName() + ",\n Hvala vam sto koristite nas sajt."
+				+ "Za potvrdu registracije posetite "+"http://localhost:4200/confirm-registration/"+user.getFirstName()+"\nVas travel.rs");
+		
+		javaMailSender.send(mail);
+		System.out.println("Email poslat!");
 	
 		
 	}
@@ -129,6 +154,43 @@ public UserDetails loadUserByUsername(String mail) throws UsernameNotFoundExcept
 	// TODO Auto-generated method stub
 	 User user = userRepository.findOneByEmail(mail);
 	 return user;
+}
+
+
+public void sendEmail(User user)throws MailException, InterruptedException {
+	// TODO Auto-generated method stub
+	
+			System.out.println("Slanje emaila...");
+			System.out.println("Saljemo mail na adresu:  " + user.getEmail());
+			System.out.println("Saljemo mail sa adrese:  " + env.getProperty("spring.mail.username"));
+
+			
+			SimpleMailMessage mail = new SimpleMailMessage();
+			
+			mail.setTo(user.getEmail());
+			//spring.mail.username definisan u app.properties fajlu
+			mail.setFrom(env.getProperty("spring.mail.username"));
+			mail.setSubject("Potvrda registracije");
+			mail.setText("Pozdrav " + user.getFirstName() + ",\n Hvala vam sto koristite nas sajt."
+					+ "Za potvrdu registracije posetite "+"http://localhost:4200/confirm-registration/" + user.getId() + 
+					"\n Uzivajte u odmoru. \n Vas DreamAir");
+			
+			javaMailSender.send(mail);
+			System.out.println("Email poslat!");
+}
+
+
+@Override
+public User findByFirstName(String name) {
+	// TODO Auto-generated method stub
+	return userRepository.findByFirstName(name);
+}
+
+
+@Override
+public User findOneById(Long id) {
+	// TODO Auto-generated method stub
+	return userRepository.findOneById(id);
 }
 
 

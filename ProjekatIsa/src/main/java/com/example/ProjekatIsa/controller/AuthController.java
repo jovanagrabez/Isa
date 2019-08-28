@@ -58,10 +58,10 @@ public class AuthController {
 	 @RequestMapping(value="/login",method = RequestMethod.POST)
 	    public ResponseEntity<?> loginUser(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletRequest httpRequest, HttpServletResponse response, Device device, HttpServletRequest hr){
 
-			System.out.println("login entered in AuthController");
+			System.out.println("Login entered in AuthController");
 			
 	        if(!checkMail(authenticationRequest.getEmail())) {
-	        	System.out.println("Nije dobar email");
+	        	System.out.println("Email se ne nalazi u bazi podataka!");
 	            return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
 	        }
 
@@ -71,12 +71,10 @@ public class AuthController {
 	       User user = userService.findUserByMail((authenticationRequest.getEmail()));
 	        if(user!=null) {       
 	        	
-	        	System.out.println("email adresa" + user.getEmail() + "rolicaa" + user.getRoles().toString());
+	        	System.out.println("Email adresa" + user.getEmail() + "uloga korisnika" + user.getRoles().toString());
 	        	
-	        	System.out.println("Prosledjena pass: " + authenticationRequest.getPassword());
-				System.out.println("Hasovana pass: " + user.getPassword());
-				
-				System.out.println("BLA BLA BLAAAAAAAAAA" + authenticationRequest.getPassword() );
+	        	System.out.println("Prosledjena lozinka: " + authenticationRequest.getPassword());
+				System.out.println("Hasovana lozinka: " + user.getPassword());				
 				System.out.println("Uspesna prijava :), email: " + user.getEmail());
 				
 				/*if(org.springframework.security.crypto.bcrypt.BCrypt.checkpw(authenticationRequest.getPassword(), user.getPassword())){	
@@ -93,8 +91,8 @@ public class AuthController {
 				}*/
 	        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 	        headers.add("Content-Type", "application/json");
-	       HttpEntity<JwtAuthenticationRequest> HReq=new HttpEntity<JwtAuthenticationRequest>(authenticationRequest,headers);
-	       for(int i=0; i<user.getRoles().size(); i++) {
+	        HttpEntity<JwtAuthenticationRequest> HReq=new HttpEntity<JwtAuthenticationRequest>(authenticationRequest,headers);
+	        for(int i=0; i<user.getRoles().size(); i++) {
 	    	   Role rolaAdmin = new Role();
 	    	   Role rolaAdminAvio = new Role();
 	    	   Role rolaAdminCar = new Role();
@@ -104,38 +102,37 @@ public class AuthController {
 	    	   rolaAdmin = roleService.findById(2);
 	    	   rolaAdminAvio = roleService.findById(3);
 	    	   rolaAdminHotel = roleService.findById(4);
-	    	   rolaAdminCar = roleService.findById(5);
-   
-	    	   System.out.println("rola usera  id je : " + rolaUser.getId());
+	    	   rolaAdminCar = roleService.findById(5);  
+	    	   System.out.println("ID uloge USER: " + rolaUser.getId());
 	    	   
 	    	   
 	    	   if(user.getRoles().contains(rolaUser))
 	           {
-	           	System.out.println("Admin se loguje");
+	           	System.out.println("Logovanje korisnika");
 	            System.out.println(HReq + "" + JwtAuthenticationRequest.class);
 	           	 ResponseEntity<?> res1 = restTemplate.postForEntity("http://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
 
 	           }
 	           else if(user.getRoles().contains(rolaAdmin))
 	           {
-	           	System.out.println("klijent se loguje");
+	           	System.out.println("Admin se loguje");
 	           	 ResponseEntity<?> res2 = restTemplate.postForEntity("https://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	                
 	           } 
 	           else if(user.getRoles().contains(rolaAdminAvio)) {
-	        	   System.out.println("agent se loguje");
+	        	   System.out.println("Admin se loguje");
 	             	 ResponseEntity<?> res3 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	     
 	        	   
 	           }
 	           else if(user.getRoles().contains(rolaAdminHotel)) {
-	        	   System.out.println("agent se loguje");
+	        	   System.out.println("Admin se loguje");
 	             	 ResponseEntity<?> res4 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	     
 	        	   
 	           }
 	           else if(user.getRoles().contains(rolaAdminCar)) {
-	        	   System.out.println("agent se loguje");
+	        	   System.out.println("Admin se loguje");
 	             	 ResponseEntity<?> res5 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	     
 	        	   

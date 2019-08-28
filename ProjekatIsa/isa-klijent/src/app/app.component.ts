@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from './services/user-service/user.service';
 import { AuthServiceService } from './services/auth-service.service';
-import { User } from './models/user'
+import { User } from './models/User'
 
 
 @Component({

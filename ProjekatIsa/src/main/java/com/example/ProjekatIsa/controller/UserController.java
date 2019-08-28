@@ -1,12 +1,17 @@
 package com.example.ProjekatIsa.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.security.spec.InvalidKeySpecException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 
-
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -29,6 +34,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -54,6 +60,7 @@ import com.example.ProjekatIsa.security.TokenUtils;
 import com.example.ProjekatIsa.security.auth.JwtAuthenticationRequest;
 import com.example.ProjekatIsa.service.RoleService;
 import com.example.ProjekatIsa.service.UserService;
+import com.example.ProjekatIsa.service.UserServiceImpl;
 
 import javax.ws.rs.core.Context;
 import org.owasp.encoder.Encode;
@@ -81,147 +88,148 @@ public class UserController {
 	 private UserService userService;
 	 
 	 @Autowired
+	 private UserServiceImpl service; 
+	 
+	 @Autowired
 	 private RoleService roleService;
 	    
-	 @RequestMapping(value="/login",method = RequestMethod.POST)
-	    public ResponseEntity<?> loginUser(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletRequest httpRequest, HttpServletResponse response, Device device, HttpServletRequest hr){
-
-			System.out.println("login entered in AuthController");
-			
-	        if(!checkMail(authenticationRequest.getEmail())) {
-	        	System.out.println("Nije dobar email");
-	            return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
-	        }
-
-
-	       
-	 
-	       User user = userService.findUserByMail((authenticationRequest.getEmail()));
-	        if(user!=null) {       
-	        	
-	        	System.out.println("email adresa" + user.getEmail() + "rolicaa" + user.getRoles().toString());
-	        	
-	        	System.out.println("Prosledjena pass: " + authenticationRequest.getPassword());
-				System.out.println("Hasovana pass: " + user.getPassword());
-				
-				System.out.println("BLA BLA BLAAAAAAAAAA" + authenticationRequest.getPassword() );
-				System.out.println("Uspesna prijava :), email: " + user.getEmail());
-				
-				/*if(org.springframework.security.crypto.bcrypt.BCrypt.checkpw(authenticationRequest.getPassword(), user.getPassword())){	
-				System.out.println("Uspesna prijava :), email: " + user.getEmail());
-				}else{
-					return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.OK);
-			
-				}*/
-				
-				/*if(!user.isEnabled())
-				{
-					return new ResponseEntity<>(new UserTokenState("notActivated",(long) 0), HttpStatus.OK);
-
-				}*/
-	        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
-	        headers.add("Content-Type", "application/json");
-	       HttpEntity<JwtAuthenticationRequest> HReq=new HttpEntity<JwtAuthenticationRequest>(authenticationRequest,headers);
-	       for(int i=0; i<user.getRoles().size(); i++) {
-	    	   Role rolaAdmin = new Role();
-	    	   Role rolaAdminAvio = new Role();
-	    	   Role rolaAdminCar = new Role();
-	    	   Role rolaAdminHotel = new Role();
-	    	   Role rolaUser = new Role();
-	    	   rolaUser = roleService.findById(1);
-	    	   rolaAdmin = roleService.findById(2);
-	    	   rolaAdminAvio = roleService.findById(3);
-	    	   rolaAdminHotel = roleService.findById(4);
-	    	   rolaAdminCar = roleService.findById(5);
-    
-	    	   System.out.println("rola usera  id je : " + rolaUser.getId());
-	    	   
-	    	   
-	    	   if(user.getRoles().contains(rolaUser))
-	           {
-	           	System.out.println("Admin se loguje");
-	            System.out.println(HReq + "" + JwtAuthenticationRequest.class);
-	           	 ResponseEntity<?> res1 = restTemplate.postForEntity("http://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
-
-	           }
-	           else if(user.getRoles().contains(rolaAdmin))
-	           {
-	           	System.out.println("klijent se loguje");
-	           	 ResponseEntity<?> res2 = restTemplate.postForEntity("https://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
-	                
-	           } 
-	           else if(user.getRoles().contains(rolaAdminAvio)) {
-	        	   System.out.println("agent se loguje");
-	             	 ResponseEntity<?> res3 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
-	     
-	        	   
-	           }
-	           else if(user.getRoles().contains(rolaAdminHotel)) {
-	        	   System.out.println("agent se loguje");
-	             	 ResponseEntity<?> res4 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
-	     
-	        	   
-	           }
-	           else if(user.getRoles().contains(rolaAdminCar)) {
-	        	   System.out.println("agent se loguje");
-	             	 ResponseEntity<?> res5 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
-	     
-	        	   
-	           }
-	       }
-	       
-				
-				 final Authentication authentication = manager
-			                .authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
-
-
-			        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-			        Collection<GrantedAuthority> authorities = (Collection<GrantedAuthority>)
-			        		  SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-			        		  
-			        		  for (GrantedAuthority authority : authorities) {
-			        		    System.out.println("Authority: " + authority.getAuthority());
-			        		  }
-			        		
-			        User user1 = (User) authentication.getPrincipal();
-					String jwt = tokenUtils.generateToken(user1.getEmail(), device);
-					int expiresIn = tokenUtils.getExpiredIn(device);
-					
-					return ResponseEntity.ok(new UserTokenState(jwt,(long) expiresIn));
-	        }else
-	        {
-	        	System.out.println("User je null");
-	        	return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.OK);
-
-	        }
-	       
-	    }
-	 
-	 
-	 
-	 @RequestMapping(value = "/userprofile", method = RequestMethod.POST,
+	 @RequestMapping(value ="/registerUser",
+				method = RequestMethod.POST,
 				consumes = MediaType.APPLICATION_JSON_VALUE,
 				produces = MediaType.APPLICATION_JSON_VALUE)
-					public ResponseEntity<User> getProfile(@RequestBody String token) 
-					{
-					System.out.println("user profile u api useruuuuuuuuuuuu");
-					    User notvalidUser = new User();
+		
+		public ResponseEntity<?> registerUser(@Valid @RequestBody User user1, BindingResult result){
+			System.out.println("-----Registracija kotisnika-----");
+			User oldUser = userService.findUserByMail(Encode.forHtml(user1.getEmail()));
+			System.out.println(user1.firstName + "firstName" + user1.getLastName());
+			
+			
+			if(result.hasErrors()) {
+				//404
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long)0), HttpStatus.NOT_FOUND);
+			}
+			if(!checkMail(user1.getEmail())) {
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+			}
+			if(!checkCharacters(user1.getFirstName())) {
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+			}
+			if(!checkCharacters(user1.getLastName())) {
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+			}
+			
+			if(oldUser == null) {
+				User newUser = new User();
+				String newPassword = user1.getPassword();
+				System.out.println("Novi korisnik" + user1.firstName + user1.getPassword());
+				if(newPassword.equals("") || newPassword == null) {
+					return null;
+				}
+				
+				String hash = org.springframework.security.crypto.bcrypt.BCrypt.gensalt();
+				
+				System.out.println("------Hesiranje lozinke------");
+				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+				String hashedP = org.springframework.security.crypto.bcrypt.BCrypt.hashpw(newPassword, hash);
+				newUser.setEmail(user1.getEmail());
+				newUser.setFirstName(user1.getFirstName());
+				newUser.setLastName(user1.getLastName());
+				newUser.setPassword(hashedP);
+				newUser.setCity(user1.getCity());
+				newUser.setPhoneNumber(user1.getPhoneNumber());	
+												
+				Role rolica = new Role();
+				rolica = roleService.findById(1);
+				System.out.println("Uloga id" + rolica.getId());
 
-					
-						System.out.println("IMA TOKEN: " + token);
-						String email = tokenUtils.getUsernameFromToken(token);
+				Collection<Role> r1 = new ArrayList<Role>();
+				r1.add(rolica);
+				newUser.setRoles(r1);
+				newUser.setEnabled(true);
+				newUser.setVerified(false);
+
+				System.out.println("Uloga registrovanog korisnika je:" + newUser.getRoles().toString());
+				userService.save(newUser);
+				System.out.println("Uloga sacuvanog korisnika" + newUser.getRoles());
+				System.out.println("New user registration: USPJESNO" + newUser);
+				
+				try{
+					service.sendEmail(newUser);
+				}catch( Exception e )
+				{
+					System.out.println("Greska prilikom slanja emaila: " + e.getMessage());
+				}
+				
+				return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+				
+				
+			} else {
+				System.out.println("Postoji korisnik sa istom email adresom ");
+				user1.setEmail("error");
+				System.out.println("New user reg: Email is already in use");
+				return new ResponseEntity<>(user1, HttpStatus.NOT_FOUND);
+			}
+			
+		}
+	 
+	 @RequestMapping(value = "/confirmMail/{id}", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> verifikujKorisnika(@PathVariable("id") Long name){
 						
-						System.out.println("USERNAME: " + email);
-						if(!checkMail(email)) {
-							return  new ResponseEntity<User>(notvalidUser, HttpStatus.NOT_FOUND);
-						}
-						User user = (User) this.userService.findUserByMail(Encode.forHtml(email));
-						return  new ResponseEntity<User>(user, HttpStatus.OK);
-					}
+			User user = new User();
+		    user = userService.findOneById(name);
+		    System.out.println(name);
+			System.out.println(name);
+			user.setVerified(true);
+			userService.save(user);
+			
+			return new ResponseEntity<>(user, HttpStatus.CREATED);
+		}
 	    
 	    
-	    public boolean checkCharacters(String data) {
+
+		@RequestMapping(value="/all", method = RequestMethod.GET)
+			public List<User>  getUsers() {
+				
+				System.out.println("Number of hotels: " + userService.getAll().size());
+				
+				return userService.getAll();
+		}
+		
+		
+		
+		private byte[] hashPassword(String password, byte[] salt) {
+			int iterations = 10000;
+			int keyLength = 512;
+			char[] passwordChars = password.toCharArray();
+			
+			try {
+				SecretKeyFactory secretKey = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+				PBEKeySpec spec = new PBEKeySpec( passwordChars, salt, iterations, keyLength );
+				SecretKey key;
+				
+				try {
+					key = secretKey.generateSecret( spec );
+					byte[] dataHash = key.getEncoded( );
+			        return dataHash;
+				} catch (InvalidKeySpecException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}catch (NoSuchAlgorithmException e) {
+				  throw new RuntimeException( e );
+			}
+			return null;
+		
+		}
+		
+		
+		
+  public boolean checkCharacters(String data) {
 			if(data.isEmpty()) {
 				return false;
 			}
@@ -233,7 +241,7 @@ public class UserController {
 			
 			return true;
 		}
-		public boolean checkId(String id) {
+  public boolean checkId(String id) {
 			if(id.isEmpty()) {
 				return false;
 			}
@@ -244,7 +252,7 @@ public class UserController {
 			}
 			return true;
 		}
-		public boolean checkMail(String mail) {
+  public boolean checkMail(String mail) {
 			if(mail.isEmpty()) {
 				return false;
 			}
@@ -263,25 +271,6 @@ public class UserController {
 					
 			}
 			return true;
-		}
-	    		
-		 @RequestMapping(value = "/logout", method = RequestMethod.GET)
-		    public void logout(){
-		    	
-		    	System.out.println("Logout glavni back");
-		    	SecurityContextHolder.clearContext();
-
-		      
-		    }
-	    
-	    
-
-		@RequestMapping(value="/all", method = RequestMethod.GET)
-			public List<User>  getUsers() {
-				
-				System.out.println("Number of hotels: " + userService.getAll().size());
-				
-				return userService.getAll();
 		}
 		
 	    

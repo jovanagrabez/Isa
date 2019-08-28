@@ -13,7 +13,7 @@ import org.hibernate.annotations.NaturalId;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Table(name = "myrole")
+@Table(name="myrole")
 public class MyRole implements GrantedAuthority {
 	
 	/**
@@ -23,7 +23,6 @@ public class MyRole implements GrantedAuthority {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	
 	private Long id;
 	
 	@Column(name="name")

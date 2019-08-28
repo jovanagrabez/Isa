@@ -35,6 +35,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 import { AddAviocompanyComponent } from './aviocompany/add-aviocompany/add-aviocompany.component';
+import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AddAviocompanyComponent } from './aviocompany/add-aviocompany/add-avioc
     ProfilcompanyComponent,
     HotelDetailsComponent,
     RentacarDetailsComponent,
-    AddAviocompanyComponent
+    AddAviocompanyComponent,
+    ConfirmRegistrationComponent
     
    
   ],

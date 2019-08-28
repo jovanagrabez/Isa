@@ -31,7 +31,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "user")
-public class User implements Serializable, UserDetails {
+public class User implements Serializable,UserDetails {
 
 	private static final long serialVersionUID = 155L;
 
@@ -40,8 +40,8 @@ public class User implements Serializable, UserDetails {
     @Column(name = "user_id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "first_name")
+    public String firstName;
 	
     @Column(name = "last_name", nullable = false)
     private String lastName;
@@ -109,11 +109,11 @@ public class User implements Serializable, UserDetails {
 		this.email = email;
 	}
 
-	public String getPasswordHash() {
+	public String getPassword() {
 		return passwordHash;
 	}
 
-	public void setPasswordHash(String passwordHash) {
+	public void setPassword(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
 
@@ -210,11 +210,6 @@ public class User implements Serializable, UserDetails {
 		return null;
 	}
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.passwordHash;
-	}
 
 	@Override
 	public String getUsername() {

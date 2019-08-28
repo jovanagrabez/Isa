@@ -44,7 +44,7 @@ public class SecurityController {
     @RequestMapping(value = "/setAuthentication", method = RequestMethod.POST)
     public ResponseEntity<?> setAuth(@RequestBody JwtAuthenticationRequest authenticationRequest, HttpServletResponse response, Device device, HttpServletRequest hr){
     	
-    	System.out.println("setAuthentication entered in SecurityController");
+    	System.out.println("SetAuthentication entered in SecurityController");
     	System.out.println(authenticationRequest.getEmail() + "" + authenticationRequest.getPassword() );
 
         final Authentication authentication = manager.authenticate(new UsernamePasswordAuthenticationToken(authenticationRequest.getEmail(), authenticationRequest.getPassword()));
@@ -62,17 +62,16 @@ public class SecurityController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
     
-    @PreAuthorize("hasAuthority('loginAdmin') or hasAuthority('loginUser')")
     @RequestMapping(value = "/userprofile", method = RequestMethod.POST)
 	public ResponseEntity<?> getProfile(@RequestBody String token) {
     	System.out.println("u security controlleru /userprofile");
-		System.out.println("IMA TOKEN: " + token);
+		System.out.println("TOKEN: " + token);
 		String email = tokenUtils.getUsernameFromToken(token);
 		
 		System.out.println("USERNAME: " + email);
 	    User user = (User) this.userDetailsService.loadUserByUsername(email);
 	    
-	    System.out.println("Korisnik: " + user.getEmail());
+	    System.out.println("KORISNIK: " + user.getEmail());
 	    		
 		return  new ResponseEntity<User>(user, HttpStatus.OK);
 	}

@@ -38,13 +38,21 @@ export class UserService {
     
   getLogged(token: string) {
         console.log("token: " + token);
-        return this.http.post('http://localhost:8080/api/userprofile', token, {headers: this.auth.createAuthorizationTokenHeader()});
+        return this.http.post('http://localhost:8080/api/mainSecurity/userprofile', token, {headers: this.auth.createAuthorizationTokenHeader()});
         }
     
     
     logOut() {
         window.sessionStorage.clear();
         return this.http.get('http://localhost:8080/auth/logout', {headers: this.auth.createAuthorizationTokenHeader()});
+      }
+    
+    registerUser(u: User) {
+
+        console.log('Usao u addUser');
+        console.log(u.email,u.password,u.firstName,u.lastName);
+
+        return this.http.post('http://localhost:8080/api/registerUser', u );
       }
     
    /* getUsers(){

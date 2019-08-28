@@ -1,3 +1,10 @@
+delete from user_roles;
+delete from role;
+delete from myrole;
+delete from roles_privileges;
+
+
+
 insert into room (room_number,room_price,room_description,room_average_rating) values (1,50,'Jednokrevetna',4.1);
 insert into room (room_number,room_price,room_description,room_average_rating) values (2,50,'Dvokrevetna',4.2);
 insert into room (room_number,room_price,room_description,room_average_rating) values (3,50,'Jednokrevetna',4.4);
@@ -42,7 +49,7 @@ insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,14);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,15);*/
 
 
-insert into additional_service_hotel (name,price) values ('Transfer do aerodorma', 50);
+/*insert into additional_service_hotel (name,price) values ('Transfer do aerodorma', 50);
 insert into additional_service_hotel (name,price) values ('Parking', 30);
 insert into additional_service_hotel (name,price) values ('Koristenje bazena', 20);
 insert into additional_service_hotel (name,price) values ('Restoran', 10);
@@ -60,7 +67,7 @@ insert into hotel_additional_service(hotel_id,additional_service_id) values (1,5
 insert into hotel_additional_service(hotel_id,additional_service_id) values (1,6);
 insert into hotel_additional_service(hotel_id,additional_service_id) values (1,7);
 insert into hotel_additional_service(hotel_id,additional_service_id) values (1,8);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,9);
+insert into hotel_additional_service(hotel_id,additional_service_id) values (1,9);*/
 
 
 
@@ -70,8 +77,8 @@ insert into aviocompany (name, adress, description) values ('TurkishAirlines', '
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
 
-insert into user (first_name,last_name,email,password_hash,enabled,verified) values ('Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into user (first_name,last_name,email,password_hash,enabled,verified) values ('Pera','Peric','isapredmet@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+--insert into user (first_name,last_name,email,password_hash,enabled,verified) values ('Pera','Peric','isapredmet@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
 insert into role (id,name) values (1,'USER');
@@ -88,19 +95,19 @@ insert into myrole (id,name) values (2,'login');
 insert into myrole (id,name) values (3,'loginAdmin');
 insert into myrole (id,name) values (4,'loginUser');
 
-insert into myrole (id,name) values (6,'myProfile');
+insert into myrole (id,name) values (5,'myProfile');
 
 insert into roles_privileges(role_id,privilege_id) values (1,2);
 
 
 
 
-insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Beograd','adjiaisdj',4.2);
+/*insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Beograd','adjiaisdj',4.2);
 insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Beograd','bla bla bla',3.9);
 insert into rentalcars (name,adress,description,average_rating) values ('EuropeCar','Beograd','cccc',4.8);
 insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Najpovoljnije usluge',4.6);
 insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','luux',3.3);
-
+*/
 insert into car (car_name,car_number,car_price) values ('BMW',1,500);
 insert into car (car_name,car_number,car_price) values ('Audi',2,450);
 insert into car (car_name,car_number,car_price) values ('Peugeot',5,300);

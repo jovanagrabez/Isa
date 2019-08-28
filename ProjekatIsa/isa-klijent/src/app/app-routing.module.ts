@@ -10,6 +10,7 @@ import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
 import {ProfilcompanyComponent } from './aviocompany/profilcompany/profilcompany.component';
 import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 import {AddAviocompanyComponent} from './aviocompany/add-aviocompany/add-aviocompany.component';
+import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component'
 
 
 const routes: Routes = [
@@ -56,6 +57,10 @@ const routes: Routes = [
      {
          path: 'rentacar-details',
          component : RentacarDetailsComponent
+     },
+     {
+         path: 'confirm-registration/:id',
+         component : ConfirmRegistrationComponent
      },
 
   {
