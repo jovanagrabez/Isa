@@ -68,6 +68,9 @@ checkUser(logged) {
           this.auth.setJwtToken(user_token.accessToken);
           console.log(user_token.accessToken);
           console.log("prije getLogged");
+          if(user_token.accessToken == 'notActivated') {
+              alert("Morate verifikovati svoj nalog da bi se mogli prijaviti");
+          } else {
           this.userService.getLogged(user_token.accessToken).subscribe(podaci => {
               console.log("u getLogged");
               var currentUser=podaci as User; 
@@ -80,7 +83,9 @@ checkUser(logged) {
              
      });
   }
+            }
     }
+    
     
     
     checkEmail(text): boolean {
