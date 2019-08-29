@@ -96,3 +96,9 @@ insert into car (car_name,car_number,car_price) values ('Audi',2,450);
 insert into car (car_name,car_number,car_price) values ('Peugeot',5,300);
 insert into car (car_name,car_number,car_price) values ('Mercedes-Benz',7,550);
 insert into car (car_name,car_number,car_price) values ('Fiat',4,350);
+
+insert into flight(take_off,landing, time, travel_time,number,seat) values ('lalal','lalala','bnbnb','jdjj',2,true);
+insert into flight(take_off,landing, time, travel_time,number,seat) values ('fkijgdf','fdfd','bnbfdfnb','jdggjj',3,true);
+
+insert into avio_flights(aviocompany_id, flight_id) values (1,1);
+insert into avio_flights(aviocompany_id, flight_id) values (1,2);

@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "flight")
 public class Flight {
@@ -49,6 +51,10 @@ public class Flight {
 	
 	@Column(name = "seat", nullable = true, columnDefinition="BOOLEAN")
     private boolean seat;
+	
+	 @JsonManagedReference
+	 @ManyToOne(fetch = FetchType.LAZY,cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+	 private Aviocompany aviocompany;
 	
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
