@@ -9,6 +9,6 @@ export class User {
     city: string;
     phoneNumber : string;
     verified: boolean; 
-    rolesDTO : Array<Role>;   
+    roles : Array<Role>;   
     
 }

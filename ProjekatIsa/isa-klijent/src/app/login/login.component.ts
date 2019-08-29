@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { LoginService } from '../services/login.service';
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
 import { User } from '../models/User';
+import { Role } from '../models/Role';
 import { Token } from '../models/Token';
 import { routerNgProbeToken } from '@angular/router/src/router_module';
 import { AuthService } from '../auth/service/auth.service';
@@ -12,11 +12,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { UserService} from '../../app/services/user-service/user.service';
 import { AuthServiceService } from '../../app/services/auth-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
-
-
-
-
 
 @Component({
   selector: 'app-login',
@@ -34,13 +29,20 @@ export class LoginComponent implements OnInit {
   isLoginFailed = false;
   errorMessage = '';
   roles: string[] = [];
+    
+  role: Array<Role>;
+ 
 
   constructor(private userService : UserService,
               private auth : AuthServiceService, 
               private router: Router) { }
  
   ngOnInit() {
+    if (this.auth.getJwtToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.auth.getAuthorities();
       
+    }
     
 
   }
@@ -50,7 +52,8 @@ login() {
     console.log('Dodavanje' + this.user.email + 'email' + this.user.password);
     
     if (this.checkEmail(this.user.email)) {
-          this.userService.loginUser(this.user).subscribe(podaci => { this.checkUser(podaci);
+          this.userService.loginUser(this.user).subscribe(data => { 
+          this.checkUser(data);
           } , err => {this.handleAuthError(err); });    
       } else {
         this.htmlStr = 'The e-mail is not valid.';
@@ -61,7 +64,7 @@ login() {
  
 checkUser(logged) {
         let user_token= logged as Token;
-        // tslint:disable-next-line:triple-equals
+        
         if(user_token.accessToken == 'error') {
           this.htmlStr = 'The e-mail or password is not correct.';
         } else {
@@ -71,14 +74,22 @@ checkUser(logged) {
           if(user_token.accessToken == 'notActivated') {
               alert("Morate verifikovati svoj nalog da bi se mogli prijaviti");
           } else {
-          this.userService.getLogged(user_token.accessToken).subscribe(podaci => {
+          this.userService.getLogged(user_token.accessToken).subscribe(data => {
               console.log("u getLogged");
-              var currentUser=podaci as User; 
+              var currentUser=data as User; 
               console.log("cuvam u json currentusera: ");
-              console.log(podaci);
+              console.log(data);
               
+              //this.auth.saveAuthorities(data.authorities);
+              this.isLoginFailed = false;
+              this.isLoggedIn = true;
+              this.roles = this.auth.getAuthorities();
+              console.log('Uloga trenutnog usera');
+              console.log(currentUser.roles);
+          
               localStorage.setItem('user', JSON.stringify(currentUser));
-              //this.ssCertificate(podaci);
+              localStorage.setItem('role', JSON.stringify(currentUser.roles));
+
               window.location.href = 'http://localhost:4200';
              
      });

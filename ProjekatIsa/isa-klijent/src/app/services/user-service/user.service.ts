@@ -37,7 +37,6 @@ export class UserService {
         }
     
   getLogged(token: string) {
-        console.log("token: " + token);
         return this.http.post('http://localhost:8080/api/mainSecurity/userprofile', token, {headers: this.auth.createAuthorizationTokenHeader()});
         }
     

@@ -1,9 +1,9 @@
 export class Role {
     id:number;
-    name:Roles;
+    name:RoleName;
  }
 
- enum Roles {
+enum RoleName {
     USER,
     SYSTEM_ADMIN, 
     AVIO_ADMIN, 

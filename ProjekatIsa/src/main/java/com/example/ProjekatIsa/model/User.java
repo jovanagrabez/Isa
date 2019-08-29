@@ -63,7 +63,6 @@ public class User implements Serializable,UserDetails {
     @Column(name = "enabled", nullable = true)
     private boolean enabled;
     
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable( 
             name = "user_roles", 

@@ -14,7 +14,7 @@ import { User } from './models/User'
 })
 export class AppComponent implements OnInit {
   title = 'Travel';
-    logged: boolean;
+  logged: boolean;
   notLogged: boolean;
   token: string;
   podatak: object;
@@ -24,15 +24,23 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.token = this.auth.getJwtToken();
-    console.log('Token je ');
-    console.log(this.token);
+  
     if (!this.token) {
       this.notLogged = true;
-      console.log('Niko nije ulogovan');
+      console.log('----KORISNIK NIJE ULOGOVAN---');
     } else {
-      console.log('Neko je ulogovan');
+      console.log('----KORISNIK JE ULOGOVAN----');     
       this.logged = true;
-      this.userService.getLogged(this.token).subscribe(podaci => { this.pathToList(podaci); });
+      this.userService.getLogged(this.token).subscribe(data => { 
+      this.pathToList(data);
+      var currentUser=data as User; 
+      console.log('Token je ');
+      console.log(this.token);
+      console.log(data);
+      console.log('Uloga trenutnog usera');
+      console.log(currentUser.roles);
+      
+      });
      }
   }
     

@@ -87,7 +87,7 @@ insert into role (id,name) values (3,'AVIO_ADMIN');
 insert into role (id,name) values (4,'HOTEL_ADMIN');
 insert into role (id,name) values (5,'CAR_ADMIN');
 
-INSERT INTO user_roles(user_id, role_id) VALUES(1,1);
+INSERT INTO user_roles(user_id, role_id) VALUES(1,5);
 INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
 
 insert into myrole (id,name) values (1,'registrationAgent');
