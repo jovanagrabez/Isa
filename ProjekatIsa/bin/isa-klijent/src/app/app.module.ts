@@ -1,5 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule, HttpClient,} from '@angular/common/http';
+import { HttpModule,Http } from '@angular/http';
+
+import {RequestOptions, XHRBackend} from '@angular/http';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +17,23 @@ import { HomeGuestSearchComponent } from './home-guest-search/home-guest-search.
 import { ViewAvioCompaniesComponent } from './view-avio-companies/view-avio-companies.component';
 import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
 import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
+import { RegistrationComponent } from './registration/registration.component';
+
+import { AviocompanySService } from './services/aviocompany-s.service';
+import {ViewHotelsService} from './services/view-hotels.service';
+import { ProfilcompanyComponent } from './profilcompany/profilcompany.component';
+import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
+import { AuthServiceService } from './services/auth-service.service';
+import { TokensService } from './auth/tokens/tokens.service';
+
+
+
+
+import { OrderModule } from 'ngx-order-pipe';
+
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +42,31 @@ import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.com
     HomeGuestSearchComponent,
     ViewAvioCompaniesComponent,
     ViewHotelsComponent,
-    ViewRentalCarsComponent
+    ViewRentalCarsComponent,
+    RegistrationComponent,
+    ProfilcompanyComponent,
+    HotelDetailsComponent,
+    RentacarDetailsComponent
+    
+   
   ],
   imports: [
+   OrderModule,
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    HttpModule,
+   NgbModule.forRoot(),
+   FormsModule
+  
   ],
-  providers: [],
+  providers: [ HttpClientModule,AviocompanySService, ViewHotelsService
+/*  {
+      // provide: Http,
+      deps: [XHRBackend, RequestOptions, Router]
+  
+  }*/
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

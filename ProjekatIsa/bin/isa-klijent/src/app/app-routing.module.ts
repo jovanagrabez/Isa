@@ -5,6 +5,11 @@ import { HomeGuestSearchComponent } from './home-guest-search/home-guest-search.
 import { ViewAvioCompaniesComponent } from './view-avio-companies/view-avio-companies.component';
 import { ViewHotelsComponent } from './view-hotels/view-hotels.component';
 import { ViewRentalCarsComponent } from './view-rental-cars/view-rental-cars.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { HotelDetailsComponent } from './hotel-details/hotel-details.component';
+import {ProfilcompanyComponent } from './profilcompany/profilcompany.component';
+import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
+
 
 const routes: Routes = [
 	
@@ -22,7 +27,7 @@ const routes: Routes = [
 	  component: LoginComponent
 	},
 	{
-	  path: 'avioCompanies',
+	  path: 'avioCompany',
 	  component: ViewAvioCompaniesComponent
 	},
 	{
@@ -32,7 +37,26 @@ const routes: Routes = [
 	{
 	  path: 'rentalCars',
 	  component: ViewRentalCarsComponent
-	}
+	},
+    {
+        path: 'registracija',
+        component: RegistrationComponent
+    },
+    {
+    	path: 'hotel-details',
+    	component: HotelDetailsComponent
+    	
+    },
+     {
+        path: 'profilcompany',
+        component: ProfilcompanyComponent
+        
+    },
+     {
+         path: 'rentacar-details',
+         component : RentacarDetailsComponent
+     }
+    
 	
 	
 	
