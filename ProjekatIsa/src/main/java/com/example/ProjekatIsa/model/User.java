@@ -1,7 +1,9 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -23,10 +25,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ProjekatIsa.DTO.MyRoleDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+
 
 @Entity
-@Table(name = "users")
-public class User implements Serializable, UserDetails {
+@Table(name = "user")
+public class User implements Serializable,UserDetails {
 
 	private static final long serialVersionUID = 155L;
 
@@ -35,8 +40,8 @@ public class User implements Serializable, UserDetails {
     @Column(name = "user_id", nullable = false, updatable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "first_name")
+    public String firstName;
 	
     @Column(name = "last_name", nullable = false)
     private String lastName;
@@ -58,11 +63,15 @@ public class User implements Serializable, UserDetails {
     @Column(name = "enabled", nullable = true)
     private boolean enabled;
     
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<MyRole> roles;
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable( 
+            name = "user_roles", 
+            joinColumns =  @JoinColumn(
+              name = "user_id", referencedColumnName = "user_id"), 
+            inverseJoinColumns = @JoinColumn(
+            	name = "role_id", referencedColumnName = "id")) 
+        private Collection<Role> roles;
     
     @Column
 	private boolean verified;
@@ -100,11 +109,11 @@ public class User implements Serializable, UserDetails {
 		this.email = email;
 	}
 
-	public String getPasswordHash() {
+	public String getPassword() {
 		return passwordHash;
 	}
 
-	public void setPasswordHash(String passwordHash) {
+	public void setPassword(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
 
@@ -124,11 +133,11 @@ public class User implements Serializable, UserDetails {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	 public List<MyRole> getRoles(){
+	 public Collection<Role> getRoles(){
 	    	return roles;
 	    }
 	    
-		public void setRoles(List<MyRole> roles) {
+		public void setRoles(Collection<Role> roles) {
 			this.roles = roles;
 		}
 		
@@ -153,7 +162,7 @@ public class User implements Serializable, UserDetails {
 	}
 
 
-	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber,boolean verified) {
+	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber,boolean verified,List<Role> roles) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -162,6 +171,7 @@ public class User implements Serializable, UserDetails {
 		this.city = city;
 		this.phoneNumber = phoneNumber;
 		this.verified = verified;
+		this.roles = roles;
 	}
 	
 	public void setVerified(boolean verified) {
@@ -185,15 +195,21 @@ public class User implements Serializable, UserDetails {
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
-		//return this.roles;
+		
+		
+		if(!this.roles.isEmpty()) {
+			Role r = roles.iterator().next();
+			List<MyRole> privileges = new ArrayList<MyRole>();
+			for(MyRole p : r.getPrivileges()) {
+				privileges.add(p);
+			}
+			
+			return privileges;
+		}
+		
 		return null;
 	}
 
-	@Override
-	public String getPassword() {
-		// TODO Auto-generated method stub
-		return this.passwordHash;
-	}
 
 	@Override
 	public String getUsername() {
@@ -219,6 +235,8 @@ public class User implements Serializable, UserDetails {
 		return true;
 	}
 
+	
+	
 	
     
     

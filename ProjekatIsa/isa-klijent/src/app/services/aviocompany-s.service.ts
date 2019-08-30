@@ -59,4 +59,9 @@ export class AviocompanySService {
   deleteAviocompany(id: string) {
     return this.http.delete('http://localhost:8080/avioCompany/'.concat(id));
   }
+
+  updateAviocompany(aviocompany) {
+    return this.http.put('http://localhost:8080/avioCompany', aviocompany);
+
+  }
 }

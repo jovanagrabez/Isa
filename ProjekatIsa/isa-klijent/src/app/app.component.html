@@ -22,7 +22,9 @@
 							<li><a href="hotels">Hoteli</a></li>
 							<li><a href="rentalCars">Rental cars</a></li>
 							<li><a href="">Kontat</a></li>
-							<li><a routerLink="login">Loguj se</a></li>
+							<li><span class ="visible" id="loginButton" [hidden]="logged"><a routerLink="login">Prijavi se</a></span>
+						    <span class="hidden-xs" id="logoutButton" (click)="logOutUser()" [hidden]="notLogged" ><a>Odjavi se</a></span>
+							</li>
 						</ul>
 					</nav>
 				</div>

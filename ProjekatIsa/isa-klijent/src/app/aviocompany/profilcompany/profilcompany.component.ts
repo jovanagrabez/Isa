@@ -27,4 +27,11 @@ export class ProfilcompanyComponent implements OnInit {
     );
       }
 
+  saveAviocompany() {
+    this.data.addAviocompany(this.currentCompany).subscribe(airlineNew => {
+      console.log(this.currentCompany);
+
+      this.router.navigate(['/avioCompany'], {});
+    });
+  }
 }

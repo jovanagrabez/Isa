@@ -1,15 +1,19 @@
 package com.example.ProjekatIsa.controller;
 
 import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.security.Principal;
+import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.PBEKeySpec;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -19,11 +23,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.MessageSource;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -34,53 +48,145 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 
 import com.example.ProjekatIsa.DTO.UserDTO;
 import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.Role;
 import com.example.ProjekatIsa.model.User;
-
+import com.example.ProjekatIsa.model.UserTokenState;
+import com.example.ProjekatIsa.security.TokenUtils;
+import com.example.ProjekatIsa.security.auth.JwtAuthenticationRequest;
+import com.example.ProjekatIsa.service.RoleService;
 import com.example.ProjekatIsa.service.UserService;
+import com.example.ProjekatIsa.service.UserServiceImpl;
 
-//@CrossOrigin(origins = "http://localhost:4200")
-//@CrossOrigin(origins = "*")
+import javax.ws.rs.core.Context;
+import org.owasp.encoder.Encode;
+import org.springframework.mobile.device.Device;
+
+
+
+
 @RestController
-@RequestMapping(value = "/api/users")
-//@CrossOrigin(origins = "*")
+@RequestMapping(value = "/api")
+@CrossOrigin(origins = "*")
 
-public class UserController {
-	
-	 private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+public class UserController {	 
+	 
+	 @Autowired
+	 TokenUtils tokenUtils;
+	 
+	 @Autowired
+	 private RestTemplate restTemplate;
+	 
+	 @Autowired
+	 private AuthenticationManager manager;
+    
+	 @Autowired
+	 private UserService userService;
+	 
+	 @Autowired
+	 private UserServiceImpl service; 
+	 
+	 @Autowired
+	 private RoleService roleService;
 	    
-	   
-	    
-	    @Autowired
-	    private UserService userService;
-	    
-	    @RequestMapping("/logged")
-	    public ResponseEntity<UserDTO> user(Principal user) {
-			Optional<User> u = userService.findByEmail(user.getName());
-			System.out.println(u.get().getLastName() + "przime");
-			UserDTO userDTO = new UserDTO(u.get());
-			System.out.println("a uloge -> "+userDTO.getRolesDTO().size());
-			
-			return new ResponseEntity<UserDTO>(userDTO, HttpStatus.OK);
-		}
-	    
-	    
-	    @RequestMapping(value="/login", method = RequestMethod.POST, 
-				consumes = MediaType.APPLICATION_JSON_VALUE, 
+	 @RequestMapping(value ="/registerUser",
+				method = RequestMethod.POST,
+				consumes = MediaType.APPLICATION_JSON_VALUE,
 				produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<UserDTO> login(@RequestBody User user,HttpSession session,HttpServletRequest request){
-			Optional<User> loggedUser = userService.login(user);
-			if(loggedUser != null) {
-			    HttpSession newSession = request.getSession();
-			    newSession.setAttribute("loggedUser", loggedUser);
-			    UserDTO logged = new UserDTO(loggedUser.get());
-			    return new ResponseEntity<UserDTO>(logged,HttpStatus.OK);
+		
+		public ResponseEntity<?> registerUser(@Valid @RequestBody User user1, BindingResult result){
+			System.out.println("-----Registracija kotisnika-----");
+			User oldUser = userService.findUserByMail(Encode.forHtml(user1.getEmail()));
+			System.out.println(user1.firstName + "firstName" + user1.getLastName());
+			
+			
+			if(result.hasErrors()) {
+				//404
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long)0), HttpStatus.NOT_FOUND);
 			}
-			UserDTO logged = null;
-			return new ResponseEntity<UserDTO>(logged,HttpStatus.NOT_FOUND);
+			if(!checkMail(user1.getEmail())) {
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+			}
+			if(!checkCharacters(user1.getFirstName())) {
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+			}
+			if(!checkCharacters(user1.getLastName())) {
+				System.out.println("ERROR registration");
+				return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+			}
+			
+			if(oldUser == null) {
+				User newUser = new User();
+				String newPassword = user1.getPassword();
+				System.out.println("Novi korisnik" + user1.firstName + user1.getPassword());
+				if(newPassword.equals("") || newPassword == null) {
+					return null;
+				}
+				
+				String hash = org.springframework.security.crypto.bcrypt.BCrypt.gensalt();
+				
+				System.out.println("------Hesiranje lozinke------");
+				BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+				String hashedP = org.springframework.security.crypto.bcrypt.BCrypt.hashpw(newPassword, hash);
+				newUser.setEmail(user1.getEmail());
+				newUser.setFirstName(user1.getFirstName());
+				newUser.setLastName(user1.getLastName());
+				newUser.setPassword(hashedP);
+				newUser.setCity(user1.getCity());
+				newUser.setPhoneNumber(user1.getPhoneNumber());	
+												
+				Role rolica = new Role();
+				rolica = roleService.findById(1);
+				System.out.println("Uloga id" + rolica.getId());
+
+				Collection<Role> r1 = new ArrayList<Role>();
+				r1.add(rolica);
+				newUser.setRoles(r1);
+				newUser.setEnabled(true);
+				newUser.setVerified(false);
+
+				System.out.println("Uloga registrovanog korisnika je:" + newUser.getRoles().toString());
+				userService.save(newUser);
+				System.out.println("Uloga sacuvanog korisnika" + newUser.getRoles());
+				System.out.println("New user registration: USPJESNO" + newUser);
+				
+				try{
+					service.sendEmail(newUser);
+				}catch( Exception e )
+				{
+					System.out.println("Greska prilikom slanja emaila: " + e.getMessage());
+				}
+				
+				return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+				
+				
+			} else {
+				System.out.println("Postoji korisnik sa istom email adresom ");
+				user1.setEmail("error");
+				System.out.println("New user reg: Email is already in use");
+				return new ResponseEntity<>(user1, HttpStatus.NOT_FOUND);
+			}
+			
+		}
+	 
+	 @RequestMapping(value = "/confirmMail/{id}", method=RequestMethod.GET,produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> verifikujKorisnika(@PathVariable("id") Long name){
+						
+			User user = new User();
+		    user = userService.findOneById(name);
+		    System.out.println(name);
+			System.out.println(name);
+			user.setVerified(true);
+			userService.save(user);
+			
+			return new ResponseEntity<>(user, HttpStatus.CREATED);
 		}
 	    
 	    
@@ -91,6 +197,80 @@ public class UserController {
 				System.out.println("Number of hotels: " + userService.getAll().size());
 				
 				return userService.getAll();
+		}
+		
+		
+		
+		private byte[] hashPassword(String password, byte[] salt) {
+			int iterations = 10000;
+			int keyLength = 512;
+			char[] passwordChars = password.toCharArray();
+			
+			try {
+				SecretKeyFactory secretKey = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA512");
+				PBEKeySpec spec = new PBEKeySpec( passwordChars, salt, iterations, keyLength );
+				SecretKey key;
+				
+				try {
+					key = secretKey.generateSecret( spec );
+					byte[] dataHash = key.getEncoded( );
+			        return dataHash;
+				} catch (InvalidKeySpecException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}catch (NoSuchAlgorithmException e) {
+				  throw new RuntimeException( e );
+			}
+			return null;
+		
+		}
+		
+		
+		
+  public boolean checkCharacters(String data) {
+			if(data.isEmpty()) {
+				return false;
+			}
+			for(Character c :data.toCharArray()) {
+				if(Character.isWhitespace(c)== false && Character.isLetterOrDigit(c) == false) {
+					return false;
+				}
+			}
+			
+			return true;
+		}
+  public boolean checkId(String id) {
+			if(id.isEmpty()) {
+				return false;
+			}
+			for(Character c :id.toCharArray()) {
+				if(!Character.isDigit(c)) {
+					return false;
+				}
+			}
+			return true;
+		}
+  public boolean checkMail(String mail) {
+			if(mail.isEmpty()) {
+				return false;
+			}
+			if(mail.contains(";")) {
+				return false;
+			}
+			
+			if(mail.contains(",")) {
+				return false;
+			}
+			for(Character c:mail.toCharArray()) {
+				if(Character.isWhitespace(c)) {
+					return false;
+				
+				}
+					
+			}
+			return true;
 		}
 		
 	    

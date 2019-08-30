@@ -4,10 +4,10 @@ export class User {
     id: BigInteger;
     email: string;
     password: string;
-    name: string;
-    lastname: string;
+    firstName: string;
+    lastName: string;
     city: string;
-    phone: string;
+    phoneNumber : string;
     verified: boolean; 
     rolesDTO : Array<Role>;   
     

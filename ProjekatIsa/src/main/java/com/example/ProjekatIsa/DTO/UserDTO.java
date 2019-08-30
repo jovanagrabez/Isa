@@ -44,11 +44,9 @@ private Long id;
 	
 public UserDTO(User user) {
 		
-		this(user.getId(), user.getFirstName(),user.getEmail(),user.getPasswordHash(),user.getLastName(),user.getCity(),user.getPhoneNumber(),user.isVerified());
+		this(user.getId(), user.getFirstName(),user.getEmail(),user.getPassword(),user.getLastName(),user.getCity(),user.getPhoneNumber(),user.isVerified());
 		rolesDTO = new ArrayList<>();
-		for(MyRole f : user.getRoles()) {
-			rolesDTO.add(new MyRoleDTO(f.getName()));
-		}
+		
 	}
 
  public List<MyRoleDTO> getRolesDTO() {
