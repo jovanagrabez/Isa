@@ -35,6 +35,11 @@ public class AviocompanyServiceImpl  implements AviocompanyService{
 	}
 	
 	@Override
+	public Aviocompany updateAviocompany(Aviocompany avioCompany) {
+		return this.avioRepository.save(avioCompany);
+	}
+	
+	@Override
     public boolean deleteAirline(Aviocompany aviocompany) {
 
         try {

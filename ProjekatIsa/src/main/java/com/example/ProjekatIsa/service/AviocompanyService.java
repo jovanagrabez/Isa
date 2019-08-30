@@ -16,5 +16,6 @@ public interface AviocompanyService {
 	List<Aviocompany> getAll();
 	Aviocompany getCompanyByID(Long id);
 	Aviocompany addAvioCompany(Aviocompany avioCompany);
+	Aviocompany updateAviocompany(Aviocompany avioCompany);
 	boolean deleteAirline(Aviocompany aviocompany);
 }

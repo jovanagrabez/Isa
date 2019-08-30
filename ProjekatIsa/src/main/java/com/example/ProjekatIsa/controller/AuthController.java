@@ -116,25 +116,25 @@ public class AuthController {
 	           }
 	           else if(user.getRoles().contains(rolaAdmin))
 	           {
-	           	System.out.println("Admin se loguje");
-	           	 ResponseEntity<?> res2 = restTemplate.postForEntity("https://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
+	           	System.out.println("Admin sistema se loguje");
+	           	 ResponseEntity<?> res2 = restTemplate.postForEntity("http://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	                
 	           } 
 	           else if(user.getRoles().contains(rolaAdminAvio)) {
-	        	   System.out.println("Admin se loguje");
-	             	 ResponseEntity<?> res3 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
+	        	   System.out.println("Admin aviokompanije se loguje");
+	             	 ResponseEntity<?> res3 = restTemplate.postForEntity("http://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	     
 	        	   
 	           }
 	           else if(user.getRoles().contains(rolaAdminHotel)) {
-	        	   System.out.println("Admin se loguje");
-	             	 ResponseEntity<?> res4 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
+	        	   System.out.println("Admin hotela se loguje");
+	             	 ResponseEntity<?> res4 = restTemplate.postForEntity("http://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	     
 	        	   
 	           }
 	           else if(user.getRoles().contains(rolaAdminCar)) {
-	        	   System.out.println("Admin se loguje");
-	             	 ResponseEntity<?> res5 = restTemplate.postForEntity("https://localhost:8080/api/setAuthentication", HReq, JwtAuthenticationRequest.class);
+	        	   System.out.println("Admin rent a car servisa se loguje");
+	             	 ResponseEntity<?> res5 = restTemplate.postForEntity("http://localhost:8080/api/mainSecurity/setAuthentication", HReq, JwtAuthenticationRequest.class);
 	     
 	        	   
 	           }

@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
+const TOKEN_KEY = 'AuthToken';
+const USERNAME_KEY = 'AuthUsername';
+const AUTHORITIES_KEY = 'AuthAuthorities';
+
 @Injectable()
 export class AuthServiceService {
   private token: string;
-  constructor(private http: HttpClient) { this.token = "jwtToken"; }
+  private roles: Array<string> = [];
+
   
-  //private user:/*{ id: number }*/any | null;
-  //roles: string[] = [] ;
-    
+  constructor(private http: HttpClient) { this.token = "jwtToken"; }
     
   getJwtToken() {
     return localStorage.getItem(this.token);
@@ -35,45 +38,23 @@ export class AuthServiceService {
           };
       }
   }
-
-  /*public logoutUser(){
-    this.token=null;
-    this.user=null;
-    localStorage.clear();
-  }
-  public getUser():/* { id: number }any | null {
-    //return this.user || JSON.parse(localStorage.getItem('user'));
-  /*}
-
-  public getToken(): string {
-    return this.token || localStorage.getItem('token') || '';
+  
+ public saveAuthorities(authorities: string[]) {
+    window.localStorage.removeItem(AUTHORITIES_KEY);
+    window.localStorage.setItem(AUTHORITIES_KEY, JSON.stringify(authorities));
   }
 
-  public setUser(user : any): void {
-    this.user = user;
-    localStorage.setItem('user', JSON.stringify(user));
+  public getAuthorities(): string[] {
+    this.roles = [];
+
+    if (localStorage.getItem(TOKEN_KEY)) {
+      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
+        this.roles.push(authority.authority);
+      });
+    }
+
+    return this.roles;
   }
 
-  public setToken(token: string): void {
-    this.token = token;
-    localStorage.setItem('token', token);
-  }
-  public getRole(): string {
-    this.roles = this.tokenStorage.getAuthorities();
-    let userRole = '';
-      for (const role of this.roles) {
-        if (role === 'SYSTEM_ADMIN') {
-          userRole = 'SYSTEM_ADMIN';
-        } else if (role === 'USER') {
-          userRole = 'USER';
-        } else if (role === 'AVIO_ADMIN') {
-          userRole = 'AVIO_ADMIN';
-        } else if (role === 'HOTEL_ADMIN') {
-          userRole = 'HOTEL_ADMIN';
-        } else {
-          userRole = 'CAR_ADMIN';
-        }
-      }
-    return userRole;
-  }*/
+  
 }
