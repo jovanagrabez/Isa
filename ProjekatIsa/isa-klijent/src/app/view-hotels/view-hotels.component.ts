@@ -35,6 +35,8 @@ export class ViewHotelsComponent implements OnInit {
   this.viewHotelsService.getHotels().subscribe(
   	data => this.hotel$ = data
   );
+  console.log("hoteli");
+  console.log(this.hotel$);
   
 					  /*this.viewHotelsService.getHotels()
 					  .subscribe(

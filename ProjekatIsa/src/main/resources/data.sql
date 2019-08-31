@@ -78,7 +78,8 @@ insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor',
 
 
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
---insert into user (first_name,last_name,email,password_hash,enabled,verified) values ('Pera','Peric','isapredmet@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (2,'Admin','Admin','admin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
 insert into role (id,name) values (1,'USER');
@@ -90,6 +91,11 @@ insert into role (id,name) values (5,'CAR_ADMIN');
 INSERT INTO user_roles(user_id, role_id) VALUES(1,5);
 INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
 
+
+--sistemski administrator je Admin Admin admin@gmail.com 
+INSERT INTO user_roles(user_id, role_id) VALUES(2,2);
+
+
 insert into myrole (id,name) values (1,'registrationAgent');
 insert into myrole (id,name) values (2,'login');
 insert into myrole (id,name) values (3,'loginAdmin');
@@ -97,6 +103,22 @@ insert into myrole (id,name) values (4,'loginUser');
 
 insert into myrole (id,name) values (5,'myProfile');
 
+--Privilegije sistemskog admina: registruju aviokompanije, hotele, rent-a-car servise i njihove administratore.  
+insert into myrole (id,name) values (6,'addAviocompany');
+insert into myrole (id,name) values (7,'addHotel');
+insert into myrole (id,name) values (8,'addRentACar');
+
+insert into myrole (id,name) values (9,'addAvioAdmin');
+insert into myrole (id,name) values (10,'addHotelAdmin');
+insert into myrole (id,name) values (11,'addCarAdmin');
+
+insert into roles_privileges(role_id,privilege_id) values (2,5);
+insert into roles_privileges(role_id,privilege_id) values (2,6);
+insert into roles_privileges(role_id,privilege_id) values (2,7);
+insert into roles_privileges(role_id,privilege_id) values (2,8);
+insert into roles_privileges(role_id,privilege_id) values (2,9);
+insert into roles_privileges(role_id,privilege_id) values (2,10);
+insert into roles_privileges(role_id,privilege_id) values (2,11);
 insert into roles_privileges(role_id,privilege_id) values (1,2);
 
 
