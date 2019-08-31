@@ -6,4 +6,5 @@ import com.example.ProjekatIsa.model.Destination;
 
 public interface DestinationRepository extends JpaRepository<Destination, Long>{
 
+	  Destination findDestinationById(Long id);
 }

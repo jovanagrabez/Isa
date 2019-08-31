@@ -46,7 +46,7 @@ constructor(private router: Router, private avioService: AviocompanySService , p
       }
     );
 
-    this.router.navigateByUrl('/profilcompany');
+    this.router.navigateByUrl('/profilcompany/' + this.selectedCompany.id);
 
   }
 

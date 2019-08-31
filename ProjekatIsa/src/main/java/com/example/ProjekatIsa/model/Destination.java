@@ -19,6 +19,21 @@ public class Destination {
 	
 	@Column(name = "name", nullable = false, columnDefinition="VARCHAR(40)")
     private String name;
+	
+	
+	@Column(name = "country", nullable = false, columnDefinition="VARCHAR(40)")
+    private String country;
+	
+
+	
+	
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 
 	public Long getId() {
 		return id;

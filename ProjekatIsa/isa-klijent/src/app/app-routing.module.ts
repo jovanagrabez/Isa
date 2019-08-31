@@ -11,6 +11,7 @@ import {ProfilcompanyComponent } from './aviocompany/profilcompany/profilcompany
 import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
 import {AddAviocompanyComponent} from './aviocompany/add-aviocompany/add-aviocompany.component';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component'
+import {DestinationComponent} from './aviocompany/destination/destination.component';
 
 
 const routes: Routes = [
@@ -50,8 +51,14 @@ const routes: Routes = [
     	
     },
      {
-        path: 'profilcompany',
-        component: ProfilcompanyComponent
+        path: 'profilcompany/:id',
+        component: ProfilcompanyComponent,
+       children: [
+         {
+           path: 'addDestination', component: DestinationComponent
+         }
+       ]
+
         
     },
      {
@@ -67,7 +74,9 @@ const routes: Routes = [
     path: 'addAviocompany',
     component : AddAviocompanyComponent
   }
-    
+
+
+
 	
 	
 	

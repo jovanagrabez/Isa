@@ -1,20 +1,17 @@
 package com.example.ProjekatIsa.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
+import java.util.List;
 
+import com.example.ProjekatIsa.DTO.FlightDTO;
 import com.example.ProjekatIsa.model.Flight;
-import com.example.ProjekatIsa.repository.FlightRepository;
 
-public class FlightService {
-
-	@Autowired
-	private FlightRepository flightRepository;
+public interface FlightService {
 	
-	public Page<Flight> findAll(Pageable page) {
-		return flightRepository.findAll(page);
-	}
+	List<Flight> getAllFlights();
+    Flight getFlightById(Long id);
+    Flight addFlight(Flight flight);
+    Flight updateFlight(FlightDTO flight);
+    Flight saveFlight(Flight flight);
+    boolean deleteFlight(Flight flight);
 
-	
 }

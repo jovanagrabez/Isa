@@ -11,7 +11,7 @@ import { AviocompanySService } from '../../services/aviocompany-s.service';
 export class ProfilcompanyComponent implements OnInit {
         
       private currentCompany: any;
-
+      private addDestination = false;
 
   constructor(private router: Router, private data : AviocompanySService) { }
 
@@ -33,5 +33,9 @@ export class ProfilcompanyComponent implements OnInit {
 
       this.router.navigate(['/avioCompany'], {});
     });
+  }
+
+  destinacije() {
+    this.addDestination = true;
   }
 }
