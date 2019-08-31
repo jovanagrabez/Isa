@@ -4,7 +4,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from './services/user-service/user.service';
 import { AuthServiceService } from './services/auth-service.service';
-import { User } from './models/User'
+import { User } from './models/User';
+import { Role } from './models/Role';
 
 
 @Component({
@@ -19,7 +20,10 @@ export class AppComponent implements OnInit {
   token: string;
   podatak: object;
   user: User = new User();
+  roles: Role[];
   idlogged : number;
+  systemAdmin : boolean;
+
   constructor(private userService: UserService, private route: ActivatedRoute, private auth: AuthServiceService) { }
 
   ngOnInit() {
@@ -47,6 +51,25 @@ export class AppComponent implements OnInit {
       pathToList(data)
   {
     this.user = data as User;
+    enum RoleName {
+        USER,
+        SYSTEM_ADMIN, 
+        AVIO_ADMIN, 
+        HOTEL_ADMIN, 
+        CAR_ADMIN
+    }
+    this.roles = this.user.roles;
+    console.log("uloge: ");
+    console.log(this.roles);
+    for (var i=0; i<this.roles.length; i++) {
+    if(this.roles[i].name== RoleName.SYSTEM_ADMIN){
+
+    this.systemAdmin = true;
+    }else{
+    this.systemAdmin = false;
+    }
+}
+   
     //this.idlogged=this.user.id;
     //document.getElementById("listCertificates").setAttribute("href", "/list-of-certificates/" + this.id_logged);
   }

@@ -18,13 +18,25 @@
 
                 </ul>
               </li>
+             
+              
 
 							<li><a href="hotels">Hoteli</a></li>
 							<li><a href="rentalCars">Rental cars</a></li>
-							<li><a href="">Kontat</a></li>
+			<li ><span class="hidden-xs" id="settingsButton" [hidden]="systemAdmin"><a href="#">Podesavanje</a></span>
+                <ul class="fh5co-sub-menu">
+                  <li><a href="#">Dodaj avio kompaniju</a></li>
+                  <li><a href="#">Dodaj hotel</a></li>
+                  <li><a href="#">Dodaj rent-a-car</a></li>
+				  <li><a href="#">Dodaj avio admina</a></li>
+				  <li><a href="#">Dodaj hotel admina</a></li>
+				  <li><a href="#">Dodaj rent-a-car admina</a></li>
+                </ul>
+              </li>
 							<li><span class ="visible" id="loginButton" [hidden]="logged"><a routerLink="login">Prijavi se</a></span>
 						    <span class="hidden-xs" id="logoutButton" (click)="logOutUser()" [hidden]="notLogged" ><a>Odjavi se</a></span>
 							</li>
+			
 						</ul>
 					</nav>
 				</div>
