@@ -1,5 +1,6 @@
 package com.example.ProjekatIsa.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "flight")
-public class Flight {
+public class Flight implements Serializable {
 	//PREPRAVITI DATE TIPE KASNIJE KOD STRINGOVA takeoff,landing, time
 	
 	@Id
@@ -52,9 +53,9 @@ public class Flight {
 	@Column(name = "seat", nullable = true, columnDefinition="BOOLEAN")
     private boolean seat;
 	
-	 @JsonManagedReference
+	/* @JsonManagedReference
 	 @ManyToOne(fetch = FetchType.LAZY,cascade = { CascadeType.MERGE, CascadeType.PERSIST })
-	 private Aviocompany aviocompany;
+	 private Aviocompany aviocompany;*/
 	
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

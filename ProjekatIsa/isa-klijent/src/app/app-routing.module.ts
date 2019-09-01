@@ -73,14 +73,20 @@ const routes: Routes = [
   {
     path: 'addAviocompany',
     component : AddAviocompanyComponent
+  },
+
+  {
+    path: 'destination',
+    component : DestinationComponent
   }
 
 
 
-	
-	
-	
-	
+
+
+
+
+
 ];
 
 @NgModule({

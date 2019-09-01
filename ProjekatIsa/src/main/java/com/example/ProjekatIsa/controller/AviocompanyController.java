@@ -16,15 +16,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.AviocompanyDTO;
+import com.example.ProjekatIsa.DTO.DestinationDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
+import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.repository.RatingHotelRepository;
 import com.example.ProjekatIsa.service.AviocompanyService;
+import com.example.ProjekatIsa.service.DestinationService;
 import com.example.ProjekatIsa.service.HotelService;
 
 
 @RestController
-@RequestMapping("/avioCompany")
+@RequestMapping(value="/avioCompany",produces = MediaType.APPLICATION_JSON_VALUE)
 
 public class AviocompanyController {
 	
@@ -32,6 +35,8 @@ public class AviocompanyController {
 	@Autowired
 	private AviocompanyService avioService;
 	
+	@Autowired
+	private DestinationService destinationService;
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -62,14 +67,13 @@ public class AviocompanyController {
 	        return ResponseEntity.ok(aviocompany);
 	    }
 	 
-	 @PutMapping
-	 public ResponseEntity<Aviocompany> updateAirline(@RequestBody AviocompanyDTO airlineDTO){
-		  Aviocompany aviocompany = this.avioService.getCompanyByID(airlineDTO.getId());
-	        if(aviocompany == null){
+	 @PutMapping(value="/update")
+	 public ResponseEntity<Aviocompany> updateAirline(@RequestBody Aviocompany airlineDTO){
+		    if(airlineDTO == null){
 	            return ResponseEntity.notFound().build();
 	        }
-	        aviocompany = this.avioService.updateAviocompany(aviocompany);
-	        return ResponseEntity.ok(aviocompany);
+	        this.avioService.updateAviocompany(airlineDTO);
+	        return ResponseEntity.ok(airlineDTO);
 	 }
 	 
 	 @DeleteMapping(value = "/{id}")
@@ -88,4 +92,6 @@ public class AviocompanyController {
 	        }
 	    }
 
+	
+	 
 }

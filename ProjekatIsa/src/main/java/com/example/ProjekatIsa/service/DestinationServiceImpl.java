@@ -3,10 +3,11 @@ package com.example.ProjekatIsa.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.repository.DestinationRepository;
-
+@Service
 public class DestinationServiceImpl  implements DestinationService{
 	
 	@Autowired

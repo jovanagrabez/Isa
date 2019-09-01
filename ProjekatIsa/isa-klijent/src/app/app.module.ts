@@ -37,7 +37,6 @@ import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.co
 import { AddAviocompanyComponent } from './aviocompany/add-aviocompany/add-aviocompany.component';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { DestinationComponent } from './aviocompany/destination/destination.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,6 +60,7 @@ import { DestinationComponent } from './aviocompany/destination/destination.comp
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
     HttpModule,
    NgbModule.forRoot(),
    FormsModule

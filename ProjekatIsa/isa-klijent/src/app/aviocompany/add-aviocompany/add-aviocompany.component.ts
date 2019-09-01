@@ -15,7 +15,7 @@ export class AddAviocompanyComponent implements OnInit {
   constructor(private router: Router, private airlineService: AviocompanySService) { }
 
   ngOnInit() {
-    this.airline = {name: '', adress: '', description: ''};
+    this.airline = {name: '', adress: '', description: '', destination: [], flight: []};
 
   }
 

@@ -61,7 +61,7 @@ export class AviocompanySService {
   }
 
   updateAviocompany(aviocompany) {
-    return this.http.put('http://localhost:8080/avioCompany', aviocompany);
+    return this.http.put('http://localhost:8080/avioCompany/update', aviocompany);
 
   }
 }

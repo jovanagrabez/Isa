@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.DTO;
 
-import com.example.ProjekatIsa.model.Aviocompany;
+import java.util.Set;
+
 import com.example.ProjekatIsa.model.*;
 
 public class AviocompanyDTO {
@@ -9,9 +10,11 @@ public class AviocompanyDTO {
     private String name;
     private String adress;
     private String description;
+    private Set<Destination> destination;
+    private Set<Flight> flight;
     
     public AviocompanyDTO(Aviocompany avio) {
-		this(avio.getId(), avio.getName(), avio.getAdress(), avio.getDescription());
+		this(avio.getId(), avio.getName(), avio.getAdress(), avio.getDescription(), avio.getDestination(), avio.getFlight());
 	}
     
     
@@ -19,13 +22,41 @@ public class AviocompanyDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public AviocompanyDTO(Long id, String name, String adress, String description) {
+	
+	public AviocompanyDTO(Long id, String name, String adress, String description, Set<Destination> destination,
+			Set<Flight> flight) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
+		this.destination = destination;
+		this.flight = flight;
 	}
+
+	
+	
+
+	public Set<Destination> getDestination() {
+		return destination;
+	}
+
+
+	public void setDestination(Set<Destination> destination) {
+		this.destination = destination;
+	}
+
+
+	public Set<Flight> getFlight() {
+		return flight;
+	}
+
+
+	public void setFlight(Set<Flight> flight) {
+		this.flight = flight;
+	}
+
+
 	public Long getId() {
 		return id;
 	}

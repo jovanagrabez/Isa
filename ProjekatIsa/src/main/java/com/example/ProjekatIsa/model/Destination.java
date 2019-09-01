@@ -1,15 +1,21 @@
 package com.example.ProjekatIsa.model;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+
+import com.example.ProjekatIsa.DTO.DestinationDTO;
 
 @Entity
 @Table(name = "destination")
-public class Destination {
+public class Destination implements Serializable {
 
 	
 	@Id
@@ -25,8 +31,15 @@ public class Destination {
     private String country;
 	
 
+	@ManyToMany(mappedBy="destination")
+	private Set<Aviocompany> aviocompany;
 	
 	
+	public Destination(DestinationDTO d) {
+		
+		this.country=d.getCountry();
+		this.name=d.getName();
+	}
 	public String getCountry() {
 		return country;
 	}

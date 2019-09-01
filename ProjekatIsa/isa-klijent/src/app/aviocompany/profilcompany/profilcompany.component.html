@@ -22,7 +22,7 @@
         <div class="offset-3"></div>
         <div class="col-md-6">
 
-              <form (ngSubmit)="f.form.valid && saveAviocompany()"  name="form" #f="ngForm">
+              <form (ngSubmit)=" saveAviocompany()"  name="form" #f="ngForm">
                 <div class="form-group">
                   <label >Ime*</label>
                   <!--<div class="col-sm-10">-->
@@ -101,10 +101,39 @@
             <h3>Book A Flight</h3>
             <button (click)="destinacije()" >Dodaj destinacije</button>
 
+          <div *ngIf="addDestination">
+            <form (ngSubmit)=" dodajDestinaciju()"  name="form" #f="ngForm">
+              <div class="form-group">
+                <label >Grad*</label>
+                <!--<div class="col-sm-10">-->
+                <input type="text" class="form-control" id="inputName45" placeholder="City" [(ngModel)]="destinationNew.name" name="name"
+                       required />
+                <!--</div>-->
+
+              </div>
+
+              <!--<div class="container">-->
+              <div class="form-group ">
+                <label for="inputName41">Drzava*</label>
+                <!--<div  class="col-sm-10">-->
+                <input type="text" class="form-control" id="inputName41" placeholder="Drzava" [(ngModel)]="destinationNew.country" name="country"
+                />
+
+              </div>
+
+
+              <br />
+              <div class="form-group row" align="right">
+                <div class="col-sm-10">
+                  <button type="submit"  class="btn btn-primary">Save</button>
+                </div>
+              </div>
+            </form>
+
+
+          </div>
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-<div *ngIf="addDestination">
-          <app-destination></app-destination>
-</div>
+
           </div>
         </div>
 
@@ -130,91 +159,57 @@
             </div>
           </div>
           <div class="col-md-6 animate-box">
-            <img class="img-responsive" src="images/cover_bg_3.jpg" alt="travel">
-            <a href="#" class="flight-book">
+          <h4>Destinacije na kojima poslujemo</h4>
+            <div *ngFor="let dest of currentCompany.destination ">
+            <a class="flight-book">
               <div class="plane-name">
-                <span class="p-flight">United States Airways</span>
+                <span class="p-flight">Grad: {{dest.name}}</span>
               </div>
+
               <div class="desc">
                 <div class="left">
-                  <h4>HK-MNL</h4>
-                  <span>Dec 20 - Dec29</span>
+                 <button (click)="deleteDestination(dest)">Izbrisi</button>
+
                 </div>
                 <div class="right">
 									<span class="price">
 										<i class="icon-arrow-down22"></i>
-										$1000
+										{{dest.country}}
 									</span>
                 </div>
               </div>
+
             </a>
-            <a href="#" class="flight-book">
-              <div class="plane-name">
-                <span class="p-flight">Qatar Airways</span>
-              </div>
-              <div class="desc">
-                <div class="left">
-                  <h4>HK-MNL</h4>
-                  <span>Dec 20 - Dec29</span>
-                </div>
-                <div class="right">
-									<span class="price">
-										<i class="icon-arrow-down22"></i>
-										$790
-									</span>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="flight-book">
-              <div class="plane-name">
-                <span class="p-flight">Philippine Airline</span>
-              </div>
-              <div class="desc">
-                <div class="left">
-                  <h4>MNL-HK</h4>
-                  <span>Dec 20 - Dec29</span>
-                </div>
-                <div class="right">
-									<span class="price">
-										<i class="icon-arrow-down22"></i>
-										$500
-									</span>
-                </div>
-              </div>
-            </a>
-            <a href="#" class="flight-book">
-              <div class="plane-name">
-                <span class="p-flight">China Airways</span>
-              </div>
-              <div class="desc">
-                <div class="left">
-                  <h4>HK-LAS</h4>
-                  <span>Dec 20 - Dec29</span>
-                </div>
-                <div class="right">
-									<span class="price">
-										<i class="icon-arrow-down22"></i>
-										$900
-									</span>
-                </div>
-              </div>
-            </a>
+            </div>
+
           </div>
         </div>
-        <div *ngFor="let a of currentCompany.flight">
-        <div class="row row-bottom-padded-md">
-          <div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-            <div href="#"><img src="assets/images/box.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-              <div class="desc">
-                <span></span>
-                <h3>New York</h3>
-                <span>3 nights</span>
-                <span class="price">$1,000</span>
-                <a class="btn btn-primary btn-outline" href="#">Book Now <i class="icon-arrow-right22"></i></a>
+
+        <div class="row row-bottom-padded-md col-md-offset-2">
+          <div *ngFor="let a of currentCompany.flight">
+            <span></span>
+            <div>
+            <div class="row-md-2 row-sm-2 fh5co-tours animate-box"
+                 data-animate-effect="fadeIn">
+              <div href="profil">
+                <img src="assets/images/box.png"  width="350" height="300">
+
+                <div class="desc">
+                  <span></span>
+                  <h3>{{a.take_off}}</h3>
+                  <h3>{{a.time}}</h3>
+                  <span>{{a.landing}}</span> <a
+                  	class="btn btn-primary btn-outline" >Detaljnije <i
+                  class="icon-arrow-right22"></i></a>
+
+                  <a
+                   	class="btn btn-primary btn-outline" >Izbrisi <i
+                    class="icon-arrow-right22"></i></a>
+                </div>
               </div>
             </div>
-          </div>
 
+        </div>
         </div>
         </div>
       </div>

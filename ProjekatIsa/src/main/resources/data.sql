@@ -77,6 +77,23 @@ insert into aviocompany (name, adress, description) values ('TurkishAirlines', '
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
 
+insert into destination(name, country) values ('Berlin', 'Njemacka');
+insert into destination(name, country) values ('Minhen', 'Njemacka');
+insert into destination(name, country) values ('Pariz', 'Francuska');
+insert into destination(name, country) values ('London', 'Velika Britanija');
+insert into destination(name, country) values ('New York', 'SAD');
+insert into destination(name, country) values ('Moskva', 'Rusija');
+insert into destination(name, country) values ('Rim', 'Italija');
+insert into destination(name, country) values ('Peking', 'Kina');
+insert into destination(name, country) values ('Tokio', 'Japan');
+insert into destination(name, country) values ('Brazilija', 'Brazil');
+insert into destination(name, country) values ('Rio de Janeiro', 'Brazil');
+insert into destination(name, country) values ('New Delhi', 'Indija');
+
+
+
+
+
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (2,'Admin','Admin','admin@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
@@ -138,6 +155,34 @@ insert into car (car_name,car_number,car_price) values ('Fiat',4,350);
 
 insert into flight(take_off,landing, time, travel_time,number,seat) values ('lalal','lalala','bnbnb','jdjj',2,true);
 insert into flight(take_off,landing, time, travel_time,number,seat) values ('fkijgdf','fdfd','bnbfdfnb','jdggjj',3,true);
+insert into flight(take_off,landing, time, travel_time,number,seat) values ('fjgdf','fd','bnfnb','jdjj',4,true);
+insert into flight(take_off,landing, time, travel_time,number,seat) values ('fjgdfff','fssd','bnfsanb','jdj',5,true);
+
 
 insert into avio_flights(aviocompany_id, flight_id) values (1,1);
 insert into avio_flights(aviocompany_id, flight_id) values (1,2);
+insert into avio_flights(aviocompany_id, flight_id) values (1,3);
+insert into avio_flights(aviocompany_id, flight_id) values (1,4);
+
+
+
+insert into avio_destination(aviocompany_id, destination_id) values (1,1);
+insert into avio_destination(aviocompany_id, destination_id) values (1,2);
+insert into avio_destination(aviocompany_id, destination_id) values (1,3);
+insert into avio_destination(aviocompany_id, destination_id) values (1,4);
+insert into avio_destination(aviocompany_id, destination_id) values (1,5);
+
+insert into avio_destination(aviocompany_id, destination_id) values (2,6);
+insert into avio_destination(aviocompany_id, destination_id) values (2,7);
+insert into avio_destination(aviocompany_id, destination_id) values (2,8);
+insert into avio_destination(aviocompany_id, destination_id) values (2,9);
+insert into avio_destination(aviocompany_id, destination_id) values (2,10);
+
+
+
+
+
+
+
+
+

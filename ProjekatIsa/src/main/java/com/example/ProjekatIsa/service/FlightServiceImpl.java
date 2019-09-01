@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.example.ProjekatIsa.DTO.FlightDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
@@ -12,6 +13,8 @@ import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.FlightRepository;
 
+
+@Service
 public class FlightServiceImpl implements FlightService {
 	
 	@Autowired
