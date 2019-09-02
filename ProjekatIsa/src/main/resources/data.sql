@@ -97,6 +97,12 @@ insert into destination(name, country) values ('New Delhi', 'Indija');
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (2,'Admin','Admin','admin@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (3,'Admin','Admin','avioadmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (4,'Admin','Admin','hoteladmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (5,'Admin','Admin','caradmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
 insert into role (id,name) values (1,'USER');
@@ -111,7 +117,12 @@ INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
 
 --sistemski administrator je Admin Admin admin@gmail.com 
 INSERT INTO user_roles(user_id, role_id) VALUES(2,2);
-
+--hotel admin je hoteladmin@gmail.com
+INSERT INTO user_roles(user_id, role_id) VALUES(3,3);
+--avio admin je avioadmin@gmail.com
+INSERT INTO user_roles(user_id, role_id) VALUES(4,4);
+--car admin je caradmin@gmail.com
+INSERT INTO user_roles(user_id, role_id) VALUES(5,5);
 
 insert into myrole (id,name) values (1,'registrationAgent');
 insert into myrole (id,name) values (2,'login');
@@ -129,6 +140,11 @@ insert into myrole (id,name) values (9,'addAvioAdmin');
 insert into myrole (id,name) values (10,'addHotelAdmin');
 insert into myrole (id,name) values (11,'addCarAdmin');
 
+--privilegije hotel admina
+insert into myrole (id,name) values (12,'addRoom');
+insert into myrole (id,name) values (13,'addService');
+
+
 insert into roles_privileges(role_id,privilege_id) values (2,5);
 insert into roles_privileges(role_id,privilege_id) values (2,6);
 insert into roles_privileges(role_id,privilege_id) values (2,7);
@@ -137,6 +153,11 @@ insert into roles_privileges(role_id,privilege_id) values (2,9);
 insert into roles_privileges(role_id,privilege_id) values (2,10);
 insert into roles_privileges(role_id,privilege_id) values (2,11);
 insert into roles_privileges(role_id,privilege_id) values (1,2);
+
+--hotel admin
+insert into roles_privileges(role_id,privilege_id) values (4,6);
+insert into roles_privileges(role_id,privilege_id) values (4,12);
+insert into roles_privileges(role_id,privilege_id) values (4,13);
 
 
 

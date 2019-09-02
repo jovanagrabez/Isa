@@ -7,6 +7,6 @@ import com.example.ProjekatIsa.model.Hotel;
 public interface HotelService {
 
 	List<Hotel> getAll();
-	
+	Hotel addHotel(Hotel h);
 	
 }

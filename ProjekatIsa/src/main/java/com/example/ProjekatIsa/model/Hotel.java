@@ -15,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.AviocompanyDTO;
+import com.example.ProjekatIsa.DTO.HotelDTO;
+
 @Entity
 @Table(name = "hotel")
 public class Hotel implements Serializable{
@@ -127,6 +130,13 @@ public class Hotel implements Serializable{
 		this.adress = adress;
 		this.description = description;
 		this.average_rating = average_rating;
+	}
+	public Hotel(HotelDTO h) {
+		 setId(h.getId());
+	     setName(h.getName());
+	     setDescription(h.getDescription());
+	     setAdress(h.getAdress());
+		
 	}
 
 	
