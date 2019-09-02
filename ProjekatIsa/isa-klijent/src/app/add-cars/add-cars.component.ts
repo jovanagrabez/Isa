@@ -21,7 +21,7 @@ export class AddCarsComponent implements OnInit {
   }
 
   addCar() {
-        this.errorMessage = '';
+      this.errorMessage = '';
       this.hideError = true;
  
       if (!this.car.name) {

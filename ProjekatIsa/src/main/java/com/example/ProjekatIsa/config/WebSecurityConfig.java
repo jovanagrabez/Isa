@@ -111,6 +111,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/rentalcars").permitAll()
 						.antMatchers("/rentalcars/**").permitAll()
 						.antMatchers("/car/**").permitAll()
+						.antMatchers("/filijale/**").permitAll()
+
 
 
 
@@ -153,6 +155,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 					web.ignoring().antMatchers(HttpMethod.POST, "/hotels");
 					web.ignoring().antMatchers(HttpMethod.DELETE, "/hotels/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/car/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/filijale/**");
+
 
 
 

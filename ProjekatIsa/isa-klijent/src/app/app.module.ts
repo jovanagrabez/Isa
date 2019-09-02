@@ -40,6 +40,8 @@ import { DestinationComponent } from './aviocompany/destination/destination.comp
 import { ProfilComponent } from './profil/profil.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { AddCarsComponent } from './add-cars/add-cars.component';
+import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
+
 
 @NgModule({
   declarations: [
@@ -60,7 +62,8 @@ import { AddCarsComponent } from './add-cars/add-cars.component';
 
 
     AddHotelComponent,
-    AddCarsComponent
+    AddCarsComponent,
+    AddFilijaleComponent
     
 
 
