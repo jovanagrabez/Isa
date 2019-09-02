@@ -33,7 +33,9 @@
 				  <li><a href="#">Dodaj rent-a-car admina</a></li>
                 </ul>
               </li>
-							<li><span class ="visible" id="loginButton" [hidden]="logged"><a routerLink="login">Prijavi se</a></span>
+           <li><span class="hidden-xs" id="" [hidden]="notLogged" ><a href="profile">Profil</a></span>
+           </li>
+              <li><span class ="visible" id="loginButton" [hidden]="logged"><a routerLink="login">Prijavi se</a></span>
 						    <span class="hidden-xs" id="logoutButton" (click)="logOutUser()" [hidden]="notLogged" ><a>Odjavi se</a></span>
 							</li>
 			

@@ -1,32 +1,93 @@
 package com.example.ProjekatIsa.DTO;
 
+import java.util.Date;
+
 import com.example.ProjekatIsa.model.Flight;
 
 public class FlightDTO {
 	
 	
 	 private Long id;
-	 private String take_off;
-	 private String landing;
+	 private Date take_off;
+	 private Date landing;
 	 private String time;
-	 private String travel_time;
+	 private double travel_time;
 	 private int number;
+	 private double averageRating;
+		private double numberOfRating;
+		private double sumRating;
+		 private double economyPrice;
+		 private double premiumEconomyPrice;
+		 private double businessPrice;
+		 private double firstPrice;
+		 private int distance;  
+
+
+		 
+	public double getAverageRating() {
+			return averageRating;
+		}
+		public void setAverageRating(double averageRating) {
+			this.averageRating = averageRating;
+		}
+		public double getNumberOfRating() {
+			return numberOfRating;
+		}
+		public void setNumberOfRating(double numberOfRating) {
+			this.numberOfRating = numberOfRating;
+		}
+		public double getSumRating() {
+			return sumRating;
+		}
+		public void setSumRating(double sumRating) {
+			this.sumRating = sumRating;
+		}
+		public double getEconomyPrice() {
+			return economyPrice;
+		}
+		public void setEconomyPrice(double economyPrice) {
+			this.economyPrice = economyPrice;
+		}
+		public double getPremiumEconomyPrice() {
+			return premiumEconomyPrice;
+		}
+		public void setPremiumEconomyPrice(double premiumEconomyPrice) {
+			this.premiumEconomyPrice = premiumEconomyPrice;
+		}
+		public double getBusinessPrice() {
+			return businessPrice;
+		}
+		public void setBusinessPrice(double businessPrice) {
+			this.businessPrice = businessPrice;
+		}
+		public double getFirstPrice() {
+			return firstPrice;
+		}
+		public void setFirstPrice(double firstPrice) {
+			this.firstPrice = firstPrice;
+		}
+		public int getDistance() {
+			return distance;
+		}
+		public void setDistance(int distance) {
+			this.distance = distance;
+		}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public String getTake_off() {
+	public Date getTake_off() {
 		return take_off;
 	}
-	public void setTake_off(String take_off) {
+	public void setTake_off(Date take_off) {
 		this.take_off = take_off;
 	}
-	public String getLanding() {
+	public Date getLanding() {
 		return landing;
 	}
-	public void setLanding(String landing) {
+	public void setLanding(Date landing) {
 		this.landing = landing;
 	}
 	public String getTime() {
@@ -35,10 +96,10 @@ public class FlightDTO {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public String getTravel_time() {
+	public double getTravel_time() {
 		return travel_time;
 	}
-	public void setTravel_time(String travel_time) {
+	public void setTravel_time(double travel_time) {
 		this.travel_time = travel_time;
 	}
 	public int getNumber() {
@@ -51,7 +112,11 @@ public class FlightDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FlightDTO(Long id, String take_off, String landing, String time, String travel_time, int number) {
+
+	 
+	 public FlightDTO(Long id, Date take_off, Date landing, String time, double travel_time, int number,
+			double averageRating, double numberOfRating, double sumRating, double economyPrice,
+			double premiumEconomyPrice, double businessPrice, double firstPrice, int distance) {
 		super();
 		this.id = id;
 		this.take_off = take_off;
@@ -59,11 +124,23 @@ public class FlightDTO {
 		this.time = time;
 		this.travel_time = travel_time;
 		this.number = number;
+		this.averageRating = averageRating;
+		this.numberOfRating = numberOfRating;
+		this.sumRating = sumRating;
+		this.economyPrice = economyPrice;
+		this.premiumEconomyPrice = premiumEconomyPrice;
+		this.businessPrice = businessPrice;
+		this.firstPrice = firstPrice;
+		this.distance = distance;
 	}
-	 
-	 
-	 public FlightDTO(Flight f) {
-		 this(f.getId(),f.getTake_off(),f.getLanding(),f.getTime(),f.getTravel_time(),f.getNumber());
+	public FlightDTO(Flight f) {
+		 this(f.getId(),f.getTake_off(),f.getLanding(),f.getTime(),f.getTravel_time(),
+				 f.getNumber(),f.getAverageRating(),f.getNumberOfRating(),
+				 f.getSumRating(),f.getEconomyPrice(),
+				 f.getPremiumEconomyPrice(),
+				 f.getBusinessPrice(),
+				 f.getFirstPrice(),
+				 f.getDistance());
 	 }
 
 

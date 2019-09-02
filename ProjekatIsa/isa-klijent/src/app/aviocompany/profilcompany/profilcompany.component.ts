@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AviocompanySService } from '../../services/aviocompany-s.service';
 import {DestinationServiceService} from '../../services/destination-service.service';
-
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import {FlightService} from '../../services/flight.service';
+import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
+import {AppComponent} from '../../app.component';
 
 @Component({
   selector: 'app-profilcompany',
@@ -14,13 +17,25 @@ export class ProfilcompanyComponent implements OnInit {
       private currentCompany: any;
       private addDestination = false;
       private destinationNew: any;
+      ff: any;
+      private ifflight = false;
 
+      private destinationss: any;
   selectedDestinations: [{}];
-  destinations: [];
+  update = false;
+  add = false;
 
-  constructor(private router: Router, private data : AviocompanySService, private dest: DestinationServiceService) {
+  constructor(private router: Router, private data : AviocompanySService,
+              private dest: DestinationServiceService, private flightService: FlightService,
+              private ngbDateParserFormatter: NgbDateParserFormatter,
+              private appCom: AppComponent) {
 
     this.destinationNew = {id: null, name: '', country: ''};
+    this.ff = { id: null, take_off: NgbDate, landing: NgbDate, number: 11, seat: true, averageRating: 0,
+      distance: 452, baggageDescription: 'hhh', businessPrice: 154, economyPrice: 562, time: 'hehe',
+      firstPrice: 1251, premiumEconomyPrice: 1524, destination: [] };
+
+    this.destinationss = {fromDest: {id: null , name: '', country: ''}, toDest:  {id: null , name: '', country: ''}};
   }
 
   ngOnInit() {
@@ -32,7 +47,9 @@ export class ProfilcompanyComponent implements OnInit {
       currentCompany => 
       {
         this.currentCompany = currentCompany;
-        console.log(currentCompany);
+
+
+
   }
            
     );
@@ -74,5 +91,47 @@ export class ProfilcompanyComponent implements OnInit {
 
       this.router.navigate(['/avioCompany'], {});
     });
+  }
+
+  letovi() {
+    this.ifflight = true;
+    this.add = true;
+  }
+
+  saveFlight() {
+    this.ff.destination.push(this.destinationss.fromDest);
+    this.ff.destination.push(this.destinationss.toDest);
+    this.ff.take_off = this.ngbDateParserFormatter.format(this.ff.take_off);
+  this.ff.landing = this.ngbDateParserFormatter.format(this.ff.landing);
+
+  this.flightService.addFlight(this.ff).subscribe(ff => {
+     console.log(this.ff);
+     this.ff = ff;
+     this.ifflight = false;
+     this.add = false;
+     this.currentCompany.flight.push(this.ff);
+    });
+  }
+
+  deleteFlight(a) {
+    this.flightService.deleteFlight(a.id, this.currentCompany.id).subscribe(airlineNew => {
+      console.log(this.currentCompany);
+
+      this.router.navigate(['/avioCompany'], {});
+    });
+
+
+  }
+
+  updateFlight() {
+    this.flightService.addFlight(this.ff).subscribe(ff => {
+      console.log(this.ff);
+    });
+  }
+
+  updateF(a) {
+    this.ff = a;
+    this.ifflight = true;
+    this.update = true;
   }
 }

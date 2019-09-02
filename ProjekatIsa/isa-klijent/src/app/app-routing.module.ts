@@ -12,6 +12,7 @@ import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.co
 import {AddAviocompanyComponent} from './aviocompany/add-aviocompany/add-aviocompany.component';
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component'
 import {DestinationComponent} from './aviocompany/destination/destination.component';
+import {ProfilComponent} from './profil/profil.component';
 
 
 const routes: Routes = [
@@ -78,6 +79,11 @@ const routes: Routes = [
   {
     path: 'destination',
     component : DestinationComponent
+  },
+
+  {
+    path: 'profile',
+    component : ProfilComponent
   }
 
 
