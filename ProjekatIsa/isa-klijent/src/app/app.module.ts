@@ -39,6 +39,8 @@ import { ConfirmRegistrationComponent } from './confirm-registration/confirm-reg
 import { DestinationComponent } from './aviocompany/destination/destination.component';
 import { ProfilComponent } from './profil/profil.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
+import { AddCarsComponent } from './add-cars/add-cars.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,10 +58,13 @@ import { AddHotelComponent } from './add-hotel/add-hotel.component';
     DestinationComponent,
     ProfilComponent,
 
-    DestinationComponent,
-    AddHotelComponent
 
-   
+    AddHotelComponent,
+    AddCarsComponent
+    
+
+
+
   ],
   imports: [
    OrderModule,

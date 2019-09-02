@@ -10,16 +10,8 @@ import { Observable } from 'rxjs';
 })
 export class ViewRentalCarsComponent implements OnInit {
         
-  private rentacarArray: any;
-  private selectedRentACar: any;
-
-  
-  private loggedInUser: any;
-  private isAdmin: any;
-  
-  private currentRate = 2.5;
-        
-    rentalcars$: Object;
+  private selectedRentACar: any;        
+  rentalcars$: Object;
 
   constructor(private router : Router, private viewRentalCarsService : ViewRentalCarsService) { }
 
@@ -30,11 +22,16 @@ export class ViewRentalCarsComponent implements OnInit {
       );
   }
     
-    onClickShowDetails(RentACar:any) : void {
+   onClickCompanyDetails(RentACar:any) : void {
         this.selectedRentACar = RentACar;
-        console.log("Rent a car: " + RentACar);  
+        this.viewRentalCarsService.selectRentACar(RentACar);
+        this.viewRentalCarsService.currentRentACar.subscribe(
+          currentRentACar=>
+          {
+              console.log("Rent a car service" + currentRentACar);
+              }
+       );
         
-
         this.router.navigateByUrl('/rentacar-details');
     }
 

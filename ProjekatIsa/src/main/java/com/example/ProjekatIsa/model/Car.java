@@ -13,7 +13,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.example.ProjekatIsa.DTO.CarDTO;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Table(name = "car")
@@ -35,6 +39,10 @@ public class Car implements Serializable {
 	
 	@Column(name = "car_price", nullable = false, updatable = false)
 	private int price;
+	
+	@ManyToOne
+	@JoinColumn(name="rent_cars")
+	private RentACar rentalcars;
 	
 	
 	
@@ -70,13 +78,31 @@ public class Car implements Serializable {
 		this.number = number;
 	}
 	
-	
+
+
+	public RentACar getRentalcars() {
+		return rentalcars;
+	}
+
+	public void setRentalcars(RentACar rentalcars) {
+		this.rentalcars = rentalcars;
+	}
+
 	public Car(Long id, int number, int price,String name) {
 		super();
 		this.id = id;
 		this.number = number;
 		this.price = price;
 		this.name = name;
+		
+	}
+	
+	public Car(CarDTO c) {
+		setId(c.getId());
+		setName(c.getName());
+		setNumber(c.getNumber());
+		setPrice(c.getPrice());
+		
 	}
 	
 	public Car() {

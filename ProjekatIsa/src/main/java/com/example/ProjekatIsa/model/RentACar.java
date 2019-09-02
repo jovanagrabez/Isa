@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table (name = "rentalcars")
@@ -40,10 +43,9 @@ public class RentACar implements Serializable {
 	@Column(name = "average_rating", nullable = true)
 	private Double average_rating;
 	
-	
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "cars", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
-	private Set<Car> car;
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.LAZY,mappedBy="rentalcars")
+	private List<Car> car;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "car_price", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
@@ -63,11 +65,11 @@ public class RentACar implements Serializable {
 	
 	
 
-	public Set<Car> getCar() {
+	public List<Car> getCar() {
 		return car;
 	}
 
-	public void setCar(Set<Car> car) {
+	public void setCar(List<Car> car) {
 		this.car = car;
 	}
 

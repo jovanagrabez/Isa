@@ -18,4 +18,10 @@ public class RentalCarServiceImpl implements RentalCarService {
 		return rentalcarRepository.findAll();
 	}
 
+	@Override
+	public RentACar findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return rentalcarRepository.findOneById(id);
+	}
+
 }
