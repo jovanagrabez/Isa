@@ -67,10 +67,12 @@ export class UserService {
         return Observable.throw(err);
    // });
       }*/
-    
-   
 
-  
+
+  updateUser(user) {
+    return this.http.put('http://localhost:8080/api', user);
+
   }
+}
    
 

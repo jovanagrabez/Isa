@@ -1,0 +1,34 @@
+<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>             
+		
+<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
+  <div class="login-page">
+	<div class="form">
+   
+      <form  class="registration" (submit)="addHotel()" method="POST">
+		    <input type="text" [(ngModel)] = "hotel.name" #name= "ngModel" name="name" class="form-control"  data-validation="required" #name placeholder = "Unesite naziv hotela">
+      			<span id="error_name" class="text-danger"></span>
+		    <input type="text"[(ngModel)] = "hotel.address" #address= "ngModel" name="address" class="form-control"  data-validation="required" #address placeholder = "Unesite adresu hotela">
+      			<span id="error_address" class="text-danger"></span>
+      		<input type="text" height="200" [(ngModel)] = "hotel.description" #description= "ngModel" name="description" class="form-control"  data-validation="required" #description placeholder = "Unesite opis hotela">
+      			<span id="error_description" class="text-danger"></span>
+		    
+		    <div class="form-group row" [hidden]="hideError">
+		        <div class="col-xs-6">	
+		          <div class="alert alert-danger" >
+		            <label> {{errorMessage}} </label>
+		          </div>
+		        </div>
+		    </div>
+		      
+		     <button type="submit" id="submit" class="btn btn-primary">Registruj hotel</button>
+		</form>
+   </div>
+  </div>
+ </div>
+</div>
+        
+  
+
+
+

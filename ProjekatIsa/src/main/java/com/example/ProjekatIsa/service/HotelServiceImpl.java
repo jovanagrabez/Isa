@@ -19,4 +19,11 @@ public class  HotelServiceImpl implements HotelService{
 		return hotelRepository.findAll();
 	}
 
+	@Override
+	public Hotel addHotel(Hotel h) {
+		// TODO Auto-generated method stub
+		return hotelRepository.save(h);
+	}
+	
+
 }

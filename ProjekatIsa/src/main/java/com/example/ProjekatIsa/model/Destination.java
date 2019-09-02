@@ -34,6 +34,9 @@ public class Destination implements Serializable {
 	@ManyToMany(mappedBy="destination")
 	private Set<Aviocompany> aviocompany;
 	
+	@ManyToMany(mappedBy="destination")
+	private Set<Flight> flight;
+	
 	
 	public Destination(DestinationDTO d) {
 		

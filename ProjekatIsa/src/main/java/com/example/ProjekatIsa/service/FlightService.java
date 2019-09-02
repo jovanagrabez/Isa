@@ -12,7 +12,7 @@ public interface FlightService {
 	List<Flight> getAllFlights();
     Flight getFlightById(Long id);
     Flight addFlight(Flight flight);
-    Flight updateFlight(FlightDTO flight);
+    Flight updateFlight(Flight flight);
     Flight saveFlight(Flight flight);
     boolean deleteFlight(Flight flight);
 

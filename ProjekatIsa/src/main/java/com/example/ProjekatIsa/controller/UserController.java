@@ -42,6 +42,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -92,7 +93,12 @@ public class UserController {
 	 
 	 @Autowired
 	 private RoleService roleService;
-	    
+	   
+	 @PutMapping
+	 public ResponseEntity<User> updateUser(@RequestBody User u){
+		 this.userService.update(u);
+		 return ResponseEntity.ok(u);
+	 }
 	 @RequestMapping(value ="/registerUser",
 				method = RequestMethod.POST,
 				consumes = MediaType.APPLICATION_JSON_VALUE,

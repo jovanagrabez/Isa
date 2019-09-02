@@ -5,6 +5,12 @@
 						<h3>{{currentHotel.name}}</h3>
 						<p>{{currentHotel.adress}}</p>
 						<p>{{currentHotel.description}}</p>
+						<span class="hidden-xs" id="changeButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Izmeni</a></span>
+						<span class="hidden-xs" id="deleteButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Obrisi</a></span>
+						<br/>
+						<br/>
+						<span class="hidden-xs" id="addRoomButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Dodaj sobu</a></span>
+						<span class="hidden-xs" id="addServiceButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Dodaj servis</a></span>
 					</div>
 				</div>
 				

@@ -22,22 +22,29 @@ export class AppComponent implements OnInit {
   user: User = new User();
   roles: Role[];
   idlogged : number;
-  systemAdmin : boolean;
+  nosystemAdmin : boolean;
+  nohotelAdmin: boolean;
+  noavioAdmin: boolean;
+  nocarAdmin: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private auth: AuthServiceService) { }
 
   ngOnInit() {
     this.token = this.auth.getJwtToken();
-  
+    
     if (!this.token) {
       this.notLogged = true;
+      this.nosystemAdmin = true;
+      this.nohotelAdmin = true;
+      this.noavioAdmin = true;
+      this.nocarAdmin = true;
       console.log('----KORISNIK NIJE ULOGOVAN---');
     } else {
       console.log('----KORISNIK JE ULOGOVAN----');     
       this.logged = true;
       this.userService.getLogged(this.token).subscribe(data => { 
       this.pathToList(data);
-      var currentUser=data as User; 
+      var currentUser=data as User;
       console.log('Token je ');
       console.log(this.token);
       console.log(data);
@@ -50,23 +57,49 @@ export class AppComponent implements OnInit {
     
       pathToList(data)
   {
-    this.user = data as User;
-    enum RoleName {
-        USER,
-        SYSTEM_ADMIN, 
-        AVIO_ADMIN, 
-        HOTEL_ADMIN, 
-        CAR_ADMIN
-    }
+    this.user = data as User;  
     this.roles = this.user.roles;
-    console.log("uloge: ");
-    console.log(this.roles);
+     
     for (var i=0; i<this.roles.length; i++) {
-    if(this.roles[i].name== RoleName.SYSTEM_ADMIN){
+    
+    console.log('ime uloge: ');
+    console.log(this.roles[i].name.toString());
+    
+    if(this.roles[i].name.toString()=== 'SYSTEM_ADMIN'){
+        this.nosystemAdmin = false;
+        this.nohotelAdmin = true;
+        this.noavioAdmin = true;
+        this.nocarAdmin = true;
 
-    this.systemAdmin = true;
-    }else{
-    this.systemAdmin = false;
+    }
+    else if(this.roles[i].name.toString() === 'HOTEL_ADMIN'){
+        this.nohotelAdmin = false;
+        this.nosystemAdmin = true;
+        this.noavioAdmin = true;
+        this.nocarAdmin = true;
+
+    }
+    else if(this.roles[i].name.toString() === 'AVIO_ADMIN'){
+        this.nohotelAdmin = true;
+        this.nosystemAdmin = true;
+        this.noavioAdmin = false;
+        this.nocarAdmin = true;
+
+    }
+   
+    else if(this.roles[i].name.toString() === 'CAR_ADMIN'){
+    this.nohotelAdmin = true;
+    this.nosystemAdmin = true;
+    this.noavioAdmin = true;
+    this.nocarAdmin = false;
+
+    }
+    else{
+    console.log('user je');
+        this.nosystemAdmin = true;
+        this.nohotelAdmin = true;
+        this.noavioAdmin = true;
+        this.nocarAdmin = true;
     }
 }
    
@@ -81,6 +114,10 @@ logOutUser() {
     this.auth.removeJwtToken();
     this.notLogged = true;
     this.logged = false;
+    this.nosystemAdmin = true;
+    this.nohotelAdmin = true;
+    this.noavioAdmin = true;
+    this.nocarAdmin = true;
    
   }
 }

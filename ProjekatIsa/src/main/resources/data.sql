@@ -32,6 +32,16 @@ insert into hotel (name,adress,description,average_rating) values ('Sheraton','B
 insert into hotel (name,adress,description,average_rating) values ('Sheraton','Novi Sad','Tantas recusabo ut pro.',4.1);
 insert into hotel (name,adress,description,average_rating) values ('Biser','Derventa','Cu sit sint ignota, sit id scaevola.',4.5);
 
+insert into additional_service_hotel (name,price) values ('Transfer do aerodorma', 50);
+insert into additional_service_hotel (name,price) values ('Parking', 30);
+insert into additional_service_hotel (name,price) values ('Koristenje bazena', 20);
+insert into additional_service_hotel (name,price) values ('Restoran', 10);
+insert into additional_service_hotel (name,price) values ('Sobni servis', 50);
+insert into additional_service_hotel (name,price) values ('Wellnes', 50);
+insert into additional_service_hotel (name,price) values ('Spa', 30);
+insert into additional_service_hotel (name,price) values ('WiFi', 10);
+insert into additional_service_hotel (name,price) values ('Restoran', 10);
+
 /*insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,1);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,2);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,3);
@@ -49,15 +59,7 @@ insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,14);
 insert into `isa`.`hotel_rooms` (`hotel_id`, `room_id`) VALUES (1,15);*/
 
 
-/*insert into additional_service_hotel (name,price) values ('Transfer do aerodorma', 50);
-insert into additional_service_hotel (name,price) values ('Parking', 30);
-insert into additional_service_hotel (name,price) values ('Koristenje bazena', 20);
-insert into additional_service_hotel (name,price) values ('Restoran', 10);
-insert into additional_service_hotel (name,price) values ('Sobni servis', 50);
-insert into additional_service_hotel (name,price) values ('Wellnes', 50);
-insert into additional_service_hotel (name,price) values ('Spa', 30);
-insert into additional_service_hotel (name,price) values ('WiFi', 10);
-insert into additional_service_hotel (name,price) values ('Restoran', 10);
+/*
 
 insert into hotel_additional_service(hotel_id,additional_service_id) values (1,1);
 insert into hotel_additional_service(hotel_id,additional_service_id) values (1,2);
@@ -97,6 +99,12 @@ insert into destination(name, country) values ('New Delhi', 'Indija');
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (2,'Admin','Admin','admin@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (3,'Admin','Admin','avioadmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (4,'Admin','Admin','hoteladmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (5,'Admin','Admin','caradmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
 insert into role (id,name) values (1,'USER');
@@ -111,7 +119,12 @@ INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
 
 --sistemski administrator je Admin Admin admin@gmail.com 
 INSERT INTO user_roles(user_id, role_id) VALUES(2,2);
-
+--hotel admin je hoteladmin@gmail.com
+INSERT INTO user_roles(user_id, role_id) VALUES(3,3);
+--avio admin je avioadmin@gmail.com
+INSERT INTO user_roles(user_id, role_id) VALUES(4,4);
+--car admin je caradmin@gmail.com
+INSERT INTO user_roles(user_id, role_id) VALUES(5,5);
 
 insert into myrole (id,name) values (1,'registrationAgent');
 insert into myrole (id,name) values (2,'login');
@@ -129,6 +142,13 @@ insert into myrole (id,name) values (9,'addAvioAdmin');
 insert into myrole (id,name) values (10,'addHotelAdmin');
 insert into myrole (id,name) values (11,'addCarAdmin');
 
+--privilegije hotel admina
+insert into myrole (id,name) values (12,'addRoom');
+insert into myrole (id,name) values (13,'addService');
+insert into myrole (id,name) values (14,'getAdditionalServices');
+insert into myrole (id,name) values (15,'changeHotel');
+insert into myrole (id,name) values (16,'deleteHotel');
+
 insert into roles_privileges(role_id,privilege_id) values (2,5);
 insert into roles_privileges(role_id,privilege_id) values (2,6);
 insert into roles_privileges(role_id,privilege_id) values (2,7);
@@ -137,6 +157,14 @@ insert into roles_privileges(role_id,privilege_id) values (2,9);
 insert into roles_privileges(role_id,privilege_id) values (2,10);
 insert into roles_privileges(role_id,privilege_id) values (2,11);
 insert into roles_privileges(role_id,privilege_id) values (1,2);
+
+--hotel admin
+insert into roles_privileges(role_id,privilege_id) values (4,7);
+insert into roles_privileges(role_id,privilege_id) values (4,12);
+insert into roles_privileges(role_id,privilege_id) values (4,13);
+insert into roles_privileges(role_id,privilege_id) values (4,14);
+insert into roles_privileges(role_id,privilege_id) values (4,15);
+insert into roles_privileges(role_id,privilege_id) values (4,16);
 
 
 

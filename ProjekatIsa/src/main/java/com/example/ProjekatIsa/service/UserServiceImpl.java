@@ -85,26 +85,15 @@ public class UserServiceImpl implements UserService {
 
 
 
-	/*@Override
-	public User update(User old_user, User new_user) {
+	@Override
+	public User update( User new_user) {
 		// TODO Auto-generated method stub
-		if( new_user.getFirstName() != null){
-			old_user.setFirstName(new_user.getFirstName());
-		}
-		if(new_user.getPhoneNumber() != null){
-			old_user.setPhoneNumber(new_user.getPhoneNumber());
-		}
-		if(new_user.getLastName() != null){
-			old_user.setLastName(new_user.getLastName());
-		}
-		if(new_user.getCity() != null){
-			old_user.setCity(new_user.getCity());
-		}
+	
 		
 		
 
-		return userRepository.save(old_user);
-	}*/
+		return userRepository.save(new_user);
+	}
 
 
 	@Override

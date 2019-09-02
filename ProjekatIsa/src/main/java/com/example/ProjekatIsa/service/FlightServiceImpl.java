@@ -46,9 +46,9 @@ public class FlightServiceImpl implements FlightService {
 	    }
 
 	    @Override
-	    public Flight updateFlight(FlightDTO flightDto) {
+	    public Flight updateFlight(Flight flightDto) {
 
-	    	   Flight flight = this.flightRepository.getOne(flightDto.getId());
+	    	   this.flightRepository.save(flightDto);
 	    	
 	 /*       Aviocompany airline = this.avioService.getAirlineById(flightDto.getAirlineId());
 
@@ -80,7 +80,7 @@ public class FlightServiceImpl implements FlightService {
 	        this.flightDestinationService.deleteAndAddNewFlightDestinationsByFlight(flight.getId(), flightDestinations);     //brise stare veze
 
 */
-	        return flight;
+	        return flightDto;
 	    }
 
 	    @Override

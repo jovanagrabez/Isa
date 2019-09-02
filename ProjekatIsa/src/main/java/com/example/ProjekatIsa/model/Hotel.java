@@ -15,6 +15,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.AviocompanyDTO;
+import com.example.ProjekatIsa.DTO.HotelDTO;
+
 @Entity
 @Table(name = "hotel")
 public class Hotel implements Serializable{
@@ -31,7 +34,7 @@ public class Hotel implements Serializable{
     private String name;
 
 	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
-    private String adress;
+    private String address;
 	
 	@Column(name = "description", nullable = false, columnDefinition="VARCHAR(50)")
     private String description;
@@ -92,12 +95,12 @@ public class Hotel implements Serializable{
 		this.name = name;
 	}
 
-	public String getAdress() {
-		return adress;
+	public String getAddress() {
+		return address;
 	}
 
 	public void setAdress(String adress) {
-		this.adress = adress;
+		this.address = adress;
 	}
 
 	public String getDescription() {
@@ -120,13 +123,20 @@ public class Hotel implements Serializable{
 		super();
 	}
 
-	public Hotel(Long id, String name, String adress, String description, Double average_rating) {
+	public Hotel(Long id, String name, String address, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.adress = adress;
+		this.address = address;
 		this.description = description;
 		this.average_rating = average_rating;
+	}
+	public Hotel(HotelDTO h) {
+		 setId(h.getId());
+	     setName(h.getName());
+	     setDescription(h.getDescription());
+	     setAdress(h.getAddress());
+		
 	}
 
 	
