@@ -1,3 +1,43 @@
-<p>
-  rentacar-details works!
-</p>
+<div class="fh5co-hero">
+	<div class="fh5co-overlay"></div>
+	<div class="fh5co-cover"data-stellar-background-ratio="0.5"
+		style="background-image: url(assets/images/pic.png);"
+		>			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>{{currentRentACar.name}}</h3>
+						<p>{{currentRentACar.description}}</p>
+					</div>
+				</div>
+				
+				<div class="row row-bottom-padded-md" >
+					<div *ngFor="let c of car">
+						<div >
+							<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+								<div class="hotel-box">
+								<img src="assets/images/box.png"  width="400" height="300">
+									<div class="desc">
+										<span></span>
+										<h3>Vozilo: </h3>
+										<span>{{c.name}}</span>
+										<span class="price">Cena vozila: {{c.price}}‚<b></b>po danu</span>
+										
+										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h4>Sadržaji</h4>
+						<p>Pretražite sve dodatne sadrzaje koje Vam nudi "{{currentRentACar.name}}"</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		</div>

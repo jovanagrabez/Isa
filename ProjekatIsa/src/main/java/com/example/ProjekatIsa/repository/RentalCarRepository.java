@@ -8,5 +8,7 @@ import com.example.ProjekatIsa.model.RentACar;
 
 public interface RentalCarRepository extends JpaRepository<RentACar, Long> {
 	List<RentACar> findAll();
+	RentACar findOneById(Long id);
+ 
 
 }

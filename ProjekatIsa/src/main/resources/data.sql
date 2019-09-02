@@ -149,6 +149,9 @@ insert into myrole (id,name) values (14,'getAdditionalServices');
 insert into myrole (id,name) values (15,'changeHotel');
 insert into myrole (id,name) values (16,'deleteHotel');
 
+--privilegije car admina
+insert into myrole (id,name) values (17,'addCar');
+
 insert into roles_privileges(role_id,privilege_id) values (2,5);
 insert into roles_privileges(role_id,privilege_id) values (2,6);
 insert into roles_privileges(role_id,privilege_id) values (2,7);
@@ -166,20 +169,23 @@ insert into roles_privileges(role_id,privilege_id) values (4,14);
 insert into roles_privileges(role_id,privilege_id) values (4,15);
 insert into roles_privileges(role_id,privilege_id) values (4,16);
 
+--car admin
+insert into roles_privileges(role_id,privilege_id) values (5,17);
 
 
 
-/*insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Beograd','adjiaisdj',4.2);
+
+insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Beograd','adjiaisdj',4.2);
 insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Beograd','bla bla bla',3.9);
 insert into rentalcars (name,adress,description,average_rating) values ('EuropeCar','Beograd','cccc',4.8);
 insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Najpovoljnije usluge',4.6);
 insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','luux',3.3);
-*/
-insert into car (car_name,car_number,car_price) values ('BMW',1,500);
-insert into car (car_name,car_number,car_price) values ('Audi',2,450);
-insert into car (car_name,car_number,car_price) values ('Peugeot',5,300);
-insert into car (car_name,car_number,car_price) values ('Mercedes-Benz',7,550);
-insert into car (car_name,car_number,car_price) values ('Fiat',4,350);
+
+insert into car (car_name,car_number,car_price,rent_cars) values ('BMW',1,500,1);
+insert into car (car_name,car_number,car_price,rent_cars) values ('Audi',2,450,1);
+insert into car (car_name,car_number,car_price,rent_cars) values ('Peugeot',5,300,2);
+insert into car (car_name,car_number,car_price,rent_cars) values ('Mercedes-Benz',7,550,3);
+insert into car (car_name,car_number,car_price,rent_cars) values ('Fiat',4,350,4);
 
 insert into flight(take_off,landing, time, travel_time,number,seat) values ('lalal','lalala','bnbnb','jdjj',2,true);
 insert into flight(take_off,landing, time, travel_time,number,seat) values ('fkijgdf','fdfd','bnbfdfnb','jdggjj',3,true);

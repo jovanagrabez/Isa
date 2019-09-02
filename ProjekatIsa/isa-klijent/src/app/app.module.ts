@@ -38,6 +38,8 @@ import { AddAviocompanyComponent } from './aviocompany/add-aviocompany/add-avioc
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component';
 import { DestinationComponent } from './aviocompany/destination/destination.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
+import { AddCarsComponent } from './add-cars/add-cars.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,8 @@ import { AddHotelComponent } from './add-hotel/add-hotel.component';
     AddAviocompanyComponent,
     ConfirmRegistrationComponent,
     DestinationComponent,
-    AddHotelComponent
+    AddHotelComponent,
+    AddCarsComponent
     
    
   ],

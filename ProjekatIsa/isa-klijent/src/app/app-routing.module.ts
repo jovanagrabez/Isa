@@ -13,6 +13,8 @@ import {AddAviocompanyComponent} from './aviocompany/add-aviocompany/add-aviocom
 import { ConfirmRegistrationComponent } from './confirm-registration/confirm-registration.component'
 import {DestinationComponent} from './aviocompany/destination/destination.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
+import { AddCarsComponent } from './add-cars/add-cars.component';
+
 
 
 const routes: Routes = [
@@ -84,6 +86,11 @@ const routes: Routes = [
   {
     path: 'addHotel',
     component : AddHotelComponent
+  },
+
+  {
+    path: 'addCar',
+    component : AddCarsComponent
   }
 
 

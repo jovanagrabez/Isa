@@ -5,7 +5,7 @@ import { ViewHotelsService } from '../services/view-hotels.service';
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
-import { User } from '../models/user';
+import { User } from '../models/User';
 
 
 @Component({
