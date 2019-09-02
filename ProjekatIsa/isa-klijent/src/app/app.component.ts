@@ -59,7 +59,7 @@ export class AppComponent implements OnInit {
   {
     this.user = data as User;  
     this.roles = this.user.roles;
-    
+     
     for (var i=0; i<this.roles.length; i++) {
     
     console.log('ime uloge: ');
