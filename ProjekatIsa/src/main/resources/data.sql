@@ -219,7 +219,10 @@ insert into flight_destination(flight_id, destination_id) values (2,3);
 insert into flight_destination(flight_id, destination_id) values (2,4);
 
 
-
+insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (1,true,3,1);
+insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (2,true,3,2);
+insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (3,false,3,4);
+insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (4,false,3,5);
 
 
 
