@@ -44,7 +44,8 @@ public class Car implements Serializable {
 	@JoinColumn(name="rent_cars")
 	private RentACar rentalcars;
 	
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Filijale filijale;
 	
 	public String getName() {
 		return name;

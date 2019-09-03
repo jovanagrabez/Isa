@@ -51,9 +51,9 @@ public class RentACar implements Serializable {
 	@JoinTable(name = "car_price", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
 	private Set<Car> price;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "filijale", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "filijale_id"))   
-	private Set<Car> filijale;
+	@OneToMany(mappedBy = "rentACar",fetch = FetchType.EAGER)
+	private Set<Filijale> filijale; 
+	
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "rent_rating_car", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
@@ -81,11 +81,11 @@ public class RentACar implements Serializable {
 		this.price = price;
 	}
 
-	public Set<Car> getFilijale() {
+	public Set<Filijale> getFilijale() {
 		return filijale;
 	}
 
-	public void setFilijale(Set<Car> filijale) {
+	public void setFilijale(Set<Filijale> filijale) {
 		this.filijale = filijale;
 	}
 
