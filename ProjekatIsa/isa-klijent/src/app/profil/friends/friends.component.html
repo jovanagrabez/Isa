@@ -1,0 +1,79 @@
+<div >
+  <button style="margin-left: 85%" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add friends</button>
+  <div class="container">
+    <div class="row">
+      <div class="offset-3"></div>
+      <div class="col-md-6">
+
+      <label>SEARCH</label>
+      <div class="row">
+        <input class="col-sm-6 ng-value-label" type="text" placeholder="Search for users" [(ngModel)]="friendsSearch">
+        <button class="btn btn-outline-primary" (click)="search()">Search</button>
+      </div>
+      <div class="list-group">
+        <a *ngFor="let u of usersWhoAreNotFriends; index as i" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{u.firstName}} {{u.lastName}}</h5>
+            <!--<small>{{airline.name}}</small>-->
+          </div>
+          <br>
+          <div class="pull-right">
+            <button class="btn btn-outline-primary" (click)="addFriend(u, i)">Add friend</button>
+          </div>
+        </a>
+      </div>    </div>
+  </div>
+
+  <div *ngIf="friendRequests?.length && !userTwo > 0">
+    <label class="display-4">Friend requests</label>
+    <div class="list-group">
+      <a *ngFor="let req of friendRequests; index as i" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{req['user2']['firstName']}} {{req['user2']['lastName']}} {{req['user2']['username']}}</h5>
+          <!--<small>{{airline.name}}</small>-->
+        </div>
+        <br>
+        <div class="pull-right">
+          <button class="btn btn-outline-primary" (click)="acceptRequest(req, i)">Accept</button>
+          <button class="btn btn-outline-primary" (click)="deleteRequest(req, i)">Delete</button>
+        </div>
+      </a>
+    </div>
+    <hr>
+  </div>
+
+    <div *ngIf="friendRequests?.length && userTwo > 0">
+      <label class="display-4">Friend requests</label>
+      <div class="list-group">
+        <a *ngFor="let req of friendRequests; index as i" class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">{{req['user1']['firstName']}} {{req['user1']['lastName']}} {{req['user1']['username']}}</h5>
+            <!--<small>{{airline.name}}</small>-->
+          </div>
+          <br>
+          <div class="pull-right">
+            <button class="btn btn-outline-primary" (click)="acceptRequest(req, i)">Accept</button>
+            <button class="btn btn-outline-primary" (click)="deleteRequest(req, i)">Delete</button>
+          </div>
+        </a>
+      </div>
+      <hr>
+    </div>
+  <div>
+    <label class="display-4">Friends</label>
+    <div class="list-group">
+      <a *ngFor="let f of friends" class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1">{{f['firstName']}} {{f['lastName']}} {{f['username']}}</h5>
+          <!--<small>{{airline.name}}</small>-->
+        </div>
+        <br>
+        <div class="pull-right">
+          <button class="btn btn-outline-primary" (click)="deleteFriendship(f)">Delete friend</button>
+        </div>
+      </a>
+    </div>
+  </div>
+  <label *ngIf="friends?.length < 1">You have not added any friends</label>
+</div>
+</div>

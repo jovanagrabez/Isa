@@ -15,6 +15,7 @@ import {DestinationComponent} from './aviocompany/destination/destination.compon
 import {ProfilComponent} from './profil/profil.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { AddCarsComponent } from './add-cars/add-cars.component';
+import {FriendsComponent} from './profil/friends/friends.component';
 
 
 
@@ -97,6 +98,10 @@ const routes: Routes = [
   {
     path: 'profile',
     component : ProfilComponent
+  },
+  {
+    path: 'friends',
+    component : FriendsComponent
   }
 
 

@@ -18,7 +18,7 @@ export class ProfilComponent implements OnInit {
 
   constructor(private appCom: AppComponent, private userService: UserService) {
 
-  this.user = {firstName: '', lastName: '', password: '', email: ''};
+  this.user = {firstName: '', lastName: '', password: '', email: '', phoneNumber: '', city: ''};
   }
 
   ngOnInit() {

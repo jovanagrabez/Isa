@@ -1,119 +1,119 @@
-<div class="container">
-  <div class="row">
-    <div class="offset-3"></div>
-    <div class="col-md-6">
-      <form name="registerForm" #f="ngForm" (ngSubmit)="save()"  class="form-signin" >
+<body>
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
 
-        <h2 >User info</h2>
-        <!-- Email -->
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text"
-                 id="firstName"
-                 class="form-control"
-                 name="firstName" #name="ngModel"
-                 required
-                  [(ngModel)]="user.firstName" />
+  <div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
 
-
-        </div>
-
-        <div class="form-group">
-          <label for="lastName">Last name</label>
-          <input type="text"
-                 id="lastName"
-                 class="form-control"
-                 name="lastName" #lastName="ngModel"
-                 [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required
-                 placeholder="Your last name" [(ngModel)]="user.lastName" />
-          <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
-            <div *ngIf="lastName.errors.required">Last name is required</div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="text"
-                 id="email"
-                 class="form-control"
-                 name="email" #email="ngModel"
-                 [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required
-                 placeholder="Your email" [(ngModel)]="user.email" />
-          <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
-            <div *ngIf="email.errors.required">Email is required</div>
-          </div>
-        </div>
-        <div >
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password"
-                   id="password1"
-                   class="form-control"
-                   name="password1" readonly="true"
-                   placeholder="Your password" [(ngModel)]="user.password" />
-            <button class="btn btn-outline-primary pull-right" (click)="showChangePassword()">Change password</button>
-          </div>
-        </div>
-
-
-        <!--<div class="form-group">-->
-          <!--<label for="city">City</label>-->
-          <!--<input type="text"-->
-                 <!--id="city"-->
-                 <!--class="form-control"-->
-                 <!--name="city"-->
-                 <!--placeholder="City" [(ngModel)]="user.city" />-->
-        <!--</div>-->
-
-        <!--<div class="form-group">-->
-          <!--<label for="number">Number</label>-->
-          <!--<input type="text"-->
-                 <!--id="number"-->
-                 <!--class="form-control"-->
-                 <!--name="number"-->
-                 <!--placeholder="Your number" [(ngModel)]="user.number" />-->
-        <!--</div>-->
-
-
-        <button type="submit"  class="btn btn-primary pull-right">
-          <i class="fa fa-user-o"></i>
-          <span> Save</span>
-        </button>
-      </form>
-
-      <div *ngIf="changePassword === true">
-
-        <div class="form-group">
-          <label for="password">Old password</label>
-          <input type="password"
-                 id="oldPassword"
-                 class="form-control"
-                 name="password"
-                 placeholder="Old password" [(ngModel)]="oldPassword" />
-        </div>
-
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password"
-                 id="password"
-                 class="form-control"
-                 name="password"
-                 placeholder="New password" [(ngModel)]="newPassword" />
-        </div>
-
-        <div class="form-group">
-          <label for="repeatPassword">Repeat password</label>
-          <input type="password"
-                 id="repeatPassword"
-                 class="form-control"
-                 name="password"
-                 placeholder="Repeat your password" [(ngModel)]="confirmPassword" />
-        </div>
-        <button class="btn btn-outline-primary pull-right" (click)="cancelPasswordChange()">Cancel</button>
-        <button class="btn btn-outline-primary pull-right" (click)="passwordChanged()">Change password</button>
-      </div>
-    <!--</div>-->
-    </div>
-    <div class="offset-3"></div>
+  <div class="novo">
+    <img src="assets/images/user1.png" width="350px">
   </div>
+    <div class="login-page" >
+
+
+
+      <div class="form">
+
+        <form  class="registration" (submit)="save()" method="POST">
+          <input type="text" [(ngModel)] = "user.firstName" #firstName= "ngModel" name="firstName" class="form-control"  data-validation="required" #userName placeholder = "Ime">
+          <span id="error_userName" class="text-danger"></span>
+          <input type="text" id="userlastName" [(ngModel)] = "user.lastName" name="lastName" #lastName="ngModel" class="form-control" data-validation="required" #userlastName placeholder = "Prezime">
+          <span id="error_userlastName" class="text-danger"></span>
+          <input type="text" id="email" name="email" [(ngModel)] = "user.email" #email="ngModel" class="form-control" data-validation="required" #userUserName placeholder="E-mail adresa">
+          <div class="alert alert-danger" *ngIf="!email.valid && email.touched"> Email is required! </div>
+          <span id="error_userUserName" class="text-danger"></span>
+
+          <input id="password"  [(ngModel)]="user.password" name="password" #password="ngModel"  class="form-control" type="password" data-validation="required" #userPassword placeholder="Lozinka">
+          <span id="error_userPassword1" class="text-danger"></span>
+          <div class="alert alert-danger" *ngIf="password.required==false && password.touched"> Password is required! </div>
+
+          <span id="error_userPassword" class="text-danger"></span>
+
+
+
+          <input id="userPhoneNumber" [(ngModel)]="user.phoneNumber" #phoneNumber="ngModel" name="phoneNumber" class="form-control" type="text" data-validation="required" #userPhoneNumber placeholder="Broj telefona"/>
+          <span id="error_userPhoneNumber" class="text-danger"></span>
+          <input id="userCity" [(ngModel)]="user.city" #city="ngModel" name="city" class="form-control" type="text" data-validation="required" #userCity placeholder="Grad stanovanja"/>
+          <span id="error_userCity" class="text-danger"></span>
+
+
+          <button type="submit" id="submit" class="btn btn-primary">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
 </div>
+
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+
+  <div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
+
+
+        <h3>Prijatelji</h3>
+    <div class="container1">
+        <app-friends></app-friends>
+    </div>
+  </div>
+
+</div>
+
+
+</body>
+
+
+<!--<button type="submit"  class="btn btn-primary pull-right">-->
+          <!--<i class="fa fa-user-o"></i>-->
+          <!--<span> Save</span>-->
+        <!--</button>-->
+
+        <!--<button class="btn btn-outline-primary pull-right" (click)="showChangePassword()">Change password</button>-->
+
+
+        <!--<button ><a href="friends">Prijatelji</a></button>-->
+      <!--</form>-->
+
+      <!--<div *ngIf="changePassword === true">-->
+
+        <!--<div class="form-group">-->
+          <!--<label for="password">Old password</label>-->
+          <!--<input type="password"-->
+                 <!--id="oldPassword"-->
+                 <!--class="form-control"-->
+                 <!--name="password"-->
+                 <!--placeholder="Old password" [(ngModel)]="oldPassword" />-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+          <!--<label for="password">Password</label>-->
+          <!--<input type="password"-->
+                 <!--id="password"-->
+                 <!--class="form-control"-->
+                 <!--name="password"-->
+                 <!--placeholder="New password" [(ngModel)]="newPassword" />-->
+        <!--</div>-->
+
+        <!--<div class="form-group">-->
+          <!--<label for="repeatPassword">Repeat password</label>-->
+          <!--<input type="password"-->
+                 <!--id="repeatPassword"-->
+                 <!--class="form-control"-->
+                 <!--name="password"-->
+                 <!--placeholder="Repeat your password" [(ngModel)]="confirmPassword" />-->
+        <!--</div>-->
+        <!--<button class="btn btn-outline-primary pull-right" (click)="cancelPasswordChange()">Cancel</button>-->
+        <!--<button class="btn btn-outline-primary pull-right" (click)="passwordChanged()">Change password</button>-->
+      <!--</div>-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--</div>-->
+    <!--<div class="offset-3"></div>-->
+  <!--</div>-->
+
+      <!--</div>-->
+    <!--</div>-->
+
+
+  <!--</div>-->
+<!--</div>-->
+
+
