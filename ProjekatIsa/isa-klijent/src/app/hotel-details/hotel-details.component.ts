@@ -27,9 +27,14 @@ export class HotelDetailsComponent implements OnInit {
     nohotelAdmin : boolean;
     newHotel : Hotel = new Hotel();
     newRoom : Room = new Room();
+    newRoom2 : Room = new Room();
+    changeRoom : Room = new Room();
     newService : AdditionalServiceForHotel = new AdditionalServiceForHotel();
+    newService2 : AdditionalServiceForHotel = new AdditionalServiceForHotel();
+
     rooms : Room[];
     services : AdditionalServiceForHotel[];
+    changeService : AdditionalServiceForHotel = new AdditionalServiceForHotel();
 
     constructor(private router: Router, private viewHotelsService : ViewHotelsService,
             private hotelService : HotelServiceService,private ngZone : NgZone, private modalService: NgbModal) { }
@@ -129,6 +134,8 @@ export class HotelDetailsComponent implements OnInit {
              alert("Morate uneti prosecnu cenu sobe");
          }else if( newRoom.room_description==null){
              alert("Morate uneti opis sobe");
+         }else if( newRoom.capacity==null){
+             alert("Morate uneti kapacitet sobe");
          }else{
              this.hotelService.addRoom(newRoom, this.currentHotel.id).subscribe(data=>{
                  alert("Uspjesno dodana soba!");
@@ -136,5 +143,65 @@ export class HotelDetailsComponent implements OnInit {
              });
              document.getElementById('addRoomDiv').setAttribute("hidden", "true");  
          }
+      };
+      
+      //funkcije za upravljanje servisima
+      deleteServiceClick(s) {
+          if (confirm("Da li ste sigurni da zelite da obrisete hotel?")){
+              this.hotelService.deleteService(s, this.currentHotel.id).subscribe(data=>{
+                  alert("Uspjesno obrisan servis iz hotela!");
+                  window.location.href = 'http://localhost:4200/hotels';
+              });
+              
+          }else{
+          }
+          
+      };
+      changeServiceClick(s){
+          this.changeService = s;
+          document.getElementById('changeServiceDiv').removeAttribute('hidden');
+
+      };
+      finalChangeServiceClick(newService2) {
+          
+          console.log(newService2);
+          this.hotelService.changeService(newService2, this.changeService.id).subscribe(data=>{
+              document.getElementById('changeServiceDiv').setAttribute("hidden", "true");
+              alert("uspjesno");
+          });
+          window.location.href = 'http://localhost:4200/hotels';
+      };
+      discardChangeServiceClick(){
+          document.getElementById('changeServiceDiv').setAttribute("hidden", "true");  
+      };
+      
+      //rad sa sobama
+      changeRoomClick(r){
+          this.changeRoom = r;
+          document.getElementById('changeRoomDiv').removeAttribute('hidden');
+
+      };
+      deleteRoomClick(r) {
+          if (confirm("Da li ste sigurni da zelite da obrisete hotel?")){
+              this.hotelService.deleteRoom(r, this.currentHotel.id).subscribe(data=>{
+                  alert("Uspjesno obrisana soba iz hotela!");
+                  window.location.href = 'http://localhost:4200/hotels';
+              });
+              
+          }else{
+          }
+          
+      };
+      finalChangeRoomClick(newRoom2) {
+          
+          console.log(newRoom2);
+          this.hotelService.changeRoom(newRoom2, this.changeRoom.id).subscribe(data=>{
+              document.getElementById('changeRoomDiv').setAttribute("hidden", "true");
+              alert("uspjesno");
+          });
+          window.location.href = 'http://localhost:4200/hotels';
+      };
+      discardChangeRoomClick(){
+          document.getElementById('changeRoomDiv').setAttribute("hidden", "true");  
       };
 }

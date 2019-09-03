@@ -41,4 +41,19 @@ export class HotelServiceService {
       return this.http.post('http://localhost:8080/hotels/addRoom/'+id,newRoom,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
   }
+  deleteService(service: AdditionalServiceForHotel, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/hotels/deleteService/'+id,service,{headers: this.auth.createAuthorizationTokenHeader()}); 
+
+  }
+  changeService(service: AdditionalServiceForHotel, id: number) : Observable<any> {
+      return this.http.post('http://localhost:8080/hotels/changeService/'+id,service,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  deleteRoom(room: Room, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/hotels/deleteRoom/'+id,room,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  
+  changeRoom(room: Room, id: number) : Observable<any> {
+      return this.http.post('http://localhost:8080/hotels/changeRoom/'+id,room,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  
 }

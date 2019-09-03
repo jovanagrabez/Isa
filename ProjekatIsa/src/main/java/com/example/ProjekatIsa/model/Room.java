@@ -31,11 +31,14 @@ public class Room implements Serializable{
     @Column(name = "room_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "room_number", nullable = false, updatable = false)
+	@Column(name = "room_number", nullable = false)
 	private int number;
 
-	@Column(name = "room_price", nullable = false, updatable = false)
+	@Column(name = "room_price", nullable = false)
 	private int price;
+	
+	@Column(name = "capacity", nullable = false)
+	private Double capacity;
 	
 	@Column(name = "room_description", nullable = false, columnDefinition="VARCHAR(50)")
 	private String room_description;
@@ -122,6 +125,7 @@ public class Room implements Serializable{
 		setPrice(r.getPrice());
 		setRoom_description(r.getRoom_description());
 		setRoom_average_rating(r.getRoom_average_rating());
+		setCapacity(r.getCapacity());
 	}
 	
 	public Hotel getHotel() {
@@ -138,6 +142,14 @@ public class Room implements Serializable{
 
 	public void setPricing(List<Pricing> pricing) {
 		this.pricing = pricing;
+	}
+
+	public Double getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Double capacity) {
+		this.capacity = capacity;
 	}
 	
 	

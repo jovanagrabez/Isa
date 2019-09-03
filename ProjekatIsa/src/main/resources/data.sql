@@ -5,21 +5,21 @@ delete from roles_privileges;
 
 
 
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (1,50,'Jednokrevetna',4.1,1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (2,50,'Dvokrevetna',4.2,1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (3,50,'Jednokrevetna',4.4,1);
-insert into room (room_number,room_price,room_description,hotel_id) values (4,50,'Dvokrevetna',1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (5,50,'Dvokrevetna',4.6,1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (11,100,'Jednokrevetna',4.7,1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (12,100,'Dvokrevetna',3.9,1);
-insert into room (room_number,room_price,room_description,hotel_id) values (13,100,'Dvokrevetna',1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (14,100,'Trokrevetna',4.4,1);
-insert into room (room_number,room_price,room_description,hotel_id) values (15,100,'Trokrevetna',1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (21,200,'Trokrevetna',4.9,1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (22,200,'Trokrevetna',5.0,1);
-insert into room (room_number,room_price,room_description,hotel_id) values (23,200,'Apartman',1);
-insert into room (room_number,room_price,room_description,room_average_rating,hotel_id) values (24,200,'Apartman',4.8,1);
-insert into room (room_number,room_price,room_description,hotel_id) values (25,200,'Apartman',1);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (1,50,1,'Jednokrevetna',4.1,1);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (2,50,1,'Dvokrevetna',4.2,1);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (3,50,2,'Jednokrevetna',4.4,2);
+insert into room (room_number,room_price,capacity,room_description,hotel_id) values (4,50,2,'Dvokrevetna',2);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (5,50,3,'Dvokrevetna',4.6,2);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (11,100,1,'Jednokrevetna',4.7,2);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (12,100,3,'Dvokrevetna',3.9,2);
+insert into room (room_number,room_price,capacity,room_description,hotel_id) values (13,100,2,'Dvokrevetna',1);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (14,100,3,'Trokrevetna',4.4,2);
+insert into room (room_number,room_price,capacity,room_description,hotel_id) values (15,100,5,'Trokrevetna',1);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (21,200,4,'Trokrevetna',4.9,2);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (22,200,3,'Trokrevetna',5.0,2);
+insert into room (room_number,room_price,capacity,room_description,hotel_id) values (23,200,7,'Apartman',2);
+insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (24,200,6,'Apartman',4.8,1);
+insert into room (room_number,room_price,capacity,room_description,hotel_id) values (25,200,5,'Apartman',1);
 
 insert into hotel (name,adress,description,average_rating) values ('Vojvodina','Novi Sad','U samom centru grada. Stara arhitektura',4.3);
 insert into hotel (name,adress,description,average_rating) values ('Grand hotel','Novi Sad','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
@@ -131,6 +131,12 @@ insert into myrole (id,name) values (13,'addService');
 insert into myrole (id,name) values (14,'getAdditionalServices');
 insert into myrole (id,name) values (15,'changeHotel');
 insert into myrole (id,name) values (16,'deleteHotel');
+insert into myrole (id,name) values (18,'deleteRoom');
+insert into myrole (id,name) values (19,'changeRoom');
+insert into myrole (id,name) values (20,'deleteService');
+insert into myrole (id,name) values (21,'changeService');
+
+
 
 --privilegije car admina
 insert into myrole (id,name) values (17,'addCar');
@@ -151,6 +157,10 @@ insert into roles_privileges(role_id,privilege_id) values (4,13);
 insert into roles_privileges(role_id,privilege_id) values (4,14);
 insert into roles_privileges(role_id,privilege_id) values (4,15);
 insert into roles_privileges(role_id,privilege_id) values (4,16);
+insert into roles_privileges(role_id,privilege_id) values (4,18);
+insert into roles_privileges(role_id,privilege_id) values (4,19);
+insert into roles_privileges(role_id,privilege_id) values (4,20);
+insert into roles_privileges(role_id,privilege_id) values (4,21);
 
 --car admin
 insert into roles_privileges(role_id,privilege_id) values (5,17);

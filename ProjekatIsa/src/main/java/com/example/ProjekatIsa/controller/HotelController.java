@@ -214,5 +214,18 @@ public class HotelController {
 		}
 		
 	}
+	//dovrsiti
+	@PreAuthorize("hasAuthority('deleteService')")
+	@RequestMapping(value="/deleteService/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> deleteService(@RequestBody AdditionalServiceForHotel add,
+										@PathVariable("id") Long id){
+		System.out.println("Dosao u change hotel");
+		
+		Hotel h = hotelRepository.findOneById(id);
+		
+	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		
+	}
 	
 }
