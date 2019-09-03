@@ -10,9 +10,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "filijale")
@@ -36,8 +39,10 @@ public class Filijale implements Serializable {
 	private String adresa;
 	
 	@ManyToOne( fetch = FetchType.EAGER)
-	private RentACar rentACar;
+	@JoinColumn(name="rentacar_id")
+	private RentACar rentalcars;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="filijale",fetch = FetchType.LAZY,orphanRemoval = true)
 	private Set<Car> cars;
 
@@ -59,7 +64,7 @@ public class Filijale implements Serializable {
 		this.grad = grad;
 		this.drzava = drzava;
 		this.adresa = adresa;
-		this.rentACar = rentACar;
+		this.rentalcars = rentACar;
 	}
 
 	public Filijale() {
@@ -91,11 +96,11 @@ public class Filijale implements Serializable {
 	}
 
 	public RentACar getRentACar() {
-		return rentACar;
+		return rentalcars;
 	}
 
 	public void setRentACar(RentACar rentACar) {
-		this.rentACar = rentACar;
+		this.rentalcars = rentACar;
 	}
 
 	public Set<Car> getCars() {

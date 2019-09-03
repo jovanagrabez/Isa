@@ -17,7 +17,7 @@ import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { AddCarsComponent } from './add-cars/add-cars.component';
 import {FriendsComponent} from './profil/friends/friends.component';
 import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
-
+import { FilCarsComponent } from './fil-cars/fil-cars.component';
 
 
 const routes: Routes = [
@@ -108,6 +108,10 @@ const routes: Routes = [
   {
     path: 'friends',
     component : FriendsComponent
+  },
+  {
+    path: 'fil-cars',
+    component : FilCarsComponent
   }
 
 

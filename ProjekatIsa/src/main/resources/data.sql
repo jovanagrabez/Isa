@@ -181,11 +181,60 @@ insert into rentalcars (name,adress,description,average_rating) values ('EuropeC
 insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Najpovoljnije usluge',4.6);
 insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','luux',3.3);
 
-insert into car (car_name,car_number,car_price,rent_cars) values ('BMW',1,500,1);
-insert into car (car_name,car_number,car_price,rent_cars) values ('Audi',2,450,1);
-insert into car (car_name,car_number,car_price,rent_cars) values ('Peugeot',5,300,2);
-insert into car (car_name,car_number,car_price,rent_cars) values ('Mercedes-Benz',7,550,3);
-insert into car (car_name,car_number,car_price,rent_cars) values ('Fiat',4,350,4);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('BMW',1,500,4.1,'2011',1,4);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Audi',2,450,3.9,'2008',1,4);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Audi3',555-212,450,3.9,'2008',2,4);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('BMW5',2,450,3.9,'2008',2,4);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Peugeot',5,3.3,300,'2006',3,3);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Mercedes-Benz',7,550,3.8,'2009',3,4);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat',4,350,3.1,'2004',4,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Mazda',4,350,3.1,'2004',4,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Citroen',4,350,3.1,'2004',5,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Jeep',4,350,3.1,'2004',5,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Golf',4,350,3.1,'2004',6,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat',4,350,3.1,'2004',6,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Passat',4,350,3.1,'2004',7,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Renault',4,350,3.1,'2004',7,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat 500',4,350,3.1,'2004',8,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Nissan',4,350,3.1,'2004',8,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('MiniCooper',4,350,3.1,'2004',9,2);
+insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat',4,350,3.1,'2004',9,2);
+
+
+
+
+
+
+
+
+
+--filijale za carflexi
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(1,'Srbija','Beograd','Tekelijina 53',1);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(2,'Srbija','Novi Sad','Bulevar Evrope 2',1);
+--filijale za easyrentcars
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(3,'Srbija','Beograd','Knez Mihajlova 45',2);
+
+--filijale za EuropeCar
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(4,'Srbija','Beograd','Knez Mihajlova 55',3);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(5,'Srbija','Beograd','Zeleni venac 5',3);
+
+--filijale za Inex Rent A Car
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(6,'Srbija','Novi Sad','Bulevar Evrope 45',4);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(7,'Srbija','Beograd','Kneginje Milice 10',4);
+
+--filijale za Max Rent A Car
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(8,'Srbija','Novi Sad','Bulevar Evrope 10',5);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(9,'Srbija','Beograd','Kneginje Milice 10',5);
+
+
+
+
+
+
+insert into category(category_id,mark,description,seats,price) values (1,'A','City car',4,55);
+insert into category(category_id,mark,description,seats,price) values (2,'B','Niska klasa',5,60);
+insert into category(category_id,mark,description,seats,price) values (3,'C','Srednja klasa',5,60);
+insert into category(category_id,mark,description,seats,price) values (4,'D','Visa srednja',7,70);
 
 insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number,seat) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30','bnbnb',2.5,2,true);
 insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number,seat) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30','bnbfdfnb',1,3,true);

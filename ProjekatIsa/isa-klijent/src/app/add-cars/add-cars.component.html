@@ -8,11 +8,19 @@
       <form  class="registration" (submit)="addCar()" method="POST">
 		    <input type="text" [(ngModel)] = "car.name" #name= "ngModel" name="name" class="form-control"  data-validation="required" #name placeholder = "Unesite naziv">
       			<span id="error_name" class="text-danger"></span>
-		    <input type="text"[(ngModel)] = "car.number" #number= "ngModel" name="number" class="form-control"  data-validation="required" #number placeholder = "Unesite oznaku">
+		    <input type="text"[(ngModel)] = "car.regnumber" #regnumber= "ngModel" name="regnumber" class="form-control"  data-validation="required" #regnumber placeholder = "Unesite registarsku oznaku">
       			<span id="error_address" class="text-danger"></span>
       		<input type="text" height="200" [(ngModel)] = "car.price" #price= "ngModel" name="price" class="form-control"  data-validation="required" #price placeholder = "Unesite cenu">
       			<span id="error_description" class="text-danger"></span>
-		    
+      	    <input type="text" height="200" [(ngModel)] = "car.prodYear" #prodYear= "ngModel" name="prodYear" class="form-control"  data-validation="required" #prodYear placeholder = "Unesite godinu proizvodnje">
+      			<span id="error_description" class="text-danger"></span>
+		
+		    <div class="input-box">
+                      <label>Kategorija</label>
+                      <select class="form-control input_layout" name="kat" [(ngModel)]="newCS.cat">
+                          <option *ngFor="let c of cats" value="{{c.mark}}">{{c.mark}}</option>
+                      </select>
+                    </div>
 		    <div class="form-group row" [hidden]="hideError">
 		        <div class="col-xs-6">	
 		          <div class="alert alert-danger" >

@@ -43,6 +43,7 @@ import { AddCarsComponent } from './add-cars/add-cars.component';
 import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
 
 import { FriendsComponent } from './profil/friends/friends.component';
+import { FilCarsComponent } from './fil-cars/fil-cars.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { FriendsComponent } from './profil/friends/friends.component';
     AddHotelComponent,
     AddCarsComponent,
     AddFilijaleComponent,
-    FriendsComponent
+    FriendsComponent,
+    FilCarsComponent
     
 
 

@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -51,10 +52,11 @@ public class RentACar implements Serializable {
 	@JoinTable(name = "car_price", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
 	private Set<Car> price;
 	
-	@OneToMany(mappedBy = "rentACar",fetch = FetchType.EAGER)
-	private Set<Filijale> filijale; 
+	@JsonIgnore
+	@OneToMany(mappedBy = "rentalcars", orphanRemoval = true,fetch = FetchType.EAGER)
+	private Set<Filijale> filijale= new HashSet<Filijale>();; 
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "rent_rating_car", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
     private Set<RatingRentACar> rentacarRatings;

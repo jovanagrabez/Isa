@@ -6,18 +6,18 @@ public class CarDTO {
 	
 	private Long id;
 	private String name;
-	private int number;
+	private String regnumber;
 	private int price;
 	
 	public CarDTO(Car car) {
 		this(car.getId(), car.getName(), car.getNumber(), car.getPrice());
 	}
 	
-	public CarDTO(Long id, String name, int number, int price) {
+	public CarDTO(Long id, String name, String regnumber, int price) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.number = number;
+		this.regnumber = regnumber;
 		this.price = price;
 	}
 
@@ -55,12 +55,12 @@ public class CarDTO {
 		this.id = id;
 	}
 
-	public int getNumber() {
-		return number;
+	public String getNumber() {
+		return regnumber;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNumber(String regnumber) {
+		this.regnumber = regnumber;
 	}
 	
 	

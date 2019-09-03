@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.model.Car;
+import com.example.ProjekatIsa.model.Filijale;
 import com.example.ProjekatIsa.model.RentACar;
 import com.example.ProjekatIsa.repository.CarRepository;
+import com.example.ProjekatIsa.repository.FilijaleRepository;
 import com.example.ProjekatIsa.service.CarService;
 import com.example.ProjekatIsa.service.RentalCarService;
 
@@ -29,6 +31,9 @@ public class RentalCarController {
 	
 	@Autowired
 	private CarRepository carRepository;
+	
+	@Autowired
+	private FilijaleRepository filRepository;
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -57,9 +62,26 @@ public class RentalCarController {
 		}
 		else {
 			return new ResponseEntity<List<Car>>(returnList, HttpStatus.OK);
+		}	
+		
+}
+	
+	@RequestMapping(
+			value = "/getFilijale", 
+			method = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getFilijale(@RequestBody Long Id) {
+		
+		RentACar rentservice = rentalcarService.findOneById(Id);
+		
+		List<Filijale> returnList = new ArrayList<Filijale>();
+		returnList = filRepository.findAllByRentalcars(rentservice);
+		if (returnList==null) {
+			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
-		
-		
+		else {
+			return new ResponseEntity<List<Filijale>>(returnList, HttpStatus.OK);
+		}	
 		
 }
 

@@ -32,6 +32,11 @@ export class ViewRentalCarsService {
   
         return this.http.post('http://localhost:8080/rentalcars/getCars',id,{headers: this.auth.createAuthorizationTokenHeader()});
   }
+  
+  getFilijale(id : number): Observable<any>{
+  
+        return this.http.post('http://localhost:8080/rentalcars/getFilijale',id,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
     
     selectRentACar(rentalcars : any) {
     this.h.next(rentalcars);

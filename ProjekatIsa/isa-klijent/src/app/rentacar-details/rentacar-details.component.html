@@ -10,6 +10,33 @@
 					</div>
 				</div>
 				
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>Filijale na kojima nas mozete naci</h3>
+					</div>
+				</div>
+				
+				<div class="row row-bottom-padded-md" >
+					<div *ngFor="let c of fil">
+						<div >
+							<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+								<div class="hotel-box">
+								<img src="assets/images/box.png"  width="400" height="300">
+									<div class="desc">
+										<span></span>
+										<h3>Filijale: </h3>
+										<span>{{c.grad}}</span>
+										<span>{{c.drzava}}</span>
+										<span>{{c.adresa}}</span>										
+										<a  (click)="onClickCompanyDetails(c)" class="btn btn-primary btn-outline">Prikazi vozila</a>
+										
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<div class="row row-bottom-padded-md" >
 					<div *ngFor="let c of car">
 						<div >

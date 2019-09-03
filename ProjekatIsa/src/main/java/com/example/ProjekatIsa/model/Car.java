@@ -32,7 +32,7 @@ public class Car implements Serializable {
     private Long id;
 	
 	@Column(name = "car_number", nullable = false, updatable = false)
-	private int number;
+	private String regnumber;
 	
 	@Column(name = "car_name", nullable = false, updatable = false)
 	private String name;
@@ -40,12 +40,23 @@ public class Car implements Serializable {
 	@Column(name = "car_price", nullable = false, updatable = false)
 	private int price;
 	
+	@Column(name ="rating", nullable = false)
+	private double averageRating;
+	
+	@Column(name="prod_year", nullable = false)
+	private int prodYear;
+	
 	@ManyToOne
 	@JoinColumn(name="rent_cars")
 	private RentACar rentalcars;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="filijale_id")
 	private Filijale filijale;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="category_id")
+	private Category category;
 	
 	public String getName() {
 		return name;
@@ -71,12 +82,12 @@ public class Car implements Serializable {
 		this.id = id;
 	}
 
-	public int getNumber() {
-		return number;
+	public String getNumber() {
+		return regnumber;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+	public void setNumber(String regnumber) {
+		this.regnumber = regnumber;
 	}
 	
 
@@ -89,12 +100,16 @@ public class Car implements Serializable {
 		this.rentalcars = rentalcars;
 	}
 
-	public Car(Long id, int number, int price,String name) {
+	public Car(Long id, String regnumber, int price,String name, double averageRating,int prodYear,Filijale filijala, Category category) {
 		super();
 		this.id = id;
-		this.number = number;
+		this.regnumber = regnumber;
 		this.price = price;
 		this.name = name;
+		this.averageRating = averageRating;
+		this.prodYear = prodYear;
+		this.filijale = filijale;
+		this.category = category;
 		
 	}
 	
