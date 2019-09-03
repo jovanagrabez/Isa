@@ -44,6 +44,7 @@ import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
 
 import { FriendsComponent } from './profil/friends/friends.component';
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 
 @NgModule({
@@ -68,7 +69,8 @@ import { FilCarsComponent } from './fil-cars/fil-cars.component';
     AddCarsComponent,
     AddFilijaleComponent,
     FriendsComponent,
-    FilCarsComponent
+    FilCarsComponent,
+    AddAdminComponent
     
 
 

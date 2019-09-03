@@ -72,7 +72,7 @@ public class User implements Serializable,UserDetails {
             	name = "role_id", referencedColumnName = "id")) 
         private Collection<Role> roles;
     
-    @Column
+    @Column(name="verified")
 	private boolean verified;
     
 

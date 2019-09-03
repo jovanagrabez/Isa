@@ -18,6 +18,7 @@ import { AddCarsComponent } from './add-cars/add-cars.component';
 import {FriendsComponent} from './profil/friends/friends.component';
 import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
 
 
 const routes: Routes = [
@@ -112,7 +113,11 @@ const routes: Routes = [
   {
     path: 'fil-cars',
     component : FilCarsComponent
-  }
+  },
+  {
+      path: 'addAdmin',
+      component : AddAdminComponent
+    }
 
 
 
