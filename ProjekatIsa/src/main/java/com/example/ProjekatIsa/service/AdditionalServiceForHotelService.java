@@ -8,4 +8,5 @@ import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
 public interface AdditionalServiceForHotelService {
 	
 	List<AdditionalServiceForHotel> getAll();
+	AdditionalServiceForHotel addService(AdditionalServiceForHotel a);
 }

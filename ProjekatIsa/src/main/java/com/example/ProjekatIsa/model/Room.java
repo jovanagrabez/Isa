@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -37,6 +38,10 @@ public class Room implements Serializable{
 	
 	@Column(name = "room_average_rating", nullable = true)
 	private Double room_average_rating;
+	
+	@ManyToOne
+	@JoinColumn(name="hotel_id")
+	private Hotel hotel;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "room_rating_room", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "ratingRoom_id"))

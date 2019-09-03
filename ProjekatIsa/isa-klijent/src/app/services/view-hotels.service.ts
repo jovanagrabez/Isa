@@ -24,23 +24,17 @@ export class ViewHotelsService {
   constructor(private http: HttpClient) { }
   
   getHotels(){
-  
 	    return this.http.get('http://localhost:8080/hotels/getAll')
-	
-	
-			/*const headers = new Headers();
-		    headers.append('Content-Type', 'application/json');
-		
-		    return this.http.get("http://localhost:8080/hotels/getAll", {headers:headers}).map(data => data.json())
-			//return this.http.get('https://jsonplaceholder.typicode.com/users')
-			
-			.catch((err:HttpErrorResponse) =>
-			{
-			// alert(err.status + " " + err.error.error + " \n" + err.error.message);
-			return Observable.throw(err);
-			});
-		  */
-  }
+  };
+  
+  getAllRooms(id:number): Observable<any>{    
+      return this.http.get('http://localhost:8080/hotels/getAllRooms/'+id)
+  };  
+  getAllServices(id:number): Observable<any>{
+      
+      return this.http.get('http://localhost:8080/hotels/getAllServices/'+id)
+
+}
   
    selectHotel(hotel : any) {
 

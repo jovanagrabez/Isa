@@ -1,4 +1,5 @@
 import { AdditionalServiceForHotel } from './AdditionalServiceForHotel';
+import { Room } from './Room';
 
 
 export class Hotel {
@@ -8,6 +9,7 @@ export class Hotel {
     description: string;
     rating : number;
     additional_services:Array<AdditionalServiceForHotel>;
-    
+    rooms:Array<Room>;
+
 
  }
