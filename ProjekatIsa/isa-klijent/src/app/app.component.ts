@@ -111,7 +111,7 @@ export class AppComponent implements OnInit {
 logOutUser() {
     
     this.userService.logOut().subscribe(podaci => window.location.href='http://localhost:4200');
-    this.auth.removeJwtToken();
+    this.auth.removeJwtToken();    
     localStorage.setItem('user', JSON.stringify(null));
     this.notLogged = true;
     this.logged = false;

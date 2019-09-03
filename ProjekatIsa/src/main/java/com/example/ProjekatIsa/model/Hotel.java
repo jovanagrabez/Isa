@@ -125,8 +125,15 @@ public class Hotel implements Serializable{
 	public void addAdditionalService(AdditionalServiceForHotel a) {
 		if (this.additional_services==null) {
 			this.additional_services = new ArrayList<AdditionalServiceForHotel>();
-		}else {
-			this.additional_services.add(a);		}
+		}
+			this.additional_services.add(a);		
+	}
+	public void addRoom(Room r) {
+		if (this.rooms==null) {
+			this.rooms = new ArrayList<Room>();
+		}
+			
+		this.rooms.add(r);		
 	}
 	public Hotel() {
 		super();

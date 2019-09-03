@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,6 +16,9 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.example.ProjekatIsa.DTO.RoomDTO;
+
 
 @Entity
 @Table(name = "room")
@@ -42,6 +46,9 @@ public class Room implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="hotel_id")
 	private Hotel hotel;
+	
+	@OneToMany(mappedBy="room")
+    protected List<Pricing> pricing;
 	
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "room_rating_room", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "ratingRoom_id"))
@@ -107,6 +114,30 @@ public class Room implements Serializable{
 	public Room() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public Room(RoomDTO r) {
+		setId(r.getId());
+		setNumber(r.getNumber());
+		setPrice(r.getPrice());
+		setRoom_description(r.getRoom_description());
+		setRoom_average_rating(r.getRoom_average_rating());
+	}
+	
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public List<Pricing> getPricing() {
+		return pricing;
+	}
+
+	public void setPricing(List<Pricing> pricing) {
+		this.pricing = pricing;
 	}
 	
 	

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.AdditionalServiceForHotelDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
+import com.example.ProjekatIsa.DTO.RoomDTO;
 import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Hotel;
@@ -174,6 +175,28 @@ public class HotelController {
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		
 	}
+	
+	@PreAuthorize("hasAuthority('addRoom')")
+	@RequestMapping(value="/addRoom/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> addRoom(@RequestBody RoomDTO newRoom,
+										@PathVariable("id") Long id){
+		System.out.println("Dosao u add room hotel");
+		
+		Hotel hotel = hotelRepository.findOneById(id);
+		Room r =new Room(newRoom);
+		r.setNumber(hotel.getRooms().size()+1);
+		//dodavanje u model
+		hotel.addRoom(r);
+		r.setHotel(hotel);
+		
+		//cuvanje u bazu
+		this.roomRepository.save(r);
+		hotelRepository.save(hotel);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		
+	}
+	
 	@PreAuthorize("hasAuthority('getAdditionalServices')")
 	@RequestMapping(value="/getAllAdditionalServices",
 			method = RequestMethod.GET,

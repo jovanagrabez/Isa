@@ -3,6 +3,8 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { Hotel } from '../../models/Hotel';
+import { Room } from '../../models/Room';
+
 import {AuthServiceService} from '../auth-service.service';
 import { AdditionalServiceForHotel } from '../../models/AdditionalServiceForHotel';
 
@@ -33,6 +35,10 @@ export class HotelServiceService {
   
   addService(newService: AdditionalServiceForHotel, id:number): Observable<any>{
       return this.http.post('http://localhost:8080/hotels/addService/'+id,newService,{headers: this.auth.createAuthorizationTokenHeader()}); 
+
+  }
+  addRoom(newRoom: Room, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/hotels/addRoom/'+id,newRoom,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
   }
 }

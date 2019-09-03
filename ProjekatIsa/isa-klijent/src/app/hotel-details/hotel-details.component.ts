@@ -26,6 +26,7 @@ export class HotelDetailsComponent implements OnInit {
     user : User = new User();
     nohotelAdmin : boolean;
     newHotel : Hotel = new Hotel();
+    newRoom : Room = new Room();
     newService : AdditionalServiceForHotel = new AdditionalServiceForHotel();
     rooms : Room[];
     services : AdditionalServiceForHotel[];
@@ -36,11 +37,15 @@ export class HotelDetailsComponent implements OnInit {
     ngOnInit() {
  
         this.user = JSON.parse(localStorage.getItem('user'));
-        
+
+       if(this.user.roles==null){
+            this.nohotelAdmin = true;
+        } 
         for (var i=0; i<this.user.roles.length; i++) {
             if(this.user.roles[i].name.toString() === 'HOTEL_ADMIN'){
                 this.nohotelAdmin = false;
-            }else{
+            }  
+            else{
             this.nohotelAdmin = true;
             }
         }
@@ -111,4 +116,25 @@ export class HotelDetailsComponent implements OnInit {
             document.getElementById('addServiceDiv').setAttribute("hidden", "true");  
         }
      };
+     //dodavanje sobe
+     addRoomClick() {
+         document.getElementById('addRoomDiv').removeAttribute('hidden');
+     };
+     discardRoomClick(){
+         document.getElementById('addRoomDiv').setAttribute("hidden", "true");  
+     };
+     finalAddRoomClick(newRoom){
+         console.log(newRoom);
+          if( newRoom.price==null){
+             alert("Morate uneti prosecnu cenu sobe");
+         }else if( newRoom.room_description==null){
+             alert("Morate uneti opis sobe");
+         }else{
+             this.hotelService.addRoom(newRoom, this.currentHotel.id).subscribe(data=>{
+                 alert("Uspjesno dodana soba!");
+                 window.location.href = 'http://localhost:4200/hotels'; 
+             });
+             document.getElementById('addRoomDiv').setAttribute("hidden", "true");  
+         }
+      };
 }
