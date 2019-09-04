@@ -9,4 +9,5 @@ public interface AdditionalServiceForHotelService {
 	
 	List<AdditionalServiceForHotel> getAll();
 	AdditionalServiceForHotel addService(AdditionalServiceForHotel a);
+	boolean deleteAdditionalServiceForHotel (AdditionalServiceForHotel a);
 }

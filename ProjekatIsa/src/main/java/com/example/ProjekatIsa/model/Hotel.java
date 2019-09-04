@@ -135,6 +135,12 @@ public class Hotel implements Serializable{
 			
 		this.rooms.add(r);		
 	}
+	public void removeAdditionalService(AdditionalServiceForHotel a) {
+			this.additional_services.remove(a);		
+	}
+	public void removeRoom(Room r) {
+		this.rooms.remove(r);		
+	}
 	public Hotel() {
 		super();
 	}

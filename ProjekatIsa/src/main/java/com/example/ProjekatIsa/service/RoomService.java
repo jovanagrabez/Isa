@@ -9,4 +9,5 @@ import com.example.ProjekatIsa.model.Room;
 public interface RoomService {
 
 	List<Room> getAll();
+	boolean deleteRoom(Room r);
 }

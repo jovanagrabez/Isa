@@ -20,4 +20,15 @@ public class RoomServiceImpl implements RoomService {
 		return roomRepository.findAll();
 	}
 
+
+	@Override
+	public boolean deleteRoom(Room r) {
+		try {
+			roomRepository.delete(r);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }

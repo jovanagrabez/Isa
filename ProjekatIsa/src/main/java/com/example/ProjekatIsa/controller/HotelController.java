@@ -27,6 +27,7 @@ import com.example.ProjekatIsa.repository.HotelRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
 import com.example.ProjekatIsa.service.AdditionalServiceForHotelService;
 import com.example.ProjekatIsa.service.HotelService;
+import com.example.ProjekatIsa.service.RoomService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -41,6 +42,9 @@ public class HotelController {
 	
 	@Autowired
 	private RoomRepository roomRepository;
+	
+	@Autowired
+	private RoomService roomService;
 	
 	@Autowired
 	private AdditionalServiceForHotelRepository addRepository;
@@ -218,14 +222,100 @@ public class HotelController {
 	@PreAuthorize("hasAuthority('deleteService')")
 	@RequestMapping(value="/deleteService/{id}",
 			method = RequestMethod.POST)
-	public ResponseEntity<?> deleteService(@RequestBody AdditionalServiceForHotel add,
-										@PathVariable("id") Long id){
-		System.out.println("Dosao u change hotel");
+	public ResponseEntity<?> deleteService(@PathVariable("id") Long id){
+		System.out.println("Dosao u delete service");
 		
-		Hotel h = hotelRepository.findOneById(id);
+		//Hotel h = hotelRepository.findOneById(id);
+		AdditionalServiceForHotel a = addRepository.findOneById(id);
+		
+		try {
+			addService.deleteAdditionalServiceForHotel(a);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}catch(Exception e ) {
+			
+		}
 		
 	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		
 	}
 	
+	@PreAuthorize("hasAuthority('deleteRoom')")
+	@RequestMapping(value="/deleteRoom/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> deleteRoom(@PathVariable("id") Long id){
+		System.out.println("Dosao u delete room ");
+
+		Room rdel = roomRepository.findOneById(id);
+		try {
+			roomService.deleteRoom(rdel);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}catch(Exception e ) {
+			
+		}
+		
+	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		
+	}
+	
+	@PreAuthorize("hasAuthority('changeService')")
+	@RequestMapping(value="/changeService/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> changeService(@RequestBody AdditionalServiceForHotelDTO add,
+										@PathVariable("id") Long id){
+		System.out.println("Dosao u change service");
+		
+		AdditionalServiceForHotel a = addRepository.findOneById(add.getId());
+		
+		
+		if (add.getName()!=null) {
+			a.setName(add.getName());
+		}
+		if (add.getPrice()!=null) {
+			a.setPrice(add.getPrice());
+		}
+		
+		try {
+			addRepository.save(a);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	
+	}
+	
+	@PreAuthorize("hasAuthority('changeRoom')")
+	@RequestMapping(value="/changeRoom/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> changeRoom(@RequestBody RoomDTO room,
+										@PathVariable("id") Long id){
+		System.out.println("Dosao u change service");
+		Room r2 = new Room(room); 
+		
+
+		Room r = roomRepository.findOneById(id);
+
+		if (room.getCapacity()!=null) {
+			r.setCapacity(r2.getCapacity());
+		}
+		if  (room.getPrice() > 0) {
+			r.setPrice(r2.getPrice());
+		}
+		if(room.getRoom_description()!= null) {
+			System.out.println(r2.getRoom_description());
+
+			r.setRoom_description(r2.getRoom_description());
+		}
+		if (room.getRoom_average_rating()!=null) {
+			r.setRoom_average_rating(r2.getRoom_average_rating());
+		}
+		
+		try {
+			roomRepository.save(r);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	
+	}
+
 }

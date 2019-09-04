@@ -1,5 +1,6 @@
-		<div id="fh5co-tours" class="fh5co-section-gray">
+			<div id="fh5co-tours" class="fh5co-section-gray">
 			<div class="container">
+
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>Popularne hotel &amp; hostel destinacije</h3>
@@ -7,6 +8,66 @@
 					</div>
 				</div>
 				
+				
+<div class="row">
+	<div class="col-xs-12">
+
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+              <label>Unesite lokaciju:</label>
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Lokacija..." name="city" type="text">
+             	  <span id="errorCity"></span>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Datum pocetka:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="date" required="required" data-placeholder="Check in">
+	                    <span id="errorStart"></span>                    
+	            </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+            <label>Unesite broj ljudi:</label>
+             <div class="form-group">
+	                    <input class="form-control" min="1" type="number" required placeholder="Broj ljudi...">
+	         </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+               <label>Datum kraja:</label>
+                <div class="input-group">
+                		 
+	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                      <input class="form-control" type="date" name="endDate" required="required"  data-placeholder="Check out">
+	                      <span id="errorEnd"></span>
+	                </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      
+      
+	</div>
+  </div> 
+    <div class="col-xs-12">
+			<input type="submit" class="btn btn-default btn-block" value="PRIKAZI REZULTATE">
+			<br/>
+			<br/>
+		</div>
+</div>	
 				
 				
 				<div class="row row-bottom-padded-md" >
@@ -17,13 +78,13 @@
 									<div class="desc">
 							
 										<h3>{{h.name}}</h3>
-										<h4>{{h.adress}}</h4>
+										<h4>{{h.address}}</h4>
 										<span></span>
 										<span>{{h.description}}</span>
 										<span *ngIf="!(h.average_rating == null)" class="price">Vaša ocena: {{h.average_rating}}</span>
 										<span *ngIf="(h.average_rating == null)" class="price"><br/></span>
 
-										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
+										<a class="btn btn-primary btn-outline" (click)="onClickShowDetails(h)">Detaljnije</a>
 										
 									</div>
 								</div>

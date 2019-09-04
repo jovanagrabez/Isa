@@ -59,7 +59,12 @@ export class AppComponent implements OnInit {
   {
     this.user = data as User;  
     this.roles = this.user.roles;
-     
+    if(this.roles == null){
+        this.nosystemAdmin = true;
+        this.nohotelAdmin = true;
+        this.noavioAdmin = true;
+        this.nocarAdmin = true;
+    }
     for (var i=0; i<this.roles.length; i++) {
     
     console.log('ime uloge: ');
@@ -112,7 +117,7 @@ logOutUser() {
     
     this.userService.logOut().subscribe(podaci => window.location.href='http://localhost:4200');
     this.auth.removeJwtToken();    
-    localStorage.setItem('user', JSON.stringify(null));
+   // localStorage.setItem('user', JSON.stringify(null));
     this.notLogged = true;
     this.logged = false;
     this.nosystemAdmin = true;
