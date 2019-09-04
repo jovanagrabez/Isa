@@ -175,6 +175,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 					web.ignoring().antMatchers(HttpMethod.DELETE, "/rentalcars/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/car");
 					web.ignoring().antMatchers(HttpMethod.DELETE, "/car/**");
+					web.ignoring().antMatchers(HttpMethod.GET, "/filijale/getCars");
 
 				//web.ignoring().antMatchers(HttpMethod.PUT, "/friends/**");
 

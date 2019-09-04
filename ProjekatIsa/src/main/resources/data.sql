@@ -174,24 +174,24 @@ insert into rentalcars (name,adress,description,average_rating) values ('EuropeC
 insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Najpovoljnije usluge',4.6);
 insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','luux',3.3);
 
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('BMW',1,500,4.1,'2011',1,4);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Audi',2,450,3.9,'2008',1,4);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Audi3',555-212,450,3.9,'2008',2,4);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('BMW5',2,450,3.9,'2008',2,4);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Peugeot',5,3.3,300,'2006',3,3);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Mercedes-Benz',7,550,3.8,'2009',3,4);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat',4,350,3.1,'2004',4,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Mazda',4,350,3.1,'2004',4,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Citroen',4,350,3.1,'2004',5,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Jeep',4,350,3.1,'2004',5,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Golf',4,350,3.1,'2004',6,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat',4,350,3.1,'2004',6,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Passat',4,350,3.1,'2004',7,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Renault',4,350,3.1,'2004',7,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat 500',4,350,3.1,'2004',8,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Nissan',4,350,3.1,'2004',8,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('MiniCooper',4,350,3.1,'2004',9,2);
-insert into car (car_name,car_number,car_price,rating,prod_year,filijale_id,category_id) values ('Fiat',4,350,3.1,'2004',9,2);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi3','555-212',450,3.9,2008,2,4,1);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW5','ZR-4875',450,3.9,2008,2,4,1);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Peugeot','BG-J0PL',3.3,300,2006,3,3,2);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Mercedes-Benz','BC-4875',550,3.8,2009,3,4,2);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat','KR-4875',350,3.1,'2004',4,2,3);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Mazda','JG-4875',350,3.1,'2004',4,2,3);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Citroen','KG-4875',350,3.1,'2004',5,2,3);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Jeep','VA-8979',350,3.1,'2004',5,2,3);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Golf','VR-4875',350,3.1,'2004',6,2,4);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat','BC-4875',350,3.1,'2004',6,2,4);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Passat','AR-8765',350,3.1,'2004',7,2,4);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Renault','BR-4125',350,3.1,'2004',7,2,4);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat 500','BO-4875',350,3.1,'2004',8,2,5);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Nissan','KK-4875',350,3.1,'2004',8,2,5);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('MiniCooper','JC-4875',350,3.1,'2004',9,2,5);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat','AC-4875',350,3.1,'2004',9,2,5);
 
 
 

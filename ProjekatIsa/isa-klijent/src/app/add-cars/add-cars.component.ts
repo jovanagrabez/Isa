@@ -31,7 +31,7 @@ export class AddCarsComponent implements OnInit {
       this.errorMessage = '';
       this.hideError = true;
  
-      if (!this.car.name) {
+     /* if (!this.car.name) {
         this.hideError = false;
         this.errorMessage = 'Morate uneti naziv!';
       }else if (!this.car.regnumber) {
@@ -48,6 +48,6 @@ export class AddCarsComponent implements OnInit {
               window.location.href = 'http://localhost:4200';
           });
           }
-        }
-
+        }*/
+}
 }

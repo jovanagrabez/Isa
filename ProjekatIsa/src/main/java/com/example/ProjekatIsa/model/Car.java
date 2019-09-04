@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.CarDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
@@ -34,19 +35,19 @@ public class Car implements Serializable {
     private Long id;
 	
 	@Column(name = "car_number", nullable = false, updatable = false)
-	private String regnumber;
+	private String car_number;
 	
 	@Column(name = "car_name", nullable = false, updatable = false)
 	private String name;
 	
-	@Column(name = "car_price", nullable = false, updatable = false)
+	@Column(name = "price", nullable = false, updatable = false)
 	private int price;
 	
-	@Column(name ="rating", nullable = false)
-	private double averageRating;
+	@Column(name ="average_rating")
+	private Double average_rating;
 	
 	@Column(name="prod_year", nullable = false)
-	private int prodYear;
+	private int prod_year;
 	
 	@ManyToOne
 	@JoinColumn(name="rentacar_id")
@@ -60,9 +61,11 @@ public class Car implements Serializable {
 	@JoinColumn(name="category_id")
 	private Category category;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="car")
     protected List<PricingCar> pricingCar;
 	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "car_rating_car", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "ratingCar_id"))
     private Set<RatingCar> car_ratings;
@@ -93,11 +96,11 @@ public class Car implements Serializable {
 	}
 
 	public String getNumber() {
-		return regnumber;
+		return car_number;
 	}
 
-	public void setNumber(String regnumber) {
-		this.regnumber = regnumber;
+	public void setNumber(String car_number) {
+		this.car_number = car_number;
 	}
 	
 
@@ -110,14 +113,14 @@ public class Car implements Serializable {
 		this.rentalcars = rentalcars;
 	}
 
-	public Car(Long id, String regnumber, int price,String name, double averageRating,int prodYear,Filijale filijala, Category category) {
+	public Car(Long id, String car_number, int price,String name, double average_rating,int prod_year,Filijale filijala, Category category) {
 		super();
 		this.id = id;
-		this.regnumber = regnumber;
+		this.car_number = car_number;
 		this.price = price;
 		this.name = name;
-		this.averageRating = averageRating;
-		this.prodYear = prodYear;
+		this.average_rating = average_rating;
+		this.prod_year = prod_year;
 		this.filijale = filijale;
 		this.category = category;
 		
@@ -140,11 +143,11 @@ public class Car implements Serializable {
 	}
 
 	public int getProdYear() {
-		return prodYear;
+		return prod_year;
 	}
 
 	public void setProdYear(int prodYear) {
-		this.prodYear = prodYear;
+		this.prod_year = prodYear;
 	}
 
 	public Car() {

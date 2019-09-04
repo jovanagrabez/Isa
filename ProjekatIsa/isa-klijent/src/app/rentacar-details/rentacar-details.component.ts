@@ -8,6 +8,8 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { User } from '../models/User';
 import { RentACar } from '../models/RentACar';
 import { Filijale } from '../models/Filijale';
+import { Role } from '../models/Role';
+import { AuthServiceService } from '../services/auth-service.service';
 
 
 
@@ -30,16 +32,25 @@ export class RentacarDetailsComponent implements OnInit {
   user : User = new User();
   newService : RentACar = new RentACar(); 
   newFil : Filijale = new Filijale();
-    
-  constructor(private router: Router,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,private filService : FilijaleServiceService ) { }
+  roles: Role[];
+  token: string;  
+  logged: boolean;
+  notLogged: boolean;
+  constructor(private router: Router,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,private filService : FilijaleServiceService,private auth: AuthServiceService ) { }
 
   ngOnInit() {
-      
-      this.user = JSON.parse(localStorage.getItem('user'));
+      this.token = this.auth.getJwtToken();
 
+      this.user = JSON.parse(localStorage.getItem('user'));
+      
+      if (!this.token) { 
+            this.notLogged = true;
+            this.nocarAdmin = true;
+            console.log('----KORISNIK NIJE ULOGOVAN---');
+    } else {
+      console.log('----KORISNIK JE ULOGOVAN----');     
        if(this.user.roles==null){
             this.nocarAdmin = true;
-            this.user = null;
         } 
         for (var i=0; i<this.user.roles.length; i++) {
             if(this.user.roles[i].name.toString() === 'CAR_ADMIN'){
@@ -49,6 +60,8 @@ export class RentacarDetailsComponent implements OnInit {
             this.nocarAdmin = true;
             }
         }
+          }
+        
       
       this.service.currentRentACar.subscribe(
         currentRentACar =>
@@ -57,10 +70,7 @@ export class RentacarDetailsComponent implements OnInit {
             console.log(currentRentACar);
             console.log(currentRentACar.id);
             
-            this.service.getCars(this.currentRentACar.id).subscribe(data=>{
-            this.car = data;
-            console.log(currentRentACar.id + 'usaooo');
-      });
+            
             this.service.getFilijale(this.currentRentACar.id).subscribe(data=>{
                 data => this.filijale$ = data
                 this.fil = data;
@@ -69,6 +79,7 @@ export class RentacarDetailsComponent implements OnInit {
         }
      );       
  };
+      
    
     
     changeClick(){
