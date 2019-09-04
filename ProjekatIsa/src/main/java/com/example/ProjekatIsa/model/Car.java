@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.CarDTO;
@@ -47,7 +49,7 @@ public class Car implements Serializable {
 	private int prodYear;
 	
 	@ManyToOne
-	@JoinColumn(name="rent_cars")
+	@JoinColumn(name="rentacar_id")
 	private RentACar rentalcars;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -57,6 +59,14 @@ public class Car implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="category_id")
 	private Category category;
+	
+	@OneToMany(mappedBy="car")
+    protected List<PricingCar> pricingCar;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "car_rating_car", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "ratingCar_id"))
+    private Set<RatingCar> car_ratings;
+
 	
 	public String getName() {
 		return name;
@@ -121,6 +131,22 @@ public class Car implements Serializable {
 		
 	}
 	
+	public Filijale getFilijale() {
+		return filijale;
+	}
+
+	public void setFilijale(Filijale filijale) {
+		this.filijale = filijale;
+	}
+
+	public int getProdYear() {
+		return prodYear;
+	}
+
+	public void setProdYear(int prodYear) {
+		this.prodYear = prodYear;
+	}
+
 	public Car() {
 		super();
 		// TODO Auto-generated constructor stub

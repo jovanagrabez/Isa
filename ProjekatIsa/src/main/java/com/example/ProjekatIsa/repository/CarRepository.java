@@ -13,6 +13,7 @@ public interface CarRepository extends JpaRepository<Car, Long> {
 	
 	List<Car> findAllByRentalcars(RentACar id);
 	List<Car> findAllByFilijale(Filijale id);
+	Car findOneById(Long id);
 
 	
 

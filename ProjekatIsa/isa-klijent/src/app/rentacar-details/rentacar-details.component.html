@@ -1,13 +1,87 @@
 <div class="fh5co-hero">
 	<div class="fh5co-overlay"></div>
-	<div class="fh5co-cover"data-stellar-background-ratio="0.5"
-		style="background-image: url(assets/images/pic.png);"
-		>			<div class="container">
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5"
+		style="background-image: url(assets/images/pic.png);">			
+		<div class="container">
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>{{currentRentACar.name}}</h3>
+						<h3>{{currentRentACar.adress}}</h3>						
 						<p>{{currentRentACar.description}}</p>
+						<span class="hidden-xs" id="changeButton" [hidden]="nocarAdmin"><a  class="btn btn-primary btn-outline" (click)="changeClick()">Izmeni</a></span>
+						<span class="hidden-xs" id="deleteButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline" (click)="deleteClick()" >Obrisi</a></span>
+						<br/>
+						<br/>
+						<span class="hidden-xs" id="addFillButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline"  (click)="addFilClick()">Dodaj filijalu</a></span>
+						
 					</div>
+					
+					<!-- div za izmenu -->
+					<div class="col-xs-6" id = "changeDiv" hidden="true" >
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni servis {{currentRentACar.name}}</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi naziv.." value='newService.name' [(ngModel)]="newService.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu adresu.." value='newService.adress' [(ngModel)]="newService.adress" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi opis.." value='newService.description' [(ngModel)]="newService.description" >
+			              </div>
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeClick(newService)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+              		
+              		<div class="col-xs-6" id = "addFilDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novu filijalu u {{currentRentACar.name}} servis</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite grad.." value='newFil.grad' [(ngModel)]="newFil.grad">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite drzavu.." value='newFil.drzava' [(ngModel)]="newFil.drzava" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite adresu.." value='newFil.adresa' [(ngModel)]="newFil.adresa" >
+			              </div>
+			           
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddFilClick(newFil)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardFilClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+              		
 				</div>
 				
 				<div class="row">

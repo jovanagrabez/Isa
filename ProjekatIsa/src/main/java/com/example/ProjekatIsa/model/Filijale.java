@@ -1,7 +1,9 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -15,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.FilijaleDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -44,7 +47,7 @@ public class Filijale implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="filijale",fetch = FetchType.LAZY,orphanRemoval = true)
-	private Set<Car> cars;
+	private List<Car> cars;
 
 	public Long getId() {
 		return id;
@@ -103,12 +106,28 @@ public class Filijale implements Serializable {
 		this.rentalcars = rentACar;
 	}
 
-	public Set<Car> getCars() {
+	public List<Car> getCars() {
 		return cars;
 	}
 
-	public void setCars(Set<Car> cars) {
+	public void setCars(List<Car> cars) {
 		this.cars = cars;
+	}
+	
+	
+	public Filijale(FilijaleDTO f) {
+		setId(f.getId());
+		setGrad(f.getGrad());
+		setDrzava(f.getDrzava());
+		setAdresa(f.getAdresa());
+	}
+	
+	public void addCar(Car c) {
+		if(this.cars==null) {
+			this.cars = new ArrayList<Car>();
+		}
+		
+		this.cars.add(c);
 	}
 	
 	

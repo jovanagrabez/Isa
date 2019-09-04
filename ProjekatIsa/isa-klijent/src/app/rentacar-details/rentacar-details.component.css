@@ -123,19 +123,19 @@ figure {
 .fh5co-cover,
 .fh5co-hero {
   position: relative;
-  height: 1000px;
+  height: 1200px;
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover,
   .fh5co-hero {
-    height: 700px;
+    height: 1200px;
   }
 }
 .fh5co-cover .fh5co-overlay,
 .fh5co-hero .fh5co-overlay {
   position: absolute !important;
   width: 100%;
-  top: 0;
+  top: 1;
   left: 0;
   bottom: 0;
   right: 0;
@@ -178,7 +178,7 @@ figure {
   position: absolute;
   width: 100%;
   margin-top: -80px;
-  z-index: 2;
+  z-index: 0;
   color: #fff;
 }
 @media screen and (max-width: 768px) {
@@ -229,7 +229,7 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover .desc .desc2 {
-    display: none;
+    
   }
 }
 
@@ -2098,7 +2098,7 @@ div.cs-select span {
 
 
 .container {
-	position: relative;
+  position: relative;
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;

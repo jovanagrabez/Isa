@@ -7,7 +7,81 @@
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>{{currentFil.grad}}</h3>
 						<p>{{currentFil.adresa}},{{currentFil.drzava}}</p>
+						<span class="hidden-xs" id="changeButton" [hidden]="nocarAdmin"><a  class="btn btn-primary btn-outline" (click)="changeClick()">Izmeni</a></span>
+						<span class="hidden-xs" id="deleteButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline" (click)="deleteClick()" >Obrisi</a></span>
+						<br/>
+						<br/>
+						<span class="hidden-xs" id="addCarButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline"  (click)="addCarClick()">Dodaj vozilo</a></span>
+						
 					</div>
+					<!-- div za izmenu -->
+					<div class="col-xs-6" id = "changeDiv" hidden="true" >
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni filijalu</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu adresu" value='newFil.adresa' [(ngModel)]="newFil.adresa">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu drzavu.." value='newFil.drzava' [(ngModel)]="newFil.drzava" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi grad.." value='newFil.grad' [(ngModel)]="newFil.grad" >
+			              </div>
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeClick(newFil)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+              		
+              		<div class="col-xs-6" id = "addCarDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novo vozilo</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite naziv.." value='newCar.name' [(ngModel)]="newCar.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite registarsku oznaku.." value='newCar.regnumber' [(ngModel)]="newCar.regnumber" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite cenu.." value='newCar.price' [(ngModel)]="newCar.price" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite godinu proizvodnje.." value='newCar.prodYear' [(ngModel)]="newCar.prodYear" >
+			              </div>
+			           
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddCarClick(newCar)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardFilClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
 				</div>
 				
 				<div class="row">
@@ -28,7 +102,9 @@
 										<span>Cena vozila: {{c.price}}‚<b></b>po danu</span>
 										<span>Ocena : {{c.averageRating}}</span>
 									    <span>Godina proizvodnje: {{c.prodYear}}</span>																					
-										<a class="btn btn-primary btn-outline">Rezervisi</a>
+										<span class="hidden-xs" id="deleteButton" [hidden]="noUser"><a  class="btn btn-primary btn-outline">Rezervisi</a></span>
+										<span class="hidden-xs" id="deleteButton" [hidden]="nocarAdmin"><a  class="btn btn-primary btn-outline" (click)="deleteCarClick(c)">Izbrisi</a></span>
+										
 										
 									</div>
 								</div>

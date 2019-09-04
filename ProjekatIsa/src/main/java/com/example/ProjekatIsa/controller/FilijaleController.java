@@ -8,12 +8,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.CarDTO;
+import com.example.ProjekatIsa.DTO.FilijaleDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.Filijale;
 import com.example.ProjekatIsa.model.RentACar;
@@ -76,6 +78,69 @@ public class FilijaleController {
 		}	
 		
 }
+	
+	@RequestMapping(value="changeFil/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> changeFil(@RequestBody Filijale newFil,@PathVariable("id") Long id){
+		
+		System.out.println("Usao u change filijale");
+		
+		Filijale fil = filRepository.findOneById(id);
+		
+		if(fil!=null) {
+			if(newFil.getAdresa()!=null) {
+				fil.setAdresa(newFil.getAdresa());
+			}
+			if(newFil.getDrzava()!=null) {
+				fil.setDrzava(newFil.getDrzava());
+			}
+			if(newFil.getGrad()!=null) {
+				fil.setGrad(newFil.getGrad());
+			}
+			
+			filRepository.save(fil);
+			
+			return new ResponseEntity<Filijale>(fil,HttpStatus.OK);
+		}
+		
+		else {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+
+		}
+		
+	}
+	
+	
+	@RequestMapping(value="/deleteFil",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> deleteFil(@RequestBody Long id){
+		System.out.println("Usao u delete filijale");
+		
+		Filijale fil = filRepository.findOneById(id);
+		filRepository.delete(fil);
+		return new ResponseEntity<>(HttpStatus.OK);
+		
+	}
+	
+	@RequestMapping(value="/addCar/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> addCar(@RequestBody CarDTO newCar, @PathVariable("id") Long id){
+		System.out.println("Usao u add filijale");
+		
+		Filijale fil = filRepository.findOneById(id);
+		Car car = new Car(newCar);
+		
+		//dodavanje u model
+		fil.addCar(car);
+		car.setFilijale(fil);
+		
+		
+		this.carRepository.save(car);
+		filRepository.save(fil);
+		return new ResponseEntity<>(null, HttpStatus.OK);
+
+		
+	}
 	
 	
 

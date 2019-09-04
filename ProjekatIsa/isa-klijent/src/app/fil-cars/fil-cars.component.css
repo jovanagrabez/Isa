@@ -139,7 +139,7 @@ figure {
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
   background: rgba(255, 62, 28, 0.5);
   background: -moz-linear-gradient(left, rgba(255, 62, 28, 0.5) 0%, rgba(255, 140, 0, 0.5) 100%);
   background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 62, 28, 0.5)), color-stop(100%, rgba(255, 140, 0, 0.5)));

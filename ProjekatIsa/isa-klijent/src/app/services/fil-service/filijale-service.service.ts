@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Filijale } from '../../models/Filijale';
+import { Car } from '../../models/Car';
 import { AuthServiceService } from '../auth-service.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
@@ -28,6 +29,19 @@ export class FilijaleServiceService {
     getCars(id : number): Observable<any>{
   
         return this.http.post('http://localhost:8080/filijale/getCars',id,{headers: this.auth.createAuthorizationTokenHeader()});
+        }
+    
+    changeFil(newFil: Filijale, id: number) : Observable<any> {
+        return this.http.post('http://localhost:8080/filijale/changeFil/'+id,newFil,{headers: this.auth.createAuthorizationTokenHeader()}); 
+        }
+  
+    deleteFil(id : number) : Observable<any> {
+        return this.http.post('http://localhost:8080/filijale/deleteFil',id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+
+        }
+    addCar(newCar: Car, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/filijale/addCar/'+id,newCar,{headers: this.auth.createAuthorizationTokenHeader()}); 
+
         }
     
     
