@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 
@@ -74,6 +75,9 @@ public class User implements Serializable,UserDetails {
     
     @Column(name="verified")
 	private boolean verified;
+    
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private Set<CarReservation> rezCar;
     
 
 	public Long getId() {

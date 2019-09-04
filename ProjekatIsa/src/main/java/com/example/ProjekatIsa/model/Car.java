@@ -34,13 +34,13 @@ public class Car implements Serializable {
     @Column(name = "car_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "car_number", nullable = false, updatable = false)
+	@Column(name = "car_number", nullable = false)
 	private String car_number;
 	
-	@Column(name = "car_name", nullable = false, updatable = false)
+	@Column(name = "car_name", nullable = false)
 	private String name;
 	
-	@Column(name = "price", nullable = false, updatable = false)
+	@Column(name = "price", nullable = false)
 	private int price;
 	
 	@Column(name ="average_rating")
@@ -71,89 +71,195 @@ public class Car implements Serializable {
     private Set<RatingCar> car_ratings;
 
 	
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
-	}
-
+	
+	
 	public Long getId() {
 		return id;
 	}
+
+
+
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public String getNumber() {
+
+
+
+	public String getCar_number() {
 		return car_number;
 	}
 
-	public void setNumber(String car_number) {
+
+
+
+	public void setCar_number(String car_number) {
 		this.car_number = car_number;
 	}
-	
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+
+
+	public Double getAverage_rating() {
+		return average_rating;
+	}
+
+
+
+
+	public void setAverage_rating(Double average_rating) {
+		this.average_rating = average_rating;
+	}
+
+
+
+
+	public int getProd_year() {
+		return prod_year;
+	}
+
+
+
+
+	public void setProd_year(int prod_year) {
+		this.prod_year = prod_year;
+	}
+
+
 
 
 	public RentACar getRentalcars() {
 		return rentalcars;
 	}
 
+
+
+
 	public void setRentalcars(RentACar rentalcars) {
 		this.rentalcars = rentalcars;
 	}
 
-	public Car(Long id, String car_number, int price,String name, double average_rating,int prod_year,Filijale filijala, Category category) {
-		super();
-		this.id = id;
-		this.car_number = car_number;
-		this.price = price;
-		this.name = name;
-		this.average_rating = average_rating;
-		this.prod_year = prod_year;
-		this.filijale = filijale;
-		this.category = category;
-		
-	}
-	
-	public Car(CarDTO c) {
-		setId(c.getId());
-		setName(c.getName());
-		setNumber(c.getNumber());
-		setPrice(c.getPrice());
-		
-	}
-	
+
+
+
 	public Filijale getFilijale() {
 		return filijale;
 	}
+
+
+
 
 	public void setFilijale(Filijale filijale) {
 		this.filijale = filijale;
 	}
 
-	public int getProdYear() {
-		return prod_year;
+
+
+
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setProdYear(int prodYear) {
-		this.prod_year = prodYear;
+
+
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
+
+
+
+	public List<PricingCar> getPricingCar() {
+		return pricingCar;
+	}
+
+
+
+
+	public void setPricingCar(List<PricingCar> pricingCar) {
+		this.pricingCar = pricingCar;
+	}
+
+
+
+
+	public Set<RatingCar> getCar_ratings() {
+		return car_ratings;
+	}
+
+
+
+
+	public void setCar_ratings(Set<RatingCar> car_ratings) {
+		this.car_ratings = car_ratings;
+	}
+	
+	
+
+
+	public Car(Long id, String car_number, String name, int price, Double average_rating, int prod_year,
+			RentACar rentalcars, Filijale filijale, Category category, List<PricingCar> pricingCar,
+			Set<RatingCar> car_ratings) {
+		super();
+		this.id = id;
+		this.car_number = car_number;
+		this.name = name;
+		this.price = price;
+		this.average_rating = average_rating;
+		this.prod_year = prod_year;
+		this.rentalcars = rentalcars;
+		this.filijale = filijale;
+		this.category = category;
+		this.pricingCar = pricingCar;
+		this.car_ratings = car_ratings;
+	}
+	
 	public Car() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+
+	public Car(CarDTO c) {
+		setId(c.getId());
+		setName(c.getName());
+		setCar_number(c.getCar_number());
+		setPrice(c.getPrice());
+		setProd_year(c.getProd_year());
+		setAverage_rating(c.getAverage_rating());
+	}
+	
+	
 
 
 }

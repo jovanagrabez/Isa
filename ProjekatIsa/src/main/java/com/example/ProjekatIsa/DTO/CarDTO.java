@@ -6,65 +6,29 @@ public class CarDTO {
 	
 	private Long id;
 	private String name;
-	private String regnumber;
+	private String car_number;
 	private int price;
-	private int prodYear;
+	private int prod_year;
+	private Double average_rating;
 	
 	public CarDTO(Car car) {
-		this(car.getId(), car.getName(), car.getNumber(), car.getPrice(),car.getProdYear());
+		this(car.getId(),car.getName(),car.getCar_number(),car.getPrice(),car.getProd_year(),car.getAverage_rating());
 	}
 	
-	public CarDTO(Long id, String name, String regnumber, int price,int prodYear) {
+	public CarDTO(Long id, String name, String car_number, int price,int prod_year,Double average_rating ) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.regnumber = regnumber;
+		this.car_number = car_number;
 		this.price = price;
-		this.prodYear = prodYear;
+		this.prod_year = prod_year;
+		this.average_rating = average_rating;
 	}
 
 
 	public CarDTO() {
 		
 		// TODO Auto-generated constructor stub
-	}
-	
-	
-	
-	
-	
-	
-
-	public String getRegnumber() {
-		return regnumber;
-	}
-
-	public void setRegnumber(String regnumber) {
-		this.regnumber = regnumber;
-	}
-
-	public int getProdYear() {
-		return prodYear;
-	}
-
-	public void setProdYear(int prodYear) {
-		this.prodYear = prodYear;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public int getPrice() {
-		return price;
-	}
-
-	public void setPrice(int price) {
-		this.price = price;
 	}
 
 	public Long getId() {
@@ -75,13 +39,47 @@ public class CarDTO {
 		this.id = id;
 	}
 
-	public String getNumber() {
-		return regnumber;
+	public String getName() {
+		return name;
 	}
 
-	public void setNumber(String regnumber) {
-		this.regnumber = regnumber;
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	public String getCar_number() {
+		return car_number;
+	}
+
+	public void setCar_number(String car_number) {
+		this.car_number = car_number;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+	public int getProd_year() {
+		return prod_year;
+	}
+
+	public void setProd_year(int prod_year) {
+		this.prod_year = prod_year;
+	}
+
+	public Double getAverage_rating() {
+		return average_rating;
+	}
+
+	public void setAverage_rating(Double average_rating) {
+		this.average_rating = average_rating;
+	}
+	
+	
 	
 	
 	

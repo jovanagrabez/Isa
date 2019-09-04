@@ -4,7 +4,7 @@ import { Category } from "./Category";
 
 
 export class Car {
-    id : BigInteger;
+    id : number;
     name : string;
     car_number : string;
     price : number;

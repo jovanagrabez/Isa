@@ -9,6 +9,7 @@ import { Filijale } from '../models/Filijale';
 import { Car } from '../models/Car';
 import { CarServiceService } from '../services/car-service/car-service.service';
 import { AuthServiceService } from '../services/auth-service.service';
+import { CarReservation } from '../models/CarReservation';
 
 
 
@@ -31,6 +32,8 @@ export class FilCarsComponent implements OnInit {
   token: string;  
   logged: boolean;
   notLogged: boolean;
+  changeCar : Car = new Car();
+  reservation : CarReservation = new CarReservation();
 
 
   constructor(private router: Router, private ngZone : NgZone, private modalService: NgbModal,
@@ -62,7 +65,8 @@ export class FilCarsComponent implements OnInit {
             }  
             else{
             this.nocarAdmin = true;
-            
+            this.noUser = false;
+
             }
         }
           }
@@ -148,6 +152,33 @@ export class FilCarsComponent implements OnInit {
         }else{}
         
         }
+    
+    changeCarClick(c){
+        this.changeCar = c;
+        document.getElementById('changeCarDiv').removeAttribute('hidden');
+
+        
+    }
+    
+    discardChangeRoomClick(){
+          document.getElementById('changeCarDiv').setAttribute("hidden", "true");  
+      };
+    
+    finalChangeCarClick(newCar2) {
+          
+          console.log(newCar2);
+          this.carService.changeCar(newCar2, this.changeCar.id).subscribe(data=>{
+              document.getElementById('changeCarDiv').setAttribute("hidden", "true");
+              alert("uspjesno");
+          });
+          //window.location.href = 'http://localhost:4200/rentalCars';
+      };
+    
+    
+    bookCarClick(c) {  
+      document.getElementById('bookingDiv').removeAttribute('hidden');
+      
+  }
     
     
 

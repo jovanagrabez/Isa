@@ -79,5 +79,38 @@ public class CarController {
 		}	
 		
 }
+	
+	@RequestMapping(value="changeCar/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> changeFil(@RequestBody CarDTO newCar,@PathVariable("id") Long id){
+		
+		System.out.println("Usao u change car");
+		
+		Car old = carRepository.findOneById(id);
+		Car car2 = new Car(newCar);
+		
+			if(newCar.getName()!=null) {
+				old.setName(car2.getName());
+			}
+			if(newCar.getCar_number()!=null) {
+				old.setCar_number(car2.getCar_number());
+			}
+			if(newCar.getPrice()!= 0) {
+				old.setPrice(car2.getPrice());
+			}
+			
+			try {
+			
+			carRepository.save(old);
+			
+			return new ResponseEntity<>(null,HttpStatus.OK);
+		} catch(Exception e){
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		
+		
+		
+	}
+	
 
 }
