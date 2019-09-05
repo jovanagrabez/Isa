@@ -147,7 +147,7 @@ export class HotelDetailsComponent implements OnInit {
       
       //funkcije za upravljanje servisima
       deleteServiceClick(s) {
-          if (confirm("Da li ste sigurni da zelite da obrisete hotel?")){
+          if (confirm("Da li ste sigurni da zelite da obrisete servis?")){
               this.hotelService.deleteService(s.id).subscribe(data=>{
                   alert("Uspjesno obrisan servis iz hotela!");
                   window.location.href = 'http://localhost:4200/hotels';
@@ -182,7 +182,7 @@ export class HotelDetailsComponent implements OnInit {
 
       };
       deleteRoomClick(r) {
-          if (confirm("Da li ste sigurni da zelite da obrisete hotel?")){
+          if (confirm("Da li ste sigurni da zelite da obrisete sobu?")){
               this.hotelService.deleteRoom(r.id).subscribe(data=>{
                   alert("Uspjesno obrisana soba iz hotela!");
                   window.location.href = 'http://localhost:4200/hotels';

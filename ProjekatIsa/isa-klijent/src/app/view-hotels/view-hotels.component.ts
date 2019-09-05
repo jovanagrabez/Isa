@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ViewHotelsService } from '../services/view-hotels.service';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { SearchFormHotel } from '../models/SearchFormHotel';
+import { Hotel } from '../models/Hotel';
 
 
 @Component({
@@ -19,38 +21,19 @@ export class ViewHotelsComponent implements OnInit {
   private isAdmin: any;
   
   private currentRate = 2.5;
-  
-  hotel$: Object;
-    
-     getAll(): Observable<any> {
-    return this.http.get('//localhost:8080/hotels/getAll');
-   }
+  hotels : Hotel[];
+  searchFormHotel : SearchFormHotel = new SearchFormHotel();
   constructor(private router : Router, private viewHotelsService : ViewHotelsService,private http: HttpClient) { }
-    
-   
- 
 
   ngOnInit() {
   
-  this.viewHotelsService.getHotels().subscribe(
-  	data => this.hotel$ = data
-  );
-  console.log("hoteli");
-  console.log(this.hotel$);
-  
-					  /*this.viewHotelsService.getHotels()
-					  .subscribe(
-					  	data=> 
-					  	{
-					  	this.hotelsArray = data;
-					    console.log(this.hotelsArray);
-					
-					  	
-					  	}
-					  );
-					  */
-	
-	 }
+      this.viewHotelsService.getHotels().subscribe(
+      	data => this.hotels = data
+      );
+      console.log("hoteli");
+      console.log(this.hotels);
+      
+  }
 	onClickShowDetails(Hotel:any) : void {
 		this.selectedHotel = Hotel;
 		console.log("Hotel: " + Hotel);  
@@ -63,6 +46,17 @@ export class ViewHotelsComponent implements OnInit {
     	);
 
     	this.router.navigateByUrl('/hotel-details');
+	}
+	
+	findHotels(){
+	    console.log("CITY" + this.searchFormHotel.city);
+	    console.log(this.searchFormHotel.name + "nazivvvvv");
+
+	    this.viewHotelsService.searchHotels(this.searchFormHotel).subscribe(data=>{
+	        this.hotels = data;
+	        console.log("pretrazeni hoteli");
+	        console.log(data);
+	    });
 	}
 
 }

@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 
 import {Http, Response, Headers } from "@angular/http";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SearchFormHotel } from '../models/SearchFormHotel';
 
 import 'rxjs/Rx'
 
@@ -23,7 +24,7 @@ export class ViewHotelsService {
 
   constructor(private http: HttpClient) { }
   
-  getHotels(){
+  getHotels(): Observable<any>{
 	    return this.http.get('http://localhost:8080/hotels/getAll')
   };
   
@@ -46,4 +47,7 @@ export class ViewHotelsService {
   	    return this.http.get('http://localhost:8080/rooms/getAll')
   
   }
+  searchHotels(searchForm: SearchFormHotel) : Observable<any> {
+      return this.http.post('http://localhost:8080/hotels/searchHotels/',searchForm); 
+  };
 }
