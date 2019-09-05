@@ -10,8 +10,12 @@ import { RentACar } from '../models/RentACar';
 import { Filijale } from '../models/Filijale';
 import { Role } from '../models/Role';
 import { AuthServiceService } from '../services/auth-service.service';
-
-
+import { CarReservation } from '../models/CarReservation';
+import { Category } from '../models/Category';
+import { CategoryServiceService } from '../services/cat-service/category-service.service';
+import { Car } from '../models/Car';
+import { CarServiceService } from '../services/car-service/car-service.service';
+import { ResServiceService } from '../services/res-service/res-service.service';
 
 
 
@@ -36,9 +40,29 @@ export class RentacarDetailsComponent implements OnInit {
   token: string;  
   logged: boolean;
   notLogged: boolean;
-  constructor(private router: Router,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,private filService : FilijaleServiceService,private auth: AuthServiceService ) { }
+  rez : CarReservation = new CarReservation();
+  kategorije : Array<Category>;
+  preuzeto  : Date; 
+  vraceno : Date;
+  pronadjenaVozila : Array<Car>;
+  selektovana : Category;
+  brojDana : number;
+  cenaDo : number;
+  cenaOd : number;
+
+
+  constructor(private router: Router,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,
+  private filService : FilijaleServiceService,private auth: AuthServiceService,private categoryService : CategoryServiceService,
+  private carService : CarServiceService, private resService : ResServiceService ) { }
 
   ngOnInit() {
+      
+      this.categoryService.getAll().subscribe(data=>{
+          console.log('Sve kategorije' + data);
+          this.kategorije = data;
+          console.log(data);
+          
+          });
       this.token = this.auth.getJwtToken();
 
       this.user = JSON.parse(localStorage.getItem('user'));
@@ -135,6 +159,105 @@ export class RentacarDetailsComponent implements OnInit {
             }
         
      }
+    
+    
+    pretraga(){
+        this.vraceno = new Date(this.rez.endDate);
+        this.preuzeto = new Date(this.rez.startDate);
+        
+        if(this.isBlank(this.rez.startDate)){
+            alert("Morate odabrati datum preuzimanja");
+
+            }
+        else if(this.isBlank(this.rez.endDate)){
+            alert("Morate odabrati datum vracanja");
+            }
+        else if(this.isBlank(this.rez.pickupPlace)){
+            alert("Morate uneti mesto preuzimanja");
+            }
+        else if(this.isBlank(this.rez.returnPlace)){
+            alert("Morate uneti mesto vracanja");
+            }
+        else if(this.isBlank(this.rez.category)){
+            alert("Morate odabrati kategoriju");
+            }
+        else if(this.isBlank(this.rez.numPeople)){
+            alert("Morate uneti broj putnika");
+            }
+        else if(this.preuzeto>this.vraceno){
+            alert("Neispravni datumi");
+            }
+        else if(this.isBlank(this.cenaOd) && this.isBlank(this.cenaDo))
+             { 
+            
+            var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+            this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
+            this.kategorije.forEach(element=> {
+                if(element.mark == this.rez.category)
+                {
+                    this.selektovana = element;
+                    }
+                });
+            
+            if(this.rez.numPeople > this.selektovana.seats)
+            {
+               alert("Za odabranu kategoriju je dozvoljeno" + this.selektovana.seats + 'pitnika');
+
+            }
+            
+            else {
+                console.log(this.currentRentACar.id);
+                this.carService.searchCars(this.rez.startDate, this.rez.endDate,this.currentRentACar.id,this.rez.category,-1,-1).subscribe(data=>{
+                    this.pronadjenaVozila=data;
+                    });
+                
+                }
+        
+        
+        } else 
+            {
+            
+             if(this.isBlank(this.cenaOd))
+        {
+            this.cenaDo = this.cenaDo; 
+        }else if(this.isBlank(this.cenaDo))
+        {
+            this.cenaOd = this.cenaOd;
+        }else
+        {
+            
+        }
+             var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+             this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
+             this.carService.searchCars(this.rez.startDate, this.rez.endDate,this.currentRentACar.id,this.rez.category,this.cenaOd,this.cenaDo).subscribe(data=>{
+                    this.pronadjenaVozila=data;
+                    });
+            }
+     }
+    
+    isBlank(str) {
+    return (!str || /^\s*$/.test(str));
+  }
+    
+    
+    reserve(c : Car){
+        
+        if(!this.token){
+            alert("Morate biti ulogovani kako bi izvrsili proces rezervacije");
+            }
+        
+        else{
+           this.rez.car = c;
+           this.rez.user = this.user;
+           console.log("rezervaciju je izvrsio" + this.rez.user.email);
+            this.resService.reserveCar(this.rez).subscribe(data=>{
+                alert("rezervacija uspesna");
+                window.location.href="rentalCars/";
+
+                });
+ 
+            }
+        }
     
     
     

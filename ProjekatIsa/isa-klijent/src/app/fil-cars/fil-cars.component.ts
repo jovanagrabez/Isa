@@ -10,6 +10,8 @@ import { Car } from '../models/Car';
 import { CarServiceService } from '../services/car-service/car-service.service';
 import { AuthServiceService } from '../services/auth-service.service';
 import { CarReservation } from '../models/CarReservation';
+import { Category } from '../models/Category';
+import { CategoryServiceService } from '../services/cat-service/category-service.service';
 
 
 
@@ -20,7 +22,7 @@ import { CarReservation } from '../models/CarReservation';
 })
 export class FilCarsComponent implements OnInit {
 
-  private currentFil : any;
+  private currentFil : Filijale;
   car : Car[];
   user : User = new User();
 
@@ -34,12 +36,24 @@ export class FilCarsComponent implements OnInit {
   notLogged: boolean;
   changeCar : Car = new Car();
   reservation : CarReservation = new CarReservation();
+  totalAccPrice : number;
+  c : Car = new Car();
+  id : number;
+  kategorije : Array<Category>;
+  preuzeto  : Date; 
+  vraceno : Date;
+  rez : CarReservation = new CarReservation();
+  pronadjenaVozila : Array<Car>;
+  selektovana : Category;
 
 
   constructor(private router: Router, private ngZone : NgZone, private modalService: NgbModal,
-  private filService : FilijaleServiceService, private carService : CarServiceService,private auth: AuthServiceService) { }
+  private filService : FilijaleServiceService, private carService : CarServiceService,
+  private auth: AuthServiceService, private categoryService : CategoryServiceService) { }
 
   ngOnInit() {
+      
+      
       
       this.token = this.auth.getJwtToken();
 
@@ -76,6 +90,8 @@ export class FilCarsComponent implements OnInit {
         {
             this.currentFil = currentFil;
             console.log(currentFil);
+            console.log(currentFil.id);
+
             
             this.carService.getCars(currentFil.id).subscribe(data1=>{
                 this.car = data1;
@@ -175,9 +191,16 @@ export class FilCarsComponent implements OnInit {
       };
     
     
-    bookCarClick(c) {  
+    bookCarClick(c) {
+      this.id = c.id; 
+      this.c = c;
+      this.totalAccPrice = this.c.price; 
       document.getElementById('bookingDiv').removeAttribute('hidden');
       
+  }
+    
+    isBlank(str) {
+    return (!str || /^\s*$/.test(str));
   }
     
     

@@ -117,6 +117,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/hotels").permitAll()
 						.antMatchers("/registerAdmin/**").permitAll()
 						.antMatchers("/registerAdmin").permitAll()
+						.antMatchers("/category/**").permitAll()
+						.antMatchers("/category").permitAll()
 
 						.antMatchers("/h2-console/**").permitAll()
 						.antMatchers("/ws/**").permitAll()

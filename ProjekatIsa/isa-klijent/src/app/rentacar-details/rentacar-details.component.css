@@ -123,23 +123,23 @@ figure {
 .fh5co-cover,
 .fh5co-hero {
   position: relative;
-  height: 1200px;
+  height: 1000px;
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover,
   .fh5co-hero {
-    height: 1200px;
+    height: 700px;
   }
 }
 .fh5co-cover .fh5co-overlay,
 .fh5co-hero .fh5co-overlay {
   position: absolute !important;
   width: 100%;
-  top: 1;
+  top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 1;
+  z-index: 0;
   background: rgba(255, 62, 28, 0.5);
   background: -moz-linear-gradient(left, rgba(255, 62, 28, 0.5) 0%, rgba(255, 140, 0, 0.5) 100%);
   background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 62, 28, 0.5)), color-stop(100%, rgba(255, 140, 0, 0.5)));
@@ -178,7 +178,7 @@ figure {
   position: absolute;
   width: 100%;
   margin-top: -80px;
-  z-index: 0;
+  z-index: 2;
   color: #fff;
 }
 @media screen and (max-width: 768px) {
@@ -229,7 +229,7 @@ figure {
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover .desc .desc2 {
-    
+    display: none;
   }
 }
 
@@ -2098,7 +2098,7 @@ div.cs-select span {
 
 
 .container {
-  position: relative;
+	position: relative;
   margin-right: auto;
   margin-left: auto;
   padding-left: 15px;

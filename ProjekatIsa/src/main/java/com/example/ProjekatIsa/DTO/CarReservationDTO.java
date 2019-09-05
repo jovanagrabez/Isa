@@ -7,7 +7,7 @@ import com.example.ProjekatIsa.model.CarReservation;
 public class CarReservationDTO {
 	
 	private Long id;
-	private Date startdDate;
+	private Date startDate;
 	private Date endDate;
 	private String pickupPlace;
 	private String returnPlace;
@@ -30,7 +30,7 @@ public class CarReservationDTO {
 	
 	public CarReservationDTO(CarReservation c) {
 		this.id = c.getId();
-		this.startdDate = c.getStartDate();
+		this.startDate = c.getStartDate();
 		this.endDate = c.getEndDate();
 		this.pickupPlace = c.getPickupPlace();
 		this.returnPlace = c.getReturnPlace();
@@ -43,12 +43,12 @@ public class CarReservationDTO {
 		this.car = new CarDTO(c.getCar());
 				
 	}
-	public CarReservationDTO(Long id, Date startdDate, Date endDate, String pickupPlace, String returnPlace,
+	public CarReservationDTO(Long id, Date startDate, Date endDate, String pickupPlace, String returnPlace,
 			String category, int numPeople, int numDays, Double totalPrice, Date dayRez, CarDTO car, UserDTO user,
 			boolean flag) {
 		super();
 		this.id = id;
-		this.startdDate = startdDate;
+		this.startDate = startDate;
 		this.endDate = endDate;
 		this.pickupPlace = pickupPlace;
 		this.returnPlace = returnPlace;
@@ -67,11 +67,11 @@ public class CarReservationDTO {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Date getStartdDate() {
-		return startdDate;
+	public Date getStartDate() {
+		return startDate;
 	}
-	public void setStartdDate(Date startdDate) {
-		this.startdDate = startdDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 	public Date getEndDate() {
 		return endDate;

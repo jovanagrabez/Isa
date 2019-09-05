@@ -84,6 +84,99 @@
               		
 				</div>
 				
+				<!-- Div za pretragu -->
+
+<div class="row">
+	<div class="col-xs-12">
+
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+              <label>Unesite lokaciju preuzimanja vozila:</label>
+                  <input  class="form-control" id="pickupPlace" placeholder="Lokacija..." name="pickupPlace" type="text" [(ngModel)]="rez.pickupPlace">
+             	  <span id="errorCity"></span>
+              </div>
+              
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Datum pocetka:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input id="startDate" name="startDate" id="startDate" class="form-control" type="date" required="required" data-placeholder="Check in" [(ngModel)]="rez.startDate">
+	                    <span id="errorStart"></span>                    
+	            </div>
+              </div>
+              
+            <label>Unesite broj ljudi:</label>
+             <div class="form-group">
+	                    <input id="numPeople" name= "numPeople" class="form-control" min="1" type="number" required placeholder="Broj ljudi..." [(ngModel)]="rez.numPeople">
+	         </div>
+	         
+	         <label>Cena od:</label>
+             <div class="form-group">
+	                    <input id="cenaOd" name= "cenOd" class="form-control" min="1" type="number" required placeholder="cenaOd..." [(ngModel)]="cenaOd">
+	         </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            
+            <div class="col-md-6">
+            
+            <div class="form-group">
+              <label>Unesite lokaciju vracanja vozila:</label>            
+                  <input  class="form-control" id="returnPlace"  placeholder="Lokacija..." name="returnPlace" type="text" [(ngModel)]="rez.returnPlace">
+             	  <span id="errorCity"></span>
+              </div>
+              <div class="form-group">
+              <label>Datum kraja:</label>
+                <div class="input-group">
+                		 
+	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                      <input class="form-control" type="date" name="endDate" id="endDate" required="required"  data-placeholder="Check out" [(ngModel)]="rez.endDate">
+	                      <span id="errorEnd"></span>
+	           </div>
+	                         </div>
+	           
+	           
+	         <label>Kategorija vozila</label>
+             <div class="form-group">
+                <select class="form-control" name="category" id="category"  [(ngModel)]="rez.category" >
+                    <option  *ngFor="let k of kategorije"  value="{{k.mark}}" >{{k.mark}} ({{k.seats}} seats)</option>
+                  </select>	         </div>
+                  
+                  
+            <label>Cena do:</label>
+             <div class="form-group">
+	                    <input id="cenaDo" name= "cenaDo" class="form-control" min="1" type="number" required placeholder="cenaDo..." [(ngModel)]="cenaDo">
+	         </div>
+           
+              <!-- /.form-group -->
+              <div class="form-group">
+              
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      
+      
+	</div>
+  </div> 
+    <div class="col-xs-12">
+        <button type="button" id="pomeri" class="btn btn-primary btn-block" (click)="pretraga()">Pretraga</button>
+			<br/>
+			<br/>
+		</div>
+</div>	
+				
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>Filijale na kojima nas mozete naci</h3>
@@ -101,8 +194,10 @@
 										<h3>Filijale: </h3>
 										<span>{{c.grad}}</span>
 										<span>{{c.drzava}}</span>
-										<span>{{c.adresa}}</span>										
-										<a  (click)="onClickCompanyDetails(c)" class="btn btn-primary btn-outline">Prikazi vozila</a>
+										<span>{{c.adresa}}</span>
+										<span class="hidden-xs" id="changeButton" [hidden]="nocarAdmin"><a  class="btn btn-primary btn-outline" (click)="onClickCompanyDetails(c)">Prikazi vozila</a></span>
+																				
+										<!--  a  (click)="onClickCompanyDetails(c)" class="btn btn-primary btn-outline">Prikazi vozila</a-->
 										
 									</div>
 								</div>
@@ -110,6 +205,93 @@
 						</div>
 					</div>
 				</div>
+				
+<section>
+    
+    <h1>Vozila:</h1>
+    
+    
+    <!-- prikazivanje vozila-->
+		<div class="row">
+		<div class="col-xs-11">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Broj vozila</th>
+            	<th>Naziv</th>
+            	<th>Registarska oznaka</th>
+            	<th>Prosecna ocena</th>
+            	<th>Cena</th>
+            	<th>Ukupna cena za {{brojDana}} dana</th>
+            	<th>Godina proizvodnje</th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let c of pronadjenaVozila">
+                <td>{{c.id}} </td>                
+                <td>{{c.name}}</td> 
+                <td>{{c.car_number}}</td>
+                <td>{{c.average_rating}}</td> 
+                <td>{{c.price}}<b>/</b> 1 dan</td>
+                <td>{{c.price*brojDana}}<b>/</b></td>
+                <td>{{c.prod_year}}</td>               
+                              
+                <td><span class="hidden-xs" id="bookCarId"><button type="button"  class="btn btn-outline-primary" (click)="reserve(c)">Book me</button></span></td> 
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+					</div>
+				</div>
+    <!--div class="container">
+      
+        <div class="row">
+            <article class="card fl-left" *ngFor = "let c of pronadjenaVozila">
+                <section class="card-cont">
+                  <h2>{{c.name}}</h2>
+                  <div>
+                    <small>RegOznaka: {{c.car_number}}</small>
+                  </div>
+                  <div>
+                    <div class="row">  
+                        <div class="star-ratings-sprite">
+                            <span [style.width]="c.average_rating*22+ 'px'" class="star-ratings-sprite-rating" >Ocena
+                            </span>
+                        </div>
+                        <p>{{c.average_rating}}</p>
+                    </div>    
+                  </div>
+                  <div>
+                        <small>Godina proizvodnje: {{c.prod_year}}</small> 
+                  </div>
+                  <div>
+                        <small>Dan cena: {{c.price}} E</small> 
+                  </div>
+                  <div>
+                        <small>Broj dana: {{brojDana}}</small> 
+                  </div>
+                  <div>
+                        <small>Ukupna cena: {{brojDana*c.price}} E</small> 
+                  </div>
+                  <div>
+                     <small>Tip: {{c.category.mark}}, broj sedista: {{c.category.seats}}</small> 
+                  </div>
+                  <a (click)="rezervacija(v)">Rezervisi</a>
+                </section>
+            </article>
+        </div>
+    </div-->
+</section>
 				
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">

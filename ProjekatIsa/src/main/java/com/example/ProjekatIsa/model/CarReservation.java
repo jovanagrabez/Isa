@@ -45,7 +45,7 @@ public class CarReservation {
 	@Column(name="total_price", nullable = false)
 	private double totalPrice;
 	
-	@Column(name = "day_rez", nullable=false)
+	@Column(name = "day_rez")
 	private Date dayRez;
     
     

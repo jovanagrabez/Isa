@@ -88,53 +88,13 @@
 					</div>
 				</div>
 				
-<!-- prikazivanje vozila-->
-		<div class="row">
-		<div class="col-xs-11">
-       	<div class="box">
- 
-            <!-- /.box-header -->
-            <div class="box-body table-responsive no-padding">
-              <table id="lista" class="table table-hover">
-              <thead>
-               	<tr>
-            	<th>Broj vozila</th>
-            	<th>Naziv</th>
-            	<th>Registarska oznaka</th>
-            	<th>Prosecna ocena</th>
-            	<th>Cena</th>
-            	<th>Godina proizvodnje</th>
-            	<th></th>
-            	<th></th>
-            	</tr>
-       		 </thead>
-       		 
-       		 <tbody>
-                <tr *ngFor="let c of car">
-                <td>{{c.id}} </td>                
-                <td>{{c.name}}</td> 
-                <td>{{c.car_number}}</td>
-                <td>{{c.average_rating}}</td> 
-                <td>{{c.price}}€ <b>/</b> 1 noć</td>
-                <td>{{c.prod_year}}</td>               
-                              
-                <td><span class="hidden-xs" id="bookCarId" [hidden]="noUser"><button type="button"  class="btn btn-outline-primary" (click)="bookCarClick(c)">Book me</button></span></td> 
-                <td><span class="hidden-xs" id="changeCarId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeCarClick(c)">Izmeni</button></span></td>             
-                <td><span class="hidden-xs" id="deleteCarId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteCarClick(c)">Obrisi</button></span></td>
-                </tr>
-             </tbody>
+				
+				
 
-              </table>
-            </div>
-            <!-- /.box-body -->
-          </div>
-          
-<!-- Div za rezervisanje -->
 
 <div class="col-xs-12" id= "bookingDiv" hidden="true">	
   <div class="box">	
   		<div class="box-header with-border">
-              <h3 class="box-title">Rezervisi</h3>
         </div>
         <div class="box-body box-profile" >
 	  		<div  class="col-md-6">
@@ -191,6 +151,49 @@
     </div>
 </div>
 </div>
+				
+<!-- prikazivanje vozila-->
+		<div class="row">
+		<div class="col-xs-11">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Broj vozila</th>
+            	<th>Naziv</th>
+            	<th>Registarska oznaka</th>
+            	<th>Prosecna ocena</th>
+            	<th>Cena</th>
+            	<th>Godina proizvodnje</th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let c of car">
+                <td>{{c.id}} </td>                
+                <td>{{c.name}}</td> 
+                <td>{{c.car_number}}</td>
+                <td>{{c.average_rating}}</td> 
+                <td>{{c.price}}€ <b>/</b> 1 noć</td>
+                <td>{{c.prod_year}}</td>               
+                              
+                <td><span class="hidden-xs" id="bookCarId" [hidden]="noUser"><button type="button"  class="btn btn-outline-primary" (click)="bookCarClick(c)">Book me</button></span></td> 
+                <td><span class="hidden-xs" id="changeCarId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeCarClick(c)">Izmeni</button></span></td>             
+                <td><span class="hidden-xs" id="deleteCarId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteCarClick(c)">Obrisi</button></span></td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          
+
           
           
           <!-- div za izmenu vozila-->

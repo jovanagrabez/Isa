@@ -71,8 +71,26 @@ public class Car implements Serializable {
     private Set<RatingCar> car_ratings;
 
 	
+	@OneToMany(mappedBy="car",orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<CarReservation> reservation;
 	
 	
+	
+	
+	public List<CarReservation> getReservation() {
+		return reservation;
+	}
+
+
+
+
+	public void setReservation(List<CarReservation> reservation) {
+		this.reservation = reservation;
+	}
+
+
+
+
 	public Long getId() {
 		return id;
 	}
@@ -229,7 +247,7 @@ public class Car implements Serializable {
 
 	public Car(Long id, String car_number, String name, int price, Double average_rating, int prod_year,
 			RentACar rentalcars, Filijale filijale, Category category, List<PricingCar> pricingCar,
-			Set<RatingCar> car_ratings) {
+			Set<RatingCar> car_ratings, List<CarReservation> reservation) {
 		super();
 		this.id = id;
 		this.car_number = car_number;
@@ -242,6 +260,7 @@ public class Car implements Serializable {
 		this.category = category;
 		this.pricingCar = pricingCar;
 		this.car_ratings = car_ratings;
+		this.reservation = reservation;
 	}
 	
 	public Car() {

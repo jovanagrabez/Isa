@@ -30,5 +30,10 @@ export class CarServiceService {
         return this.http.post('http://localhost:8080/car/changeCar/'+id,newCar,{headers: this.auth.createAuthorizationTokenHeader()}); 
         }
     
+    searchCars(startDate : Date, endDate : Date,id : number,category : string,cenaOd : number,cenaDo:number) :Observable<any>{
+        console.log('usao u pretraga servis');
+        return this.http.get('//localhost:8080/car/searchCar/'+startDate+"/"+endDate+"/"+id+"/"+category+"/"+cenaOd+"/"+cenaDo);
+  }
+    
     
 }
