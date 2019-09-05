@@ -73,7 +73,7 @@ public class CarReservationController {
 				res.setNumPeople(carRes.getNumPeople());
 				res.setNumDays(carRes.getNumDays());
 				res.setCategory(carRes.getCategory());
-				//res.setDayRez(carRes.getDayRez());
+				////res.setDayRez(carRes.getDayRez());
 				//res.setTotalPrice(carRes.getTotalPrice());
 				res.setUser(user);
 				res.setCar(car);
