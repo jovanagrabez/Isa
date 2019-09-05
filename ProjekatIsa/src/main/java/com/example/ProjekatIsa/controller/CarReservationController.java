@@ -21,7 +21,6 @@ import com.example.ProjekatIsa.model.User;
 import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.CarReservationRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
-import com.example.ProjekatIsa.service.CarReservationService;
 import com.example.ProjekatIsa.service.CarService;
 
 @CrossOrigin(origins = "*")
@@ -31,9 +30,6 @@ public class CarReservationController {
 	
 	@Autowired
 	CarService carService;
-	
-	@Autowired
-	CarReservationService carReservationService;
 	
 	@Autowired
 	CarRepository carRepository;
@@ -61,12 +57,13 @@ public class CarReservationController {
 			res.setStartDate(startDate);
 			res.setEndDate(endDate);
 			
-			Car car = carRepository.findOneById(carRes.getCar().getId());
+			Car car = new Car();
+		    car = carService.findOneById(carRes.getCar().getId());
 			System.out.println(car.getName() + "Id vozila");
 			User user = userRepository.findOneById(carRes.getUser().getId());
 			System.out.println(user.getFirstName() + "Korisnik");
 			
-			//if(!reserved(car,startDate,endDate)) {
+			if(!reserved(car,startDate,endDate)) {
 				
 				res.setPickupPlace(carRes.getPickupPlace());
 				res.setReturnPlace(carRes.getReturnPlace());
@@ -83,17 +80,19 @@ public class CarReservationController {
 				return new ResponseEntity<>(new CarReservationDTO(res),HttpStatus.CREATED);
 				
 				
-			//}else
-			//{
-			//	return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-			//}
+			}else
+			{
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
 		
 	}
 	
 	
 	public boolean reserved(Car c, Date pickupDate, Date returnDate) {
 		
-		List<CarReservation> resCar = carReservationService.allCarReservation(c.getId());
+		//System.out.println("PRONADJI F AUTO" + carReservationService.allCarReservation(c.getId()));
+		
+		List<CarReservation> resCar = carresRepository.findAllByCar(c);
 		
 		for(CarReservation reservation : resCar) {
 			

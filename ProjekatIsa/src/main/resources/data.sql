@@ -96,7 +96,7 @@ insert into role (id,name) values (3,'AVIO_ADMIN');
 insert into role (id,name) values (4,'HOTEL_ADMIN');
 insert into role (id,name) values (5,'CAR_ADMIN');
 
-INSERT INTO user_roles(user_id, role_id) VALUES(1,5);
+INSERT INTO user_roles(user_id, role_id) VALUES(1,1);
 INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
 
 
@@ -266,6 +266,7 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (3,false,3,4);
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (4,false,3,5);
 
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,0);
 
 
 
