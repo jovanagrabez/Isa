@@ -8,7 +8,9 @@
       <form  class="registration" (submit)="addHotel()" method="POST">
 		    <input type="text" [(ngModel)] = "hotel.name" #name= "ngModel" name="name" class="form-control"  data-validation="required" #name placeholder = "Unesite naziv hotela">
       			<span id="error_name" class="text-danger"></span>
-		    <input type="text"[(ngModel)] = "hotel.address" #address= "ngModel" name="address" class="form-control"  data-validation="required" #address placeholder = "Unesite adresu hotela">
+		    <input type="text"[(ngModel)] = "hotel.city" #city= "ngModel" name="city" class="form-control"  data-validation="required" #city placeholder = "Unesite grad hotela">
+      			<span id="error_city" class="text-danger"></span>
+      	<input type="text"[(ngModel)] = "hotel.address" #address= "ngModel" name="address" class="form-control"  data-validation="required" #address placeholder = "Unesite adresu hotela">
       			<span id="error_address" class="text-danger"></span>
       		<input type="text" height="200" [(ngModel)] = "hotel.description" #description= "ngModel" name="description" class="form-control"  data-validation="required" #description placeholder = "Unesite opis hotela">
       			<span id="error_description" class="text-danger"></span>

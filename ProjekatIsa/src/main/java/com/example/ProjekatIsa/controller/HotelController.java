@@ -22,6 +22,7 @@ import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.Room;
+import com.example.ProjekatIsa.model.SearchFormHotel;
 import com.example.ProjekatIsa.repository.AdditionalServiceForHotelRepository;
 import com.example.ProjekatIsa.repository.HotelRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
@@ -314,6 +315,55 @@ public class HotelController {
 			return new ResponseEntity<>(null, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	
+	}
+	
+	//pretraga
+	@RequestMapping(value="/searchHotels",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> searchHotels(@RequestBody SearchFormHotel searchForm){
+		System.out.println("Dosao u add search hotel");
+		
+		System.out.println(searchForm.getName() + " :ime" + searchForm.getCity() + " :grad"
+				+ searchForm.getStartDate() + " : start date" + searchForm.getEndDate() + " :endDate");
+		
+		List<Hotel> allHotels = hotelService.getAll();
+		List<Hotel> returnList = new ArrayList<Hotel>();
+		List<Hotel> returnList2 = new ArrayList<Hotel>();
+		
+		//ako se pretrazuje po nazivu
+		if (searchForm.getName() != null) {
+			for (Hotel h : allHotels) {
+				if (h.getName().contains(searchForm.getName())) {
+					returnList.add(h);
+				}
+			}
+			//ako se pretrazuje i po nazivu i po gradu
+			if (searchForm.getCity() != null) {
+				for (Hotel h : returnList) {
+					if (h.getCity().equals(searchForm.getCity())) {
+						returnList2.add(h);
+					}
+				}
+				return new ResponseEntity<List<Hotel>>(returnList2, HttpStatus.OK);
+			}
+			//ako se pretrazuje samo po nazivu
+			else {
+				return new ResponseEntity<List<Hotel>>(returnList, HttpStatus.OK);
+			}
+		}
+		//ako se ne pretrazuje po nazivu nego samo gradu 
+		else {
+			if (searchForm.getCity() != null) {
+				for (Hotel h : allHotels) {
+					if (h.getCity().equals(searchForm.getCity())) {
+						returnList.add(h);
+					}
+				}
+			}
+			return new ResponseEntity<List<Hotel>>(returnList, HttpStatus.OK);
 		}
 	
 	}

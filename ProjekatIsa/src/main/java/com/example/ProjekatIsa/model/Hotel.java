@@ -35,7 +35,10 @@ public class Hotel implements Serializable{
 
 	@Column(name = "name", nullable = false, columnDefinition="VARCHAR(40)")
     private String name;
-
+	
+	@Column(name = "city", nullable = false, columnDefinition="VARCHAR(40)")
+    private String city;
+	
 	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
     private String address;
 	
@@ -145,10 +148,11 @@ public class Hotel implements Serializable{
 		super();
 	}
 
-	public Hotel(Long id, String name, String address, String description, Double average_rating) {
+	public Hotel(Long id, String name,String city, String address, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.city = city;
 		this.address = address;
 		this.description = description;
 		this.average_rating = average_rating;
@@ -158,7 +162,16 @@ public class Hotel implements Serializable{
 	     setName(h.getName());
 	     setDescription(h.getDescription());
 	     setAddress(h.getAddress());
+	     setCity(h.getCity());
 		
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	

@@ -6,6 +6,7 @@ public class HotelDTO {
   
 	private Long id;
     private String name;
+    private String city;
     private String address;
     private String description;
 	private Double average_rating;
@@ -14,17 +15,18 @@ public class HotelDTO {
 		
 	}
 
-	public HotelDTO(Long id, String name, String address, String description, Double average_rating) {
+	public HotelDTO(Long id, String name,String city, String address, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.city = city;
 		this.address = address;
 		this.description = description;
 		this.average_rating = average_rating;
 	}
 
 	public HotelDTO(Hotel hotel) {
-		this(hotel.getId(), hotel.getName(), hotel.getAddress(), hotel.getDescription(),hotel.getAverage_rating());
+		this(hotel.getId(), hotel.getName(),hotel.getCity(), hotel.getAddress(), hotel.getDescription(),hotel.getAverage_rating());
 	}
 
 	public Long getId() {
@@ -49,6 +51,14 @@ public class HotelDTO {
 
 	public void setAverage_rating(Double average_rating) {
 		this.average_rating = average_rating;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 	
 	
