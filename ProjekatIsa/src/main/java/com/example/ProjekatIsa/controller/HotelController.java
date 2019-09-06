@@ -1,6 +1,8 @@
 package com.example.ProjekatIsa.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +23,12 @@ import com.example.ProjekatIsa.DTO.RoomDTO;
 import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.model.SearchFormHotel;
 import com.example.ProjekatIsa.repository.AdditionalServiceForHotelRepository;
 import com.example.ProjekatIsa.repository.HotelRepository;
+import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
 import com.example.ProjekatIsa.service.AdditionalServiceForHotelService;
 import com.example.ProjekatIsa.service.HotelService;
@@ -53,6 +57,11 @@ public class HotelController {
 	@Autowired
 	private AdditionalServiceForHotelService addService;
 	
+	@Autowired 
+	private ReservationRoomRepository reservationRoomRepository;
+	
+	@Autowired
+	private ReservationRoomRepository resRepository;
 	//@Autowired
 	//private RatingHotelRepository ratingHotelService;
 	
@@ -332,10 +341,38 @@ public class HotelController {
 		List<Hotel> allHotels = hotelService.getAll();
 		List<Hotel> returnList = new ArrayList<Hotel>();
 		List<Hotel> returnList2 = new ArrayList<Hotel>();
+		List<Hotel> returnList3 = new ArrayList<Hotel>();
+
+		//pretraga po datumu
 		
+		if (searchForm.getStartDate()!=null && searchForm.getEndDate()!=null) {
+			for (Hotel hot : allHotels) {
+				System.out.println("usao u prvu petlju : svih hotela");
+				System.out.println("hotel ima soba: " + hot.getRooms().size());
+				//pronalazim sve sobe hotela
+				List<Room> rooms = roomRepository.findAllByHotel(hot);
+				if (rooms.size()>0) {
+					int num = rooms.size();
+					System.out.println("broj soba " + rooms.size());
+					for (Room r : rooms) {
+						if(reserved(r, searchForm.getStartDate(), searchForm.getEndDate())) {
+							System.out.println("umanjujem sobu");
+							--num;
+						}
+					}
+					if(num!=0) {
+						System.out.println("Dodajem hotel");
+						returnList3.add(hot);
+					}
+				}
+			}
+		}else {
+			returnList3 = hotelService.getAll();
+		}
+
 		//ako se pretrazuje po nazivu
 		if (searchForm.getName() != null) {
-			for (Hotel h : allHotels) {
+			for (Hotel h : returnList3) {
 				if (h.getName().contains(searchForm.getName())) {
 					returnList.add(h);
 				}
@@ -357,15 +394,36 @@ public class HotelController {
 		//ako se ne pretrazuje po nazivu nego samo gradu 
 		else {
 			if (searchForm.getCity() != null) {
-				for (Hotel h : allHotels) {
+				for (Hotel h : returnList3) {
 					if (h.getCity().equals(searchForm.getCity())) {
 						returnList.add(h);
 					}
 				}
+				return new ResponseEntity<List<Hotel>>(returnList, HttpStatus.OK);
 			}
-			return new ResponseEntity<List<Hotel>>(returnList, HttpStatus.OK);
+			//ako ne pretrazuje ni po nazivu ni po gradu
+			return new ResponseEntity<List<Hotel>>(allHotels, HttpStatus.OK);
 		}
+		
+	
 	
 	}
-
+	public boolean reserved(Room r, Date startDate, Date endDate) {
+		
+		List<ReservationRoom> resRoom = reservationRoomRepository.findAllByRoom(r);
+		
+		for(ReservationRoom reservation : resRoom) {
+			
+			if(endDate.getTime() >= reservation.getStartDate().getTime() && endDate.getTime()<= reservation.getEndDate().getTime())
+			{
+				return true;
+			} else if(startDate.getTime() >= reservation.getStartDate().getTime() && startDate.getTime() <= reservation.getEndDate().getTime())
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
+
+

@@ -5,21 +5,39 @@ delete from roles_privileges;
 
 
 
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (1,50,1,'Jednokrevetna',4.1,1);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (2,50,1,'Dvokrevetna',4.2,1);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (3,50,2,'Jednokrevetna',4.4,2);
-insert into room (room_number,room_price,capacity,room_description,hotel_id) values (4,50,2,'Dvokrevetna',2);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (5,50,3,'Dvokrevetna',4.6,2);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (11,100,1,'Jednokrevetna',4.7,2);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (12,100,3,'Dvokrevetna',3.9,2);
-insert into room (room_number,room_price,capacity,room_description,hotel_id) values (13,100,2,'Dvokrevetna',1);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (14,100,3,'Trokrevetna',4.4,2);
-insert into room (room_number,room_price,capacity,room_description,hotel_id) values (15,100,5,'Trokrevetna',1);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (21,200,4,'Trokrevetna',4.9,2);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (22,200,3,'Trokrevetna',5.0,2);
-insert into room (room_number,room_price,capacity,room_description,hotel_id) values (23,200,7,'Apartman',2);
-insert into room (room_number,room_price,capacity,room_description,room_average_rating,hotel_id) values (24,200,6,'Apartman',4.8,1);
-insert into room (room_number,room_price,capacity,room_description,hotel_id) values (25,200,5,'Apartman',1);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (1,1,50,1,'Jednokrevetna',4.1,1);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (2,2,50,1,'Dvokrevetna',4.2,1);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (3,3,50,2,'Jednokrevetna',4.4,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
+	values (4,4,50,2,'Dvokrevetna',2);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (5,5,50,3,'Dvokrevetna',4.6,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (6,11,100,1,'Jednokrevetna',4.7,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (7,12,100,3,'Dvokrevetna',3.9,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
+	values (8,13,100,2,'Dvokrevetna',1);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (9,14,100,3,'Trokrevetna',4.4,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
+	values (10,15,100,5,'Trokrevetna',1);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (11,21,200,4,'Trokrevetna',4.9,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (12,22,200,3,'Trokrevetna',5.0,2);
+insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
+	values (13,23,200,7,'Apartman',2);
+insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
+	values (14,24,200,6,'Apartman',4.8,1);
+insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
+	values (15,25,200,5,'Apartman',1);
+
+insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
+	values (16,26,260,5,'Apartman',3);
 
 insert into hotel (name,city,adress,description,average_rating) values ('Vojvodina','Novi Sad','Bulevar Oslobodjenja 1','U samom centru grada. Stara arhitektura',4.3);
 insert into hotel (name,city,adress,description,average_rating) values ('Grand hotel','Novi Sad','Bulevar Oslobodjenja 1','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
@@ -41,21 +59,6 @@ insert into additional_service_hotel (name,price,hotel_id) values ('Wellnes', 50
 insert into additional_service_hotel (name,price,hotel_id) values ('Spa', 30,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('WiFi', 10,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,1);
-
-/*
-
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,1);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,2);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,3);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,4);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,5);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,6);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,7);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,8);
-insert into hotel_additional_service(hotel_id,additional_service_id) values (1,9);*/
-
-
-
 
 insert into aviocompany (name, adress, description) values ('AirN', 'Beograd', 'opis');
 insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Istanbul', 'opis');
@@ -79,7 +82,8 @@ insert into destination(name, country) values ('New Delhi', 'Indija');
 
 
 
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) 
+	values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (2,'Admin','Admin','admin@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (3,'Admin','Admin','avioadmin@gmail.com',
@@ -289,4 +293,31 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,0);
 
 
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (6,'2018-04-15','2018-04-25',350.5,'arrived',5,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (2,'2018-04-01','2018-04-13',666.5,'arrived',2,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (3,'2019-05-01','2019-05-13',666.5,'confirmed',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (4,'2018-04-01','2018-04-13',666.5,'arrived',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (5,'2019-05-01','2019-05-13',666.5,'confirmed',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (1,'2019-07-10','2019-07-13',666.5,'pending',null,1,1);
+
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (7,'2019-09-05','2019-09-10',666.5,'pending',null,1,16);
+
+
+insert into pricing(pricing_id,price,date_from,date_to,room_id) 
+	values (1,100,'2019-06-01','2019-07-01',1);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (2,100,'2019-07-01','2019-08-01',1);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (3,100,'2019-08-01','2019-09-01',1);	
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (4,100,'2019-09-01','2019-10-01',1);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (5,100,'2019-10-01','2019-11-01',1);
 

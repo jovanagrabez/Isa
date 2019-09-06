@@ -76,9 +76,22 @@ public class User implements Serializable,UserDetails {
     @Column(name="verified")
 	private boolean verified;
     
+    @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CarReservation> rezCar;
     
+    @JsonIgnore
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<ReservationRoom> rezRoom;
+
+    
+	public List<ReservationRoom> getRezRoom() {
+		return rezRoom;
+	}
+
+	public void setRezRoom(List<ReservationRoom> rezRoom) {
+		this.rezRoom = rezRoom;
+	}
 
 	public Long getId() {
 		return id;

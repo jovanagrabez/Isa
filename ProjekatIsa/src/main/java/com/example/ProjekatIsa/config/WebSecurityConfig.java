@@ -127,7 +127,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/registerAdmin").permitAll()
 						.antMatchers("/category/**").permitAll()
 						.antMatchers("/category").permitAll()
-
+						.antMatchers("/searchRooms").permitAll()
+						.antMatchers("/searchRooms/**").permitAll()
+						.antMatchers("/bookRoom").permitAll()
 						.antMatchers("/h2-console/**").permitAll()
 						.antMatchers("/ws/**").permitAll()
 						
@@ -195,6 +197,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 					web.ignoring().antMatchers(HttpMethod.POST, "/car");
 					web.ignoring().antMatchers(HttpMethod.DELETE, "/car/**");
 					web.ignoring().antMatchers(HttpMethod.GET, "/filijale/getCars");
+					
+					web.ignoring().antMatchers(HttpMethod.POST, "/hotels/searchHotels");
+					web.ignoring().antMatchers(HttpMethod.POST, "/hotels/searchRooms");
+					web.ignoring().antMatchers(HttpMethod.POST, "/hotels/searchRooms/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/rooms/searchRooms");
+					web.ignoring().antMatchers(HttpMethod.POST, "/rooms/searchRooms/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/rooms");
+					web.ignoring().antMatchers(HttpMethod.POST, "/rooms/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/bookRoom");
+					web.ignoring().antMatchers(HttpMethod.POST, "/rooms/bookRoom");
 
 				//web.ignoring().antMatchers(HttpMethod.PUT, "/friends/**");
 

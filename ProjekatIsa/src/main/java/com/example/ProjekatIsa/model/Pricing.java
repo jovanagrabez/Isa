@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -27,10 +28,10 @@ public class Pricing implements Serializable{
     private Double price;
 	
 	@Column(name = "date_from", nullable = false)
-    private Double dateFrom;
+    private Date dateFrom;
 	
 	@Column(name = "date_to", nullable = false)
-    private Double dateTo;
+    private Date dateTo;
 	
 	@JsonIgnore
 	@ManyToOne
@@ -53,19 +54,19 @@ public class Pricing implements Serializable{
 		this.price = price;
 	}
 
-	public Double getDateFrom() {
+	public Date getDateFrom() {
 		return dateFrom;
 	}
 
-	public void setDateFrom(Double dateFrom) {
+	public void setDateFrom(Date dateFrom) {
 		this.dateFrom = dateFrom;
 	}
 
-	public Double getDateTo() {
+	public Date getDateTo() {
 		return dateTo;
 	}
 
-	public void setDateTo(Double dateTo) {
+	public void setDateTo(Date dateTo) {
 		this.dateTo = dateTo;
 	}
 

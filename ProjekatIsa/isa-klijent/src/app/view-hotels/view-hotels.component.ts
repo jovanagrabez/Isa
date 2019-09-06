@@ -58,5 +58,9 @@ export class ViewHotelsComponent implements OnInit {
 	        console.log(data);
 	    });
 	}
+	
+	isBlank(str) {
+        return (!str || /^\s*$/.test(str));
+      }
 
 }

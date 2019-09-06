@@ -110,6 +110,78 @@
 			          </div>
               		</div>			
 		</div>
+		<!-- Pretrazivanje soba-->
+		<div class="row">
+	<div class="col-xs-12">
+
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+              <label>Unesite broj osoba:</label>
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Broj osoba.." [(ngModel)]="reservationRoom.numPeople" min="1" #numPeople="ngModel" name="numPeople" type="number">
+             	  <span id="errorCity"></span>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Datum dolaska:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="date" required="required" data-placeholder="Check in" [(ngModel)]="reservationRoom.startDate" #startDate="ngModel" name="startDate" >
+	                    <span id="errorStart"></span>                    
+	            </div>
+              </div>
+              <div class="form-group">
+              <label>Unesite minimalnu cenu:</label>
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Minimalna cena.." [(ngModel)]="cenaOd"  min="1"  name="city" type="number">
+             	  <span id="errorCity"></span>
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+            <label>Izaberite vrstu sobe:</label>
+             <div class="form-group">
+			<select [(ngModel)]="reservationRoom.category" class="form-control" name="category" id="category">
+						<option value="Jednokrevetna">Jednokrevetna</option>
+						<option value="Dvokrevetna">Dvokrevetna</option>
+						<option value="Trokrevetna">Trokrevetna</option>
+						<option value="Cetverokrevetna">Cetverokrevetna</option>
+						<option value="Apartman">Apartman</option>
+					</select>	         
+			</div>
+              <!-- /.form-group -->
+              <div class="form-group">
+               <label>Datum odlaska:</label>
+                <div class="input-group"> 
+	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                      <input class="form-control" type="date" name="endDate" required="required"   [(ngModel)]="reservationRoom.endDate" #endDate="ngModel" name="endDate" data-placeholder="Check out">
+	                      <span id="errorEnd"></span>
+	                </div>
+              </div>
+              <div class="form-group">
+              <label>Unesite maksimalnu cenu:</label>
+                  <input  class="form-control" id="exampleInputEmail1" [(ngModel)]="cenaDo"  placeholder="Maksimalna cena.." min="1" type="number">
+             	  <span id="errorCity"></span>
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+	</div>
+  </div> 
+    <div class="col-xs-12">
+			<input type="submit" class="btn btn-default btn-block" (click)="findRooms()" value="PRIKAZI REZULTATE">
+			<br/>
+			<br/>
+	</div>
+</div>	
 		<!-- prikazivanje soba-->
 		<div class="row">
 		<div class="col-xs-11">
@@ -138,7 +210,7 @@
                 <td>{{r.capacity}}</td>
                 <td>{{r.price}}€ <b>/</b> 1 noć</td>
                 <td><span *ngIf="!(r.room_average_rating == null)" class="price"> {{r.room_average_rating}} </span></td>               
-                <td><button type="button"  class="btn btn-outline-success">Book me</button></td> 
+                <td><button type="button"  class="btn btn-outline-primary" (click)="bookClick(r)">Book me</button></td> 
                 <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeRoomClick(r)">Izmeni</button></span></td>             
                 <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteRoomClick(r)">Obrisi</button></span></td>
                 </tr>
@@ -189,7 +261,8 @@
 				</div>
 				
 		<!--DIV ZA PRIKAZ SERVISA -->		
-		<div class="row">
+	
+		
 		<div class="col-xs-10">
        	<div class="box">
  
@@ -209,7 +282,9 @@
                 <tr *ngFor="let s of services">
                 <td>{{s.name}} </td>                
                 <td>{{s.price}}€</td> 
-                <td><button type="button"  class="btn btn-outline-success">Book me</button></td> 
+                <td>
+				<input type="checkbox"  name={{s.name}} value={{s.id}} (change)="serviceChanged(s.id)"> BOOK
+				</td> 
                 <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeServiceClick(s)">Izmeni</button></span></td>             
                 <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteServiceClick(s)">Obrisi</button></span></td>
                 </tr>
@@ -221,6 +296,12 @@
           </div>
           <!-- /.box -->
 		</div>
+		<div class="col-md-6">
+  			<div class="form-group">
+               <label>Total price: {{reservationRoom.totalPrice}} €</label>
+                
+            </div>
+  			</div>
 		<div class="col-xs-6" id = "changeServiceDiv" hidden="true">
 		              	<div class="box box-primary">
 			            <div class="box-header with-border ">
@@ -250,7 +331,7 @@
               		</div> 
 		</div>
 	</div>
-</div>
+
 		
 		
 					

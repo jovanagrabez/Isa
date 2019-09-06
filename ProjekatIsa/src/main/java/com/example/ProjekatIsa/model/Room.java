@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.RoomDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
@@ -50,6 +51,11 @@ public class Room implements Serializable{
 	@JoinColumn(name="hotel_id")
 	private Hotel hotel;
 	
+	@JsonIgnore
+	@OneToMany(mappedBy="room")
+    protected List<ReservationRoom> reservationRoom;
+	
+	//@JsonIgnore
 	@OneToMany(mappedBy="room")
     protected List<Pricing> pricing;
 	
@@ -150,6 +156,14 @@ public class Room implements Serializable{
 
 	public void setCapacity(Double capacity) {
 		this.capacity = capacity;
+	}
+
+	public List<ReservationRoom> getReservationRoom() {
+		return reservationRoom;
+	}
+
+	public void setReservationRoom(List<ReservationRoom> reservationRoom) {
+		this.reservationRoom = reservationRoom;
 	}
 	
 	
