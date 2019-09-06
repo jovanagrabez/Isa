@@ -64,4 +64,8 @@ export class AviocompanySService {
     return this.http.put('http://localhost:8080/avioCompany/update', aviocompany);
 
   }
+
+  getCompany(id){
+    return this.http.get('http://localhost:8080/avioCompany/'.concat(id));
+  }
 }

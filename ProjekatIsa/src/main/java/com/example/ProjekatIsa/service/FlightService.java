@@ -15,5 +15,6 @@ public interface FlightService {
     Flight updateFlight(Flight flight);
     Flight saveFlight(Flight flight);
     boolean deleteFlight(Flight flight);
+    Flight updateSeats(Flight fligh);
 
 }

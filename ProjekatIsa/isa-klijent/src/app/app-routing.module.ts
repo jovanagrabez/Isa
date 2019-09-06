@@ -17,6 +17,10 @@ import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { AddCarsComponent } from './add-cars/add-cars.component';
 import {FriendsComponent} from './profil/friends/friends.component';
 import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
+import {FlightsComponent} from './aviocompany/flights/flights.component';
+import {SeatComponent} from './aviocompany/flights/seat/seat.component';
+import {FormsModule} from '@angular/forms';
+import {FlightReservationComponent} from './aviocompany/flights/flight-reservation/flight-reservation.component';
 
 
 
@@ -108,7 +112,20 @@ const routes: Routes = [
   {
     path: 'friends',
     component : FriendsComponent
-  }
+  },
+  {
+    path: 'flights/:id', component: FlightsComponent,
+    children: [
+      {
+        path: 'seats', component: SeatComponent
+      }
+    ]
+  },
+  {
+    path: 'flights/reservation/:id', component: FlightReservationComponent
+  },
+
+
 
 
 
@@ -120,7 +137,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes), FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

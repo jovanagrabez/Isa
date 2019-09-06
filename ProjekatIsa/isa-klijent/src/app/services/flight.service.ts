@@ -17,8 +17,16 @@ export class FlightService {
 
   }
   updateFlight(flight) {
-    return this.http.put('http://localhost:8080/flight', flight);
+    return this.http.put('http://localhost:8080/flight/update', flight);
 
   }
 
+  getFlight(id) {
+    return this.http.get('http://localhost:8080/flight/'.concat(id));
+
+  }
+
+  updateFlightSeats(flight: any) {
+    return this.http.put('http://localhost:8080/flight/seats', flight);
+  }
 }

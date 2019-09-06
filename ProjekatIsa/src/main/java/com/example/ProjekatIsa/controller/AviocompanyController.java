@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +20,7 @@ import com.example.ProjekatIsa.DTO.AviocompanyDTO;
 import com.example.ProjekatIsa.DTO.DestinationDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
+import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.repository.RatingHotelRepository;
 import com.example.ProjekatIsa.service.AviocompanyService;
@@ -50,14 +52,10 @@ public class AviocompanyController {
 }
 	
 	
-	@RequestMapping(
-			value = "/getCompanyByID/{id}",
-			method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public Aviocompany getCompanyByID(@PathVariable("id") Long id){
+	@GetMapping(value="/{id}")
+	public Aviocompany getCompanytByID(@PathVariable("id") Long id){
 		
 		return avioService.getCompanyByID(id);
-		
 	}
 	
 	 @PostMapping

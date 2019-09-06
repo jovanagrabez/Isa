@@ -4,7 +4,7 @@ import { HttpClientModule, HttpClient,} from '@angular/common/http';
 import { HttpModule,Http } from '@angular/http';
 
 import {RequestOptions, XHRBackend} from '@angular/http';
-import { Router } from '@angular/router';
+import {Router, RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
 
@@ -30,7 +30,7 @@ import { TokensService } from './auth/tokens/tokens.service';
 
 
 import { OrderModule } from 'ngx-order-pipe';
-
+ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { RentacarDetailsComponent } from './rentacar-details/rentacar-details.component';
@@ -41,9 +41,13 @@ import { ProfilComponent } from './profil/profil.component';
 import { AddHotelComponent } from './add-hotel/add-hotel.component';
 import { AddCarsComponent } from './add-cars/add-cars.component';
 import { AddFilijaleComponent } from './add-filijale/add-filijale.component';
-
+ import { MatCheckboxModule, MatButtonModule} from '@angular/material';
+ import {MatStepperModule} from '@angular/material/stepper';
 import { FriendsComponent } from './profil/friends/friends.component';
-
+import { FlightsComponent } from './aviocompany/flights/flights.component';
+import { SeatComponent } from './aviocompany/flights/seat/seat.component';
+ import {MatIconModule} from '@angular/material/icon';
+import { FlightReservationComponent } from './aviocompany/flights/flight-reservation/flight-reservation.component';
 
 @NgModule({
   declarations: [
@@ -66,10 +70,10 @@ import { FriendsComponent } from './profil/friends/friends.component';
     AddHotelComponent,
     AddCarsComponent,
     AddFilijaleComponent,
-    FriendsComponent
-    
-
-
+    FriendsComponent,
+    FlightsComponent,
+    SeatComponent,
+    FlightReservationComponent
 
   ],
   imports: [
@@ -77,11 +81,18 @@ import { FriendsComponent } from './profil/friends/friends.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
+    MatCheckboxModule,
+    MatStepperModule,
+    MatButtonModule,
+    MatIconModule,
     HttpModule,
    NgbModule.forRoot(),
-   FormsModule
-  
+   FormsModule,
+    BrowserAnimationsModule
+
+
+
+
   ],
   providers: [ HttpClientModule, AviocompanySService, ViewHotelsService,
     AuthServiceService

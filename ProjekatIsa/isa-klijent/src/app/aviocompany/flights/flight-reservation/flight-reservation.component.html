@@ -1,0 +1,168 @@
+<div >
+
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step [stepControl]="firstFormGroup" >
+      <form  >
+        <ng-template matStepLabel >Choose seats</ng-template>
+        <div>
+          <!--<input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>-->
+
+          <br><br>
+          <div class="row ">
+            <div class="col-sm-3" style="text-align: center">
+              <label style="background-color: aquamarine">Economy class</label>
+            </div>
+            <div class="col-sm-3" style="text-align: center">
+              <label style="background-color: dodgerblue">Premium economy class</label>
+            </div>
+            <div class="col-sm-3" style="text-align: center">
+              <label style="background-color: cornflowerblue">Business class</label>
+            </div>
+            <div class="col-sm-3" style="text-align: center">
+              <label style="background-color: darkgray">First class</label>
+            </div>
+          </div>
+          <div class="row ">
+            <div class=" col-sm-3">
+              <mat-checkbox style="background-color: darkseagreen" disabled=true ></mat-checkbox>
+              <label>Available</label>
+            </div>
+            <div class=" col-sm-3">
+              <mat-checkbox disabled=true style="background-color: coral"></mat-checkbox>
+              <label >Reserved</label>
+            </div>
+            <div class=" col-sm-3">
+              <mat-checkbox  disabled=true style="background-color: crimson"></mat-checkbox>
+              <label>Taken</label>
+            </div>
+          </div>
+
+          <table class="table">
+            <tbody>
+            <tr *ngFor="let row of seatsInRows" style="row-gap: 10px">
+              <td *ngFor="let seat of row">
+                <div *ngIf="seat.seatClass === 'ECONOMY'" style="background-color: aquamarine">
+                  <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+                </div>
+                <div *ngIf="seat.seatClass === 'PREMIUM_ECONOMY'" style="background-color: dodgerblue">
+                  <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+                </div>
+                <div *ngIf="seat.seatClass === 'BUSINESS'" style="background-color: cornflowerblue">
+                  <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+                </div>
+                <div *ngIf="seat.seatClass === 'FIRST'" style="background-color: darkgray">
+                  <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+                  <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="pull-right">
+          <button type="button" matStepperNext class="btn btn-outline-primary">Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+    <mat-step>
+      <ng-template matStepLabel>Passenger info</ng-template>
+      <div>
+
+        <div *ngIf="selectedSeats?.length === 0">
+          <label class="h4 text-lg-center">You haven't selected any seats!</label>
+        </div>
+
+        <div *ngFor="let passenger of flightReservation.passengersOnSeats; index as i">
+          <h6>Passenger {{i + 1}}</h6>
+          <div>
+            <div *ngIf="passenger.passengerId === 0">
+              <div>
+                <label class="col-sm-3">Name:</label>
+                <input class="col-sm-3" type="text" placeholder="Insert passenger name" [(ngModel)]="passenger.passengerName">
+              </div>
+              <div>
+                <label class="col-sm-3">Last name:</label>
+                <input class="col-sm-3" type="text" placeholder="Insert last name" [(ngModel)]="passenger.passengerLastName">
+              </div>
+              <div>
+                <label class="col-sm-3">Passport:</label>
+                <input class="col-sm-3" type="text" placeholder="Insert passenger passport number" [(ngModel)]="passenger.passengerPassport">
+              </div>
+            </div>
+            <div *ngIf="passenger.passengerId !== 0">
+              <div>
+                <label class="col-sm-3">Name:</label>
+                <input class="col-sm-3" type="text" placeholder="Insert passenger name" [(ngModel)]="passenger.passengerName" readonly>
+              </div>
+              <div>
+                <label class="col-sm-3">Last name:</label>
+                <input class="col-sm-3" type="text" placeholder="Insert last name" [(ngModel)]="passenger.passengerLastName" readonly>
+              </div>
+              <div>
+                <label class="col-sm-3">Passport:</label>
+                <input class="col-sm-3" type="text" placeholder="Insert passenger passport number" [(ngModel)]="passenger.passengerPassport">
+              </div>
+            </div>
+            <hr>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pull-right">
+        <button class="btn btn-outline-primary" matStepperPrevious>Back</button>
+        <button class="btn btn-outline-primary" matStepperNext>Next</button>
+      </div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Finish</ng-template>
+
+      <div *ngIf="flightReservation.passengersOnSeats?.length !== 0">
+        <h4>Your reservation</h4>
+        <div *ngFor="let passSeat of flightReservation['passengersOnSeats']">
+          <div>
+            <div>
+              <label class="col-sm-2">Name:</label>
+              <label class="col-sm-3" >{{passSeat.passengerName}}</label>
+            </div>
+            <div>
+              <label class="col-sm-2">Last name:</label>
+              <label class="col-sm-3">{{passSeat.passengerLastName}}</label>
+            </div>
+            <div>
+              <label class="col-sm-2">Passport:</label>
+              <label class="col-sm-3">{{passSeat.passengerPassport}}</label>
+            </div>
+            <div>
+              <label class="col-sm-2">Seat:</label>
+              <label class="col-sm-6">Class: {{passSeat.seat['seatClass']}}, row: {{passSeat.seat['seatRow']}} column: {{passSeat.seat['seatColumn']}}</label>
+            </div>
+          </div>
+          <hr>
+        </div>
+
+
+      </div>
+
+
+      <div>
+        <button mat-button matStepperPrevious>Back</button>
+        <button class="btn btn-primary pull-right" (click)="reserve()">Finish reservation</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+
+
+
+</div>

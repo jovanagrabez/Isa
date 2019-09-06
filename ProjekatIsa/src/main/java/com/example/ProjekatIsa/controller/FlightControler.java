@@ -1,0 +1,111 @@
+package com.example.ProjekatIsa.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.ProjekatIsa.model.Aviocompany;
+import com.example.ProjekatIsa.model.Destination;
+import com.example.ProjekatIsa.model.Flight;
+import com.example.ProjekatIsa.model.FlightReservation;
+import com.example.ProjekatIsa.repository.AviocompanyRepository;
+import com.example.ProjekatIsa.repository.FlightReservationRepository;
+import com.example.ProjekatIsa.service.AviocompanyService;
+import com.example.ProjekatIsa.service.FlightReservationService;
+import com.example.ProjekatIsa.service.FlightService;
+
+@RestController
+@RequestMapping(value="/flight",produces = MediaType.APPLICATION_JSON_VALUE)
+public class FlightControler {
+
+	
+	@Autowired
+	private FlightService flightService;
+	
+	@Autowired
+	private AviocompanyService avioService;
+	
+	@Autowired
+	private AviocompanyRepository repository;
+	
+	@Autowired
+	private FlightReservationService reservationsService;
+	
+	
+	@GetMapping(value="/{id}")
+	public Flight getFlightByID(@PathVariable("id") Long id){
+		
+		return flightService.getFlightById(id);
+	}
+	
+	@PostMapping
+	 public ResponseEntity<Flight> addFlight(@RequestBody Flight flight){
+		
+	    System.out.println("BLA BLA BLA" + flight.getBusinessPrice() + flight.getBaggageDescription());
+				 this.flightService.addFlight(flight);
+			        return ResponseEntity.ok(flight);
+			    }
+	
+	
+	@PostMapping(value="/reservations")
+   
+    public ResponseEntity<FlightReservation> reserve(@RequestBody FlightReservation reservationDto) {
+         this.reservationsService.createFlightReservation(reservationDto);
+
+        return ResponseEntity.ok(reservationDto);
+
+    }
+	
+	@DeleteMapping(value = "/{id}/{avio_id}")
+	 
+    public ResponseEntity deleteFlight(@PathVariable("id") Long id,@PathVariable("avio_id") Long avio_id){
+        Flight flight = this.flightService.getFlightById(id);
+        Aviocompany a = this.avioService.getCompanyByID(avio_id);
+        a.getFlight().remove(flight);
+        this.repository.save(a);
+        if(flight == null) {
+            return ResponseEntity.notFound().build();
+        }
+        this.flightService.deleteFlight(flight);
+
+            return ResponseEntity.ok().build();
+      
+    }
+	
+	
+	 @PutMapping(value="/update")
+	 public ResponseEntity<Flight> updateAirline(@RequestBody Flight flight){
+		    if(flight == null){
+	            return ResponseEntity.notFound().build();
+	        }
+	        this.flightService.updateFlight(flight);
+	        return ResponseEntity.ok(flight);
+	 }
+	 
+	 @PutMapping(value = "/seats")
+	 
+	    public ResponseEntity<Flight> updateFlightSeats(@RequestBody Flight flightDto){
+
+	        Flight flight = this.flightService.getFlightById(flightDto.getId());
+	        if (flight == null){
+	            return ResponseEntity.notFound().build();
+	        }
+
+	        try {
+	            flight = this.flightService.updateSeats(flightDto);
+	            return new ResponseEntity(flight, HttpStatus.OK);
+	        }catch (Exception e) {
+
+	        }
+	        return new ResponseEntity(flight, HttpStatus.FORBIDDEN);
+	    }
+}

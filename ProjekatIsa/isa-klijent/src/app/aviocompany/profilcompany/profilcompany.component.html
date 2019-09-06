@@ -123,6 +123,17 @@
                 </div>
               </div>
 
+                <!--<div class="form-group">-->
+                  <!--<label for="inputACountry3" class="col-sm-2 col-form-label">Distance[km]</label>-->
+                  <!--<input type="text" pattern="[0-9]+" class="form-control" id="inputACountry31" placeholder="Presjedanja"-->
+                         <!--#presjedanja="ngModel" aria-multiline="true" [(ngModel)]="ff.number"-->
+                         <!--name="distance" [ngClass]="{ 'is-invalid': f.submitted && presjedanja.invalid }" required>-->
+                  <!--<div *ngIf="f.submitted && presjedanja.invalid" class="invalid-feedback">-->
+                    <!--<div *ngIf="presjedanja.errors.required">Distance is required</div>-->
+                  <!--</div>-->
+                <!--</div>-->
+
+
               <!--<div class="form-group row">-->
                 <!--<label class="col-sm-3 col col-form-label" for="dest">Flight changes locations:</label>-->
               <!--</div>-->
@@ -372,7 +383,7 @@
                   <h3>{{a.take_off.split('T')[0]}}</h3>
                   <h3>{{a.time}}</h3>
                   <span>{{a.landing.split('T')[0]}}</span> <a
-                  	class="btn btn-primary btn-outline" >Detaljnije <i
+                  	class="btn btn-primary btn-outline" (click)="flightProfile(a)">Detaljnije <i
                   class="icon-arrow-right22"></i></a>
 
                   <a (click)="deleteFlight(a)"

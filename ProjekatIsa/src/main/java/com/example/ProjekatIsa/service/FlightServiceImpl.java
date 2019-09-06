@@ -1,5 +1,6 @@
 package com.example.ProjekatIsa.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.ProjekatIsa.DTO.FlightDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Flight;
+import com.example.ProjekatIsa.model.Seat;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.FlightRepository;
 
@@ -23,7 +25,11 @@ public class FlightServiceImpl implements FlightService {
 	@Autowired 
 	private AviocompanyService avioService;
 	
+	@Autowired 
+	private SeatService seatService;
 	
+	@Autowired 
+	private SeatArrangementService seatAService;
 	
 	 @Override
 	    public List<Flight> getAllFlights() {
@@ -37,6 +43,7 @@ public class FlightServiceImpl implements FlightService {
 
 	    @Override
 	    public Flight addFlight(Flight flight) {
+	    	this.seatAService.saveSeatArrangement(flight.getSeatArrangement());
 	        return this.flightRepository.save(flight);
 	    }
 
@@ -48,6 +55,10 @@ public class FlightServiceImpl implements FlightService {
 	    @Override
 	    public Flight updateFlight(Flight flightDto) {
 
+	    	for(Seat seat: flightDto.getSeats())
+	    	    this.seatService.addSeat(seat);
+	    	
+	    	this.seatAService.addSeatArrangement(flightDto.getSeatArrangement());
 	    	   this.flightRepository.save(flightDto);
 	    	
 	 /*       Aviocompany airline = this.avioService.getAirlineById(flightDto.getAirlineId());
@@ -95,6 +106,48 @@ public class FlightServiceImpl implements FlightService {
 	           success = false;
 	       }
 	       return success;
+	    }
+	    
+	    @Override
+	    public Flight updateSeats(Flight flightDto) {
+	    	
+	    	
+	    	 Flight flight = this.flightRepository.findOneById(flightDto.getId());
+	         List<Seat> seats = new ArrayList<>();
+	         
+	         for (Seat seat : flightDto.getSeats()) {
+	        	 
+	             if (seat.getSeatClass() != null) {
+	                 if (seat.getSeatClass().equals("ECONOMY")) {            // postavi cenu ako je novo sediste, ili je klasa promenjena
+	                     seat.setPrice(flight.getEconomyPrice());
+	                 } else if (seat.getSeatClass().equals("PREMIUM_ECONOMY")) {
+	                     seat.setPrice(flight.getPremiumEconomyPrice());
+	                 } else if (seat.getSeatClass().equals("BUSINESS")) {
+	                     seat.setPrice(flight.getBusinessPrice());
+	                 } else if (seat.getSeatClass().equals("FIRST")) {
+	                     seat.setPrice(flight.getFirstPrice());
+	                 }
+	             }
+	             seat = this.seatService.updateSeat(seat);                 // snimi promenjeno sediste
+	             seats.add(seat);
+	         }
+
+	         for (Seat seat : seats) {
+	             boolean contains = false;
+	             for (Seat savedSeat : flight.getSeats()) {
+	                 if (seat.getId().equals(savedSeat.getId())) {
+	                     contains = true;
+	                 }
+	             }
+	             if (!contains) {           
+	            	 this.seatService.addSeat(seat);// ako je novo dodaj ga u flight
+	                 flight.getSeats().add(seat);
+	             }
+	         }
+
+	         flight = this.flightRepository.save(flight);
+	         return flight;
+
 	    }
 
 

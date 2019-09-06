@@ -6,6 +6,7 @@ import { UserService } from './services/user-service/user.service';
 import { AuthServiceService } from './services/auth-service.service';
 import { User } from './models/User';
 import { Role } from './models/Role';
+import {ViewportScroller} from '@angular/common';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit {
   noavioAdmin: boolean;
   nocarAdmin: boolean;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private auth: AuthServiceService) { }
+  constructor(private userService: UserService, private route: ActivatedRoute, private auth: AuthServiceService) {  }
 
   ngOnInit() {
     this.token = this.auth.getJwtToken();
@@ -42,7 +43,7 @@ export class AppComponent implements OnInit {
     } else {
       console.log('----KORISNIK JE ULOGOVAN----');     
       this.logged = true;
-      this.userService.getLogged(this.token).subscribe(data => { 
+      this.userService.getLogged(this.token).subscribe(data => {
       this.pathToList(data);
       var currentUser=data as User;
       console.log('Token je ');

@@ -16,6 +16,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -49,8 +50,7 @@ public class Flight implements Serializable {
 	@JoinTable(name = "flight_destination", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "destination_id"))   
 	private Set<Destination> destination;
 	
-	@Column(name = "seat", nullable = true, columnDefinition="BOOLEAN")
-    private boolean seat;
+	
 	
 	/* @JsonManagedReference
 	 @ManyToOne(fetch = FetchType.LAZY,cascade = { CascadeType.MERGE, CascadeType.PERSIST })
@@ -90,8 +90,11 @@ public class Flight implements Serializable {
      private String baggage_description;
 
 
+	@OneToOne
+    private SeatArrangement seatArrangement;
 	 
-	 
+	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE},fetch=FetchType.LAZY, orphanRemoval = true)
+	private Set<Seat> seats;
 	 
 	public double getAverageRating() {
 		return average_rating;
@@ -100,6 +103,26 @@ public class Flight implements Serializable {
 
 	public void setAverageRating(double average_rating) {
 		this.average_rating = average_rating;
+	}
+
+
+	public SeatArrangement getSeatArrangement() {
+		return seatArrangement;
+	}
+
+
+	public void setSeatArrangement(SeatArrangement seatArrangement) {
+		this.seatArrangement = seatArrangement;
+	}
+
+
+	public Set<Seat> getSeats() {
+		return seats;
+	}
+
+
+	public void setSeats(Set<Seat> seats) {
+		this.seats = seats;
 	}
 
 
@@ -252,15 +275,7 @@ public class Flight implements Serializable {
 		this.destination = destination;
 	}
 
-	public boolean isSeat() {
-		return seat;
-	}
-
-
-	public void setSeat(boolean seat) {
-		this.seat = seat;
-	}
-
+	
 
 /*	public Set<Tickets> getPrice() {
 		return price;
@@ -281,7 +296,7 @@ public class Flight implements Serializable {
 
 
 	public Flight(Long id, Date take_off, Date landing, String time, double travel_time, int number,
-			 boolean seat, double average_rating, double number_of_rating, double sum_rating,
+		Set<Seat>	seats,SeatArrangement seatArrangement,  double average_rating, double number_of_rating, double sum_rating,
 		Set<Destination> destination, double economy_price, double premium_economy_price, double business_price,
 			double first_price, int distance, String baggage_description) {
 		super();
@@ -292,7 +307,8 @@ public class Flight implements Serializable {
 		this.travel_time = travel_time;
 		this.number = number;
 		this.destination = destination;
-		this.seat = seat;
+		this.seats = seats;
+		this.seatArrangement=seatArrangement;
 		this.average_rating = average_rating;
 		this.number_of_rating = number_of_rating;
 		this.sum_rating = sum_rating;

@@ -24,12 +24,14 @@ export class ProfilcompanyComponent implements OnInit {
   selectedDestinations: [{}];
   update = false;
   add = false;
+  presjedanja: any;
 
   constructor(private router: Router, private data : AviocompanySService,
               private dest: DestinationServiceService, private flightService: FlightService,
               private ngbDateParserFormatter: NgbDateParserFormatter,
               private appCom: AppComponent) {
 
+    this.presjedanja  = 0;
     this.destinationNew = {id: null, name: '', country: ''};
     this.ff = { id: null, take_off: NgbDate, landing: NgbDate, number: 11, seat: true, averageRating: 0,
       distance: 452, baggageDescription: 'hhh', businessPrice: 154, economyPrice: 562, time: 'hehe',
@@ -41,7 +43,7 @@ export class ProfilcompanyComponent implements OnInit {
   ngOnInit() {
 
 
-
+  this.presjedanja = 0;
 
     this.data.currentCompany.subscribe(
       currentCompany => 
@@ -103,7 +105,7 @@ export class ProfilcompanyComponent implements OnInit {
     this.ff.destination.push(this.destinationss.toDest);
     this.ff.take_off = this.ngbDateParserFormatter.format(this.ff.take_off);
   this.ff.landing = this.ngbDateParserFormatter.format(this.ff.landing);
-
+  this.ff.seatArrangement = {seatColumns: 0, seatRows:0};
   this.flightService.addFlight(this.ff).subscribe(ff => {
      console.log(this.ff);
      this.ff = ff;
@@ -133,5 +135,10 @@ export class ProfilcompanyComponent implements OnInit {
     this.ff = a;
     this.ifflight = true;
     this.update = true;
+  }
+
+
+  flightProfile(flight) {
+    this.router.navigate(['/flights', flight.id]);
   }
 }

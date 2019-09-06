@@ -1,0 +1,140 @@
+<div >
+  <!--<input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>-->
+  <button (click)="openNewSeat()" *ngIf="newSeatOpen === false" class="btn btn-outline-primary pull-right">Add seat</button>
+  <div *ngIf="newSeatOpen === true">
+    <div class="row">
+      <div class="col">
+        <label>Row</label>
+        <input type="number" min="1" placeholder="Seat row" [(ngModel)]="newSeatRow">
+      </div>
+      <div class="col">
+        <label>Column</label>
+        <input type="number" min="1" placeholder="Seat column" [(ngModel)]="newSeatColumn">
+      </div>
+      <div class="col">
+        <label for="seatClass">Seat class</label>
+        <select id="seatClass" [(ngModel)]="newSeatClass">
+          <option value="ECONOMY">Economy</option>
+          <option value="PREMIUM_ECONOMY">Premium economy</option>
+          <option value="BUSINESS">Business</option>
+          <option value="FIRST">First class</option>
+        </select>
+      </div>
+
+    </div>
+    <button (click)="createSeat()" class="btn btn-outline-primary pull-right">Create seat</button>
+  </div><hr>
+  <br><br>
+
+
+  <br><br>
+  <div class="row ">
+    <div class="col-sm-3" style="text-align: center">
+      <label style="background-color: aquamarine">Economy class</label>
+    </div>
+    <div class="col-sm-3" style="text-align: center">
+      <label style="background-color: dodgerblue">Premium economy class</label>
+    </div>
+    <div class="col-sm-3" style="text-align: center">
+      <label style="background-color: cornflowerblue">Business class</label>
+    </div>
+    <div class="col-sm-3" style="text-align: center">
+      <label style="background-color: darkgray">First class</label>
+    </div>
+  </div>
+  <div class="row ">
+    <div class=" col-sm-3">
+      <mat-checkbox style="background-color: darkseagreen" disabled=true ></mat-checkbox>
+      <label>Available</label>
+    </div>
+    <div class=" col-sm-3">
+      <mat-checkbox disabled=true style="background-color: coral"></mat-checkbox>
+      <label >Reserved</label>
+    </div>
+    <div class=" col-sm-3">
+      <mat-checkbox  disabled=true style="background-color: crimson"></mat-checkbox>
+      <label>Taken</label>
+    </div>
+  </div>
+
+  <table class="table">
+    <tbody>
+    <tr *ngFor="let row of seatsInRows" style="row-gap: 10px">
+      <td *ngFor="let seat of row">
+        <div *ngIf="seat.seatClass === 'ECONOMY'" style="background-color: aquamarine">
+          <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'reserved'" style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+        </div>
+        <div *ngIf="seat.seatClass === 'PREMIUM_ECONOMY'" style="background-color: dodgerblue">
+          <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'reserved'" style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+        </div>
+        <div *ngIf="seat.seatClass === 'BUSINESS'" style="background-color: cornflowerblue">
+          <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'reserved'" style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+        </div>
+        <div *ngIf="seat.seatClass === 'FIRST'" style="background-color: darkgray">
+          <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'reserved'" style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
+          <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="row">
+    <div class="col">
+      <h5>Selected seats</h5>
+      <div class="list-group">
+        <!--<li *ngFor="let seat of selectedSeats">-->
+        <!--<label>Seat row: {{seat.seatRow}}, column: {{seat.seatColumn}}, class: {{seat.seatClass}}</label>-->
+        <!--</li>-->
+
+        <div *ngFor="let row of seatsInRows">
+          <div *ngFor="let seat of row">
+            <div *ngIf="seat.isSelected === true && seat.seatClass !== undefined">
+              <label>Seat row: {{seat.seatRow}}, column: {{seat.seatColumn}}, class: {{seat.seatClass}}</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="col">
+      <div class="col"><button class="btn btn-outline-primary " (click)="deleteSeats()">Delete selected seats</button></div>
+      <div class="col">
+        <hr>
+        <button class="btn btn-outline-primary" *ngIf="isUpdateActive === false" (click)="openUpdateSeats()">Update selected seats</button>
+        <div *ngIf="isUpdateActive === true" class="flex-row">
+          <label for="seatClass1">Seat class</label>
+          <select id="seatClass1" [(ngModel)]="updateSeatsClass">
+            <option value="ECONOMY">Economy</option>
+            <option value="PREMIUM_ECONOMY">Premium economy</option>
+            <option value="BUSINESS">Business</option>
+            <option value="FIRST">First class</option>
+          </select>
+          <button class="btn-outline-primary btn pull-right" (click)="updateSeats()">Update seats</button>
+          <button class="btn-outline-primary btn pull-right" (click)="cancelUpdateSeats()">Cancel</button>
+        </div>
+      </div>
+      <div class="col">
+        <hr>
+        <button class="btn btn-outline-primary" *ngIf="isCreateTicketsActive === false" (click)="openCreateTickets()">Create fast flight reservation tickets</button>
+        <div *ngIf="isCreateTicketsActive === true" class="flex-row">
+          <label>Price on discount: </label>
+          <input type="number" placeholder="Insert price" [(ngModel)]="discountSeatPrice">
+          <button class="btn btn-outline-primary pull-right" (click)="createTickets()">Create tickets</button>
+          <button class="btn-outline-primary btn pull-right" (click)="cancelCreateTickets()">Cancel</button>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+  <button (click)="save()" class="btn btn-primary pull-right">Save seats</button>
+  <br>
+</div>
