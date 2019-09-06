@@ -65,7 +65,11 @@ export class AviocompanySService {
 
   }
 
-  getCompany(id){
+  getCompany(id) {
     return this.http.get('http://localhost:8080/avioCompany/'.concat(id));
+  }
+
+  getCompanyByFlight(id) {
+    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
   }
 }

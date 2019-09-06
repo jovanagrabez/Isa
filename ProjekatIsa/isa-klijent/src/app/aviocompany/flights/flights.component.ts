@@ -50,7 +50,7 @@ export class FlightsComponent implements OnInit {
   ngOnInit() {
     this.currentRoute.params.subscribe(params => {
       const flightId = params['id'];
-      this.airlineService.getCompany(1).subscribe(airline => {
+      this.airlineService.getCompanyByFlight(flightId).subscribe(airline => {
         this.airline = airline;
       });
 

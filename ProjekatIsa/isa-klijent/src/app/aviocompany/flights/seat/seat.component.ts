@@ -25,6 +25,7 @@ export class SeatComponent implements OnInit {
   newSeatRow: any;
   newSeatColumn: any;
   newSeatClass: any;
+   flightId: any;
   constructor(private currentRoute: ActivatedRoute, private flightService: FlightService,
               private airlineService: AviocompanySService, private router: Router) {
 
@@ -42,6 +43,7 @@ export class SeatComponent implements OnInit {
     this.isUpdateActive = false;
     this.updateSeatsClass = 'ECONOMY';
     this.discountSeatPrice = 0;
+
     // //   this.userRole = this.userService.getLoggedUserType();
     //    const userTemp = JSON.parse(localStorage.getItem('loggedUser'));
     //    if (userTemp !== null) {
@@ -50,44 +52,45 @@ export class SeatComponent implements OnInit {
     //      });
     //    }
 
-    this.currentRoute.params.subscribe(params => {
-      const flightId = params['id'];
+    this.currentRoute.parent.params.subscribe(params => {
+      this.flightId = params['id'];
 
-      this.flightService.getFlight(5).subscribe(flightTemp => {
+      this.flightService.getFlight(this.flightId).subscribe(flightTemp => {
         this.flight = flightTemp;
-     //   for (let i = 0 ; i < this.flight.seats.length; i++ )
-     //   this.seatsInRows.push(this.flight.seats);
+        //   for (let i = 0 ; i < this.flight.seats.length; i++ )
+        //   this.seatsInRows.push(this.flight.seats);
 
 
-      let maxRowNumber = 0;
-      for (const seat of this.flight.seats) {
-        if (seat.seatRow > maxRowNumber) {
-          maxRowNumber = seat.seatRow;
+        let maxRowNumber = 0;
+        for (const seat of this.flight.seats) {
+          if (seat.seatRow > maxRowNumber) {
+            maxRowNumber = seat.seatRow;
+          }
         }
-      }
-      for (let i = 0; i < maxRowNumber; i++) {
-        const row = [];
-        this.seatsInRows.push(row);
-      }
-      for (const seat of this.flight.seats) {
-        const index = seat.seatRow - 1;
-        this.seatsInRows[index].push(seat);
-      }
-      for (let i = 0; i < this.seatsInRows.length; i++) {         // sortiranje po kolonama
-        const sorted = this.seatsInRows[i].sort((t1, t2) => {
-          const name1 = t1.seatColumn;
-          const name2 = t2.seatColumn;
-          if (name1 > name2) {
-            return 1;
-          }
-          if (name1 < name2) {
-            return -1;
-          }
-          return 0;
-        });
-      }
+        for (let i = 0; i < maxRowNumber; i++) {
+          const row = [];
+          this.seatsInRows.push(row);
+        }
+        for (const seat of this.flight.seats) {
+          const index = seat.seatRow - 1;
+          this.seatsInRows[index].push(seat);
+        }
+        for (let i = 0; i < this.seatsInRows.length; i++) {         // sortiranje po kolonama
+          const sorted = this.seatsInRows[i].sort((t1, t2) => {
+            const name1 = t1.seatColumn;
+            const name2 = t2.seatColumn;
+            if (name1 > name2) {
+              return 1;
+            }
+            if (name1 < name2) {
+              return -1;
+            }
+            return 0;
+          });
+        }
       });
-     });
+    });
+
   }
   openNewSeat() {
     this.newSeatOpen = true;
@@ -232,7 +235,7 @@ export class SeatComponent implements OnInit {
     }
     this.flightService.updateFlightSeats(this.flight).subscribe( flight => {
      // this.toastr.successToastr('Seats are updated succesfully', 'Success');
-      this.router.navigate(['/flights', 5]);
+      this.router.navigate(['/flights', this.flightId]);
     });
   }
 

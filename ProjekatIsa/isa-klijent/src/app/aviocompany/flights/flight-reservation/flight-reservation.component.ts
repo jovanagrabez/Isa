@@ -17,7 +17,6 @@ export class FlightReservationComponent implements OnInit {
   selectedSeats: any;
   flight: any;
   seatsInRows: any;
-  userRole: any;
   user: any;
   friends: any;
   invitedFriends: any;
@@ -33,6 +32,8 @@ export class FlightReservationComponent implements OnInit {
     this.selectedSeats = [];
     this.friends = [];
     this.invitedFriends = [];
+    this.user = {firstName: '', lastName: '', password: '', email: '', phoneNumber: '', city: ''};
+
     this.reservation = {userId: '', flightReservation: {}, carReservation: {}, roomReservation: {}};
     this.flightReservation = {flightId: '', userId: '', passengersOnSeats: []};
 
@@ -41,6 +42,9 @@ export class FlightReservationComponent implements OnInit {
 
   ngOnInit() {
 
+    this.userService.getLogged(this.appComp.token).subscribe(data => {
+      this.user = data;
+    });
 
 
     this.currentRoute.params.subscribe(params => {
@@ -180,8 +184,8 @@ export class FlightReservationComponent implements OnInit {
       let oneReservedSeat;
       if (this.selectedSeats.length === 0) {
         oneReservedSeat = {
-          seat: seat, passengerName: 'Sara', passengerLastName: 'Celik',
-          passengerPassport: '', passengerId: 1
+          seat: seat, passengerName: this.user.firstName, passengerLastName: this.user.lastName,
+          passengerPassport: '', passengerId: this.user.id
         };
       } else {
         oneReservedSeat = {seat: seat, passengerName: '', passengerLastName: '', passengerPassport: '', passengerId: 0};
@@ -206,6 +210,7 @@ export class FlightReservationComponent implements OnInit {
       }
       if (!isValid) {
       } else {
+        this.flightReservation.userId=this.user.id;
         this.reservationService.createReservation(this.flightReservation).subscribe(res => {
 
           this.router.navigate(['/home']);
