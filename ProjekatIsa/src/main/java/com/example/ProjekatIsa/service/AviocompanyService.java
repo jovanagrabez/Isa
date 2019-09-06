@@ -18,4 +18,5 @@ public interface AviocompanyService {
 	Aviocompany addAvioCompany(Aviocompany avioCompany);
 	Aviocompany updateAviocompany(Aviocompany avioCompany);
 	boolean deleteAirline(Aviocompany aviocompany);
+	Aviocompany getCompanyByFlightId(Long id);
 }

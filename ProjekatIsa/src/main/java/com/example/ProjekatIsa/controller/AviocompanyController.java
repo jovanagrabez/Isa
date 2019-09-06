@@ -58,6 +58,14 @@ public class AviocompanyController {
 		return avioService.getCompanyByID(id);
 	}
 	
+	
+	@GetMapping(value="flight/{id}")
+	public Aviocompany getCompany(@PathVariable("id") Long id){
+		
+		return avioService.getCompanyByFlightId(id);
+	}
+	
+	
 	 @PostMapping
 	 public ResponseEntity<Aviocompany> addAirline(@RequestBody AviocompanyDTO airlineDTO){
 //PREPRAVITI AKO SE BUDE ADRESA PRAVILA KAO NOVA KLASA ZBOG MAPA, DODATI ADRESU U POSEBNU TABELU PRVO PA ONDA VEZATI SA AVIOKOMPANIJOM

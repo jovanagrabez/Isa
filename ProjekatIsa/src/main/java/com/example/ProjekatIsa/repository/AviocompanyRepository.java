@@ -8,4 +8,5 @@ import com.example.ProjekatIsa.model.Aviocompany;
 public interface AviocompanyRepository extends JpaRepository<Aviocompany, Long> {
 
 	Aviocompany findOneById(Long id);
+	Aviocompany findAviocompanyByFlightId(Long id);
 }

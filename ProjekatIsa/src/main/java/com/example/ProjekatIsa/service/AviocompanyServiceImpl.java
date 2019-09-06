@@ -79,4 +79,11 @@ public class AviocompanyServiceImpl  implements AviocompanyService{
         }
     }
 
+
+	@Override
+	public Aviocompany getCompanyByFlightId(Long id) {
+		// TODO Auto-generated method stub
+		return this.avioRepository.findAviocompanyByFlightId(id);
+	}
+
 }
