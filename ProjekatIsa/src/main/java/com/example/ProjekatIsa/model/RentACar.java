@@ -1,6 +1,8 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,13 +33,13 @@ public class RentACar implements Serializable {
 	@Column(name = "rentacar_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "name", nullable = false, unique = true, columnDefinition="VARCHAR(40)")
+	@Column(name = "name", unique = true, columnDefinition="VARCHAR(40)")
     private String name;
 	
-	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
+	@Column(name = "adress", columnDefinition="VARCHAR(100)")
     private String adress;
 	
-	@Column(name = "description", nullable = false, columnDefinition="VARCHAR(50)")
+	@Column(name = "description", columnDefinition="VARCHAR(50)")
     private String description;
 	
 	@Column(name = "average_rating", nullable = true)
@@ -51,10 +53,11 @@ public class RentACar implements Serializable {
 	@JoinTable(name = "car_price", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))   
 	private Set<Car> price;
 	
-	@OneToMany(mappedBy = "rentACar",fetch = FetchType.EAGER)
-	private Set<Filijale> filijale; 
+	@JsonIgnore
+	@OneToMany(mappedBy = "rentalcars")
+	private List<Filijale> filijale;
 	
-	
+	@JsonIgnore
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "rent_rating_car", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
     private Set<RatingRentACar> rentacarRatings;
@@ -81,11 +84,11 @@ public class RentACar implements Serializable {
 		this.price = price;
 	}
 
-	public Set<Filijale> getFilijale() {
+	public List<Filijale> getFilijale() {
 		return filijale;
 	}
 
-	public void setFilijale(Set<Filijale> filijale) {
+	public void setFilijale(List<Filijale> filijale) {
 		this.filijale = filijale;
 	}
 
@@ -129,6 +132,13 @@ public class RentACar implements Serializable {
 
 	public void setAverage_rating(Double average_rating) {
 		this.average_rating = average_rating;
+	}
+	
+	public void addFilijale(Filijale f) {
+		if(this.filijale==null) {
+			this.filijale = new ArrayList<Filijale>();
+		}
+		this.filijale.add(f);
 	}
 
 	public RentACar(Long id, String name, String adress, String description, Double average_rating) {

@@ -53,7 +53,12 @@ export class UserService {
 
         return this.http.post('http://localhost:8080/api/registerUser', u );
       }
-    
+    registerAdmin(u: User, num : number) {
+
+        console.log('Usao u registerAdmin');
+
+        return this.http.post('http://localhost:8080/api/registerAdmin/'+num, u );
+      }
    /* getUsers(){
     
     const headers = new Headers();

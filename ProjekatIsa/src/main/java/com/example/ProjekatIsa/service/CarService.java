@@ -10,4 +10,5 @@ import com.example.ProjekatIsa.repository.CarRepository;
 public interface CarService {
 	Car save(Car c);
 	Car addCar(Car c);
+	Car findOneById(Long id);
 }

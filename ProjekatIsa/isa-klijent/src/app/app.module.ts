@@ -48,6 +48,9 @@ import { FlightsComponent } from './aviocompany/flights/flights.component';
 import { SeatComponent } from './aviocompany/flights/seat/seat.component';
  import {MatIconModule} from '@angular/material/icon';
 import { FlightReservationComponent } from './aviocompany/flights/flight-reservation/flight-reservation.component';
+import { FilCarsComponent } from './fil-cars/fil-cars.component';
+import { AddAdminComponent } from './add-admin/add-admin.component';
+
 
 @NgModule({
   declarations: [
@@ -73,7 +76,12 @@ import { FlightReservationComponent } from './aviocompany/flights/flight-reserva
     FriendsComponent,
     FlightsComponent,
     SeatComponent,
-    FlightReservationComponent
+    FlightReservationComponent,
+    FilCarsComponent,
+    AddAdminComponent
+
+
+
 
   ],
   imports: [

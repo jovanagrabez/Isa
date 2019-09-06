@@ -36,6 +36,9 @@ constructor(private router : Router, private hotelService : HotelServiceService)
       if (!this.hotel.name) {
         this.hideError = false;
         this.errorMessage = 'Morate uneti naziv hotela!';
+      }else if (!this.hotel.city) {
+          this.hideError = false;
+          this.errorMessage = 'Morate uneti grad hotela!';
       }else if (!this.hotel.address) {
           this.hideError = false;
           this.errorMessage = 'Morate uneti adresu hotela!';

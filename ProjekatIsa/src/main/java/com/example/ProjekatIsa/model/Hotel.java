@@ -1,6 +1,8 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -17,6 +19,7 @@ import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.AviocompanyDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "hotel")
@@ -32,7 +35,10 @@ public class Hotel implements Serializable{
 
 	@Column(name = "name", nullable = false, columnDefinition="VARCHAR(40)")
     private String name;
-
+	
+	@Column(name = "city", nullable = false, columnDefinition="VARCHAR(40)")
+    private String city;
+	
 	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
     private String address;
 	
@@ -42,40 +48,40 @@ public class Hotel implements Serializable{
 	@Column(name = "average_rating", nullable = true)
 	private Double average_rating;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "hotel_rooms", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "room_id"))   
-	private Set<Room> rooms;
+	@JsonIgnore
+	@OneToMany(mappedBy="hotel")
+	private List<Room> rooms;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "hotel_additional_service", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "additional_service_id"))   
-	private Set<AdditionalServiceForHotel> additional_services;
+	@JsonIgnore
+	@OneToMany(mappedBy="hotel")
+	private List<AdditionalServiceForHotel> additional_services;
 
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "hotel_rating_hotel", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "ratingHotel_id"))
-    private Set<RatingHotel> hotel_ratings;
+	@JsonIgnore
+	@OneToMany(mappedBy="hotel")    
+	private List<RatingHotel> hotel_ratings;
     
-	
-	public Set<AdditionalServiceForHotel> getAdditional_services() {
-		return additional_services;
-	}
 
-	public void setAdditional_services(Set<AdditionalServiceForHotel> additional_services) {
-		this.additional_services = additional_services;
-	}
-
-	public Set<Room> getRooms() {
+	public List<Room> getRooms() {
 		return rooms;
 	}
 
-	public void setRooms(Set<Room> rooms) {
+	public void setRooms(List<Room> rooms) {
 		this.rooms = rooms;
 	}
-	
-	public Set<RatingHotel> getHotel_ratings() {
+
+	public List<AdditionalServiceForHotel> getAdditional_services() {
+		return additional_services;
+	}
+
+	public void setAdditional_services(List<AdditionalServiceForHotel> additional_services) {
+		this.additional_services = additional_services;
+	}
+
+	public List<RatingHotel> getHotel_ratings() {
 		return hotel_ratings;
 	}
 
-	public void setHotel_ratings(Set<RatingHotel> hotel_ratings) {
+	public void setHotel_ratings(List<RatingHotel> hotel_ratings) {
 		this.hotel_ratings = hotel_ratings;
 	}
 
@@ -99,8 +105,8 @@ public class Hotel implements Serializable{
 		return address;
 	}
 
-	public void setAdress(String adress) {
-		this.address = adress;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	public String getDescription() {
@@ -119,14 +125,34 @@ public class Hotel implements Serializable{
 		this.average_rating = average_rating;
 	}
 
+	public void addAdditionalService(AdditionalServiceForHotel a) {
+		if (this.additional_services==null) {
+			this.additional_services = new ArrayList<AdditionalServiceForHotel>();
+		}
+			this.additional_services.add(a);		
+	}
+	public void addRoom(Room r) {
+		if (this.rooms==null) {
+			this.rooms = new ArrayList<Room>();
+		}
+			
+		this.rooms.add(r);		
+	}
+	public void removeAdditionalService(AdditionalServiceForHotel a) {
+			this.additional_services.remove(a);		
+	}
+	public void removeRoom(Room r) {
+		this.rooms.remove(r);		
+	}
 	public Hotel() {
 		super();
 	}
 
-	public Hotel(Long id, String name, String address, String description, Double average_rating) {
+	public Hotel(Long id, String name,String city, String address, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
+		this.city = city;
 		this.address = address;
 		this.description = description;
 		this.average_rating = average_rating;
@@ -135,8 +161,17 @@ public class Hotel implements Serializable{
 		 setId(h.getId());
 	     setName(h.getName());
 	     setDescription(h.getDescription());
-	     setAdress(h.getAddress());
+	     setAddress(h.getAddress());
+	     setCity(h.getCity());
 		
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
 	}
 
 	

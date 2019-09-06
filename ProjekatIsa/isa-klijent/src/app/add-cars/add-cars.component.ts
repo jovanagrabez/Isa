@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Car } from '../models/Car';
+import { Category } from '../models/Category';
+import { Filijale } from '../models/Filijale';
+import { NewCar } from '../models/NewCar';
 import { CarServiceService } from '../services/car-service/car-service.service';
 import { Router } from '@angular/router';
 
@@ -13,6 +16,10 @@ export class AddCarsComponent implements OnInit {
   car : Car = new Car();
   hideError : boolean;
   errorMessage : string;
+  cats : Array<any>;
+  filijala : Filijale;
+  newC : NewCar = new NewCar();
+  category : Category;
 
   constructor(private router : Router,private carService : CarServiceService) { }
 
@@ -24,10 +31,10 @@ export class AddCarsComponent implements OnInit {
       this.errorMessage = '';
       this.hideError = true;
  
-      if (!this.car.name) {
+     /* if (!this.car.name) {
         this.hideError = false;
         this.errorMessage = 'Morate uneti naziv!';
-      }else if (!this.car.number) {
+      }else if (!this.car.regnumber) {
           this.hideError = false;
           this.errorMessage = 'Morate uneti oznaku!';
       }else if (!this.car.price) {
@@ -41,6 +48,6 @@ export class AddCarsComponent implements OnInit {
               window.location.href = 'http://localhost:4200';
           });
           }
-        }
-
+        }*/
+}
 }

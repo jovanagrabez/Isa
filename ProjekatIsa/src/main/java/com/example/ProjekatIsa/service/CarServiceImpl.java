@@ -23,4 +23,10 @@ public class CarServiceImpl implements CarService{
 		return carRepository.save(c);
 	}
 
+	@Override
+	public Car findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return carRepository.findOneById(id);
+	}
+
 }

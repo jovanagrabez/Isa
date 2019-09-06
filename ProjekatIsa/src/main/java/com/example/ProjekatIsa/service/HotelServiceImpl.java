@@ -24,6 +24,17 @@ public class  HotelServiceImpl implements HotelService{
 		// TODO Auto-generated method stub
 		return hotelRepository.save(h);
 	}
+
+	@Override
+	public boolean deleteHotel(Hotel h) {
+		// TODO Auto-generated method stub
+		try {
+			hotelRepository.delete(h);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	
 
 }

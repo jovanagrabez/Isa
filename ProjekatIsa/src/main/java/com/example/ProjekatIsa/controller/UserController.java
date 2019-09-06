@@ -280,7 +280,101 @@ public class UserController {
 		}
 		
 	    
-	  
+  @RequestMapping(value ="/registerAdmin/{num}",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	public ResponseEntity<?> registerAdmin(@Valid @RequestBody User user1,@PathVariable("num") Long num, BindingResult result){
+		System.out.println("-----Registracija kotisnika-----");
+		User oldUser = userService.findUserByMail(Encode.forHtml(user1.getEmail()));
+		System.out.println(user1.firstName + "firstName" + user1.getLastName());
+		
+		
+		if(result.hasErrors()) {
+			//404
+			System.out.println("ERROR registration");
+			return new ResponseEntity<>(new UserTokenState("error",(long)0), HttpStatus.NOT_FOUND);
+		}
+		if(!checkMail(user1.getEmail())) {
+			System.out.println("ERROR registration");
+			return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+		}
+		if(!checkCharacters(user1.getFirstName())) {
+			System.out.println("ERROR registration");
+			return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+		}
+		if(!checkCharacters(user1.getLastName())) {
+			System.out.println("ERROR registration");
+			return new ResponseEntity<>(new UserTokenState("error",(long) 0), HttpStatus.NOT_FOUND);
+		}
+		
+		if(oldUser == null) {
+			User newUser = new User();
+			String newPassword = user1.getPassword();
+			System.out.println("Novi korisnik" + user1.firstName + user1.getPassword());
+			if(newPassword.equals("") || newPassword == null) {
+				return null;
+			}
+			
+			String hash = org.springframework.security.crypto.bcrypt.BCrypt.gensalt();
+			
+			System.out.println("------Hesiranje lozinke------");
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String hashedP = org.springframework.security.crypto.bcrypt.BCrypt.hashpw(newPassword, hash);
+			newUser.setEmail(user1.getEmail());
+			newUser.setFirstName(user1.getFirstName());
+			newUser.setLastName(user1.getLastName());
+			newUser.setPassword(hashedP);
+			newUser.setCity(user1.getCity());
+			newUser.setPhoneNumber(user1.getPhoneNumber());	
+			
+			//ako je num 1 - uloga je avio
+			//ako je num 2 - uloga je hotel
+			//ako je num 3 - uloga je car
+
+			Role rolica = new Role();
+			
+			if(num == 1) {
+				rolica = roleService.findById(3);
+
+			}else if(num == 2) {
+				rolica = roleService.findById(4);
+			}else if(num == 3) {
+				rolica = roleService.findById(5);
+			}
+			//rolica = roleService.findById(1);
+			System.out.println("Uloga id" + rolica.getId());
+
+			Collection<Role> r1 = new ArrayList<Role>();
+			r1.add(rolica);
+			newUser.setRoles(r1);
+			newUser.setEnabled(true);
+			newUser.setVerified(false);
+
+			System.out.println("Uloga registrovanog korisnika je:" + newUser.getRoles().toString());
+			userService.save(newUser);
+			System.out.println("Uloga sacuvanog korisnika" + newUser.getRoles());
+			System.out.println("New user registration: USPJESNO" + newUser);
+			
+			try{
+				service.sendEmail(newUser);
+			}catch( Exception e )
+			{
+				System.out.println("Greska prilikom slanja emaila: " + e.getMessage());
+			}
+			
+			return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+			
+			
+		} else {
+			System.out.println("Postoji korisnik sa istom email adresom ");
+			user1.setEmail("error");
+			System.out.println("New user reg: Email is already in use");
+			return new ResponseEntity<>(user1, HttpStatus.NOT_FOUND);
+		}
+		
+	} 
 	    
 	   
 }    

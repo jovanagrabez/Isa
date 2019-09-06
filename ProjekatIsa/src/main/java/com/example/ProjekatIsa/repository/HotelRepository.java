@@ -8,5 +8,6 @@ import com.example.ProjekatIsa.model.Hotel;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 	List<Hotel> findAll();
-
+	Hotel findOneById(Long id);
+	Hotel save(Hotel h);
 }

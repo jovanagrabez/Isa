@@ -20,4 +20,20 @@ public class AdditionalServiceForHotelServiceImpl implements AdditionalServiceFo
 		return rep.findAll();
 	}
 
+	@Override
+	public AdditionalServiceForHotel addService(AdditionalServiceForHotel a) {
+		// TODO Auto-generated method stub
+		return rep.save(a);
+	}
+
+	@Override
+	public boolean deleteAdditionalServiceForHotel(AdditionalServiceForHotel a) {
+		try {
+			rep.delete(a);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }

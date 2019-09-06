@@ -19,9 +19,9 @@
                 </ul>
               </li>
              <li ><a href="hotels">Hoteli</a>
-                <ul class="fh5co-sub-menu">
+                <ul class="fh5co-sub-menu" [hidden]="nohotelAdmin">
                   <li><a href="hotels">Prikazi</a></li>
-                  <li><span class="hidden-xs" id="addButton" [hidden]="nohotelAdmin"><a href="addHotel">Dodaj hotel</a></span></li>
+                  <li><span class="hidden-xs" id="addButton" ><a href="addHotel">Dodaj hotel</a></span></li>
                   
                 </ul>
               </li>
@@ -38,11 +38,9 @@
 			<li ><span class="hidden-xs" id="settingsButton" [hidden]="nosystemAdmin"><a href="#">Podesavanje</a></span>
                 <ul class="fh5co-sub-menu">
                   <li><a href="#">Dodaj avio kompaniju</a></li>
-                  <li><a href="#">Dodaj hotel</a></li>
+                  <li><a href="addHotel">Dodaj hotel</a></li>
                   <li><a href="#">Dodaj rent-a-car</a></li>
-				  <li><a href="#">Dodaj avio admina</a></li>
-				  <li><a href="#">Dodaj hotel admina</a></li>
-				  <li><a href="#">Dodaj rent-a-car admina</a></li>
+				  <li><a href="addAdmin">Dodaj admina</a></li>
                 </ul>
               </li>
            <li><span class="hidden-xs" id="" [hidden]="notLogged" ><a href="profile">Profil</a></span>

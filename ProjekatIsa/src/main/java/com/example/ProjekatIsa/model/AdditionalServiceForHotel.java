@@ -7,7 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.example.ProjekatIsa.DTO.AdditionalServiceForHotelDTO;
 
 @Entity
 @Table(name = "additional_service_hotel")
@@ -25,6 +29,10 @@ public class AdditionalServiceForHotel implements Serializable{
 	
 	@Column(name = "price", nullable = false)
     private Double price;
+	
+	@ManyToOne
+	@JoinColumn(name="hotel_id")
+	private Hotel hotel;
 
 	public String getName() {
 		return name;
@@ -62,7 +70,19 @@ public class AdditionalServiceForHotel implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	
+	public AdditionalServiceForHotel(AdditionalServiceForHotelDTO a) {
+		setId(a.getId());
+		setPrice(a.getPrice());
+		setName(a.getName());
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
 	
 	
 }

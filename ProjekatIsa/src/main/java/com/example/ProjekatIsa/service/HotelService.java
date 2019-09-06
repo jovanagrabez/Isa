@@ -8,5 +8,5 @@ public interface HotelService {
 
 	List<Hotel> getAll();
 	Hotel addHotel(Hotel h);
-	
+	boolean deleteHotel(Hotel h);
 }

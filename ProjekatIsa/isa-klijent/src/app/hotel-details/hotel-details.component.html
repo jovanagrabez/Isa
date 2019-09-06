@@ -1,41 +1,186 @@
-		<div id="fh5co-tours" class="fh5co-section-gray">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+<div id="fh5co-tours" class="fh5co-section-gray">
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>{{currentHotel.name}}</h3>
-						<p>{{currentHotel.adress}}</p>
+						<h5>{{currentHotel.city}}</h5>
+						<p>{{currentHotel.address}}</p>
 						<p>{{currentHotel.description}}</p>
-						<span class="hidden-xs" id="changeButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Izmeni</a></span>
-						<span class="hidden-xs" id="deleteButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Obrisi</a></span>
+						<span class="hidden-xs" id="changeButton" [hidden]="nohotelAdmin"><a  class="btn btn-primary btn-outline" (click)="changeClick()">Izmeni</a></span>
+						<span class="hidden-xs" id="deleteButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" (click)="deleteClick()" >Obrisi</a></span>
 						<br/>
 						<br/>
-						<span class="hidden-xs" id="addRoomButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Dodaj sobu</a></span>
-						<span class="hidden-xs" id="addServiceButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" href="#">Dodaj servis</a></span>
-					</div>
-				</div>
-				
-				<div class="row row-bottom-padded-md" >
-					<div *ngFor="let r of currentHotel.rooms">
-						<div >
-							<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
-								<div class="hotel-box">
-									<div class="desc">
-							
-										<h3>Broj sobe: {{r.number}}</h3>
-										<span>{{r.room_description}}</span>
-										<span class="price">Cena sobe: {{r.price}}€ <b>/</b> 1 noć</span>
-										
-										<span *ngIf="!(r.room_average_rating == null)" class="price">Vaša ocena: <b>{{r.room_average_rating}}</b></span>
-										<span *ngIf="(r.room_average_rating == null)" class="price"><br/></span>
-										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
-										
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
+						<span class="hidden-xs" id="addRoomButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" (click)="addRoomClick()">Dodaj sobu</a></span>
+						<span class="hidden-xs" id="addServiceButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline"  (click)="addServiceClick()">Dodaj servis</a></span>
+			</div>
+					
+			<!-- div za izmenu hotela-->
+			<div class="col-xs-4" id = "changeDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni hotel {{currentHotel.name}}</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi naziv hotela.." value='newHotel.name' [(ngModel)]="newHotel.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu adresu hotela.." value='newHotel.address' [(ngModel)]="newHotel.address" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi opis hotela.." value='newHotel.description' [(ngModel)]="newHotel.description" >
+			              </div>
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeClick(newHotel)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			          <!-- /.box-footer -->
+			      </div>
+              </div> 
+              <!-- div za dodavanje servisa u hotel-->
+              <div class="col-xs-4" id = "addServiceDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novi servis</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite naziv servisa.." value='newService.name' [(ngModel)]="newService.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite cenu servisa.." value='newService.price' [(ngModel)]="newService.price" >
+			   			  </div>
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddServiceClick(newService)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardServiceClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+              		<!-- div za dodavanje servisa u hotel-->
+              		<div class="col-xs-4" id = "addRoomDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novu sobu</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite prosecnu cenu sobe.." value='newRoom.price' [(ngModel)]="newRoom.price" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite opis sobe.." value='newRoom.room_description' [(ngModel)]="newRoom.room_description">
+			              </div>
+			           	<div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite prosecnu ocenu sobe.." value='newRoom.room_average_rating' [(ngModel)]="newRoom.room_average_rating">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite kapacitet sobe.." value='newRoom.capacity' [(ngModel)]="newRoom.capacity">
+			              </div>
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddRoomClick(newRoom)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardRoomClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div>			
+		</div>
+		<!-- prikazivanje soba-->
+		<div class="row">
+		<div class="col-xs-11">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Broj sobe</th>
+            	<th>Opis</th>
+            	<th>Kapacitet</th>
+            	<th>Prosecna cena</th>
+            	<th>Ocena</th>
+            	<th>Rezervisi</th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let r of rooms">
+                <td>{{r.number}} </td>                
+                <td>{{r.room_description}}</td> 
+                <td>{{r.capacity}}</td>
+                <td>{{r.price}}€ <b>/</b> 1 noć</td>
+                <td><span *ngIf="!(r.room_average_rating == null)" class="price"> {{r.room_average_rating}} </span></td>               
+                <td><button type="button"  class="btn btn-outline-success">Book me</button></td> 
+                <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeRoomClick(r)">Izmeni</button></span></td>             
+                <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteRoomClick(r)">Obrisi</button></span></td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- div za izmenu sobe-->
+          <div class="col-xs-9" id = "changeRoomDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni sobu broj: {{changeRoom.number}}</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi opis sobe.." value='newRoom2.room_description' [(ngModel)]="newRoom2.room_description">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu ocenu sobe.." value='newRoom2.room_average_rating' [(ngModel)]="newRoom2.room_average_rating" >
+			              </div> 
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu ocenu sobe.." value='newRoom2.capacity' [(ngModel)]="newRoom2.capacity" >
+			              </div>
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeRoomClick(newRoom2)" > Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardChangeRoomClick()" > Odustani</button>			             	
+			              </div>
+			              <br/>
+			   		</div>
+			     <!-- /.box-footer -->
+			</div>
+          </div>
+          <!-- /.box -->
+		</div>
+	</div>
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h4>Sadržaji</h4>
@@ -43,15 +188,69 @@
 					</div>
 				</div>
 				
-				<div class="row row-bottom-padded-md">
-					<div *ngFor="let s of currentHotel.additional_services">
-						<div class="two-columns">
-							<h4>{{s.name}} : {{s.price}}€</h4>
-							<span><br/></span>
-						</div>				
-					
-					</div>
-				</div>
+		<!--DIV ZA PRIKAZ SERVISA -->		
+		<div class="row">
+		<div class="col-xs-10">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Naziv servisa</th>
+            	<th>Cena</th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let s of services">
+                <td>{{s.name}} </td>                
+                <td>{{s.price}}€</td> 
+                <td><button type="button"  class="btn btn-outline-success">Book me</button></td> 
+                <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeServiceClick(s)">Izmeni</button></span></td>             
+                <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteServiceClick(s)">Obrisi</button></span></td>
+                </tr>
+             </tbody>
 
-			</div>
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
 		</div>
+		<div class="col-xs-6" id = "changeServiceDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni servis {{changeService.name}}</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi naziv servisa.." value='newService2.name' [(ngModel)]="newService2.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu cenu servisa.." value='newService2.price' [(ngModel)]="newService2.price" >
+			              </div> 
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeServiceClick(newService2)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardChangeServiceClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+		</div>
+	</div>
+</div>
+		
+		
+					

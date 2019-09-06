@@ -1,0 +1,237 @@
+	<div id="fh5co-tours" class="fh5co-section-gray">
+	
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>{{currentFil.grad}}</h3>
+						<p>{{currentFil.adresa}},{{currentFil.drzava}}</p>
+						<span class="hidden-xs" id="changeButton" [hidden]="nocarAdmin"><a  class="btn btn-primary btn-outline" (click)="changeClick()">Izmeni</a></span>
+						<span class="hidden-xs" id="deleteButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline" (click)="deleteClick()" >Obrisi</a></span>
+						<br/>
+						<br/>
+						<span class="hidden-xs" id="addCarButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline"  (click)="addCarClick()">Dodaj vozilo</a></span>
+						
+					</div>
+					<!-- div za izmenu -->
+					<div class="col-xs-6" id = "changeDiv" hidden="true" >
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni filijalu</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu adresu" value='newFil.adresa' [(ngModel)]="newFil.adresa">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu drzavu.." value='newFil.drzava' [(ngModel)]="newFil.drzava" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi grad.." value='newFil.grad' [(ngModel)]="newFil.grad" >
+			              </div>
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeClick(newFil)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+              		
+              		<div class="col-xs-6" id = "addCarDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novo vozilo</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite naziv.." value='newCar.name' [(ngModel)]="newCar.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite registarsku oznaku.." value='newCar.car_number' [(ngModel)]="newCar.car_number" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite cenu.." value='newCar.price' [(ngModel)]="newCar.price" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite godinu proizvodnje.." value='newCar.prod_year' [(ngModel)]="newCar.prod_year" >
+			              </div>
+			           
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddCarClick(newCar)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardCarClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+				</div>
+				
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h3>Vozila koja se nalaze u ponudi u ovoj filijali</h3>
+					</div>
+				</div>
+				
+				
+				
+
+
+<div class="col-xs-12" id= "bookingDiv" hidden="true">	
+  <div class="box">	
+  		<div class="box-header with-border">
+        </div>
+        <div class="box-body box-profile" >
+	  		<div  class="col-md-6">
+  			<div class="form-group">
+                <label>Enter start date:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="date"  name="startDate"   [(ngModel)]="reservation.startDate" required="required" data-placeholder="Check in">
+	            </div>
+  			</div>
+  			</div>
+  			<div class="col-md-6">
+  			<div class="form-group">
+               <label>Enter end date:</label>
+                <div class="input-group">
+	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                      <input class="form-control" type="date"  name="endDate"  [(ngModel)]="reservation.endDate" required="required"  data-placeholder="Check out">
+	                </div>
+            </div>
+  			</div>
+  			<div  class="col-md-6">
+  			<div class="form-group">
+                <label>Pick up place:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="text"  name="startDate"   [(ngModel)]="reservation.pickupPlace" required="required" data-placeholder="Check in">
+	            </div>
+  			</div>
+  			</div>
+  			<div  class="col-md-6">
+  			<div class="form-group">
+                <label>Return place:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="text"  name="startDate"   [(ngModel)]="reservation.returnPlace" required="required" data-placeholder="Check in">
+	            </div>
+  			</div>
+  			</div>
+  			
+  			<div class="col-md-6">
+  			<div class="form-group">
+               <label>Total price: {{totalAccPrice}}</label>
+                
+            </div>
+  			</div>
+  			
+  			
+  			
+	</div>	
+	<div class="box-footer">
+	<div class="col-md-12">
+      <button type="button" id="bookButton" data-toggle="modal" (click)="finallBookClick()" class="btn btn-block btn-primary">BOOK NOW</button>
+    </div>
+    </div>
+</div>
+</div>
+				
+<!-- prikazivanje vozila-->
+		<div class="row">
+		<div class="col-xs-11">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Broj vozila</th>
+            	<th>Naziv</th>
+            	<th>Registarska oznaka</th>
+            	<th>Prosecna ocena</th>
+            	<th>Cena</th>
+            	<th>Godina proizvodnje</th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let c of car">
+                <td>{{c.id}} </td>                
+                <td>{{c.name}}</td> 
+                <td>{{c.car_number}}</td>
+                <td>{{c.average_rating}}</td> 
+                <td>{{c.price}}€ <b>/</b> 1 noć</td>
+                <td>{{c.prod_year}}</td>               
+                              
+                <td><span class="hidden-xs" id="bookCarId" [hidden]="noUser"><button type="button"  class="btn btn-outline-primary" (click)="bookCarClick(c)">Book me</button></span></td> 
+                <td><span class="hidden-xs" id="changeCarId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeCarClick(c)">Izmeni</button></span></td>             
+                <td><span class="hidden-xs" id="deleteCarId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteCarClick(c)">Obrisi</button></span></td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          
+
+          
+          
+          <!-- div za izmenu vozila-->
+          <div class="col-xs-9" id = "changeCarDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni vozilo: {{changeCar.name}}</h3>
+			            </div>
+			           
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novi naziv.." value='newCar2.name' [(ngModel)]="newCar2.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu cenu.." value='newCar2.price' [(ngModel)]="newCar2.price" >
+			              </div> 
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite novu registarsku oznaku.." value='newCar2.car_number' [(ngModel)]="newCar2.car_number" >
+			              </div>
+			            </div>
+			           
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangeCarClick(newCar2)" > Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardChangeRoomClick()" > Odustani</button>			             	
+			              </div>
+			              <br/>
+			   		</div>
+			     
+			</div>
+          </div>
+          <!-- /.box -->
+		</div>
+	</div>
+				
+
+
+			</div>
+		</div>
+		

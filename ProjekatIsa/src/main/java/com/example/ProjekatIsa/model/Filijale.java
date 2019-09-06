@@ -1,7 +1,9 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -10,9 +12,13 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.example.ProjekatIsa.DTO.FilijaleDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "filijale")
@@ -36,10 +42,12 @@ public class Filijale implements Serializable {
 	private String adresa;
 	
 	@ManyToOne( fetch = FetchType.EAGER)
-	private RentACar rentACar;
+	@JoinColumn(name="rentacar_id")
+	private RentACar rentalcars;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy="filijale",fetch = FetchType.LAZY,orphanRemoval = true)
-	private Set<Car> cars;
+	private List<Car> cars;
 
 	public Long getId() {
 		return id;
@@ -59,7 +67,7 @@ public class Filijale implements Serializable {
 		this.grad = grad;
 		this.drzava = drzava;
 		this.adresa = adresa;
-		this.rentACar = rentACar;
+		this.rentalcars = rentACar;
 	}
 
 	public Filijale() {
@@ -91,19 +99,35 @@ public class Filijale implements Serializable {
 	}
 
 	public RentACar getRentACar() {
-		return rentACar;
+		return rentalcars;
 	}
 
 	public void setRentACar(RentACar rentACar) {
-		this.rentACar = rentACar;
+		this.rentalcars = rentACar;
 	}
 
-	public Set<Car> getCars() {
+	public List<Car> getCars() {
 		return cars;
 	}
 
-	public void setCars(Set<Car> cars) {
+	public void setCars(List<Car> cars) {
 		this.cars = cars;
+	}
+	
+	
+	public Filijale(FilijaleDTO f) {
+		setId(f.getId());
+		setGrad(f.getGrad());
+		setDrzava(f.getDrzava());
+		setAdresa(f.getAdresa());
+	}
+	
+	public void addCar(Car c) {
+		if(this.cars==null) {
+			this.cars = new ArrayList<Car>();
+		}
+		
+		this.cars.add(c);
 	}
 	
 	

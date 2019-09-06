@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -14,9 +15,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.CarDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
@@ -31,85 +34,251 @@ public class Car implements Serializable {
     @Column(name = "car_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "car_number", nullable = false, updatable = false)
-	private int number;
+	@Column(name = "car_number", nullable = false)
+	private String car_number;
 	
-	@Column(name = "car_name", nullable = false, updatable = false)
+	@Column(name = "car_name", nullable = false)
 	private String name;
 	
-	@Column(name = "car_price", nullable = false, updatable = false)
+	@Column(name = "price", nullable = false)
 	private int price;
 	
+	@Column(name ="average_rating")
+	private Double average_rating;
+	
+	@Column(name="prod_year", nullable = false)
+	private int prod_year;
+	
 	@ManyToOne
-	@JoinColumn(name="rent_cars")
+	@JoinColumn(name="rentacar_id")
 	private RentACar rentalcars;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="filijale_id")
 	private Filijale filijale;
 	
-	public String getName() {
-		return name;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="category_id")
+	private Category category;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="car")
+    protected List<PricingCar> pricingCar;
+	
+	@JsonIgnore
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "car_rating_car", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "ratingCar_id"))
+    private Set<RatingCar> car_ratings;
+
+	
+	@OneToMany(mappedBy="car",orphanRemoval = true, fetch = FetchType.LAZY)
+	private List<CarReservation> reservation;
+	
+	
+	
+	
+	public List<CarReservation> getReservation() {
+		return reservation;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+
+
+
+	public void setReservation(List<CarReservation> reservation) {
+		this.reservation = reservation;
 	}
 
-	public int getPrice() {
-		return price;
-	}
 
-	public void setPrice(int price) {
-		this.price = price;
-	}
+
 
 	public Long getId() {
 		return id;
 	}
 
+
+
+
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getNumber() {
-		return number;
+
+
+
+	public String getCar_number() {
+		return car_number;
 	}
 
-	public void setNumber(int number) {
-		this.number = number;
+
+
+
+	public void setCar_number(String car_number) {
+		this.car_number = car_number;
 	}
-	
+
+
+
+
+	public String getName() {
+		return name;
+	}
+
+
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+
+
+	public int getPrice() {
+		return price;
+	}
+
+
+
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+
+
+
+
+	public Double getAverage_rating() {
+		return average_rating;
+	}
+
+
+
+
+	public void setAverage_rating(Double average_rating) {
+		this.average_rating = average_rating;
+	}
+
+
+
+
+	public int getProd_year() {
+		return prod_year;
+	}
+
+
+
+
+	public void setProd_year(int prod_year) {
+		this.prod_year = prod_year;
+	}
+
+
 
 
 	public RentACar getRentalcars() {
 		return rentalcars;
 	}
 
+
+
+
 	public void setRentalcars(RentACar rentalcars) {
 		this.rentalcars = rentalcars;
 	}
 
-	public Car(Long id, int number, int price,String name) {
-		super();
-		this.id = id;
-		this.number = number;
-		this.price = price;
-		this.name = name;
-		
+
+
+
+	public Filijale getFilijale() {
+		return filijale;
+	}
+
+
+
+
+	public void setFilijale(Filijale filijale) {
+		this.filijale = filijale;
+	}
+
+
+
+
+	public Category getCategory() {
+		return category;
+	}
+
+
+
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
+
+
+
+	public List<PricingCar> getPricingCar() {
+		return pricingCar;
+	}
+
+
+
+
+	public void setPricingCar(List<PricingCar> pricingCar) {
+		this.pricingCar = pricingCar;
+	}
+
+
+
+
+	public Set<RatingCar> getCar_ratings() {
+		return car_ratings;
+	}
+
+
+
+
+	public void setCar_ratings(Set<RatingCar> car_ratings) {
+		this.car_ratings = car_ratings;
 	}
 	
-	public Car(CarDTO c) {
-		setId(c.getId());
-		setName(c.getName());
-		setNumber(c.getNumber());
-		setPrice(c.getPrice());
-		
+	
+
+
+	public Car(Long id, String car_number, String name, int price, Double average_rating, int prod_year,
+			RentACar rentalcars, Filijale filijale, Category category, List<PricingCar> pricingCar,
+			Set<RatingCar> car_ratings, List<CarReservation> reservation) {
+		super();
+		this.id = id;
+		this.car_number = car_number;
+		this.name = name;
+		this.price = price;
+		this.average_rating = average_rating;
+		this.prod_year = prod_year;
+		this.rentalcars = rentalcars;
+		this.filijale = filijale;
+		this.category = category;
+		this.pricingCar = pricingCar;
+		this.car_ratings = car_ratings;
+		this.reservation = reservation;
 	}
 	
 	public Car() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+
+	public Car(CarDTO c) {
+		setId(c.getId());
+		setName(c.getName());
+		setCar_number(c.getCar_number());
+		setPrice(c.getPrice());
+		setProd_year(c.getProd_year());
+		setAverage_rating(c.getAverage_rating());
+	}
+	
+	
 
 
 }

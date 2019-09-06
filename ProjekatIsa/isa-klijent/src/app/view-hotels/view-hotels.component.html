@@ -1,5 +1,6 @@
-		<div id="fh5co-tours" class="fh5co-section-gray">
+			<div id="fh5co-tours" class="fh5co-section-gray">
 			<div class="container">
+
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 						<h3>Popularne hotel &amp; hostel destinacije</h3>
@@ -8,22 +9,80 @@
 				</div>
 				
 				
+<div class="row">
+	<div class="col-xs-12">
+
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+              <label>Unesite lokaciju:</label>
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Lokacija..." [(ngModel)]="searchFormHotel.city" #city="ngModel" name="city" type="text">
+             	  <span id="errorCity"></span>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Datum dolaska:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="date" required="required" data-placeholder="Check in" [(ngModel)]="searchFormHotel.startDate" #startDate="ngModel" name="startDate" >
+	                    <span id="errorStart"></span>                    
+	            </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+            <label>Unesite naziv hotela:</label>
+             <div class="form-group">
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Naziv hotela..." [(ngModel)]="searchFormHotel.name" #name="ngModel" name="name" type="text">
+	         </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+               <label>Datum odlaska:</label>
+                <div class="input-group">
+                		 
+	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                      <input class="form-control" type="date" name="endDate" required="required"   [(ngModel)]="searchFormHotel.endDate" #endDate="ngModel" name="endDate" data-placeholder="Check out">
+	                      <span id="errorEnd"></span>
+	                </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      
+      
+	</div>
+  </div> 
+    <div class="col-xs-12">
+			<input type="submit" class="btn btn-default btn-block" (click)="findHotels()" value="PRIKAZI REZULTATE">
+			<br/>
+			<br/>
+		</div>
+</div>	
+				
 				
 				<div class="row row-bottom-padded-md" >
-					<div  *ngFor= 'let h of hotel$'>
+					<div  *ngFor= 'let h of hotels'>
 						<div >
 							<div (click)="onClickShowDetails(h)" class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
 								<div class="hotel-box">
 									<div class="desc">
 							
 										<h3>{{h.name}}</h3>
-										<h4>{{h.adress}}</h4>
+										<h4>{{h.city}}</h4>
 										<span></span>
 										<span>{{h.description}}</span>
 										<span *ngIf="!(h.average_rating == null)" class="price">Vaša ocena: {{h.average_rating}}</span>
-										<span *ngIf="(h.average_rating == null)" class="price"><br/></span>
-
-										<a class="btn btn-primary btn-outline" href="#">Rezerviši</a>
+										<a class="btn btn-primary btn-outline" (click)="onClickShowDetails(h)">Detaljnije</a>
 										
 									</div>
 								</div>

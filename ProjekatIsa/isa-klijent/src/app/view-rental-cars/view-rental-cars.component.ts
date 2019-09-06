@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ViewRentalCarsService } from '../services/view-rental-cars.service';
 import { Observable } from 'rxjs';
+import { User } from '../models/User';
+
 
 @Component({
   selector: 'app-view-rental-cars',
@@ -12,10 +14,15 @@ export class ViewRentalCarsComponent implements OnInit {
         
   private selectedRentACar: any;        
   rentalcars$: Object;
+  user : User = new User();
 
   constructor(private router : Router, private viewRentalCarsService : ViewRentalCarsService) { }
 
   ngOnInit() {
+      
+  this.user = JSON.parse(localStorage.getItem('user'));
+      console.log(this.user);
+
       
   this.viewRentalCarsService.getRentalCars().subscribe(
     data => this.rentalcars$ = data
