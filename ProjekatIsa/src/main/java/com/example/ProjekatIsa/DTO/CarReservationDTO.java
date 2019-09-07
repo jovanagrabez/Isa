@@ -41,6 +41,7 @@ public class CarReservationDTO {
 		this.dayRez = c.getDayRez();
 		this.user = new UserDTO(c.getUser());
 		this.car = new CarDTO(c.getCar());
+		this.flag = c.isFlag();
 				
 	}
 	public CarReservationDTO(Long id, Date startDate, Date endDate, String pickupPlace, String returnPlace,

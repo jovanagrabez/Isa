@@ -65,18 +65,18 @@ insert into aviocompany (name, adress, description) values ('TurkishAirlines', '
 insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
 
 
-insert into destination(name, country) values ('Berlin', 'Njemacka');
-insert into destination(name, country) values ('Minhen', 'Njemacka');
-insert into destination(name, country) values ('Pariz', 'Francuska');
-insert into destination(name, country) values ('London', 'Velika Britanija');
-insert into destination(name, country) values ('New York', 'SAD');
-insert into destination(name, country) values ('Moskva', 'Rusija');
-insert into destination(name, country) values ('Rim', 'Italija');
-insert into destination(name, country) values ('Peking', 'Kina');
-insert into destination(name, country) values ('Tokio', 'Japan');
-insert into destination(name, country) values ('Brazilija', 'Brazil');
-insert into destination(name, country) values ('Rio de Janeiro', 'Brazil');
-insert into destination(name, country) values ('New Delhi', 'Indija');
+insert into destination(name, country, description) values ('Berlin', 'Njemacka','to');
+insert into destination(name, country, description) values ('Minhen', 'Njemacka','from');
+insert into destination(name, country, description) values ('Pariz', 'Francuska', 'to');
+insert into destination(name, country, description) values ('London', 'Velika Britanija','from');
+insert into destination(name, country, description) values ('New York', 'SAD',  'from');
+insert into destination(name, country, description) values ('Moskva', 'Rusija','to');
+insert into destination(name, country, description) values ('Rim', 'Italija','to');
+insert into destination(name, country, description) values ('Peking', 'Kina', 'from');
+insert into destination(name, country, description) values ('Tokio', 'Japan', 'from');
+insert into destination(name, country, description) values ('Brazilija', 'Brazil','to');
+insert into destination(name, country, description) values ('Rio de Janeiro', 'Brazil','to');
+insert into destination(name, country, description) values ('New Delhi', 'Indija', 'from');
 
 
 
@@ -197,12 +197,11 @@ insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('MiniCooper','JC-4875',350,3.1,'2004',9,2,5);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat','AC-4875',350,3.1,'2004',9,2,5);
 
+insert into discount(discount_id,date_from,date_to,discount) values (1,'2019-09-05','2019-09-25',30);
+insert into discount(discount_id,date_from,date_to,discount) values (2,'2019-09-05','2019-09-25',20);
 
-
-
-
-
-
+insert into car_discount(car_id,discount_id) values (1,1);
+insert into car_discount(car_id,discount_id) values (2,2);
 
 
 --filijale za carflexi
@@ -240,11 +239,11 @@ insert into seat(discount_price, price, seat_class, seat_column, seat_row, state
 
 
 
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30','bnbnb',2.5,2);
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30','bnbfdfnb',1,3);
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30','bnfnb',12,4);
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30','bnfsanb',3.5,5);
-insert into flight(average_rating, baggage_description, business_price, distance, economy_price, first_price, landing, number, number_of_rating, premium_economy_price, sum_rating, take_off, time, travel_time, seat_arrangement_id) values (4.3,'nema',789,25,125,541,'2019-08-10 10-30',0,0,458,0,'2019-08-10 10-30','5',5,null);
+insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',20,2.5,2);
+insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',11,1,3);
+insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',5,12,4);
+insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',14,3.5,5);
+insert into flight(average_rating, baggage_description, business_price, distance, economy_price, first_price, landing, number, number_of_rating, premium_economy_price, sum_rating, take_off, time, travel_time, seat_arrangement_id) values (4.3,'nema',789,25,125,541,'2019-08-10 10-30',0,0,458,0,'2019-08-13 10-30','5',5,null);
 
 
 
@@ -290,7 +289,9 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (3,false,3,4);
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (4,false,3,5);
 
-insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,0);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (3,'2020-08-07 00:00:00','2020-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2020-08-07 00:00:00',14,1,true);
 
 
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	

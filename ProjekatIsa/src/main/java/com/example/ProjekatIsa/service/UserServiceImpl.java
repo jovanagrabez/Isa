@@ -177,9 +177,9 @@ public User findByFirstName(String name) {
 
 
 @Override
-public User findOneById(Long id) {
+public User findOneById(Long user_id) {
 	// TODO Auto-generated method stub
-	return userRepository.findOneById(id);
+	return userRepository.findOneById(user_id);
 }
 
 

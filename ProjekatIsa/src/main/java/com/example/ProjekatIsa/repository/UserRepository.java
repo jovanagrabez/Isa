@@ -20,7 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long>{
 	List<User> findAll();
 	User findOneByEmail(String mail);
 	User findByFirstName(String firstName);
-	User findOneById(Long id);
+	User findOneById(Long user_id);
 	User findByLastName(String s);
 	Set <User >findUsersByFirstNameLikeOrLastNameLikeOrFirstNameContainsOrLastNameContains(String firstName, String lastName,String firstName1,String lastName1);
   

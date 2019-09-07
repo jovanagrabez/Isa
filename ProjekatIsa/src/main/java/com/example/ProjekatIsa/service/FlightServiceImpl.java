@@ -17,6 +17,7 @@ import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.Seat;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
+import com.example.ProjekatIsa.repository.DestinationRepository;
 import com.example.ProjekatIsa.repository.FlightRepository;
 
 
@@ -35,6 +36,9 @@ public class FlightServiceImpl implements FlightService {
 	@Autowired 
 	private SeatArrangementService seatAService;
 	
+	@Autowired
+	private DestinationRepository destinationRepository;
+	
 	 @Override
 	    public List<Flight> getAllFlights() {
 	        return this.flightRepository.findAll();
@@ -47,6 +51,9 @@ public class FlightServiceImpl implements FlightService {
 
 	    @Override
 	    public Flight addFlight(Flight flight) {
+	    	for(Destination d : flight.getDestination()) {
+	    	this.destinationRepository.save(d);
+	    	}
 	    	this.seatAService.saveSeatArrangement(flight.getSeatArrangement());
 	        return this.flightRepository.save(flight);
 	    }
@@ -159,8 +166,28 @@ public class FlightServiceImpl implements FlightService {
 	    public List<Flight> search(SearchDTO flightSearchDto) {
 
 	        List<Flight> flights = new ArrayList<>();
-
 	        ArrayList<Flight> flightsDestinations = new ArrayList<>();
+
+	        List<Flight> sviletovi = new ArrayList<>();
+	        sviletovi = this.flightRepository.findAll();
+	        
+	        for(int i=0; i < sviletovi.size();i++) {
+	        	if(sviletovi.get(i).getTake_off().getDate() >= flightSearchDto.getFromDate().getDate()) {
+	        		if(sviletovi.get(i).getLanding().getDate() <= flightSearchDto.getToDate().getDate()) {
+	        		     flights.add(sviletovi.get(i));
+	        		
+	        		}
+	        			
+	        		}
+	        }
+	        
+	        
+	 /*       flights = this.flightRepository.findFlightsByTakeoffGreaterThanEqualAndLandingLessThanEqualAndTakeoffLessThanAndLandingGreaterThan(
+                    flightSearchDto.getFromDate(), flightSearchDto.getToDate(),
+                    flightSearchDto.getToDate(), flightSearchDto.getFromDate());*/
+            flightsDestinations = searchFromAndToDestination(flightSearchDto, flights);
+
+
 	
 
 	        ArrayList<Flight> flightDtos = new ArrayList<>();
@@ -174,7 +201,7 @@ public class FlightServiceImpl implements FlightService {
 
 	    private ArrayList<Flight> searchFromAndToDestination(SearchDTO flightSearchDto, List<Flight> flights){
 
-	        String[] stringsFrom = flightSearchDto.getFrom().split(" ");
+	    	String[] stringsFrom = flightSearchDto.getFrom().split(" ");
 	        String[] stringsTo = flightSearchDto.getTo().split(" ");
 
 	        ArrayList<Flight> flightsDestinations = new ArrayList<>();
@@ -183,14 +210,36 @@ public class FlightServiceImpl implements FlightService {
 	            boolean to = false;
 
 	            Set<Destination> fdd = flight.getDestination();
+	            for (Destination flightDestination : flight.getDestination()) {
 
-	           
+	                if (flightDestination.getDescription().equals("from")){
+	                    for (String fromString : stringsFrom) {                 //za svaku rec iz from trazi
+	                        if ((flightDestination.getName().toLowerCase().contains(fromString.toLowerCase()) ||
+	                                flightDestination.getCountry().toLowerCase().contains(fromString.toLowerCase()) ) ||
+	                                !fromString.equals("")){
+
+	                            from = true;
+	                            break;
+	                        }
+	                    }
+	                } else if (flightDestination.getDescription().equals("to")){
+
+	                    for (String toString : stringsTo) {                 //za svaku rec iz from trazi
+	                        if ((flightDestination.getName().toLowerCase().contains(toString.toLowerCase()) ||
+	                                flightDestination.getCountry().toLowerCase().contains(toString.toLowerCase()))||
+	                                !toString.equals("")){
+
+	                            to = true;
+	                            break;
+	                        }
+	                    }
+	                }
 	                if (from && to ) {
 
 	                    int seatCount = 0;
 	                    for (Seat seat : flight.getSeats()) {
 
-	                        if (seat.getSeatClass().equals(flightSearchDto.getSeatClass()) &&       //ako je sjedste odgovarajuce
+	                        if (seat.getSeatClass().equals(flightSearchDto.getSeatClass()) &&       //ako je sedste odgovarajuce
 	                             seat.getState().equals("free")){                                   //klase i slobodno
 	                            seatCount++;
 	                            if (seatCount >= flightSearchDto.getPersons()){break;}              //ako vec ima dovoljno,
@@ -201,11 +250,11 @@ public class FlightServiceImpl implements FlightService {
 	                    if (seatCount >= flightSearchDto.getPersons()) {
 	                        flightsDestinations.add(flight);                //ako odgovaraju i from i to destinacije
 	                    }
-	                    break;                                  //ne provjeravaj dalje za taj flight jer vec odgovara
-	                                                            //po destinacijama, ako ne odgovara po broju mjesta,
+	                    break;                                  //ne proveravaj dalje za taj flight jer vec odgovara
+	                                                            //po destinacijama, ako ne odgovara po broju mesta,
 	                                                            //nece odgovarati ni u sledecem prolazu
 	                }
-	            
+	            }
 	        }
 
 	        return flightsDestinations;

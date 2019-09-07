@@ -10,4 +10,5 @@ public interface RoomService {
 
 	List<Room> getAll();
 	boolean deleteRoom(Room r);
+	Room findOneById(Long id);
 }

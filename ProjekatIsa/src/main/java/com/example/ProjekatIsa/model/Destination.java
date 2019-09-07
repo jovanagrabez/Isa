@@ -31,6 +31,11 @@ public class Destination implements Serializable {
     private String country;
 	
 
+
+	@Column(name = "description", nullable = false, columnDefinition="VARCHAR(40)")
+    private String description;
+	
+	
 	@ManyToMany(mappedBy="destination")
 	private Set<Aviocompany> aviocompany;
 	
@@ -42,6 +47,7 @@ public class Destination implements Serializable {
 		
 		this.country=d.getCountry();
 		this.name=d.getName();
+		this.description = d.getDescription();
 	}
 	public String getCountry() {
 		return country;
@@ -55,6 +61,14 @@ public class Destination implements Serializable {
 		return id;
 	}
 
+	
+	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public void setId(Long id) {
 		this.id = id;
 	}

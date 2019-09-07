@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -18,11 +20,33 @@ public class RatingRoom implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ratingRoom_id", nullable = false, updatable = false)
+    @Column(name = "ratingroom_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "value", nullable = false)
-    private int value;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Room room;
+	
+	@Column(name="rate", nullable = false)
+	private int rate;
+	
+	
+	
+
+	public RatingRoom() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public RatingRoom(Long id, User user, Room room, int rate) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.room = room;
+		this.rate = rate;
+	}
 
 	public Long getId() {
 		return id;
@@ -32,23 +56,31 @@ public class RatingRoom implements Serializable {
 		this.id = id;
 	}
 
-	public int getValue() {
-		return value;
+	public User getUser() {
+		return user;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public RatingRoom(int value) {
-		super();
-		this.value = value;
+	public Room getRoom() {
+		return room;
 	}
 
-	public RatingRoom() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setRoom(Room room) {
+		this.room = room;
 	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
+
 	
 	
 }

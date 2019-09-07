@@ -21,6 +21,9 @@ import { HttpErrorResponse } from '@angular/common/http';
 export class LoginComponent implements OnInit {
 
   user: User = new User();
+    
+  user1: User = new User();
+
   htmlStr: string;
 
   @Input() verified : boolean;
@@ -30,7 +33,7 @@ export class LoginComponent implements OnInit {
   errorMessage = '';
   roles: string[] = [];
     
-  role: Array<Role>;
+  role: Role = new Role();
  
 
   constructor(private userService : UserService,
@@ -85,13 +88,28 @@ checkUser(logged) {
               this.isLoggedIn = true;
               this.roles = this.auth.getAuthorities();
               console.log('Uloga trenutnog usera');
-              console.log(currentUser.roles);
+              
+              this.role = JSON.parse(localStorage.getItem('role'));
+              console.log(currentUser);
           
               localStorage.setItem('user', JSON.stringify(currentUser));
               localStorage.setItem('role', JSON.stringify(currentUser.roles));
+              console.log(currentUser);
+              
+              this.user1 = JSON.parse(localStorage.getItem('user'))
 
-              window.location.href = 'http://localhost:4200';
-             
+              for (var i=0; i<this.user1.roles.length; i++) {
+                    if(this.user1.roles[i].name.toString() === 'USER'){
+                    window.location.href = 'http://localhost:4200/my-reservations';
+
+                        }  
+                  else{
+                  window.location.href = 'http://localhost:4200';
+
+               }
+        
+
+             }
      });
   }
             }

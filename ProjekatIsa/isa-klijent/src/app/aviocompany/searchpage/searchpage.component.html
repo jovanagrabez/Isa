@@ -1,0 +1,144 @@
+<br><br>
+
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
+    <div class="desc">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-5 col-md-5">
+            <div class="tabulation animate-box">
+
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                  <a href="" aria-controls="flights" role="tab" data-toggle="tab">Letovi</a>
+
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="flights">
+                  <div class="row">
+                    <div class="col-xxs-12 col-xs-6 mt">
+                      <div class="input-field">
+                        <label for="from">Od:</label>
+                        <input type="text" class="form-control" id="from-place" [(ngModel)]="flight.from" placeholder="Los Angeles, USA"/>
+                      </div>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 mt">
+                      <div class="input-field">
+                        <label for="from">Do:</label>
+                        <input type="text" class="form-control" id="to-place" [(ngModel)]="flight.to" placeholder="Tokyo, Japan"/>
+                      </div>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 mt alternate">
+                      <div class="input-field">
+                        <label for="date-start">Check In:</label>
+                        <input class="form-control col-sm-10" placeholder="yyyy-mm-dd" id="inpDepDate" readonly (click)="d1.toggle()"
+                        name="d1" #c1="ngModel" [(ngModel)]="flight.fromDate" ngbDatepicker #d1="ngbDatepicker">
+                      </div>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 mt alternate">
+                      <div class="input-field">
+                        <label for="date-end">Check Out:</label>
+                        <input class="form-control col-sm-10" placeholder="yyyy-mm-dd" id="inpArrDate"
+                        name="d2" #c2="ngModel" [(ngModel)]="flight.toDate" ngbDatepicker #d2="ngbDatepicker" readonly (click)="d2.toggle()">
+                      </div>
+                    </div>
+                    <div class="col-sm-12 mt">
+                      <section>
+                        <label for="class">Klasa:</label>
+                        <select class="form-control col-sm-5" id="class" name="class" [(ngModel)]="flight.seatClass">
+                        <option value="ECONOMY">Economy</option>
+                        <option value="PREMIUM_ECONOMY">Premium economy</option>
+                        <option value="BUSINESS">Business</option>
+                        <option value="FIRST">First class</option>
+                        </select>
+                      </section>
+                    </div>
+                    <div class="col-xxs-12 col-xs-6 mt">
+                      <label for="class">Broj osoba:</label>
+                      <input type="number" [(ngModel)]="flight['persons']" min="1" class="form-control col-sm-5" id="persons" name="class">
+
+                    </div>
+
+                    <div class="col-xs-12">
+                      <input type="submit" (click)="search()" class="btn btn-primary btn-block" value="Pretrazi let">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+
+        <button class="btn btn-outline-primary pull-right" *ngIf="isFilterVisible === false" (click)="setFilterVisible()">Filtriraj</button>
+        <div *ngIf="isFilterVisible === true" >
+        <h4>Filter by</h4>
+        <div class="row">
+        <div class="form-group col">
+        <h5 class="d-sm-table-row">Ime aviokompanije</h5>
+        <input type="text" placeholder="Ime aviokompanije" class="d-sm-table-row" [(ngModel)]="this.airlineNameFilter">
+        </div>
+        <div class="form-group col">
+        <h5 class="d-sm-table-row">Trajanje leta</h5>
+        <div class="row">
+        <label class="col-sm-3">Od</label>
+        <input type="number" min="0" placeholder="Trajanje od" class="d-sm-table-row" [(ngModel)]="this.fromDurationFilter">
+        </div>
+        <div class="row">
+        <label class="col-sm-3">Do</label>
+        <input type="number" min="0" placeholder="Trajanje do" class="d-sm-table-row" [(ngModel)]="this.toDurationFilter">
+        </div>
+        </div>
+        <div class="form-group col">
+        <h5 class="d-sm-table-row">Cijena</h5>
+        <div class="row">
+        <label class="col-sm-3">Od</label>
+        <input type="number" min="0" placeholder="Cijena od" class="d-sm-table-row" [(ngModel)]="this.fromPriceFilter">
+        </div>
+        <div class="row">
+        <label class="col-sm-3">Do</label>
+        <input type="number" min="0" placeholder="Cijena do" class="d-sm-table-row" [(ngModel)]="this.toPriceFilter">
+        </div>
+        </div>
+        </div>
+        <button class="btn btn-outline-primary pull-right" (click)="addFilter()">Filtriraj</button>
+        </div>
+        <br>
+        <div class="list-group">
+        <div *ngFor="let flight of flights; index as i "
+        class="list-group-item list-group-item-action flex-column align-items-start">
+        <div class="w-100 justify-content-between">
+        <a (click)="flightProfile(flight)" >
+        <!-- <span class="glyphicon glyphicon-plane"></span>-->
+        <!--<div class="d-flex-row">-->
+        <!--<h5 class="col-sm-8"> From: {{flight['from']['name']}} {{flight['from']['shortName']}}, {{flight['from']['address']['city']}}, {{flight['from']['address']['country']}}</h5>-->
+        <!--<h5 class="col-sm-8"> To: {{flight['to']['name']}} {{flight['to']['shortName']}}, {{flight['to']['address']['city']}}, {{flight['to']['address']['country']}} </h5>-->
+        <!--</div>-->
+        <div class="flex-row">
+        <label class="col-sm-4">Polazak: {{flight['take_off'] | date:'dd/MM/yyyy hh:mm'}}</label>
+        <label class="col-sm-4">Dolazak: {{flight['landing'] | date:'dd/MM/yyyy hh:mm'}}</label>
+        <!--<span class="mb-1 pull-right"><a (click)="deleteFlight(flight, i)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>-->
+        </div>
+        <div class="flex-row">
+        <label class="col-sm-4">Udaljenost: {{flight['distance']}}km</label>
+        <label class="col-sm-4">Trajanje leta: {{flight['time']}}h</label>
+        </div>
+        <!--<div class="flex-row"><label class="col-sm-4">Price: {{flight['price']}}€</label></div>-->
+        <div class="flex-row"><label class="col-sm-4">Aviokompanija: <b>{{flight['airline']}}</b></label></div>
+
+        </a>
+        </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -50,7 +50,10 @@ import { SeatComponent } from './aviocompany/flights/seat/seat.component';
 import { FlightReservationComponent } from './aviocompany/flights/flight-reservation/flight-reservation.component';
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { MyReservationsComponent } from './my-reservations/my-reservations.component';
+
 import { NgSelectModule } from '@ng-select/ng-select';
+import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +81,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     SeatComponent,
     FlightReservationComponent,
     FilCarsComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    MyReservationsComponent,
+    SearchpageComponent
 
 
 

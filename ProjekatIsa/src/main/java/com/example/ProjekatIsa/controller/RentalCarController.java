@@ -17,7 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjekatIsa.DTO.FilijaleDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.Filijale;
+import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.RentACar;
+import com.example.ProjekatIsa.model.SearchFormHotel;
+import com.example.ProjekatIsa.model.SearchFormServices;
 import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
 import com.example.ProjekatIsa.repository.RentalCarRepository;
@@ -151,6 +154,57 @@ public class RentalCarController {
 
 		
 	}
+	
+	
+	
+	//pretraga
+		@RequestMapping(value="/searchService",
+				method = RequestMethod.POST,
+				produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> searchService(@RequestBody SearchFormServices searchForm){
+			System.out.println("Dosao u search ");
+			
+			System.out.println(searchForm.getName() + " :ime" + searchForm.getCity() + " :grad"
+					+ searchForm.getStartDate() + " : start date" + searchForm.getEndDate() + " :endDate");
+			
+			List<RentACar> allServices = rentalcarService.getAll();
+			List<RentACar> returnList = new ArrayList<RentACar>();
+			List<RentACar> returnList2 = new ArrayList<RentACar>();
+			
+			//ako se pretrazuje po nazivu
+			if (searchForm.getName() != null) {
+				for (RentACar h : allServices) {
+					if (h.getName().contains(searchForm.getName())) {
+						returnList.add(h);
+					}
+				}
+				//ako se pretrazuje i po nazivu i po gradu
+				if (searchForm.getCity() != null) {
+					for (RentACar h : returnList) {
+						if (h.getAdress().equals(searchForm.getCity())) {
+							returnList2.add(h);
+						}
+					}
+					return new ResponseEntity<List<RentACar>>(returnList2, HttpStatus.OK);
+				}
+				//ako se pretrazuje samo po nazivu
+				else {
+					return new ResponseEntity<List<RentACar>>(returnList, HttpStatus.OK);
+				}
+			}
+			//ako se ne pretrazuje po nazivu nego samo gradu 
+			else {
+				if (searchForm.getCity() != null) {
+					for (RentACar h : allServices) {
+						if (h.getAdress().equals(searchForm.getCity())) {
+							returnList.add(h);
+						}
+					}
+				}
+				return new ResponseEntity<List<RentACar>>(returnList, HttpStatus.OK);
+			}
+		
+		}
 	}
 
 

@@ -33,6 +33,7 @@ public class DestinationServiceImpl  implements DestinationService{
           Destination savedDestination = this.destinationRepository.findDestinationById(destination.getId());
           savedDestination.setName(destination.getName());
           savedDestination.setCountry(destination.getCountry());
+          savedDestination.setDescription(destination.getDescription());
 
 
           return this.destinationRepository.save(savedDestination);

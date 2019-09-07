@@ -1,31 +1,73 @@
 package com.example.ProjekatIsa.DTO;
 
+import com.example.ProjekatIsa.model.RatingRoom;
+
 public class RatingRoomDTO {
 	
-	private Long roomID;
-	private int value;
+	private Long id;
+	private UserDTO user;
+	private RoomDTO room;
+	private int rate;
 	
 	public RatingRoomDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RatingRoomDTO(Long roomID, int value) {
+	
+	
+	
+
+	public RatingRoomDTO(Long id, UserDTO user, RoomDTO room, int rate) {
 		super();
-		this.roomID = roomID;
-		this.value = value;
+		this.id = id;
+		this.user = user;
+		this.room = room;
+		this.rate = rate;
 	}
-	public Long getRoomID() {
-		return roomID;
+	
+	public RatingRoomDTO(RatingRoom rate) {
+		this.id = rate.getId();
+		this.user = new UserDTO(rate.getUser());
+		this.room = new RoomDTO(rate.getRoom());
+		this.rate = rate.getRate();
 	}
-	public void setRoomID(Long roomID) {
-		this.roomID = roomID;
+
+
+
+
+	public Long getId() {
+		return id;
 	}
-	public int getValue() {
-		return value;
+
+	public void setId(Long id) {
+		this.id = id;
 	}
-	public void setValue(int value) {
-		this.value = value;
+
+	public UserDTO getUser() {
+		return user;
 	}
+
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+
+	public RoomDTO getRoom() {
+		return room;
+	}
+
+	public void setRoom(RoomDTO room) {
+		this.room = room;
+	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
+	
 	
 	
 }

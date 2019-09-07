@@ -29,4 +29,12 @@ export class FlightService {
   updateFlightSeats(flight: any) {
     return this.http.put('http://localhost:8080/flight/seats', flight);
   }
+
+  search(flight: any) {
+    return this.http.post('http://localhost:8080/flight/search', flight);
+  }
+
+  filterFlights(filter: { fromPrice: any; fromDuration: any; toPrice: any; airline: any; flights: any; toDuration: any }) {
+    return this.http.post('http://localhost:8080/flight/filter', filter);
+  }
 }

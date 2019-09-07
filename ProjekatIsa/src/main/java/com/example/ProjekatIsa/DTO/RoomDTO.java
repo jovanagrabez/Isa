@@ -25,6 +25,10 @@ public class RoomDTO {
 		this.capacity = capacity;
 		
 	}
+	
+	public RoomDTO(Room room) {
+		this(room.getId(),room.getNumber(),room.getPrice(),room.getRoom_average_rating(),room.getRoom_description(),room.getCapacity());
+	}
 
 	
 	

@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthServiceService } from './auth-service.service';
 import { RentACar } from '../models/RentACar';
 import { Filijale } from '../models/Filijale';
+import { SearchFormServices } from '../models/SearchFormServices';
 
 
 
@@ -54,6 +55,10 @@ export class ViewRentalCarsService {
   addFil(newFil: Filijale, id:number): Observable<any>{
       return this.http.post('http://localhost:8080/rentalcars/addFil/'+id,newFil,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
+  }
+    
+  searchService(searchForm: SearchFormServices) : Observable<any> {
+      return this.http.post('http://localhost:8080/rentalcars/searchService/',searchForm); 
   }
     
     selectRentACar(rentalcars : any) {

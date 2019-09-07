@@ -6,14 +6,32 @@ public class DestinationDTO {
 	private Long id;
 	private String name;
 	private String country;
-	public DestinationDTO(Long id, String name, String country) {
+	private String description;
+	public DestinationDTO(Long id, String name, String country, String description) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.country = country;
+		this.description= description;
 	}
 	
 	
+	
+	
+	public String getDescription() {
+		return description;
+	}
+
+
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+
+
 	public Long getId() {
 		return id;
 	}

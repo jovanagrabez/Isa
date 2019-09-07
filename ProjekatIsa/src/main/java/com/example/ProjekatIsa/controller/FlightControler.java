@@ -1,5 +1,10 @@
 package com.example.ProjekatIsa.controller;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ProjekatIsa.DTO.FilterDTO;
+import com.example.ProjekatIsa.DTO.SearchDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
@@ -107,5 +114,25 @@ public class FlightControler {
 
 	        }
 	        return new ResponseEntity(flight, HttpStatus.FORBIDDEN);
+	    }
+	 
+	 @PostMapping(value = "/search")
+	    public ResponseEntity<Set<Flight>> search(@RequestBody SearchDTO flightSearchDto) {
+
+	        Set<Flight> flightDtos = new HashSet<>();
+
+	        flightDtos.addAll(this.flightService.search(flightSearchDto));
+	        return new ResponseEntity(flightDtos, HttpStatus.OK);
+
+	    }
+
+	    @PostMapping(value = "/filter")
+	    public ResponseEntity<List<Flight>> filter(@RequestBody FilterDTO flightFilterDto) {
+
+	        List<Flight> flightDtos = new ArrayList<>();
+
+	        flightDtos = this.flightService.filter(flightFilterDto);
+	        return new ResponseEntity(flightDtos, HttpStatus.OK);
+
 	    }
 }

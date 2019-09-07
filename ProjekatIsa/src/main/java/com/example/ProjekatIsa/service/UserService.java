@@ -20,7 +20,7 @@ public interface UserService extends UserDetailsService {
 	void sendVerificationMail(User user);
 	User findUserByMail(String mail);
 	User findByFirstName(String name);
-	User findOneById(Long id);
+	User findOneById(Long user_id);
 	User update(User u);
 
 	

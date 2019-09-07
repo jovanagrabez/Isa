@@ -33,12 +33,12 @@ export class ProfilcompanyComponent implements OnInit {
 
     this.selectedDestinations = [{id: null, name: '', country: ''}];
     this.presjedanja  = 0;
-    this.destinationNew = {id: null, name: '', country: ''};
-    this.ff = { id: null, take_off: NgbDate, landing: NgbDate, number: 11, seat: true, averageRating: 0,
-      distance: 452, baggageDescription: 'hhh', businessPrice: 154, economyPrice: 562, time: 'hehe',
+    this.destinationNew = {id: null, name: '', country: '', description: ''};
+    this.ff = { id: null, take_off: NgbDate, landing: NgbDate, number: 11, seat: [{}], averageRating: 0,
+      distance: 452, baggageDescription: 'hhh', businessPrice: 154, economyPrice: 562, time: 0,
       firstPrice: 1251, premiumEconomyPrice: 1524, destination: [] };
 
-    this.destinationss = {fromDest: {id: null , name: '', country: ''}, toDest:  {id: null , name: '', country: ''}};
+    this.destinationss = {fromDest: {id: null , name: '', country: '', description: ''}, toDest:  {id: null , name: '', country: '', description: ''}};
   }
 
   ngOnInit() {
@@ -107,21 +107,21 @@ export class ProfilcompanyComponent implements OnInit {
     this.ff.take_off = this.ngbDateParserFormatter.format(this.ff.take_off);
   this.ff.landing = this.ngbDateParserFormatter.format(this.ff.landing);
   this.ff.seatArrangement = {seatColumns: 0, seatRows: 0};
-    if (this.selectedDestinations !== undefined) {
-      for (const dest of this.selectedDestinations) {
-        if (dest !== undefined) {
-          if (dest instanceof Array) {
-            for (const d of dest) {
-              if (d['id'] !== undefined) {
-                this.ff.destination.push(d);
-              }
-            }
-          } else if (dest['id'] !== undefined) {
-            this.ff.destination.push(dest);
-          }
-        }
-      }
-    }
+    // if (this.selectedDestinations !== undefined) {
+    //   for (const dest of this.selectedDestinations) {
+    //     if (dest !== undefined) {
+    //       if (dest instanceof Array) {
+    //         for (const d of dest) {
+    //           if (d['id'] !== undefined) {
+    //             this.ff.destination.push(d);
+    //           }
+    //         }
+    //       } else if (dest['id'] !== undefined) {
+    //         this.ff.destination.push(dest);
+    //       }
+    //     }
+    //   }
+    // }
 
 
 

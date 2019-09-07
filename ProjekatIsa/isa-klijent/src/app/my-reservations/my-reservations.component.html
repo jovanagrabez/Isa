@@ -1,0 +1,140 @@
+		<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>
+					<div class="container">
+						<div class="row">
+					     <div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+							<h3>{{DOBRODOSLI}}</h3>
+							<br/>
+							<h2>Istorija rezervacija</h2>
+							<span class="hidden-xs" id="changeButton"><a  class="btn btn-primary btn-outline" (click)="avioClick()">Letovi</a></span>
+						    <span class="hidden-xs" id="deleteButton"><a class="btn btn-primary btn-outline" (click)="hotelClick()" >Hoteli</a></span>
+				            <span class="hidden-xs" id="deleteButton"><a class="btn btn-primary btn-outline" (click)="carClick()" >Vozila</a></span>
+							
+								
+							</div>
+
+<section id = "hotelDiv" hidden="true">
+    <!-- div za rezervaciju vozila -->
+    
+  
+    <h1>Hoteli</h1>
+    <ul>
+                <li> Mozete odjaviti tekuce rezervacije 2 dana pre datuma rezervacije</li>
+                <li> Nakon napustanja sobe mozete oceniti sobu i hotel</li>
+    </ul>
+    
+    
+    <!-- prikazivanje vozila-->
+		<div class="row">
+		<div class="col-xs-12">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Hotel</th>
+            	<th>Konfiguracija sobe</th>
+            	<th>Rezervisano od</th>
+            	<th>Rezervisano do</th>
+            	<th>Otkazivanje</th>
+            	<th>Oceni sobu</th>
+            	<th></th> 
+            	<th>Oceni hotel </th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let c of rezervisaniHoteli">
+                <td>{{c.room.capacity}}</td> 
+                <td>{{c.startDate}}</td>
+                <td>{{c.endDate}}</td> 
+                <td><a *ngIf='c.daysLeft >= 3'  (click)="otkaziSobu(c)" class="btn btn-outline-danger">Odjavi</a></td>
+                <td *ngIf='c.rateRoom == true'>
+                      <input id="hotel{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                <td><a *ngIf='c.rateRoom == true' id="hotel{{c.room.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateRoom(c.room)">Oceni</a>
+                </td> 
+                <td *ngIf='c.rateHotel == true'>
+                   <input id="s{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                <td><a *ngIf='c.rateHotel == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateHotel(c.room)">Oceni</a>
+                </td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+					</div>
+				</div>
+   
+</section>
+							
+<section id = "carDiv" hidden="true">
+    <!-- div za rezervaciju vozila -->
+    
+    
+  
+    <h1>Vozila</h1>
+    <ul>
+                <li> Mozete odjaviti tekuce rezervacije 2 dana pre datuma preuzimanja vozila</li>
+                <li> Nakon vracanja vozila mozete oceniti vozilo i servis</li>
+    </ul>
+    
+    <!-- prikazivanje vozila-->
+		<div class="row">
+		<div class="col-xs-12">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Servis</th>
+            	<th>Naziv</th>
+            	<th>Rezervisano od</th>
+            	<th>Rezervisano do</th>
+            	<th>Otkazivanje</th>
+            	<th>Oceni vozilo</th>
+            	<th></th> 
+            	<th>Oceni servis </th>           	
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let c of rezervisanaVozila">
+                <td>{{c.car.rentalcars}}</td>                 
+                <td>{{c.car.name}}</td> 
+                <td>{{c.startDate}}</td>
+                <td>{{c.endDate}}</td> 
+                <td><a *ngIf='c.daysLeft >= 2'  (click)="otkazi(c)" class="btn btn-outline-danger">Odjavi</a></td> 
+                <td *ngIf='c.rateCar == true'>
+                      <input id="car{{c.car.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                <td *ngIf='c.rateCar == true'><a id="car{{c.car.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
+                </td>
+                 <td *ngIf='c.rateService == true' class="text-right">
+                      <input id="s{{c.car.id}}" type="number" placeholder="Ocena od 1 do 5" >
+                      <a *ngIf='c.rateService == true' (click)="rateService(c.car)" class="btn btn-outline-danger"
+                        id="btnOcenaS">Oceni</a>
+                 </td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+					</div>
+				</div>
+   
+</section>
+
+						</div>
+					</div>
+				</div>

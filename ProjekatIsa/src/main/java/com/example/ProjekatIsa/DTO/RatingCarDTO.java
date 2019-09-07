@@ -1,42 +1,63 @@
 package com.example.ProjekatIsa.DTO;
 
+import com.example.ProjekatIsa.model.RatingCar;
+import com.example.ProjekatIsa.model.RatingRentACar;
+
 public class RatingCarDTO {
 	
-	private Long carId;
-	private int value;
+	private Long id;
+	private UserDTO user;
+	private CarDTO car;
+	private int rate;
+	
+	
 	
 	
 	public RatingCarDTO() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
-	public RatingCarDTO(Long carId, int value) {
+	public RatingCarDTO(Long id, UserDTO user, CarDTO car, int rate) {
 		super();
-		this.carId = carId;
-		this.value = value;
+		this.id = id;
+		this.user = user;
+		this.car = car;
+		this.rate = rate;
 	}
-
-
-	public Long getCarId() {
-		return carId;
+	
+	
+	public RatingCarDTO(RatingCar rate) {
+		this.id = rate.getId();
+		this.user = new UserDTO(rate.getUser());
+		this.car = new CarDTO(rate.getCar());
+		this.rate = rate.getRate();
 	}
-
-
-	public void setCarId(Long carId) {
-		this.carId = carId;
+	
+	public Long getId() {
+		return id;
 	}
-
-
-	public int getValue() {
-		return value;
+	public void setId(Long id) {
+		this.id = id;
 	}
-
-
-	public void setValue(int value) {
-		this.value = value;
+	public UserDTO getUser() {
+		return user;
 	}
+	public void setUser(UserDTO user) {
+		this.user = user;
+	}
+	public CarDTO getCar() {
+		return car;
+	}
+	public void setCar(CarDTO car) {
+		this.car = car;
+	}
+	public int getRate() {
+		return rate;
+	}
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
 	
 	
 	

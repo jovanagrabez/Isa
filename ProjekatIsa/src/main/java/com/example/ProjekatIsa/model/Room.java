@@ -55,20 +55,20 @@ public class Room implements Serializable{
 	@OneToMany(mappedBy="room")
     protected List<ReservationRoom> reservationRoom;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy="room")
     protected List<Pricing> pricing;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "room_rating_room", joinColumns = @JoinColumn(name = "room_id"), inverseJoinColumns = @JoinColumn(name = "ratingRoom_id"))
-    private Set<RatingRoom> room_ratings;
+	//@JsonIgnore
+	@OneToMany(mappedBy="room", fetch = FetchType.LAZY)
+    private Set<RatingRoom> ratings;
 	
 	public Set<RatingRoom> getRoom_ratings() {
-		return room_ratings;
+		return ratings;
 	}
 
 	public void setRoom_ratings(Set<RatingRoom> room_ratings) {
-		this.room_ratings = room_ratings;
+		this.ratings = room_ratings;
 	}
 
 	public int getPrice() {
@@ -111,13 +111,14 @@ public class Room implements Serializable{
 		this.room_average_rating = room_average_rating;
 	}
 
-	public Room(Long id,int number, int price, String room_description, Double room_average_rating) {
+	public Room(Long id,int number, int price, String room_description, Double room_average_rating,Set<RatingRoom> ratings) {
 		super();
 		this.id = id;
 		this.number = number;
 		this.price = price;
 		this.room_description = room_description;
 		this.room_average_rating = room_average_rating;
+		this.ratings = ratings;
 	}
 
 	public Room() {
