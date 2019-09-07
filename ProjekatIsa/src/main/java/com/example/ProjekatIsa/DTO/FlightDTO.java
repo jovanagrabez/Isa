@@ -10,7 +10,7 @@ public class FlightDTO {
 	 private Long id;
 	 private Date take_off;
 	 private Date landing;
-	 private String time;
+	 private double time;
 	 private double travel_time;
 	 private int number;
 	 private double averageRating;
@@ -90,10 +90,10 @@ public class FlightDTO {
 	public void setLanding(Date landing) {
 		this.landing = landing;
 	}
-	public String getTime() {
+	public double getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(double time) {
 		this.time = time;
 	}
 	public double getTravel_time() {
@@ -114,7 +114,7 @@ public class FlightDTO {
 	}
 
 	 
-	 public FlightDTO(Long id, Date take_off, Date landing, String time, double travel_time, int number,
+	 public FlightDTO(Long id, Date take_off, Date landing, double time, double travel_time, int number,
 			double averageRating, double numberOfRating, double sumRating, double economyPrice,
 			double premiumEconomyPrice, double businessPrice, double firstPrice, int distance) {
 		super();

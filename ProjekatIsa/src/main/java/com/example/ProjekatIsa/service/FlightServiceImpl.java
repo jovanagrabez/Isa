@@ -2,14 +2,18 @@ package com.example.ProjekatIsa.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.ProjekatIsa.DTO.FilterDTO;
 import com.example.ProjekatIsa.DTO.FlightDTO;
+import com.example.ProjekatIsa.DTO.SearchDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
+import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.Seat;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
@@ -149,6 +153,112 @@ public class FlightServiceImpl implements FlightService {
 	         return flight;
 
 	    }
+	    
+	    
+	    @Override
+	    public List<Flight> search(SearchDTO flightSearchDto) {
+
+	        List<Flight> flights = new ArrayList<>();
+
+	        ArrayList<Flight> flightsDestinations = new ArrayList<>();
+	
+
+	        ArrayList<Flight> flightDtos = new ArrayList<>();
+
+	        for (Flight flight : flightsDestinations){
+	            flightDtos.add(flight);
+	        }
+	        return flightDtos;
+
+	    }
+
+	    private ArrayList<Flight> searchFromAndToDestination(SearchDTO flightSearchDto, List<Flight> flights){
+
+	        String[] stringsFrom = flightSearchDto.getFrom().split(" ");
+	        String[] stringsTo = flightSearchDto.getTo().split(" ");
+
+	        ArrayList<Flight> flightsDestinations = new ArrayList<>();
+	        for (Flight flight : flights) {
+	            boolean from = false;
+	            boolean to = false;
+
+	            Set<Destination> fdd = flight.getDestination();
+
+	           
+	                if (from && to ) {
+
+	                    int seatCount = 0;
+	                    for (Seat seat : flight.getSeats()) {
+
+	                        if (seat.getSeatClass().equals(flightSearchDto.getSeatClass()) &&       //ako je sjedste odgovarajuce
+	                             seat.getState().equals("free")){                                   //klase i slobodno
+	                            seatCount++;
+	                            if (seatCount >= flightSearchDto.getPersons()){break;}              //ako vec ima dovoljno,
+	                                                                                                //ne trazi dalje
+	                        }
+	                    }
+
+	                    if (seatCount >= flightSearchDto.getPersons()) {
+	                        flightsDestinations.add(flight);                //ako odgovaraju i from i to destinacije
+	                    }
+	                    break;                                  //ne provjeravaj dalje za taj flight jer vec odgovara
+	                                                            //po destinacijama, ako ne odgovara po broju mjesta,
+	                                                            //nece odgovarati ni u sledecem prolazu
+	                }
+	            
+	        }
+
+	        return flightsDestinations;
+	    }
+	    
+	    
+	    
+	    @Override
+	    public List<Flight> filter(FilterDTO flightFilter) {
+
+	        List<Flight> oldFlights = flightFilter.getFlights();
+	        List<Flight> newFlights = new ArrayList<>();
+
+
+	        for (Flight flight : oldFlights) {
+	            boolean isValid = true;
+	          
+
+	            if (flight.getEconomyPrice() < flightFilter.getFromPrice() &&               // ako ni jedna ne upada u min
+	                    flight.getPremiumEconomyPrice() < flightFilter.getFromPrice() &&
+	                    flight.getBusinessPrice() < flightFilter.getFromPrice() &&
+	                    flight.getFirstPrice() < flightFilter.getFromPrice()) {
+	                isValid = false;
+	            }
+
+	            if (flightFilter.getToPrice() != 0) {                                         // ako su svi veci od max
+	                if (flight.getEconomyPrice() > flightFilter.getFromPrice() &&
+	                        flight.getPremiumEconomyPrice() > flightFilter.getFromPrice() &&
+	                        flight.getBusinessPrice() > flightFilter.getFromPrice() &&
+	                        flight.getFirstPrice() > flightFilter.getFromPrice()) {
+	                    isValid = false;
+	                }
+	            }
+
+	            if (flight.getTime() < flightFilter.getFromDuration()) {
+	                isValid = false;
+	            }
+
+	            if (flightFilter.getToDuration() != 0) {
+	                if (flight.getTime() > flightFilter.getToDuration()) {
+	                    isValid = false;
+	                }
+	            }
+
+
+	            if (isValid) {
+	                newFlights.add(flight);
+	            }
+	        }
+
+	        return newFlights;
+	    }
+	    
 
 
 }

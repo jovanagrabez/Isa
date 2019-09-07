@@ -38,7 +38,7 @@ public class Flight implements Serializable {
     private Date landing;
 	
 	@Column(name = "time", nullable = false, columnDefinition="VARCHAR(40)")
-    private String time;
+    private double time;
 	
 	@Column(name = "travel_time", nullable = false)
     private double travel_time;
@@ -236,12 +236,12 @@ public class Flight implements Serializable {
 	}
 
 
-	public String getTime() {
+	public double getTime() {
 		return time;
 	}
 
 
-	public void setTime(String time) {
+	public void setTime(double time) {
 		this.time = time;
 	}
 
@@ -295,7 +295,7 @@ public class Flight implements Serializable {
 	}
 
 
-	public Flight(Long id, Date take_off, Date landing, String time, double travel_time, int number,
+	public Flight(Long id, Date take_off, Date landing, double time, double travel_time, int number,
 		Set<Seat>	seats,SeatArrangement seatArrangement,  double average_rating, double number_of_rating, double sum_rating,
 		Set<Destination> destination, double economy_price, double premium_economy_price, double business_price,
 			double first_price, int distance, String baggage_description) {

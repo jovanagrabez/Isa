@@ -4,7 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.example.ProjekatIsa.DTO.FilterDTO;
 import com.example.ProjekatIsa.DTO.FlightDTO;
+import com.example.ProjekatIsa.DTO.SearchDTO;
 import com.example.ProjekatIsa.model.Flight;
 @Service
 public interface FlightService {
@@ -16,5 +18,9 @@ public interface FlightService {
     Flight saveFlight(Flight flight);
     boolean deleteFlight(Flight flight);
     Flight updateSeats(Flight fligh);
+    List<Flight> search(SearchDTO flightSearchDto);
+    List<Flight> filter(FilterDTO filter);
+
+
 
 }
