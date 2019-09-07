@@ -39,16 +39,16 @@ insert into room (room_id,room_number,room_price,capacity,room_description,hotel
 insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
 	values (16,26,260,5,'Apartman',3);
 
-insert into hotel (name,city,adress,description,average_rating) values ('Vojvodina','Novi Sad','Bulevar Oslobodjenja 1','U samom centru grada. Stara arhitektura',4.3);
-insert into hotel (name,city,adress,description,average_rating) values ('Grand hotel','Novi Sad','Bulevar Oslobodjenja 1','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
-insert into hotel (name,city,adress,description,average_rating) values ('Butique','Beograd','Bulevar Oslobodjenja 1','Pro eu dolore vivendo ponderum.',4.3);
-insert into hotel (name,city,adress,description,average_rating) values ('Prezident','Novi Sad','Bulevar Oslobodjenja 1',' Eos ad oblique adolescens moderatius.',3.9);
-insert into hotel (name,city,adress,description,average_rating) values ('City hotel','Novi Sad','Bulevar Oslobodjenja 1','His at quis dico impedit, mea verear imperdiet ea.',4.7);
-insert into hotel (name,city,adress,description) values ('Hilton','Beograd','Bulevar Oslobodjenja 1','Eam inani senserit id.');
-insert into hotel (name,city,adress,description) values ('Crown Plaza','Beograd','Bulevar Oslobodjenja 1','Sed vidit prompta dissentiet at.');
-insert into hotel (name,city,adress,description,average_rating) values ('Sheraton','Beograd','Bulevar Oslobodjenja 1','Eu vix solum assentior voluptatum.',4.4);
-insert into hotel (name,city,adress,description,average_rating) values ('Sheraton','Novi Sad','Bulevar Oslobodjenja 1','Tantas recusabo ut pro.',4.1);
-insert into hotel (name,city,adress,description,average_rating) values ('Biser','Derventa','Bulevar Oslobodjenja 1','Cu sit sint ignota, sit id scaevola.',4.5);
+insert into hotel (name,city,adress,description,average_rating) values ('Vojvodina','Novi Sad','Trg slobode 2, Novi Sad, Srbija','U samom centru grada. Stara arhitektura',4.3);
+insert into hotel (name,city,adress,description,average_rating) values ('Grand hotel','Beograd','Bulevar Nikole Tesle 3, Beograd, Srbija','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
+insert into hotel (name,city,adress,description,average_rating) values ('Butique','Beograd','Trg Republike 3, Beograd, Srbija','Pro eu dolore vivendo ponderum.',4.3);
+insert into hotel (name,city,adress,description,average_rating) values ('Prezident','Novi Sad','Futoška 109, Novi Sad, Srbija',' Eos ad oblique adolescens moderatius.',3.9);
+--insert into hotel (name,city,adress,description,average_rating) values ('City hotel','Novi Sad','Bulevar Oslobodjenja 1','His at quis dico impedit, mea verear imperdiet ea.',4.7);
+--insert into hotel (name,city,adress,description) values ('Hilton','Beograd','Bulevar Oslobodjenja 1','Eam inani senserit id.');
+--insert into hotel (name,city,adress,description) values ('Crown Plaza','Beograd','Bulevar Oslobodjenja 1','Sed vidit prompta dissentiet at.');
+--insert into hotel (name,city,adress,description,average_rating) values ('Sheraton','Beograd','Bulevar Oslobodjenja 1','Eu vix solum assentior voluptatum.',4.4);
+--insert into hotel (name,city,adress,description,average_rating) values ('Sheraton','Novi Sad','Bulevar Oslobodjenja 1','Tantas recusabo ut pro.',4.1);
+insert into hotel (name,city,adress,description,average_rating) values ('Biser','Derventa','Kralja Petra I, Derventa, Bosna i Hercegovina ','Cu sit sint ignota, sit id scaevola.',4.5);
 
 insert into additional_service_hotel (name,price,hotel_id) values ('Transfer do aerodorma', 50,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Parking', 30,1);
@@ -60,9 +60,9 @@ insert into additional_service_hotel (name,price,hotel_id) values ('Spa', 30,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('WiFi', 10,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,1);
 
-insert into aviocompany (name, adress, description) values ('AirN', 'Beograd', 'opis');
-insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Istanbul', 'opis');
-insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor', 'Najjaci aerodrom');
+insert into aviocompany (name, adress, description) values ('AirN', 'Aerodrom Beograd 59, Beograd, Srbija', 'opis');
+insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Yeşilköy, 34149 Bakırköy/İstanbul, Turkey', 'opis');
+insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor Urije Airport, Prijedor, Bosna i Hercegovina', 'Najjaci aerodrom');
 
 
 insert into destination(name, country) values ('Berlin', 'Njemacka');
@@ -170,13 +170,11 @@ insert into roles_privileges(role_id,privilege_id) values (4,21);
 insert into roles_privileges(role_id,privilege_id) values (5,17);
 
 
-
-
-insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Beograd','adjiaisdj',4.2);
-insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Beograd','bla bla bla',3.9);
-insert into rentalcars (name,adress,description,average_rating) values ('EuropeCar','Beograd','cccc',4.8);
-insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Najpovoljnije usluge',4.6);
-insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','luux',3.3);
+insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
+insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
+insert into rentalcars (name,adress,description,average_rating) values ('EuropeCar','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
+insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
+insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
 
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);
@@ -205,22 +203,22 @@ insert into car_discount(car_id,discount_id) values (2,2);
 
 
 --filijale za carflexi
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(1,'Srbija','Beograd','Tekelijina 53',1);
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(2,'Srbija','Novi Sad','Bulevar Evrope 2',1);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(1,'Srbija','Beograd','Tekelijina 53, Beograd, Srbija',1);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(2,'Srbija','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija',1);
 --filijale za easyrentcars
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(3,'Srbija','Beograd','Knez Mihajlova 45',2);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(3,'Srbija','Beograd','Knez Mihajlova 45, Beograd, Srbija',2);
 
 --filijale za EuropeCar
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(4,'Srbija','Beograd','Knez Mihajlova 55',3);
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(5,'Srbija','Beograd','Zeleni venac 5',3);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(4,'Srbija','Beograd','Knez Mihajlova 55, Beograd, Srbija',3);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(5,'Srbija','Beograd','Zeleni venac 5, Beograd, Srbija',3);
 
 --filijale za Inex Rent A Car
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(6,'Srbija','Novi Sad','Bulevar Evrope 45',4);
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(7,'Srbija','Beograd','Kneginje Milice 10',4);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(6,'Srbija','Novi Sad','Bulevar Evrope 45, Novi Sad, Srbija',4);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(7,'Srbija','Beograd','Kneginje Milice 10, Beograd, Srbija',4);
 
 --filijale za Max Rent A Car
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(8,'Srbija','Novi Sad','Bulevar Evrope 10',5);
-insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(9,'Srbija','Beograd','Kneginje Milice 10',5);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(8,'Srbija','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija',5);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(9,'Srbija','Beograd','Kneginje Milice 10, Beograd, Srbija',5);
 
 
 

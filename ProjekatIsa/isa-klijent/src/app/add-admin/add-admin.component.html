@@ -7,6 +7,7 @@
 	<div class="form">
    
     <form  class="registration" (submit)="validateUser()" method="POST">
+      <div class="form-group">
       <section>
 		    <select [(ngModel)]="type" class="form-control"  name="type" id="type">
 			<option value="1">Avio admin</option>
@@ -14,6 +15,7 @@
 			<option value="3">Car admin</option>
 			</select>
 		</section>
+		</div>
 		<br/>
       <input type="text" [(ngModel)] = "user.firstName" #firstName= "ngModel" name="firstName" class="form-control"  data-validation="required" #userName placeholder = "Ime">
        <span id="error_userName" class="text-danger"></span>

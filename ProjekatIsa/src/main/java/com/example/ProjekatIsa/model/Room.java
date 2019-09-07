@@ -59,7 +59,7 @@ public class Room implements Serializable{
 	@OneToMany(mappedBy="room")
     protected List<Pricing> pricing;
 	
-	//@JsonIgnore
+	@JsonIgnore
 	@OneToMany(mappedBy="room", fetch = FetchType.LAZY)
     private Set<RatingRoom> ratings;
 	
