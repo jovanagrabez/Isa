@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient,} from '@angular/common/http';
 import { HttpModule,Http } from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 import {RequestOptions, XHRBackend} from '@angular/http';
 import {Router, RouterModule} from '@angular/router';
@@ -111,7 +112,7 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
 
 
   ],
-  providers: [ HttpClientModule, AviocompanySService, ViewHotelsService,
+  providers: [ HttpClientModule,DatePipe, AviocompanySService, ViewHotelsService,
     AuthServiceService
 
   ],

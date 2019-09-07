@@ -1,3 +1,30 @@
-<p>
-  hotel-report works!
-</p>
+<div class="container">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" (click)=prihodiHotelaClick()>Prihodi hotela</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)=dnevniClick()>Dnevni izvestaj</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)=nedeljniClick()>Nedeljni izvestaj</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)=mesecniClick()>Mesecni izvestaj</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)=oceneHotela()>Ocene hotela</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" (click)=oceneSoba()>Ocene soba</a>
+        </li>
+    </ul>
+    <div *ngIf="dnevni" style="display: block">
+        <h4>Broj prijava u hotelu u prethodnoj nedelji po danima</h4>
+       <div class="chart">
+               <canvas ></canvas>
+       
+                <canvas ></canvas>
+       </div>
+    </div>
+</div>

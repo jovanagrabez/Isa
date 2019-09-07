@@ -147,7 +147,7 @@ public class RoomController {
 			}
 		}
 	}
-	
+	@PreAuthorize("hasAuthority('bookRoom')")
 	@RequestMapping(value="/bookRoom",
 			method = RequestMethod.POST)
 	ResponseEntity<CarReservationDTO> bookRoom(@RequestBody ReservationRoom roomRes){

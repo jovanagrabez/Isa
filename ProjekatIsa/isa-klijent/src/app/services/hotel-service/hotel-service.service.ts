@@ -60,6 +60,10 @@ export class HotelServiceService {
       return this.http.post('http://localhost:8080/rooms/searchRooms/'+id + "/"+cenaod + "/" +cenado,res); 
   };
   bookRoom(res : ReservationRoom) : Observable<any> {
-      return this.http.post('http://localhost:8080/rooms/bookRoom',res); 
+      return this.http.post('http://localhost:8080/rooms/bookRoom',res,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  
+  getLastWeekReservations(id: number, dateToday : string): Observable<any> {
+      return this.http.get('http://localhost:8080/hotels/getLastWeekReservations/'+id+"/"+dateToday,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
 }

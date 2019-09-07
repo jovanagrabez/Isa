@@ -1,10 +1,13 @@
 package com.example.ProjekatIsa.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -32,6 +35,7 @@ import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
 import com.example.ProjekatIsa.service.AdditionalServiceForHotelService;
 import com.example.ProjekatIsa.service.HotelService;
+import com.example.ProjekatIsa.service.ReservationRoomService;
 import com.example.ProjekatIsa.service.RoomService;
 
 @CrossOrigin(origins = "*")
@@ -59,9 +63,9 @@ public class HotelController {
 	
 	@Autowired 
 	private ReservationRoomRepository reservationRoomRepository;
-	
+		
 	@Autowired
-	private ReservationRoomRepository resRepository;
+	private ReservationRoomService resRoomService;
 	//@Autowired
 	//private RatingHotelRepository ratingHotelService;
 	
@@ -423,6 +427,47 @@ public class HotelController {
 			}
 		}
 		return false;
+	}
+	
+	@PreAuthorize("hasAuthority('lastWeekReservations')")
+	@RequestMapping(value="/getLastWeekReservations/{id}/{dateToday}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ReservationRoom>>  getLastWeekReservations(@PathVariable("id") Long idHotela, @PathVariable("dateToday") String od) {
+		List<ReservationRoom> returnList = new ArrayList<ReservationRoom>();
+		List<ReservationRoom> pomList = new ArrayList<ReservationRoom>();
+		
+		Date dOd = null;
+		Date dDo = null;
+		LocalDate kraj = new LocalDate(od).plusDays(7);
+		try {
+			dOd = new SimpleDateFormat("yyyy-MM-dd").parse(od);
+			dDo = new SimpleDateFormat("yyyy-MM-dd").parse(kraj.toString());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("od od " + dOd.toString() + dDo.toString());
+
+		Hotel hotel = hotelRepository.findOneById(idHotela);
+		List<Room> rooms = roomRepository.findAllByHotel(hotel);
+		System.out.println("broj soba " + rooms.size());
+		if (!rooms.isEmpty()) {
+			for (Room r : rooms) {
+				System.out.println("broj rezervacija bilo kakvih " + r.getReservationRoom().size());
+				pomList = reservationRoomRepository.findAllForInterval(r.getId(), dOd, dDo);
+				if (!pomList.isEmpty()) {
+					for(ReservationRoom rr : pomList) {
+						System.out.println("broj rezervacija " + pomList.size());
+						returnList.add(rr);
+					}
+				}
+				
+			}
+		}
+		
+		
+		return new ResponseEntity<List<ReservationRoom>>(returnList,HttpStatus.OK);
 	}
 }
 

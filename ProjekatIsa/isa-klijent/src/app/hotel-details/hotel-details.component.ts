@@ -321,6 +321,7 @@ export class HotelDetailsComponent implements OnInit {
       else{
           this.reservationRoom.user = this.user;
           this.reservationRoom.room = r;
+          this.reservationRoom.totalPrice = this.reservationRoom.totalPrice + this.brojDana*r.price;
           console.log("rezervaciju je izvrsio: " + this.reservationRoom.user.email);
           this.hotelService.bookRoom(this.reservationRoom).subscribe(data=>{
               alert("rezervacija uspesna");
@@ -343,7 +344,7 @@ export class HotelDetailsComponent implements OnInit {
             zoom: 1
         })
        });
-   }
+   };
     
     getAddress() {
         this.adresa += this.currentHotel.address.replace(/ /g, '%20');
@@ -351,5 +352,16 @@ export class HotelDetailsComponent implements OnInit {
         console.log("adresse");
         console.log(this.adresa);
         console.log(this.finalna);
-      }
+      };
+    reportClick(){
+        this.viewHotelsService.selectHotel(this.currentHotel);
+        this.viewHotelsService.currentHotel.subscribe(
+                currentHotel => 
+                {
+                    console.log("Current hotel: " +  currentHotel);
+                }
+            );
+
+            this.router.navigateByUrl('/hotelReport');
+    }
 }
