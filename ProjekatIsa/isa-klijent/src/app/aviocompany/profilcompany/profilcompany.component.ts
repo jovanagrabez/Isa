@@ -6,6 +6,11 @@ import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {FlightService} from '../../services/flight.service';
 import {NgbDateParserFormatter} from '@ng-bootstrap/ng-bootstrap';
 import {AppComponent} from '../../app.component';
+import Map from 'ol/Map';
+import Tile from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import View from 'ol/View';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-profilcompany',
@@ -25,8 +30,12 @@ export class ProfilcompanyComponent implements OnInit {
   update = false;
   add = false;
   presjedanja: any;
-
-  constructor(private router: Router, private data : AviocompanySService,
+//za mape
+  adresa = "";
+  finalna = "";
+  map;
+  
+  constructor(private router: Router,private sanitizer:DomSanitizer, private data : AviocompanySService,
               private dest: DestinationServiceService, private flightService: FlightService,
               private ngbDateParserFormatter: NgbDateParserFormatter,
               private appCom: AppComponent) {
@@ -56,6 +65,7 @@ export class ProfilcompanyComponent implements OnInit {
   }
            
     );
+    this.getAddress()
       }
 
   saveAviocompany() {
@@ -160,4 +170,28 @@ export class ProfilcompanyComponent implements OnInit {
   flightProfile(flight) {
     this.router.navigate(['/flights', flight.id]);
   }
+  
+  inicijalizujMapu() {
+      console.log("usao u mapu");
+      this.map = new Map({
+        target: 'map',
+        layers: [
+          new Tile({
+            source: new OSM()
+          })
+        ],
+      view: new View({
+      center: [45.2588889, 19.81661],
+      zoom: 1
+  })
+ });
+}
+
+getAddress() {
+  this.adresa += this.currentCompany.adress.replace(/ /g, '%20');
+  this.finalna += "https://maps.google.com/maps?q=" + this.adresa + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+  console.log("adresse");
+  console.log(this.adresa);
+  console.log(this.finalna);
+}
 }

@@ -16,7 +16,11 @@ import { CategoryServiceService } from '../services/cat-service/category-service
 import { Car } from '../models/Car';
 import { CarServiceService } from '../services/car-service/car-service.service';
 import { ResServiceService } from '../services/res-service/res-service.service';
-
+import Map from 'ol/Map';
+import Tile from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import View from 'ol/View';
+import { DomSanitizer} from '@angular/platform-browser';
 
 
 @Component({
@@ -49,9 +53,12 @@ export class RentacarDetailsComponent implements OnInit {
   brojDana : number;
   cenaDo : number;
   cenaOd : number;
+    //za mape
+    adresa = "";
+    finalna = "";
+    map;
 
-
-  constructor(private router: Router,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,
+  constructor(private router: Router,private sanitizer:DomSanitizer,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,
   private filService : FilijaleServiceService,private auth: AuthServiceService,private categoryService : CategoryServiceService,
   private carService : CarServiceService, private resService : ResServiceService ) { }
 
@@ -101,7 +108,8 @@ export class RentacarDetailsComponent implements OnInit {
                 });
 
         }
-     );       
+     );  
+        this.getAddress();
  };
       
    
@@ -275,5 +283,26 @@ export class RentacarDetailsComponent implements OnInit {
         
         this.router.navigateByUrl('/fil-cars');
     }
-
+    inicijalizujMapu() {
+        console.log("usao u mapu");
+        this.map = new Map({
+          target: 'map',
+          layers: [
+            new Tile({
+              source: new OSM()
+            })
+          ],
+        view: new View({
+        center: [45.2588889, 19.81661],
+        zoom: 1
+    })
+   });
+    }
+    getAddress() {
+        this.adresa += this.currentRentACar.adress.replace(/ /g, '%20');
+        this.finalna += "https://maps.google.com/maps?q=" + this.adresa + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+        console.log("adresse");
+        console.log(this.adresa);
+        console.log(this.finalna);
+      }
 }

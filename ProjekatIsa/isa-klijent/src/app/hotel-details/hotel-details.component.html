@@ -6,13 +6,17 @@
 						<h3>{{currentHotel.name}}</h3>
 						<h5>{{currentHotel.city}}</h5>
 						<p>{{currentHotel.address}}</p>
-						<p>{{currentHotel.description}}</p>
+						<p>{{currentHotel.description}}</p>						
 						<span class="hidden-xs" id="changeButton" [hidden]="nohotelAdmin"><a  class="btn btn-primary btn-outline" (click)="changeClick()">Izmeni</a></span>
 						<span class="hidden-xs" id="deleteButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" (click)="deleteClick()" >Obrisi</a></span>
 						<br/>
 						<br/>
 						<span class="hidden-xs" id="addRoomButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline" (click)="addRoomClick()">Dodaj sobu</a></span>
 						<span class="hidden-xs" id="addServiceButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline"  (click)="addServiceClick()">Dodaj servis</a></span>
+						<br/>
+						<br/>
+						<span class="hidden-xs" id="addServiceButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline"  href="hotelReport">Pogledaj prihode</a></span>
+						
 			</div>
 					
 			<!-- div za izmenu hotela-->
@@ -88,8 +92,14 @@
 			                <input type="text" class="form-control" placeholder="Unesite prosecnu cenu sobe.." value='newRoom.price' [(ngModel)]="newRoom.price" >
 			              </div>
 			              <div class="form-group">
-			                <input type="text" class="form-control" placeholder="Unesite opis sobe.." value='newRoom.room_description' [(ngModel)]="newRoom.room_description">
-			              </div>
+							<select [(ngModel)]="newRoom.room_description" class="form-control" name="room_description" id="room_description">
+										<option value="Jednokrevetna">Jednokrevetna</option>
+										<option value="Dvokrevetna">Dvokrevetna</option>
+										<option value="Trokrevetna">Trokrevetna</option>
+										<option value="Cetverokrevetna">Cetverokrevetna</option>
+										<option value="Apartman">Apartman</option>
+									</select>	         
+							</div>
 			           	<div class="form-group">
 			                <input type="text" class="form-control" placeholder="Unesite prosecnu ocenu sobe.." value='newRoom.room_average_rating' [(ngModel)]="newRoom.room_average_rating">
 			              </div>
@@ -135,7 +145,7 @@
 	            </div>
               </div>
               <div class="form-group">
-              <label>Unesite minimalnu cenu:</label>
+              <label>Unesite minimalnu cenu: (opciono)</label>
                   <input  class="form-control" id="exampleInputEmail1" placeholder="Minimalna cena.." [(ngModel)]="cenaOd"  min="1"  name="city" type="number">
              	  <span id="errorCity"></span>
               </div>
@@ -163,7 +173,7 @@
 	                </div>
               </div>
               <div class="form-group">
-              <label>Unesite maksimalnu cenu:</label>
+              <label>Unesite maksimalnu cenu: (opciono)</label>
                   <input  class="form-control" id="exampleInputEmail1" [(ngModel)]="cenaDo"  placeholder="Maksimalna cena.." min="1" type="number">
              	  <span id="errorCity"></span>
               </div>
@@ -195,9 +205,10 @@
             	<th>Broj sobe</th>
             	<th>Opis</th>
             	<th>Kapacitet</th>
-            	<th>Prosecna cena</th>
+            	<th>Cena</th>
             	<th>Ocena</th>
-            	<th>Rezervisi</th>
+            	<th><span class="hidden-xs" id="bookRooId" [hidden]="canBook">Ukupna cena</span></th>
+            	<th><span class="hidden-xs" id="bookRoId" [hidden]="canBook">Rezervisi</span></th> 
             	<th></th>
             	<th></th>
             	</tr>
@@ -210,7 +221,8 @@
                 <td>{{r.capacity}}</td>
                 <td>{{r.price}}€ <b>/</b> 1 noć</td>
                 <td><span *ngIf="!(r.room_average_rating == null)" class="price"> {{r.room_average_rating}} </span></td>               
-                <td><button type="button"  class="btn btn-outline-primary" (click)="bookClick(r)">Book me</button></td> 
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">{{r.price*brojDana + reservationRoom.totalPrice}}€</span></td>               
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="bookClick(r)">Book me</button></span></td> 
                 <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeRoomClick(r)">Izmeni</button></span></td>             
                 <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteRoomClick(r)">Obrisi</button></span></td>
                 </tr>
@@ -229,9 +241,16 @@
 			            <!-- /.box-header -->
 			            <div class="box-body no-padding">
 			            
-			              <div class="form-group">
-			                <input type="text" class="form-control" placeholder="Unesite novi opis sobe.." value='newRoom2.room_description' [(ngModel)]="newRoom2.room_description">
-			              </div>
+			              
+			               <div class="form-group">
+							<select [(ngModel)]="newRoom2.room_description" class="form-control" name="room_description" id="room_description">
+										<option value="Jednokrevetna">Jednokrevetna</option>
+										<option value="Dvokrevetna">Dvokrevetna</option>
+										<option value="Trokrevetna">Trokrevetna</option>
+										<option value="Cetverokrevetna">Cetverokrevetna</option>
+										<option value="Apartman">Apartman</option>
+									</select>	         
+							</div>
 			              <div class="form-group">
 			                <input type="text" class="form-control" placeholder="Unesite novu ocenu sobe.." value='newRoom2.room_average_rating' [(ngModel)]="newRoom2.room_average_rating" >
 			              </div> 
@@ -296,12 +315,7 @@
           </div>
           <!-- /.box -->
 		</div>
-		<div class="col-md-6">
-  			<div class="form-group">
-               <label>Total price: {{reservationRoom.totalPrice}} €</label>
-                
-            </div>
-  			</div>
+		
 		<div class="col-xs-6" id = "changeServiceDiv" hidden="true">
 		              	<div class="box box-primary">
 			            <div class="box-header with-border ">
@@ -329,6 +343,13 @@
 			            <!-- /.box-footer -->
 			          </div>
               		</div> 
+           <div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+			<h4>Pronadji nas na mapi</h4>
+			<div class="mapouter"><div class="gmap_canvas"><iframe  webkitallowfullscreen mozallowfullscreen allowfullscreen  id="gmap_canvas" [src]='sanitizer.bypassSecurityTrustResourceUrl(finalna)' frameborder="0"  scrolling="no" marginheight="0" height="500px" width="100%" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div><style>.mapouter{text-align:right;height:500px;width:100%;}.gmap_canvas {overflow:hidden;background:none!important;}</style></div>
+			
+			</div>
+           </div>
 		</div>
 	</div>
 

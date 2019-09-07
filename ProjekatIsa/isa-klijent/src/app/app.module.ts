@@ -51,6 +51,7 @@ import { FlightReservationComponent } from './aviocompany/flights/flight-reserva
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
+import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
@@ -82,6 +83,8 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
     FlightReservationComponent,
     FilCarsComponent,
     AddAdminComponent,
+    MyReservationsComponent,
+    HotelReportComponent,
     MyReservationsComponent,
     SearchpageComponent
 

@@ -1,10 +1,10 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Router } from '@angular/router';
 import { ViewHotelsService } from '../services/view-hotels.service';
 import { HotelServiceService } from '../services/hotel-service/hotel-service.service';
 import { AuthServiceService } from '../services/auth-service.service';
-
+import { DomSanitizer} from '@angular/platform-browser';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../models/User';
@@ -12,7 +12,10 @@ import { Hotel } from '../models/Hotel';
 import { Room } from '../models/Room';
 import { AdditionalServiceForHotel } from '../models/AdditionalServiceForHotel';
 import { ReservationRoom } from '../models/ReservationRoom';
-
+import Map from 'ol/Map';
+import Tile from 'ol/layer/Tile';
+import OSM from 'ol/source/OSM';
+import View from 'ol/View';
 
 @Component({
   selector: 'app-hotel-details',
@@ -43,15 +46,21 @@ export class HotelDetailsComponent implements OnInit {
     services : AdditionalServiceForHotel[];
     changeService : AdditionalServiceForHotel = new AdditionalServiceForHotel();
     reservationRoom : ReservationRoom = new ReservationRoom();
+    brojDana : number;
+    canBook : boolean;
     
-
-    constructor(private router: Router,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
+    //za mape
+    adresa = "";
+    finalna = "";
+    map;
+    constructor(private router: Router,private sanitizer:DomSanitizer,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
             private hotelService : HotelServiceService,private ngZone : NgZone, private modalService: NgbModal) { }
 
     ngOnInit() {
         this.reservationRoom.totalPrice = 0;
         this.user = JSON.parse(localStorage.getItem('user'));
         this.token = this.auth.getJwtToken();
+        this.canBook = true;
         
        if(this.user.roles==null){
             this.nohotelAdmin = true;
@@ -85,6 +94,7 @@ export class HotelDetailsComponent implements OnInit {
       	 
           
           });
+          this.getAddress();
         
        
     };
@@ -249,12 +259,15 @@ export class HotelDetailsComponent implements OnInit {
           }
           else if(this.isBlank(this.cenaOd) && this.isBlank(this.cenaDo))
           { 
+              
               this.hotelService.searchRooms(this.reservationRoom, this.currentHotel.id,-1,-1).subscribe(data=>{
                   this.rooms = data;
                   console.log("pronadjene sobe: ");
                   console.log(data);
-                  
+                  this.canBook = false;
               });
+              var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+              this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
           }
           else{
               if(this.isBlank(this.cenaOd))
@@ -268,8 +281,11 @@ export class HotelDetailsComponent implements OnInit {
                   this.rooms = data;
                   console.log("pronadjene sobe: ");
                   console.log(data);
-                  
+                  this.canBook = false;
               });
+              var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+              this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
+              
           }
          
           
@@ -313,4 +329,27 @@ export class HotelDetailsComponent implements OnInit {
       }
           
     }
+    inicijalizujMapu() {
+            console.log("usao u mapu");
+            this.map = new Map({
+              target: 'map',
+              layers: [
+                new Tile({
+                  source: new OSM()
+                })
+              ],
+            view: new View({
+            center: [45.2588889, 19.81661],
+            zoom: 1
+        })
+       });
+   }
+    
+    getAddress() {
+        this.adresa += this.currentHotel.address.replace(/ /g, '%20');
+        this.finalna += "https://maps.google.com/maps?q=" + this.adresa + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+        console.log("adresse");
+        console.log(this.adresa);
+        console.log(this.finalna);
+      }
 }
