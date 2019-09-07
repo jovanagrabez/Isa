@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient,} from '@angular/common/http';
 import { HttpModule,Http } from '@angular/http';
+import { DatePipe } from '@angular/common';
 
 import {RequestOptions, XHRBackend} from '@angular/http';
 import {Router, RouterModule} from '@angular/router';
@@ -106,7 +107,7 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 
   ],
-  providers: [ HttpClientModule, AviocompanySService, ViewHotelsService,
+  providers: [ HttpClientModule,DatePipe, AviocompanySService, ViewHotelsService,
     AuthServiceService
 
   ],

@@ -139,7 +139,8 @@ insert into myrole (id,name) values (18,'deleteRoom');
 insert into myrole (id,name) values (19,'changeRoom');
 insert into myrole (id,name) values (20,'deleteService');
 insert into myrole (id,name) values (21,'changeService');
-
+insert into myrole (id,name) values (22,'bookRoom');
+insert into myrole (id,name) values (23,'lastWeekReservations');
 
 
 --privilegije car admina
@@ -165,10 +166,16 @@ insert into roles_privileges(role_id,privilege_id) values (4,18);
 insert into roles_privileges(role_id,privilege_id) values (4,19);
 insert into roles_privileges(role_id,privilege_id) values (4,20);
 insert into roles_privileges(role_id,privilege_id) values (4,21);
-
+insert into roles_privileges(role_id,privilege_id) values (4,23);
 --car admin
 insert into roles_privileges(role_id,privilege_id) values (5,17);
 
+--reserve room
+insert into roles_privileges(role_id,privilege_id) values (1,22);
+insert into roles_privileges(role_id,privilege_id) values (2,22);
+insert into roles_privileges(role_id,privilege_id) values (3,22);
+insert into roles_privileges(role_id,privilege_id) values (4,22);
+insert into roles_privileges(role_id,privilege_id) values (5,22);
 
 insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
 insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
@@ -291,22 +298,29 @@ insert into car_reservation(reservation_id,start_date,end_date,pickup_place,retu
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (3,'2020-08-07 00:00:00','2020-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2020-08-07 00:00:00',14,1,true);
 
-
+--PRIMJERI ZA IZVJESTAJ
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (6,'2018-04-15','2018-04-25',350.5,'arrived',5,1,1);
+	values (1,'2018-10-15','2018-10-25',150.5,'arrived',5,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (2,'2018-04-01','2018-04-13',666.5,'arrived',2,1,1);
+	values (2,'2018-10-01','2018-10-13',100.5,'arrived',2,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (3,'2019-05-01','2019-05-13',666.5,'confirmed',null,1,1);
+	values (3,'2019-11-10','2019-11-15',250.5,'confirmed',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (4,'2018-04-01','2018-04-13',666.5,'arrived',null,1,1);
+	values (4,'2018-11-01','2018-11-06',200.5,'arrived',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (5,'2019-05-01','2019-05-13',666.5,'confirmed',null,1,1);
+	values (5,'2019-12-09','2019-12-12',250.5,'confirmed',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (1,'2019-07-10','2019-07-13',666.5,'pending',null,1,1);
-
+	values (6,'2018-12-03','2018-12-11',200.5,'arrived',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (7,'2019-09-05','2019-09-10',666.5,'pending',null,1,16);
+	values (7,'2019-01-01','2019-01-05',666.5,'confirmed',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (8,'2019-02-10','2019-07-13',121.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (9,'2019-03-05','2019-09-10',212.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (10,'2019-09-02','2019-07-04',120.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (11,'2019-09-04','2019-09-05',200.5,'pending',null,1,1);
 
 
 insert into pricing(pricing_id,price,date_from,date_to,room_id) 
