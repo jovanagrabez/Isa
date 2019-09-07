@@ -28,8 +28,6 @@
 
 		  <li><a href="rentalCars">Rental cars</a>
 		   <ul class="fh5co-sub-menu" [hidden]="nocarAdmin">
-                  <li><span class="hidden-xs" id="addButton"><a href="addCar">Dodaj vozilo</a></span></li>  
-                  <li><span class="hidden-xs" id="addButton"><a href="addFilijale">Dodaj filijale</a></span></li>                  
                                   
                 </ul>
             </li>
@@ -44,6 +42,8 @@
                 </ul>
               </li>
            <li><span class="hidden-xs" id="" [hidden]="notLogged" ><a href="profile">Profil</a></span>
+           </li>
+           <li><span class="hidden-xs" id="" [hidden]="notUser" ><a href="my-reservations">Rezervacije</a></span>
            </li>
               <li><span class ="visible" id="loginButton" [hidden]="logged"><a routerLink="login">Prijavi se</a></span>
 						    <span class="hidden-xs" id="logoutButton" (click)="logOutUser()" [hidden]="notLogged" ><a>Odjavi se</a></span>

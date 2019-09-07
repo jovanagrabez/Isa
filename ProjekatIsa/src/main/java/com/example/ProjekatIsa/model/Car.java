@@ -22,6 +22,7 @@ import com.example.ProjekatIsa.DTO.CarDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+
 @Entity
 @Table(name = "car")
 
@@ -65,14 +66,19 @@ public class Car implements Serializable {
 	@OneToMany(mappedBy="car")
     protected List<PricingCar> pricingCar;
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "car_rating_car", joinColumns = @JoinColumn(name = "car_id"), inverseJoinColumns = @JoinColumn(name = "ratingCar_id"))
-    private Set<RatingCar> car_ratings;
+	
+	@OneToMany(mappedBy="car", fetch = FetchType.LAZY)
+    private Set<RatingCar> ratings;
 
 	
 	@OneToMany(mappedBy="car",orphanRemoval = true, fetch = FetchType.LAZY)
 	private List<CarReservation> reservation;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "car_discount",
+            joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "car_id"),
+            inverseJoinColumns = @JoinColumn(name = "discount_id", referencedColumnName = "discount_id"))
+	private Set<Discount> discount;
 	
 	
 	
@@ -231,15 +237,15 @@ public class Car implements Serializable {
 
 
 
-	public Set<RatingCar> getCar_ratings() {
-		return car_ratings;
+	public Set<RatingCar> getRatings() {
+		return ratings;
 	}
 
 
 
 
-	public void setCar_ratings(Set<RatingCar> car_ratings) {
-		this.car_ratings = car_ratings;
+	public void setRatings(Set<RatingCar> ratings) {
+		this.ratings = ratings;
 	}
 	
 	
@@ -247,7 +253,7 @@ public class Car implements Serializable {
 
 	public Car(Long id, String car_number, String name, int price, Double average_rating, int prod_year,
 			RentACar rentalcars, Filijale filijale, Category category, List<PricingCar> pricingCar,
-			Set<RatingCar> car_ratings, List<CarReservation> reservation) {
+			Set<RatingCar> ratings, List<CarReservation> reservation) {
 		super();
 		this.id = id;
 		this.car_number = car_number;
@@ -259,7 +265,7 @@ public class Car implements Serializable {
 		this.filijale = filijale;
 		this.category = category;
 		this.pricingCar = pricingCar;
-		this.car_ratings = car_ratings;
+		this.ratings = ratings;
 		this.reservation = reservation;
 	}
 	

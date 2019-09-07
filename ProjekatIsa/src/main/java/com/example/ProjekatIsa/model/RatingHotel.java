@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,15 +20,35 @@ public class RatingHotel implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ratingHotel_id", nullable = false, updatable = false)
+    @Column(name = "ratinghotel_id", nullable = false, updatable = false)
     private Long id;
 	
-	@Column(name = "value", nullable = false)
-    private int value;
 	
-	@ManyToOne
-	@JoinColumn(name="hotel_id")
+	@ManyToOne(fetch = FetchType.EAGER)
+	private User user;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
 	private Hotel hotel;
+	
+	@Column(name="rate", nullable = false)
+	private int rate;
+	
+	
+	
+
+	public RatingHotel() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public RatingHotel(Long id, User user, Hotel hotel, int rate) {
+		super();
+		this.id = id;
+		this.user = user;
+		this.hotel = hotel;
+		this.rate = rate;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -36,23 +57,31 @@ public class RatingHotel implements Serializable {
 		this.id = id;
 	}
 
-	public int getValue() {
-		return value;
+	public User getUser() {
+		return user;
 	}
 
-	public void setValue(int value) {
-		this.value = value;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public RatingHotel(int value) {
-		super();
-		this.value = value;
+	public Hotel getHotel() {
+		return hotel;
 	}
 
-	public RatingHotel() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
 	}
+
+	public int getRate() {
+		return rate;
+	}
+
+	public void setRate(int rate) {
+		this.rate = rate;
+	}
+	
+	
 	
 	
 	

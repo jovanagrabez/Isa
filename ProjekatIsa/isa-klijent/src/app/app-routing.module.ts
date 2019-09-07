@@ -24,6 +24,7 @@ import {FlightReservationComponent} from './aviocompany/flights/flight-reservati
 
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 
 
 const routes: Routes = [
@@ -133,7 +134,13 @@ const routes: Routes = [
   },
   {
     path: 'flights/reservation/:id', component: FlightReservationComponent
+  },
+  {
+    path: 'my-reservations', component:   MyReservationsComponent
+
   }
+  
+  
 
 
 

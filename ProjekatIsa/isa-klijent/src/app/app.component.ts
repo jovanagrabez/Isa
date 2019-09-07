@@ -27,6 +27,7 @@ export class AppComponent implements OnInit {
   nohotelAdmin: boolean;
   noavioAdmin: boolean;
   nocarAdmin: boolean;
+  noUser: boolean;
 
   constructor(private userService: UserService, private route: ActivatedRoute, private auth: AuthServiceService) {  }
 
@@ -39,6 +40,7 @@ export class AppComponent implements OnInit {
       this.nohotelAdmin = true;
       this.noavioAdmin = true;
       this.nocarAdmin = true;
+      this.noUser = true;
       console.log('----KORISNIK NIJE ULOGOVAN---');
     } else {
       console.log('----KORISNIK JE ULOGOVAN----');     
@@ -65,6 +67,8 @@ export class AppComponent implements OnInit {
         this.nohotelAdmin = true;
         this.noavioAdmin = true;
         this.nocarAdmin = true;
+        this.noUser = true;
+
     }
     for (var i=0; i<this.roles.length; i++) {
     
@@ -76,6 +80,8 @@ export class AppComponent implements OnInit {
         this.nohotelAdmin = true;
         this.noavioAdmin = true;
         this.nocarAdmin = true;
+        this.noUser = true;
+
 
     }
     else if(this.roles[i].name.toString() === 'HOTEL_ADMIN'){
@@ -83,6 +89,7 @@ export class AppComponent implements OnInit {
         this.nosystemAdmin = true;
         this.noavioAdmin = true;
         this.nocarAdmin = true;
+        this.noUser = true;
 
     }
     else if(this.roles[i].name.toString() === 'AVIO_ADMIN'){
@@ -90,6 +97,7 @@ export class AppComponent implements OnInit {
         this.nosystemAdmin = true;
         this.noavioAdmin = false;
         this.nocarAdmin = true;
+        this.noUser = true;
 
     }
    
@@ -98,6 +106,7 @@ export class AppComponent implements OnInit {
     this.nosystemAdmin = true;
     this.noavioAdmin = true;
     this.nocarAdmin = false;
+    this.noUser = true;
 
     }
     else{
@@ -106,6 +115,7 @@ export class AppComponent implements OnInit {
         this.nohotelAdmin = true;
         this.noavioAdmin = true;
         this.nocarAdmin = true;
+        this.noUser = false;
     }
 }
    

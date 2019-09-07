@@ -31,4 +31,11 @@ public class RoomServiceImpl implements RoomService {
 		}
 	}
 
+
+	@Override
+	public Room findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return roomRepository.findOneById(id);
+	}
+
 }

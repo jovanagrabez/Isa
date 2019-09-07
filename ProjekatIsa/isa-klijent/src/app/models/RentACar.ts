@@ -1,7 +1,7 @@
 import { Car } from "./Car";
 
 export class RentACar{
-    id : BigInteger;
+    id : number;
     name : string;
     adress : string;
     description : string;

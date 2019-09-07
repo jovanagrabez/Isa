@@ -50,6 +50,7 @@ import { SeatComponent } from './aviocompany/flights/seat/seat.component';
 import { FlightReservationComponent } from './aviocompany/flights/flight-reservation/flight-reservation.component';
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
+import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     SeatComponent,
     FlightReservationComponent,
     FilCarsComponent,
-    AddAdminComponent
+    AddAdminComponent,
+    MyReservationsComponent
 
 
 

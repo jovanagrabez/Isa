@@ -15,5 +15,8 @@ export class CarReservation {
     dayRez : Date;
     user : User;
     car : Car;
+    daysLeft : number;
+    rateCar : boolean;
+    rateService : boolean;
     
     }

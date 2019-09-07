@@ -1,47 +1,128 @@
-<body>
-
-<div  class="fh5co-section-gray">
-			<div class="container">
-
-					<div class=" text-center  heading-section ">
-					<span></span>
+<div class="fh5co-hero">
+	<div class="fh5co-overlay"></div>
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5"
+		style="background-image: url(assets/images/car1.jpg);">			
+		<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<span></span>
 						<h3>Najpovoljniji rent a car servisi &amp; najbolja ponuda automobila</h3>
 						<p>Pretražite ponude i otkrijte iskustva širom sveta,od malih i praktičnih do luksuznih i komfornih automobila</p>
+						<br/>
+					    <h3>SORTIRAJ</h3>
+						
+						<div class="box-tools pull-left">
+                 <label class="col-md-8"> Sort by </label>
+                     <select name="sortItem" id="sortItem" [(ngModel)]="sortForm.sortItem" class="form-control select2" required>
+                   <option value="stars">stars</option>
+                  </select> 
+             </div>
+          
+          
+       <div class="form-group" >
+               <div class="input-group" >
+                <label class="col-md-8">Ascending/Descending</label>
+                      <select name="sortType" id="sortType" [(ngModel)]="sortForm.sortType" class="form-control" required >
+                          <option value="ascending">ascending</option>
+                           <option value="descending">descending</option>
+                      </select> 
+                  </div>
+       </div>						
+						
+						<br/>
+									
 					</div>
+		</div>
 				
-	</div>
-	</div>
+				<!-- Div za pretragu -->
+				
+				<div class="row">
+	<div class="col-xs-12">
 
- <div class="fh5co-hero">
-	<div class="fh5co-overlay"></div>
-	<div class="fh5co-cover"data-stellar-background-ratio="0.5"
-		style="background-image: url(assets/images/pic.png);"
-		>
-	
-			
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <!-- /.box-header -->
+        <div class="box-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+              <label>Unesite lokaciju:</label>
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Lokacija..." [(ngModel)]="searchFormServices.city" #city="ngModel" name="city" type="text">
+             	  <span id="errorCity"></span>
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Datum dolaska:</label>
+                 <div class="input-group">
+	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
+	                    <input class="form-control" type="date" required="required" data-placeholder="Check in" [(ngModel)]="searchFormServices.startDate" #startDate="ngModel" name="startDate" >
+	                    <span id="errorStart"></span>                    
+	            </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+            <label>Unesite naziv servisa:</label>
+             <div class="form-group">
+                  <input  class="form-control" id="exampleInputEmail1" placeholder="Naziv servisa..." [(ngModel)]="searchFormServices.name" #name="ngModel" name="name" type="text">
+	         </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+               <label>Datum odlaska:</label>
+                <div class="input-group">
+                		 
+	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+	                      <input class="form-control" type="date" name="endDate" required="required"   [(ngModel)]="searchFormServices.endDate" #endDate="ngModel" name="endDate" data-placeholder="Check out">
+	                      <span id="errorEnd"></span>
+	                </div>
+              </div>
+              <!-- /.form-group -->
+            </div>
+
+
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+      
+      
+	</div>
+  </div> 
+    <div class="col-xs-12">
+        <button type="button" id="pomeri" class="btn btn-primary btn-block" (click)="pretraga()">Pretraga</button>
+			<br/>
+			<br/>
+		</div>
+</div>		
 				
-				<div class="row row-bottom-padded-md">
-					<div  *ngFor= 'let r of rentalcars$' >
-						<div class="row-md-4 row-sm-6 fh5co-tours animate-box"
-							data-animate-effect="fadeIn">
-							<div href="profil">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+					</div>
+				</div>
+				
+				<div class="row row-bottom-padded-md" >
+					<div  *ngFor= 'let r of sviServisi' >
+						<div >
+							<div class="col-md-4 col-sm-6 fh5co-tours animate-box" data-animate-effect="fadeIn">
+								<div class="hotel-box">
 								<img src="assets/images/box.png"  width="400" height="300">
-								<div class="desc">
-									<span></span>
-									<h3>{{r.name}}</h3>
-									<h3>{{r.description}}</h3>
-									<span>{{r.adress}}</span> <a
-                     (click)="onClickCompanyDetails(r)"	class="btn btn-primary btn-outline" >Detaljnije <i
-                  ></i></a>
+									<div class="desc">
+										<span></span>
+										<h3>{{r.name}}</h3>
+									    <h3>{{r.description}}</h3>
+									    <span>{{r.adress}}</span> <a
+                                      (click)="onClickCompanyDetails(r)"	class="btn btn-primary btn-outline" >Detaljnije <i
+                  ></i></a>																			
+										<!--  a  (click)="onClickCompanyDetails(c)" class="btn btn-primary btn-outline">Prikazi vozila</a-->
+										
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 
-</div>
-</div>
-	
-</body>
-
-
+			</div>
+		</div>
+		</div>
