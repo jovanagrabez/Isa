@@ -50,7 +50,7 @@ import { SeatComponent } from './aviocompany/flights/seat/seat.component';
 import { FlightReservationComponent } from './aviocompany/flights/flight-reservation/flight-reservation.component';
 import { FilCarsComponent } from './fil-cars/fil-cars.component';
 import { AddAdminComponent } from './add-admin/add-admin.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -96,7 +96,8 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
     HttpModule,
    NgbModule.forRoot(),
    FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    NgSelectModule
 
 
 

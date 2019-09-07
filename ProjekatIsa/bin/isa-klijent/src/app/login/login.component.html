@@ -1,0 +1,32 @@
+<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>
+<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
+
+
+<div class="login-page">
+
+  <div class="form">
+
+    <form (ngSubmit)="login()" class="form-signin">
+		<!--<input type="hidden" name="${_csrf.parameterName}"
+			value="${_csrf.token}" />-->
+      <div>
+			<label for="inputEmail" class="sr-only">Email address</label>
+			 <input type="email" [(ngModel)]="user.email" name="email" id="email"  class="form-control inputs" placeholder="Email address" />
+		</div>
+		<div>
+			<label for="inputPassword" class="sr-only">Password</label>
+			 <input type="password" name="password" [(ngModel)]="user.password" name="password" id="inputPassword" class="form-control inputs" placeholder="Password" required />
+		</div>
+		<div>
+			<label for="remember-me">Remember me</label> <input type="checkbox"
+				name="remember-me" id="remember-me" #rememberMe/>
+		</div>        
+		 <button class="btn btn-lg btn-primary btn-block" type="submit">Prijava</button>
+      <p class="message">Niste registrovani? <a href="registracija">Kreirajte nalog</a></p>
+    </form>
+  </div>
+</div>
+</div>
+</div>
+

@@ -31,6 +31,7 @@ export class ProfilcompanyComponent implements OnInit {
               private ngbDateParserFormatter: NgbDateParserFormatter,
               private appCom: AppComponent) {
 
+    this.selectedDestinations = [{id: null, name: '', country: ''}];
     this.presjedanja  = 0;
     this.destinationNew = {id: null, name: '', country: ''};
     this.ff = { id: null, take_off: NgbDate, landing: NgbDate, number: 11, seat: true, averageRating: 0,
@@ -105,7 +106,25 @@ export class ProfilcompanyComponent implements OnInit {
     this.ff.destination.push(this.destinationss.toDest);
     this.ff.take_off = this.ngbDateParserFormatter.format(this.ff.take_off);
   this.ff.landing = this.ngbDateParserFormatter.format(this.ff.landing);
-  this.ff.seatArrangement = {seatColumns: 0, seatRows:0};
+  this.ff.seatArrangement = {seatColumns: 0, seatRows: 0};
+    if (this.selectedDestinations !== undefined) {
+      for (const dest of this.selectedDestinations) {
+        if (dest !== undefined) {
+          if (dest instanceof Array) {
+            for (const d of dest) {
+              if (d['id'] !== undefined) {
+                this.ff.destination.push(d);
+              }
+            }
+          } else if (dest['id'] !== undefined) {
+            this.ff.destination.push(dest);
+          }
+        }
+      }
+    }
+
+
+
   this.flightService.addFlight(this.ff).subscribe(ff => {
      console.log(this.ff);
      this.ff = ff;

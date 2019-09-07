@@ -123,28 +123,27 @@
                 </div>
               </div>
 
-                <!--<div class="form-group">-->
-                  <!--<label for="inputACountry3" class="col-sm-2 col-form-label">Distance[km]</label>-->
-                  <!--<input type="text" pattern="[0-9]+" class="form-control" id="inputACountry31" placeholder="Presjedanja"-->
-                         <!--#presjedanja="ngModel" aria-multiline="true" [(ngModel)]="ff.number"-->
-                         <!--name="distance" [ngClass]="{ 'is-invalid': f.submitted && presjedanja.invalid }" required>-->
-                  <!--<div *ngIf="f.submitted && presjedanja.invalid" class="invalid-feedback">-->
-                    <!--<div *ngIf="presjedanja.errors.required">Distance is required</div>-->
-                  <!--</div>-->
-                <!--</div>-->
+                <div class="form-group row">
+                  <label class="col-sm-2 col col-form-label" for="dest">Flight changes locations:</label>
+                  <div class="col-sm-10">
+                  <span class="pull-left col-sm-9" style=" margin-bottom: 20px;">
 
+                    <ng-select id="dest"  class="form-control"
+                   [items]="currentCompany.destination"
+                   [multiple]="true"
+                   name="selectDestination"
+                   [closeOnSelect]="false"
+                   [searchable]="false"
+                   bindLabel="name"
+                   bindValue="item"
+                   [(ngModel)]="selectedDestinations"
+                   (change)="onChange($event)">
 
-              <!--<div class="form-group row">-->
-                <!--<label class="col-sm-3 col col-form-label" for="dest">Flight changes locations:</label>-->
-              <!--</div>-->
-              <!--<ul class="list-group" *ngFor="let destination of connecting; index as i">-->
-                <!--<li class="list-group-item d-flex justify-content-between align-items-center">-->
-                  <!--<p><b>{{destination['name']}} {{destination['shortName']}}</b>, {{destination['address']['city']}}, {{destination['address']['country']}}</p>-->
-                  <!--<span><a (click)="deleteDestination(i)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>-->
-                  <!--&lt;!&ndash;class="badge badge-primary badge-pill"&ndash;&gt;-->
-                <!--</li>-->
-              <!--</ul>-->
+                   </ng-select>
 
+                  </span>
+                  </div>
+                </div>
 
               <br/>
 

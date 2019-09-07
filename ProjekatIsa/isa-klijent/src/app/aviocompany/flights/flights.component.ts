@@ -65,6 +65,10 @@ export class FlightsComponent implements OnInit {
              this.flight.toDest = this.flight.destination[1];
              this.toDest = this.flight.destination[1];
         //   // } else {
+
+         for(let i = 2; i < this.flight.destination.length; i++) {
+           this.selectedDestinations.push(this.flight.destination[i]);
+         }
         //   //  this.connecting.push(dest.destination);
         //     // this.selectedDestinations.push(dest.destination.id);
         // //   }
