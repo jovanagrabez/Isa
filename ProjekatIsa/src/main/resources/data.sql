@@ -290,7 +290,8 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (4,false,3,5);
 
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
-insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (3,'2020-08-07 00:00:00','2020-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2020-08-07 00:00:00',14,1,true);
 
 
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	

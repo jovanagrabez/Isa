@@ -10,4 +10,7 @@ export class ReservationRoom {
     totalPrice : number;
     room : Room;
     user : User;
+    rateRoom : boolean;
+    rateHotel : boolean;
+    daysLeft : number;
 }

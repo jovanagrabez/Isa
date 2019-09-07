@@ -120,6 +120,7 @@ public class RatingController {
 		RatingCar o = ratingCarRepository.save(dodavanje);
 		//azuriranje ocene vozila
 		List<RatingCar> noveOcene = ratingCarService.getAll();
+		//Car ocenaVozila = carRepository.findOneById(id)
 		int br = 0;
 		int ocene = 0;
 		for(RatingCar ov : noveOcene)
@@ -132,6 +133,9 @@ public class RatingController {
 		}
 		
 		double novaOcena = ocene / br;
+		double ocenaVozila = c.getAverage_rating();
+		double ukupno;
+		ukupno = (ocene + ocenaVozila)/br;
 		c.setAverage_rating(novaOcena);
 		try{
 			Car izmenjeno = carService.save(c);
@@ -400,7 +404,7 @@ public class RatingController {
 			oceneDTO.add(new RatingHotelDTO(o));
 		}
 		
-		System.out.println("OCENE SERVISA TRENUTNOG KORISNIKA: " + oceneDTO.size());
+		System.out.println("OCENE HOTELA TRENUTNOG KORISNIKA: " + oceneDTO.size());
 		return new ResponseEntity<>(oceneDTO,HttpStatus.OK);
 	}
 

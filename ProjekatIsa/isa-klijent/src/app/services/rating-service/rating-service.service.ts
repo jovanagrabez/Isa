@@ -47,8 +47,13 @@ export class RatingServiceService {
         return this.http.get('http://localhost:8080/rating/userServiceRating/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
   }
     
-    rateHotel(rate : RatingService,id:number): Observable<any>{
+    rateHotel(rate : RatingHotel,id:number): Observable<any>{
         console.log(rate.rate);
         return this.http.post('http://localhost:8080/rating/rateHotel/'+id,rate,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
+    
+    getHotelRatings(id : number):Observable<any>{
+
+        return this.http.get('http://localhost:8080/rating/userHotelRating/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
   }
 }

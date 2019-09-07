@@ -17,7 +17,11 @@
     <!-- div za rezervaciju vozila -->
     
   
-    <h1>Hoteli:</h1>
+    <h1>Hoteli</h1>
+    <ul>
+                <li> Mozete odjaviti tekuce rezervacije 2 dana pre datuma rezervacije</li>
+                <li> Nakon napustanja sobe mozete oceniti sobu i hotel</li>
+    </ul>
     
     
     <!-- prikazivanje vozila-->
@@ -34,7 +38,10 @@
             	<th>Konfiguracija sobe</th>
             	<th>Rezervisano od</th>
             	<th>Rezervisano do</th>
-            	<th>Ukupna cena</th>
+            	<th>Otkazivanje</th>
+            	<th>Oceni sobu</th>
+            	<th></th> 
+            	<th>Oceni hotel </th>
             	<th></th>
             	<th></th>
             	</tr>
@@ -45,14 +52,14 @@
                 <td>{{c.room.capacity}}</td> 
                 <td>{{c.startDate}}</td>
                 <td>{{c.endDate}}</td> 
-                <td><a  (click)="otkaziSobu(c)" class="btn btn-outline-danger">Odjavi</a></td>
-                <td>
+                <td><a *ngIf='c.daysLeft >= 3'  (click)="otkaziSobu(c)" class="btn btn-outline-danger">Odjavi</a></td>
+                <td *ngIf='c.rateRoom == true'>
                       <input id="hotel{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
-                <td><a id="hotel{{c.room.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateRoom(c.room)">Oceni</a>
+                <td><a *ngIf='c.rateRoom == true' id="hotel{{c.room.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateRoom(c.room)">Oceni</a>
                 </td> 
-                <td>
+                <td *ngIf='c.rateHotel == true'>
                    <input id="s{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
-                <td><a  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateHotel(c.room)">Oceni</a>
+                <td><a *ngIf='c.rateHotel == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateHotel(c.room)">Oceni</a>
                 </td>
                 </tr>
              </tbody>
@@ -69,9 +76,13 @@
 <section id = "carDiv" hidden="true">
     <!-- div za rezervaciju vozila -->
     
-  
-    <h1>Vozila:</h1>
     
+  
+    <h1>Vozila</h1>
+    <ul>
+                <li> Mozete odjaviti tekuce rezervacije 2 dana pre datuma preuzimanja vozila</li>
+                <li> Nakon vracanja vozila mozete oceniti vozilo i servis</li>
+    </ul>
     
     <!-- prikazivanje vozila-->
 		<div class="row">
@@ -87,7 +98,10 @@
             	<th>Naziv</th>
             	<th>Rezervisano od</th>
             	<th>Rezervisano do</th>
-            	<th>Ukupna cena</th>
+            	<th>Otkazivanje</th>
+            	<th>Oceni vozilo</th>
+            	<th></th> 
+            	<th>Oceni servis </th>           	
             	<th></th>
             	<th></th>
             	</tr>
@@ -99,7 +113,6 @@
                 <td>{{c.car.name}}</td> 
                 <td>{{c.startDate}}</td>
                 <td>{{c.endDate}}</td> 
-                <td>{{c.total_price}}</td>               
                 <td><a *ngIf='c.daysLeft >= 2'  (click)="otkazi(c)" class="btn btn-outline-danger">Odjavi</a></td> 
                 <td *ngIf='c.rateCar == true'>
                       <input id="car{{c.car.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>

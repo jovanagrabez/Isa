@@ -41,6 +41,8 @@ export class MyReservationsComponent implements OnInit {
   carRatings : Array<RatingCar>;
   roomRatings : Array<RatingRoom>;
   serviceRatings : Array<RatingService>;
+  hotelRatings : Array<RatingHotel>;
+
   today = new Date(Date.now());
 
   constructor(private userService: UserService,private router: Router, private resService : ResServiceService,
@@ -111,7 +113,7 @@ export class MyReservationsComponent implements OnInit {
                   
                   if(returns.getTime() > this.today.getTime())
                   {
-                      element.rateService = true;
+                      element.rateService = false;
                       }
                   else {
 
@@ -130,6 +132,55 @@ export class MyReservationsComponent implements OnInit {
            
            this.ratingService.getUserRoomRes(this.currentUser.id).subscribe(data=>{
                this.roomRatings = data;
+               
+               this.rezervisaniHoteli.forEach(element=>{
+                   element.rateRoom = true;
+                   
+                   var pickup = new Date(element.startDate);
+                   var returnc = new Date(element.endDate);
+//                  
+                   var proba = (pickup.getTime() - this.today.getTime());
+                   var daysLeft = Math.ceil(proba / (1000 * 3600 * 24));
+                   element.daysLeft = daysLeft;
+                   if(returnc.getTime() > this.today.getTime())
+                    {
+                        element.rateRoom = false;
+                    }
+                  else 
+                    {
+                       this.roomRatings.forEach(element2=>{
+                           
+                           if(element2.room.id == element.room.id)
+                           {
+                               element.rateRoom = false;
+                               }
+                           });
+                    }
+                   
+                   
+                   
+                   });
+               
+               });
+           
+           ///hoteli
+           
+           this.ratingService.getHotelRatings(this.currentUser.id).subscribe(data=>{
+               this.hotelRatings = data;
+               
+               this.rezervisaniHoteli.forEach(element=>{
+                  element.rateHotel = true;
+                  
+                  var returns = new Date(element.endDate);
+                  
+                  if(returns.getTime() > this.today.getTime())
+                  {
+                      element.rateHotel = false;
+                      }
+                  else {
+
+                      }
+                  });
                });
           });
           
