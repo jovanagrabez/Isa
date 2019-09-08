@@ -85,7 +85,10 @@ public class Destination implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	
 
+	
 	public Destination(Long id, String name) {
 		super();
 		this.id = id;

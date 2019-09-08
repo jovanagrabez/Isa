@@ -33,7 +33,7 @@ export class FlightsComponent implements OnInit {
   constructor(private appComp: AppComponent, private currentRoute: ActivatedRoute,
               private flightService: FlightService, private SeatArrangement: SeatArrangementService,
               private airlineService: AviocompanySService, private  router : Router) {
-    this.flight = {destinations: [{}], seats: [{}], seatArrangement: {seatArrangement: {seatRows: 5, seatColumns: 5}}, airlineDto: {}, fromDest: '', toDest: ''};
+    this.flight = {take_off: Date, landing: Date , destinations: [{}], seats: [{}], seatArrangement: {id: null, seatRows: 5, seatColumns: 5}, airlineDto: {}, fromDest: {id: null, name: '', country: '', description: ''}, toDest: {id: null, name: '', country: '', description: ''}};
     this.selectedDestinations = [{}];
     this.connecting = [{address: {}}];
     this.fromDest = {address: {}};
@@ -60,7 +60,7 @@ export class FlightsComponent implements OnInit {
         // // for (const dest of this.flight.destinations) {
         // //   if (dest.description === 'departure') {
              this.flight.fromDest = this.flight.destination[0];
-           this.fromDest = this.flight.destination[0];
+           this.flight.fromDest = this.flight.destination[0];
         //   // } else if (dest.description === 'arrival') {
              this.flight.toDest = this.flight.destination[1];
              this.toDest = this.flight.destination[1];
@@ -73,16 +73,16 @@ export class FlightsComponent implements OnInit {
         //     // this.selectedDestinations.push(dest.destination.id);
         // //   }
         // // }
-        let date = new Date(this.flight.take_off.split('T', 1));
+        let date = new Date(this.flight.take_off);
 
         this.date1 = date;
-        this.departureDate = new NgbDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDay());
-   //     this.departureTime = date.getUTCHours().toString() + ':' + date.getUTCMinutes();
+        this.departureDate = new NgbDate(this.date1.getUTCFullYear(), this.date1.getUTCMonth() + 2, this.date1.getUTCDate());
+        this.departureTime = date.getUTCHours().toString() + ':' + date.getUTCMinutes();
 
         date = new Date(this.flight.landing);
         this.date2 = date;
-        this.arrivalDate = new NgbDate(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDay());
-       // this.arrivalTime = date.getUTCHours().toString() + ':' + date.getUTCMinutes();
+        this.arrivalDate = new NgbDate(date.getUTCFullYear(), date.getUTCMonth() + 2, date.getUTCDate());
+        this.arrivalTime = date.getUTCHours().toString() + ':' + date.getUTCMinutes();
 
 
         this.SeatArrangement.getSeatArrangement(this.flight.seatArrangement.id).subscribe( seat => {
@@ -142,6 +142,7 @@ export class FlightsComponent implements OnInit {
       x = +hours[0];      // radi pretvaranje stringa u broj
       y = +minutes[0];
       this.flight.landing = '2001-04-05' ;
+      this.flight.seatArrangement = {seatColumns: 5, seatRows: 5}
     //  this.flight.airlineId = this.flight.airlineDto.id;
       this.flightService.updateFlight(this.flight).subscribe(flight => {
         this.flight = flight;

@@ -117,7 +117,7 @@
 
           <div class="col-sm-5">
             <div class="form-group">
-              <label for="inputStreet3" class="col-sm-2 col-form-label">Trajanje[h]</label>
+              <label for="inputStreet3" class="col-sm-2 col-form-label">Trajanje  [h]</label>
               <input type="text" pattern="[0-9]+" class="form-control" id="inputStreet3" placeholder="Trajanje"
                      aria-multiline="true" [(ngModel)]="flight.time" name="duration" #duration="ngModel"
                      [ngClass]="{ 'is-invalid': f.submitted && duration.invalid }" required>
@@ -125,12 +125,6 @@
                 <div *ngIf="duration.errors.required">Duration is required</div>
               </div>
             </div>
-            <!--<div class="form-group">-->
-            <!--<label for="seatArrangement" class="col-sm-6 col-form-label xl-inline">Seat arrangement</label>-->
-            <!--<select id="seatArrangement" class="form-control" [(ngModel)]="flight.seatArrangement" name="seat">-->
-            <!--<option *ngFor="let arr of airplaneSeatArrangements" [ngValue]="arr">{{arr.name}} (rows: {{arr.seatRows}}, columns: {{arr.seatColumns}})</option>-->
-            <!--</select>-->
-            <!--</div>-->
 
           </div>
         </div>

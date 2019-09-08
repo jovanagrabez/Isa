@@ -213,63 +213,63 @@ export class MyReservationsComponent implements OnInit {
           
           
           //avio i letovi
-          
-          
+
+
           this.resService.getUserFlightRes(this.currentUser.id).subscribe(data=>{
               this.rezervisaniLetovi = data;
-              this.resService.getFlight(5).subscribe(data=>{
+              this.resService.getFlight(this.rezervisaniLetovi.flightId).subscribe(data=>{
                   this.flight = data;
                   console.log(data);
-                  
-                  
+
+
                   this.flight.forEach(element=>{
                       element.rateFlight = true;
                       element.rateAvio = true;
-                      
+
                       var takeoff = new Date(element.take_off);
                       var landing = new Date(element.landing);
-                      
+
                       var proba = (takeoff.getTime() - this.today.getTime());
                       var hours = Math.ceil(proba/(36e5));
-                      console.log(hours);                     
+                      console.log(hours);
                       element.hoursLeft = hours;
-                      
+
                       if(landing.getTime() > this.today.getTime())
                       {
                           element.rateFlight = false;
                           element.rateAvio = false;
                           }
-                      
+
                       else{
                           this.ratingService.getFlightRatings(this.currentUser.id).subscribe(data=>{
                               this.flightRatings = data;
-                              
+
                               this.flightRatings.forEach(element2=>{
                                   if(element2.id ==element.id) {
                                       element.rateFlight = false;
                                       }
                                   });
                               });
-                          
-                          
+
+
                           this.ratingService.getAvioRatings(this.currentUser.id).subscribe(data=>{
                               this.avioRatings = data;
-                              
+
                               //this.avioRatings.forEach(element3=>{
 //                                  if(element3.avio.id = element.
 //                                  
 //                                  });
-                              
+
                               });
                           }
-                      
+
                       });
-                  
+
                   });
               });
           
           
-          
+
           
        });
           

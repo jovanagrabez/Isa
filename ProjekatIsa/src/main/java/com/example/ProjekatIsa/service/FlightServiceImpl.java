@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +40,9 @@ public class FlightServiceImpl implements FlightService {
 	@Autowired
 	private DestinationRepository destinationRepository;
 	
+	@Autowired
+	private DestinationService destinationService;
+	
 	 @Override
 	    public List<Flight> getAllFlights() {
 	        return this.flightRepository.findAll();
@@ -66,42 +70,35 @@ public class FlightServiceImpl implements FlightService {
 	    @Override
 	    public Flight updateFlight(Flight flightDto) {
 
+	    	
+	  //  	 Flight flight = this.flightRepository.getOne(flightDto.getId());
 	    	for(Seat seat: flightDto.getSeats())
 	    	    this.seatService.addSeat(seat);
 	    	
 	    	this.seatAService.addSeatArrangement(flightDto.getSeatArrangement());
-	    	   this.flightRepository.save(flightDto);
+	   // 	   this.flightRepository.save(flightDto);
 	    	
-	 /*       Aviocompany airline = this.avioService.getAirlineById(flightDto.getAirlineId());
+	   //     Aviocompany airline = this.avioService.getAirlineById(flightDto.getAirlineId());
 
-	        Flight flight = this.flightRepository.getOne(flightDto.getId());
+	       
 
-	        flight = new Flight(flightDto);
-	        flight.setAirline(airline);
+	       // flight = new Flight(flightDto);
+	      //  flight.setAirline(airline);
 
-	        flight.setDestinations(new HashSet<>());
-	        List<FlightDestination> flightDestinations = new ArrayList<>();
-	        int flightChanges = 0;
-	        for (Long destId : flightDto.getDestinations()) {
-	            Destination destination = this.destinationService.getDestinationById(destId);          //pretvori dto u objekat
-	            if (destination == null) {continue;}
-	            FlightDestination flightDestination = new FlightDestination(flight, destination);
-
-	            if (destId.equals(flightDto.getToDest())){
-	                flightDestination.setDescription("arrival");
-	            }else if (destId.equals(flightDto.getFromDest())){
-	                flightDestination.setDescription("departure");
-	            } else {
-	                flightDestination.setDescription("connecting");
-	                flightChanges++;
-	            }
-	            flightDestinations.add(flightDestination);
+	    	Set<Destination> noveDestinacije = flightDto.getDestination();
+	        flightDto.setDestination(new HashSet<>());
+	        Set<Destination> flightDestinations = new HashSet<>();
+	  //      this.flightRepository.save(flightDto);
+	        for (Destination dest : noveDestinacije) {
+                  System.out.println(dest.getCountry()+ "id" + dest.getId());
+	   //     	this.destinationRepository.save(dest);
+	           flightDestinations.add(dest);
 	         }
-	        flight.setFlightChanges(flightChanges);
-	        flight = this.flightRepository.save(flight);
-	        this.flightDestinationService.deleteAndAddNewFlightDestinationsByFlight(flight.getId(), flightDestinations);     //brise stare veze
+	       flightDto.setDestination(flightDestinations);
+	         this.flightRepository.save(flightDto);
+	     //   this.flightDestinationService.deleteAndAddNewFlightDestinationsByFlight(flightDto.getId(), flightDestinations);     //brise stare veze
 
-*/
+
 	        return flightDto;
 	    }
 

@@ -13,6 +13,7 @@ import View from 'ol/View';
 import { DomSanitizer} from '@angular/platform-browser';
 import {UserService} from '../../services/user-service/user.service';
 import {FlightReservationService} from '../../services/flight-reservation.service';
+import {NgbTime} from '@ng-bootstrap/ng-bootstrap/timepicker/ngb-time';
 
 @Component({
   selector: 'app-profilcompany',
@@ -32,6 +33,9 @@ export class ProfilcompanyComponent implements OnInit {
   update = false;
   add = false;
   presjedanja: any;
+  departureTime: NgbTime;
+  arrivalTime: NgbTime;
+
   user: any;
 //za mape
   adresa = "";
@@ -118,8 +122,12 @@ export class ProfilcompanyComponent implements OnInit {
   saveFlight() {
     this.ff.destination.push(this.destinationss.fromDest);
     this.ff.destination.push(this.destinationss.toDest);
-    this.ff.take_off = this.ngbDateParserFormatter.format(this.ff.take_off);
-  this.ff.landing = this.ngbDateParserFormatter.format(this.ff.landing);
+    this.ff.take_off = new Date(Date.UTC(this.ff.take_off.year, this.ff.take_off.month - 1, this.ff.take_off.day,
+      this.departureTime.hour, this.departureTime.minute, 0, 0));
+  this.ff.landing = new Date(Date.UTC(this.ff.landing.year, this.ff.landing.month - 1, this.ff.landing.day,
+    this.arrivalTime.hour, this.arrivalTime.minute, 0, 0));
+
+    //this.ngbDateParserFormatter.format(this.ff.landing);
   this.ff.seatArrangement = {seatColumns: 0, seatRows: 0};
     // if (this.selectedDestinations !== undefined) {
     //   for (const dest of this.selectedDestinations) {
