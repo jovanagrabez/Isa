@@ -14,22 +14,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.ProjekatIsa.DTO.RatingAvioDTO;
 import com.example.ProjekatIsa.DTO.RatingCarDTO;
+import com.example.ProjekatIsa.DTO.RatingFlightDTO;
 import com.example.ProjekatIsa.DTO.RatingHotelDTO;
 import com.example.ProjekatIsa.DTO.RatingRentACarDTO;
 import com.example.ProjekatIsa.DTO.RatingRoomDTO;
 import com.example.ProjekatIsa.model.Car;
+import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.RatingCar;
+import com.example.ProjekatIsa.model.RatingFlight;
 import com.example.ProjekatIsa.model.RatingHotel;
 import com.example.ProjekatIsa.model.RatingRentACar;
 import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.RentACar;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.model.User;
+import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.CarRepository;
+import com.example.ProjekatIsa.repository.FlightRepository;
 import com.example.ProjekatIsa.repository.HotelRepository;
+import com.example.ProjekatIsa.repository.RatingAvioRepository;
 import com.example.ProjekatIsa.repository.RatingCarRepository;
+import com.example.ProjekatIsa.repository.RatingFlightRepository;
 import com.example.ProjekatIsa.repository.RatingHotelRepository;
 import com.example.ProjekatIsa.repository.RatingRentACarRepository;
 import com.example.ProjekatIsa.repository.RatingRoomRepository;
@@ -41,6 +49,9 @@ import com.example.ProjekatIsa.service.RatingCarService;
 import com.example.ProjekatIsa.service.RatingRoomService;
 import com.example.ProjekatIsa.service.RoomService;
 import com.example.ProjekatIsa.service.UserService;
+import com.example.ProjekatIsa.model.RatingAvio;
+import com.example.ProjekatIsa.model.Aviocompany;
+
 
 
 @RestController
@@ -86,6 +97,18 @@ public class RatingController {
 	
 	@Autowired
 	HotelRepository hotelRepository;
+	
+	@Autowired
+	FlightRepository flightRepository;
+	
+	@Autowired
+	RatingFlightRepository ratingflightRepository;
+	
+	@Autowired
+	RatingAvioRepository ratingAvioRepository;
+	
+	@Autowired
+	AviocompanyRepository avioRepository;
 	
 	@RequestMapping(value="rateCar", method=RequestMethod.POST,consumes="application/json")
 	ResponseEntity<RatingCarDTO> rateCar(@RequestBody RatingCarDTO ocena)throws Exception{
@@ -150,6 +173,76 @@ public class RatingController {
 	
 	
 	
+	@RequestMapping(value="rateAvio/{id}", method=RequestMethod.POST,consumes="application/json")
+	ResponseEntity<RatingAvioDTO> rateAvio(@RequestBody RatingAvioDTO ocena,@PathVariable("id") Long id)throws Exception{
+		System.out.println("USAO u rating servis " + ocena.getUser().getFirstName());
+		
+		List<RatingAvio> sveOcene = ratingAvioRepository.findAll();
+		
+		Flight ocenjen = new Flight();
+		ocenjen = flightRepository.findOneById(id);
+		System.out.println(ocenjen + "Pronasao leeeeeet");
+		
+		Aviocompany servis = new Aviocompany();
+		
+		servis = avioRepository.findOneByFlight(ocenjen);
+		System.out.println(servis + "Servis je pronadjen");
+		
+		
+		
+		
+		
+		
+	//provera da li je korisnik vec ocenio vozilo
+		for(RatingAvio o : sveOcene){
+			if(o.getUser().getId() == ocena.getUser().getId()  && o.getAvioCompany().getId() == ocena.getAviocompany().getId())
+			{
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+		}
+		
+		User u = new User(); 
+	    u =	userRepository.findByFirstName(ocena.getUser().getFirstName());
+		System.out.println("KORISNIK KOJI OCJENJUJE Avio" + u);
+		//Car c = carService.findOneById(ocena.getCar().getId());
+		System.out.println("avio KOJE OCJENJUJE KORISNIK" + u);
+
+		
+		RatingAvio dodavanje = new RatingAvio();
+		dodavanje.setUser(u);
+		dodavanje.setAvioCompany(servis);
+		dodavanje.setRate(ocena.getRate());
+		
+		System.out.println("OCJENA" + dodavanje.getRate());
+		//dodavanje ocene
+		RatingAvio o = ratingAvioRepository.save(dodavanje);
+		//azuriranje ocene vozila
+//		List<RatingAvio> noveOcene = ratingAvioRepository.findAll();
+//		int br = 0;
+//		int ocene = 0;
+//		for(RatingAvio ov : noveOcene)
+//		{
+//			if(ov.getAvioCompany().getId() == servis.getId())
+//			{
+//				br++;
+//				ocene += ov.getRate();
+//			}
+//		}
+//		
+//		double novaOcena = ocene / br;
+//		s
+//		try{
+//			RentACar izmenjeno = rentalRepository.save(servis);
+//		}catch(NoSuchElementException e)
+////		{
+////			return new ResponseEntity<>(HttpStatus.CONFLICT);
+////		}
+		return new ResponseEntity<>(new RatingAvioDTO(o), HttpStatus.CREATED);
+		
+		
+	}
+	
+	//////////////////////////////////////////////////////////
 	@RequestMapping(value="rateService/{id}", method=RequestMethod.POST,consumes="application/json")
 	ResponseEntity<RatingRentACarDTO> rateService(@RequestBody RatingRentACarDTO ocena,@PathVariable("id") Long id)throws Exception{
 		System.out.println("USAO u rating servis " + ocena.getUser().getFirstName());
@@ -215,7 +308,7 @@ public class RatingController {
 		
 		
 	}
-	
+	//////////////////////////////////////////////////////
 	
 	
 	
@@ -361,6 +454,38 @@ public class RatingController {
 	}
 	
 	
+	@RequestMapping(value="userFlightRating/{id}", method=RequestMethod.GET)
+	ResponseEntity<List<RatingFlightDTO>> oceneKorisnika3(@PathVariable("id") Long id)
+	{
+		User user = userRepository.findOneById(id);
+		List<RatingFlight> ocene = ratingflightRepository.findAllByUser(user);
+		List<RatingFlightDTO> oceneDTO = new ArrayList<>();
+		
+		for(RatingFlight o : ocene){
+			oceneDTO.add(new RatingFlightDTO(o));
+		}
+		
+		System.out.println("OCENE LETOVA TRENUTNOG KORISNIKA" + oceneDTO.size());
+		return new ResponseEntity<>(oceneDTO,HttpStatus.OK);
+	}
+	
+	
+	@RequestMapping(value="userAvioRating/{id}", method=RequestMethod.GET)
+	ResponseEntity<List<RatingAvioDTO>> oceneKorisnika4(@PathVariable("id") Long id)
+	{
+		User user = userRepository.findOneById(id);
+		List<RatingAvio> ocene = ratingAvioRepository.findAllByUser(user);
+		List<RatingAvioDTO> oceneDTO = new ArrayList<>();
+		
+		for(RatingAvio o : ocene){
+			oceneDTO.add(new RatingAvioDTO(o));
+		}
+		
+		System.out.println("OCENE AVIOKOMP TRENUTNOG KORISNIKA" + oceneDTO.size());
+		return new ResponseEntity<>(oceneDTO,HttpStatus.OK);
+	}
+	
+	
 	@RequestMapping(value="userServiceRating/{id}", method=RequestMethod.GET)
 	ResponseEntity<List<RatingRentACarDTO>> userServiceRating(@PathVariable("id") Long id)
 	{
@@ -406,6 +531,65 @@ public class RatingController {
 		
 		System.out.println("OCENE HOTELA TRENUTNOG KORISNIKA: " + oceneDTO.size());
 		return new ResponseEntity<>(oceneDTO,HttpStatus.OK);
+	}
+	
+	
+	
+	@RequestMapping(value="rateFlight", method=RequestMethod.POST)
+	ResponseEntity<RatingFlightDTO> rateFlight(@RequestBody RatingFlightDTO ocena)throws Exception{
+		System.out.println("USAO " + ocena.getUser().getFirstName() + " ");
+		
+		List<RatingFlight> sveOcene = ratingflightRepository.findAll();
+		
+		//provera da li je korisnik vec ocenio vozilo
+		for(RatingFlight o : sveOcene){
+			if(o.getUser().getId() == ocena.getUser().getId()  && o.getFlight().getId() == ocena.getFlight().getId())
+			{
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+		}
+		Long id;
+		id = ocena.getUser().getId();
+		System.out.println("ID KORISNIKA" + id);
+		User u = new User(); 
+	    u =	userRepository.findByFirstName(ocena.getUser().getFirstName());
+		System.out.println("KORISNIK KOJI OCJENJUJE SOBU" + u);
+		Flight c = flightRepository.findOneById(ocena.getFlight().getId());
+		System.out.println("SOBA KOJE OCJENJUJE KORISNIK" + u);
+
+		
+		RatingFlight dodavanje = new RatingFlight();
+		dodavanje.setUser(u);
+		dodavanje.setFlight(c);
+		dodavanje.setRate(ocena.getRate());
+		
+		System.out.println("OCJENA" + dodavanje.getRate());
+		//dodavanje ocene
+		RatingFlight o = ratingflightRepository.save(dodavanje);
+		//azuriranje ocene vozila
+		List<RatingFlight> noveOcene = ratingflightRepository.findAll();
+		int br = 0;
+		int ocene = 0;
+		for(RatingFlight ov : noveOcene)
+		{
+			if(ov.getFlight().getId() == c.getId())
+			{
+				br++;
+				ocene += ov.getRate();
+			}
+		}
+		
+		double novaOcena = ocene / br;
+		//c.setRoom_average_rating(novaOcena);
+//		try{
+//			Room izmenjeno = roomRepository.save(c);
+//		}catch(NoSuchElementException e)
+//		{
+//			return new ResponseEntity<>(HttpStatus.CONFLICT);
+//		}
+		return new ResponseEntity<>(new RatingFlightDTO(o), HttpStatus.CREATED);
+		
+		
 	}
 
 

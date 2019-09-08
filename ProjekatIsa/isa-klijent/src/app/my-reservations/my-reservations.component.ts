@@ -15,6 +15,11 @@ import { RatingRoom } from '../models/RatingRoom';
 import { RatingService } from '../models/RatingService';
 import { RentACar } from '../models/RentACar';
 import { RatingHotel } from '../models/RatingHotel';
+import { Flight } from '../models/Flight'
+import { RatingFlight } from '../models/RatingFlight';
+import { FlightReservation } from '../models/FlightReservation';
+import { FlightService } from '../services/flight.service';
+import { RatingAvio } from '../models/RatingAvio';
 
 @Component({
   selector: 'app-my-reservations',
@@ -22,11 +27,20 @@ import { RatingHotel } from '../models/RatingHotel';
   styleUrls: ['./my-reservations.component.css']
 })
 export class MyReservationsComponent implements OnInit {
-        
+    
+  rateCarNum : number;
+  rateServiceNum : number;
+  rateRoomNum : number;
+  rateHotelNum : number;
+  rateFlightNum : number;
+  rateAvioNum : number;
+
   rezervisanaVozila: Array<CarReservation>;
   rezervisaniHoteli: Array<ReservationRoom>;
+  rezervisaniLetovi: FlightReservation = new FlightReservation();
+  flight : Array<Flight>;
 
-  user : User = new User();
+  user : User = new User(); 
   id : number;
   token: string;
   currentUser : User = new User();
@@ -34,7 +48,9 @@ export class MyReservationsComponent implements OnInit {
   daniDoIsteka : number;
   ratingCarNumber : RatingCar = new RatingCar();
   serviceNumber : RatingService = new RatingService();
+  avioNumber : RatingAvio = new RatingAvio();
   ocenaSobe : RatingRoom = new RatingRoom();
+  ocenaLeta : RatingFlight = new RatingFlight();
   rating : number;
   hotelNumber : RatingHotel = new RatingHotel();
     
@@ -42,11 +58,17 @@ export class MyReservationsComponent implements OnInit {
   roomRatings : Array<RatingRoom>;
   serviceRatings : Array<RatingService>;
   hotelRatings : Array<RatingHotel>;
+  flightRatings : Array<RatingFlight>;
+  avioRatings : Array<RatingAvio>;
+  
 
   today = new Date(Date.now());
 
   constructor(private userService: UserService,private router: Router, private resService : ResServiceService,
-  private auth: AuthServiceService,private carService : CarServiceService, private ratingService : RatingServiceService) { }
+  private auth: AuthServiceService,private carService : CarServiceService, private ratingService : RatingServiceService,
+  private flightService : FlightService) {
+      
+  this.rezervisaniLetovi = { id: null, flightId: null,  userId: null}}
 
   ngOnInit() {
       this.daniDoIsteka = 2;
@@ -70,6 +92,8 @@ export class MyReservationsComponent implements OnInit {
       this.resService.getUserRes(this.currentUser.id).subscribe(data=>{
           this.rezervisanaVozila = data;
           console.log(data);
+          
+          //vozila
           
           this.ratingService.getUserRatings(this.currentUser.id).subscribe(data=>{
               this.carRatings = data;
@@ -102,6 +126,8 @@ export class MyReservationsComponent implements OnInit {
              
                   });
           
+          //rent a car serisi
+          
           this.ratingService.getServiceRatings(this.currentUser.id).subscribe(data=>{
               this.serviceRatings = data;
               
@@ -125,6 +151,7 @@ export class MyReservationsComponent implements OnInit {
           ////ovdje nastavjam provjere za servise
              });
           
+          ///sobice
           
        this.resService.getUserHotelRes(this.currentUser.id).subscribe(data=>{
           this.rezervisaniHoteli = data;
@@ -184,6 +211,66 @@ export class MyReservationsComponent implements OnInit {
                });
           });
           
+          
+          //avio i letovi
+          
+          
+          this.resService.getUserFlightRes(this.currentUser.id).subscribe(data=>{
+              this.rezervisaniLetovi = data;
+              this.resService.getFlight(5).subscribe(data=>{
+                  this.flight = data;
+                  console.log(data);
+                  
+                  
+                  this.flight.forEach(element=>{
+                      element.rateFlight = true;
+                      element.rateAvio = true;
+                      
+                      var takeoff = new Date(element.take_off);
+                      var landing = new Date(element.landing);
+                      
+                      var proba = (takeoff.getTime() - this.today.getTime());
+                      var hours = Math.ceil(proba/(36e5));
+                      console.log(hours);                     
+                      element.hoursLeft = hours;
+                      
+                      if(landing.getTime() > this.today.getTime())
+                      {
+                          element.rateFlight = false;
+                          element.rateAvio = false;
+                          }
+                      
+                      else{
+                          this.ratingService.getFlightRatings(this.currentUser.id).subscribe(data=>{
+                              this.flightRatings = data;
+                              
+                              this.flightRatings.forEach(element2=>{
+                                  if(element2.id ==element.id) {
+                                      element.rateFlight = false;
+                                      }
+                                  });
+                              });
+                          
+                          
+                          this.ratingService.getAvioRatings(this.currentUser.id).subscribe(data=>{
+                              this.avioRatings = data;
+                              
+                              //this.avioRatings.forEach(element3=>{
+//                                  if(element3.avio.id = element.
+//                                  
+//                                  });
+                              
+                              });
+                          }
+                      
+                      });
+                  
+                  });
+              });
+          
+          
+          
+          
        });
           
     }
@@ -195,6 +282,11 @@ export class MyReservationsComponent implements OnInit {
     
     hotelClick(){
       document.getElementById('hotelDiv').removeAttribute('hidden');
+
+        }
+    
+    avioClick(){
+      document.getElementById('flightDiv').removeAttribute('hidden');
 
         }
     
@@ -210,6 +302,14 @@ export class MyReservationsComponent implements OnInit {
     
        this.resService.cancelRoomReservation(c.id).subscribe(data =>{
        alert("Uspesna odjava");
+       window.location.href="http://localhost:4200";
+    });
+  }
+    
+    otkaziLet(c : Flight){
+    
+       this.resService.cancelFlightReservation(c.id).subscribe(data =>{
+       alert("Uspesno otkazivanje leta");
        window.location.href="http://localhost:4200";
     });
   }
@@ -240,7 +340,8 @@ export class MyReservationsComponent implements OnInit {
     
     rateCar(car : Car){
         
-        this.ratingCarNumber.rate = (<HTMLInputElement>document.getElementById("car"+car.id)).valueAsNumber;
+        this.ratingCarNumber.rate = (<HTMLInputElement>document.getElementById("s"+car.id)).valueAsNumber;
+        console.log(this.ratingCarNumber.rate);
         if(this.isBlank(this.ratingCarNumber.rate))
         {
           alert("Morate odabrati ocenu");
@@ -286,6 +387,31 @@ export class MyReservationsComponent implements OnInit {
     }
     
     
+    rateAvio(flight : Flight){
+        
+        this.avioNumber.rate = this.rateAvioNum;
+        console.log(this.avioNumber.rate)
+        console.log(flight.id);
+        if(this.isBlank(this.avioNumber.rate))
+        {
+          alert("Morate odabrati ocenu");
+        }else if(this.avioNumber.rate < 0 || this.avioNumber.rate > 5)
+        {
+          alert("Ocena mora biti u opsegu od 1 do 5");
+        }
+        else
+        {
+          this.avioNumber.user = this.user;
+          //this.serviceNumber.service = car;
+          this.ratingService.rateAvio(this.avioNumber,flight.id).subscribe(data =>{
+            alert("Ocenili ste servis");
+            window.location.href="http://localhost:4200";
+          });
+        }
+     
+    }
+    
+    
     rateHotel(room : Room){
         
         this.hotelNumber.rate = (<HTMLInputElement>document.getElementById("s"+room.id)).valueAsNumber;
@@ -304,6 +430,32 @@ export class MyReservationsComponent implements OnInit {
           //this.serviceNumber.service = car;
           this.ratingService.rateHotel(this.hotelNumber,room.id).subscribe(data =>{
             alert("Ocenili ste hotel");
+            window.location.href="http://localhost:4200";
+          });
+        }
+     
+    }
+    
+    
+    
+    
+    rateFlight(flight : Flight){
+        
+        this.ocenaLeta.rate = (<HTMLInputElement>document.getElementById("let"+flight.id)).valueAsNumber;
+        console.log(this.ocenaLeta.rate);
+        if(this.isBlank(this.ocenaLeta.rate))
+        {
+          alert("Morate odabrati ocenu");
+        }else if(this.ocenaLeta.rate < 0 || this.ocenaLeta.rate > 5)
+        {
+          alert("Ocena mora biti u opsegu od 1 do 5");
+        }
+        else
+        {
+          this.ocenaLeta.user = this.user;
+          this.ocenaLeta.flight = flight;
+          this.ratingService.rateFlight(this.ocenaLeta,flight.id).subscribe(data =>{
+            alert("Ocenili ste sobu");
             window.location.href="http://localhost:4200";
           });
         }

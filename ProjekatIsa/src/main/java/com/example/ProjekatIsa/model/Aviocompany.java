@@ -53,6 +53,9 @@ public class Aviocompany implements Serializable{
 	@JoinTable(name = "avio_tickets", joinColumns = @JoinColumn(name = "aviocompany_id"), inverseJoinColumns = @JoinColumn(name = "ticket_id"))   
 	private Set<Tickets> ticket;
 	
+	@OneToMany(mappedBy="aviocompany", fetch = FetchType.LAZY)
+    private Set<RatingAvio> ratings;
+	
 	
 	
 	

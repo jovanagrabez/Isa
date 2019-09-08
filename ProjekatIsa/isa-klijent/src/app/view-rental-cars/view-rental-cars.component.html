@@ -12,22 +12,16 @@
 					    <h3>SORTIRAJ</h3>
 						
 						<div class="box-tools pull-left">
-                 <label class="col-md-8"> Sort by </label>
-                     <select name="sortItem" id="sortItem" [(ngModel)]="sortForm.sortItem" class="form-control select2" required>
-                   <option value="stars">stars</option>
-                  </select> 
+						 <tr>
+                        <th scope="col"><a id="linkS" (click)="sortName()">Servis</a></th>
+                        <th scope="col"><a id="linkS" (click)="sortirajDrzava()">Drzava</a></th>
+                        <th scope="col"><a id="linkS" (click)="sortirajGrad()">Grad</a></th>
+                        <th scope="col" width="120"><a id="linkS" (click)="sortirajOcena()">Ocena</a></th>
+                    </tr>
+                 
              </div>
           
-          
-       <div class="form-group" >
-               <div class="input-group" >
-                <label class="col-md-8">Ascending/Descending</label>
-                      <select name="sortType" id="sortType" [(ngModel)]="sortForm.sortType" class="form-control" required >
-                          <option value="ascending">ascending</option>
-                           <option value="descending">descending</option>
-                      </select> 
-                  </div>
-       </div>						
+         					
 						
 						<br/>
 									

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,7 +22,7 @@ import javax.persistence.Table;
 public class FlightReservation implements Serializable{
 	
 	
-	     @Id
+	    @Id
 	    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	    @Column(name = "flight_reservation_id")
 	    private Long id;
@@ -35,6 +36,9 @@ public class FlightReservation implements Serializable{
 	    @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval = true)
 	    @JoinColumn(name = "flight_reservation", referencedColumnName = "flight_reservation_id")
 	    private Set<Passenger> passengersOnSeats;
+	    
+	    @ManyToOne( fetch = FetchType.LAZY)
+	    protected User user;
 
 	    public FlightReservation() {
 

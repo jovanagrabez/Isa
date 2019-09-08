@@ -76,6 +76,8 @@ export class ViewRentalCarsComponent implements OnInit {
     
     sortName(){
       var pomocna = this.sviServisi;
+      //pomocna.sort((a,b) => a.name.rendered.localeCompare(b.name.rendered));
+      console.log(pomocna);
       var sortedArray : string[] = pomocna.sort((n1,n2) => {
         if(n1.name > n2.name){
           return 1;

@@ -24,9 +24,9 @@
     </ul>
     
     
-    <!-- prikazivanje vozila-->
+    <!-- prikazivanje hotela-->
 		<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-11">
        	<div class="box">
  
             <!-- /.box-header -->
@@ -34,15 +34,12 @@
               <table id="lista" class="table table-hover">
               <thead>
                	<tr>
-            	<th>Hotel</th>
             	<th>Konfiguracija sobe</th>
             	<th>Rezervisano od</th>
             	<th>Rezervisano do</th>
             	<th>Otkazivanje</th>
             	<th>Oceni sobu</th>
-            	<th></th> 
             	<th>Oceni hotel </th>
-            	<th></th>
             	<th></th>
             	</tr>
        		 </thead>
@@ -53,11 +50,11 @@
                 <td>{{c.startDate}}</td>
                 <td>{{c.endDate}}</td> 
                 <td><a *ngIf='c.daysLeft >= 3'  (click)="otkaziSobu(c)" class="btn btn-outline-danger">Odjavi</a></td>
-                <td *ngIf='c.rateRoom == true'>
-                      <input id="hotel{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                <td>
+                   <input id="hotel{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
                 <td><a *ngIf='c.rateRoom == true' id="hotel{{c.room.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateRoom(c.room)">Oceni</a>
                 </td> 
-                <td *ngIf='c.rateHotel == true'>
+                <td>
                    <input id="s{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
                 <td><a *ngIf='c.rateHotel == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateHotel(c.room)">Oceni</a>
                 </td>
@@ -86,7 +83,7 @@
     
     <!-- prikazivanje vozila-->
 		<div class="row">
-		<div class="col-xs-12">
+		<div class="col-xs-11">
        	<div class="box">
  
             <!-- /.box-header -->
@@ -100,27 +97,86 @@
             	<th>Rezervisano do</th>
             	<th>Otkazivanje</th>
             	<th>Oceni vozilo</th>
-            	<th></th> 
             	<th>Oceni servis </th>           	
-            	<th></th>
+
             	<th></th>
             	</tr>
        		 </thead>
        		 
        		 <tbody>
                 <tr *ngFor="let c of rezervisanaVozila">
-                <td>{{c.car.rentalcars}}</td>                 
+                <td>{{c.car.id}}</td>                 
                 <td>{{c.car.name}}</td> 
                 <td>{{c.startDate}}</td>
                 <td>{{c.endDate}}</td> 
                 <td><a *ngIf='c.daysLeft >= 2'  (click)="otkazi(c)" class="btn btn-outline-danger">Odjavi</a></td> 
-                <td *ngIf='c.rateCar == true'>
-                      <input id="car{{c.car.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
-                <td *ngIf='c.rateCar == true'><a id="car{{c.car.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
+                <td>
+                      <input id="s{{c.car.id}}" name="rating" type="number" placeholder="Ocena auta"></td>
+                <td *ngIf='c.rateCar == true'><a id="s{{c.car.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
                 </td>
-                 <td *ngIf='c.rateService == true' class="text-right">
-                      <input id="s{{c.car.id}}" type="number" placeholder="Ocena od 1 do 5" >
+                 <td>
+                      <input id="s{{c.car.id}}" type="number" placeholder="Ocena servisa" >
                       <a *ngIf='c.rateService == true' (click)="rateService(c.car)" class="btn btn-outline-danger"
+                        id="btnOcenaS">Oceni</a>
+                 </td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+					</div>
+				</div>
+   
+</section>
+
+
+
+<section id = "flightDiv" hidden="true">
+    <!-- div za rezervaciju vozila -->
+    
+    
+  
+    <h1>Letovi</h1>
+    <ul>
+                <li> Mozete odjaviti tekuce rezervacije 3 sata pre vremena poletanja aviona</li>
+                <li> Nakon sletanja mozete oceniti let i aviokompaniju</li>
+    </ul>
+    
+    <!-- prikazivanje letova-->
+		<div class="row">
+		<div class="col-xs-11">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Flight</th>
+            	<th>Poletanje</th>
+            	<th>Duzina leta</th>
+            	<th>Oceni let</th>
+            	<th>Oceni kompaniju </th>           	
+
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let c of flight">
+                <td>{{c.take_off}}</td>                 
+                <td>{{c.landing}}</td> 
+                <td>{{c.travel_time}}</td>
+                <td><a (click)="otkaziLet(c)" class="btn btn-outline-danger">Otkazi</a></td> 
+                <td>
+                      <input id="let{{c.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                <td><a   class="btn btn-outline-danger" id="btnOcenaV" (click)="rateFlight(c)">Oceni</a>
+                </td>
+                 <td>
+                      <input [(ngModel)]="rateAvioNum" id="rateAvio" type="number" placeholder="Ocena od 1 do 5" >
+                      <a (click)="rateAvio(c)" class="btn btn-outline-danger"
                         id="btnOcenaS">Oceni</a>
                  </td>
                 </tr>

@@ -3,11 +3,14 @@ package com.example.ProjekatIsa.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,10 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjekatIsa.DTO.CarReservationDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
+import com.example.ProjekatIsa.model.Flight;
+import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.User;
 import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.CarReservationRepository;
+import com.example.ProjekatIsa.repository.FlightRepository;
+import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
 import com.example.ProjekatIsa.service.CarService;
@@ -49,6 +56,12 @@ public class CarReservationController {
 	
 	@Autowired
 	ReservationRoomRepository roomRepository;
+	
+	@Autowired
+	FlightReservationRepository flightRepository;
+	
+	@Autowired
+	FlightRepository fRepository;
 	
 	
 	@RequestMapping(value="/getUserRes/{id}",method = RequestMethod.POST)
@@ -152,6 +165,52 @@ public class CarReservationController {
 	}
 	
 	
+	
+	@RequestMapping(value="deleteFlight/{id}", method = RequestMethod.DELETE)
+	ResponseEntity<?> obrisileet(@PathVariable("id")Long id){
+		
+		Flight f = fRepository.getOne(id);
+		System.out.println(f.getTravel_time());
+		
+		FlightReservation fs = flightRepository.findByFlightId(id);
+		
+		LocalDateTime myDateObj = LocalDateTime.now();
+		DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = new Date();    
+		String danasString = dateFormat.format(today);
+		DateTime danas = null;
+		Date danasDatum=null;
+		try {
+			
+			
+			danasDatum = dateFormat.parse(danasString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println("vrijeme poletanja" + f.getTake_off());
+		System.out.println("Vrijeme " + danasDatum);
+		
+		Long razlika = getDateDiff(danasDatum,f.getTake_off(),TimeUnit.HOURS);
+
+		
+	    System.out.println("Broj dana: " + razlika);
+		
+		if(razlika < 2)
+			{
+			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}else
+			{
+		    flightRepository.delete(fs);
+			return new ResponseEntity<>(HttpStatus.OK);		
+			}
+		
+		
+		
+	}
+	
+	
 	@RequestMapping(value="/getUserHotelRes/{id}",method = RequestMethod.POST)
 	ResponseEntity<List<ReservationRoom>> getUserHotelRes(@PathVariable("id") Long id){
 		System.out.println("USAAAO");
@@ -161,6 +220,34 @@ public class CarReservationController {
 		System.out.println(lista + "return lista rezervacija");
 		
 		return new ResponseEntity<>(lista,HttpStatus.OK);
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/getUserFlightRes/{id}",method = RequestMethod.POST)
+	ResponseEntity<List<FlightReservation>> getUserFlightRes(@PathVariable("id") Long id){
+		System.out.println("USAAAO u listu flighttttt");
+		
+		User user = userRepository.findOneById(id);
+		List<FlightReservation> lista=flightRepository.findAllByUserId(id);
+		System.out.println(lista + "return lista rezervacija");
+		
+		return new ResponseEntity<>(lista,HttpStatus.OK);
+		
+	}
+	
+	
+	
+	@RequestMapping(value="/getFlight/{id}",method = RequestMethod.POST)
+	ResponseEntity<List<Flight>> getFlight(@PathVariable("id") Long id){
+		System.out.println("USAAAO u listu flighttttt");
+		Flight lista=fRepository.findOneById(id);
+		List<Flight> lista2 = new ArrayList<>();
+		lista2.add(lista);
+		System.out.println(lista.getTake_off() + "NASAO LEEEEEEEEEEEEEEEEEEEt");
+		
+		return new ResponseEntity<>(lista2,HttpStatus.OK);
 		
 	}
 	

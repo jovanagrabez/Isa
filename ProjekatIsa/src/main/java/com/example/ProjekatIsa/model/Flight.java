@@ -95,6 +95,9 @@ public class Flight implements Serializable {
 	 
 	@OneToMany(cascade={CascadeType.PERSIST, CascadeType.REMOVE},fetch=FetchType.LAZY, orphanRemoval = true)
 	private Set<Seat> seats;
+	
+	@OneToMany(mappedBy="flight", fetch = FetchType.LAZY)
+	private Set<RatingFlight> ratings;
 	 
 	public double getAverageRating() {
 		return average_rating;

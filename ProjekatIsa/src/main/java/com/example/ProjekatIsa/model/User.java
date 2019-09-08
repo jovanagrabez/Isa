@@ -83,8 +83,22 @@ public class User implements Serializable,UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ReservationRoom> rezRoom;
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	private List<FlightReservation> rezFlight;
+    
+    
 
     
+	public List<FlightReservation> getRezFlight() {
+		return rezFlight;
+	}
+
+	public void setRezFlight(List<FlightReservation> rezFlight) {
+		this.rezFlight = rezFlight;
+	}
+
 	public List<ReservationRoom> getRezRoom() {
 		return rezRoom;
 	}

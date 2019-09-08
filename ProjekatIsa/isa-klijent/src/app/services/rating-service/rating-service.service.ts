@@ -8,6 +8,8 @@ import { RatingCar } from '../../models/RatingCar';
 import { RatingRoom } from '../../models/RatingRoom';
 import { RatingService } from '../../models/RatingService';
 import { RatingHotel } from '../../models/RatingHotel';
+import { RatingFlight } from '../../models/RatingFlight';
+import { RatingAvio } from '../../models/RatingAvio';
 
 
 @Injectable({
@@ -42,14 +44,34 @@ export class RatingServiceService {
         return this.http.post('http://localhost:8080/rating/rateService/'+id,rate,{headers: this.auth.createAuthorizationTokenHeader()});
   }
     
+    rateAvio(rate : RatingAvio,id:number): Observable<any>{
+        console.log(rate.rate);
+        return this.http.post('http://localhost:8080/rating/rateAvio/'+id,rate,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
+    
     getServiceRatings(id : number):Observable<any>{
 
         return this.http.get('http://localhost:8080/rating/userServiceRating/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
   }
     
+    getAvioRatings(id : number):Observable<any>{
+
+        return this.http.get('http://localhost:8080/rating/userAvioRating/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
+    
+    getFlightRatings(id : number):Observable<any>{
+
+        return this.http.get('http://localhost:8080/rating/userFlightRating/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
+    
     rateHotel(rate : RatingHotel,id:number): Observable<any>{
         console.log(rate.rate);
         return this.http.post('http://localhost:8080/rating/rateHotel/'+id,rate,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
+    
+    rateFlight(rate : RatingFlight,id:number){
+        console.log(rate.rate);
+        return this.http.post('http://localhost:8080/rating/rateFlight/'+id,rate);
   }
     
     getHotelRatings(id : number):Observable<any>{
