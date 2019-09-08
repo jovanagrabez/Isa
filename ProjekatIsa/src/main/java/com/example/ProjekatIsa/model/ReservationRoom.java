@@ -42,11 +42,11 @@ public class ReservationRoom {
 	@Column(name="reservation_rating")
     private String reservationRating;
     
-    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne
 	@JoinColumn(name = "user_id")
     private User user;
     
-    @ManyToOne( fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "room_id")
     private Room room;
 

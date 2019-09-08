@@ -141,6 +141,9 @@ insert into myrole (id,name) values (20,'deleteService');
 insert into myrole (id,name) values (21,'changeService');
 insert into myrole (id,name) values (22,'bookRoom');
 insert into myrole (id,name) values (23,'lastWeekReservations');
+insert into myrole (id,name) values (24,'getAllReservations');
+insert into myrole (id,name) values (25,'getAllRatingsHotel');
+insert into myrole (id,name) values (26,'getRatingRoom');
 
 
 --privilegije car admina
@@ -167,6 +170,10 @@ insert into roles_privileges(role_id,privilege_id) values (4,19);
 insert into roles_privileges(role_id,privilege_id) values (4,20);
 insert into roles_privileges(role_id,privilege_id) values (4,21);
 insert into roles_privileges(role_id,privilege_id) values (4,23);
+insert into roles_privileges(role_id,privilege_id) values (4,24);
+insert into roles_privileges(role_id,privilege_id) values (4,25);
+insert into roles_privileges(role_id,privilege_id) values (4,26);
+
 --car admin
 insert into roles_privileges(role_id,privilege_id) values (5,17);
 
@@ -318,9 +325,11 @@ insert into reservation_room (reservation_room_id,start_date,end_date,total_pric
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
 	values (9,'2019-03-05','2019-09-10',212.5,'pending',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (10,'2019-09-02','2019-07-04',120.5,'pending',null,1,1);
+	values (10,'2019-09-03','2019-07-04',120.5,'pending',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
-	values (11,'2019-09-04','2019-09-05',200.5,'pending',null,1,1);
+	values (11,'2019-09-05','2019-09-06',200.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (12,'2019-09-05','2019-09-06',200.5,'pending',null,1,1);
 
 
 insert into pricing(pricing_id,price,date_from,date_to,room_id) 
@@ -334,3 +343,19 @@ insert into pricing (pricing_id,price,date_from,date_to,room_id)
 insert into pricing (pricing_id,price,date_from,date_to,room_id) 
 	values (5,100,'2019-10-01','2019-11-01',1);
 
+--primjeri za ocjene hotela
+insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate) 
+	values (1,1,1,5);
+insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate) 
+	values (2,1,1,4);
+insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate) 
+	values (3,1,1,3);
+--primjeri za ocjene soba
+--insert into rating_room (ratingroom_id,user_id,room_id,rate) 
+--	values (1,1,8,5);
+--insert into rating_room (ratingroom_id,user_id,room_id,rate) 
+--	values (2,1,1,2);
+--insert into rating_room (ratingroom_id,user_id,room_id,rate) 
+--	values (3,1,2,3);
+
+	

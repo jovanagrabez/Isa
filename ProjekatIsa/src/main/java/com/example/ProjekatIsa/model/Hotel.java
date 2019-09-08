@@ -49,7 +49,7 @@ public class Hotel implements Serializable{
 	private Double average_rating;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="hotel")
+	@OneToMany(mappedBy="hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<Room> rooms;
 	
 	@JsonIgnore

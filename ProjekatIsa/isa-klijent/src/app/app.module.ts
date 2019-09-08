@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient,} from '@angular/common/http';
 import { HttpModule,Http } from '@angular/http';
 import { DatePipe } from '@angular/common';
+import {ChartsModule} from 'ng2-charts';
 
 import {RequestOptions, XHRBackend} from '@angular/http';
 import {Router, RouterModule} from '@angular/router';
@@ -106,7 +107,8 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
    NgbModule.forRoot(),
    FormsModule,
     BrowserAnimationsModule,
-    NgSelectModule
+    NgSelectModule,
+    ChartsModule
 
 
 

@@ -66,4 +66,14 @@ export class HotelServiceService {
   getLastWeekReservations(id: number, dateToday : string): Observable<any> {
       return this.http.get('http://localhost:8080/hotels/getLastWeekReservations/'+id+"/"+dateToday,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
+  
+  getAllReservations(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/hotels/getAllReservations/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  getAllRatingsHotel(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/hotels/getAllRatingsHotel/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  getRatingRoom(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/rooms/getRatingRoom/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
 }

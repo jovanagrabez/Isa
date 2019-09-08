@@ -27,6 +27,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.ProjekatIsa.DTO.MyRoleDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 
 
@@ -79,11 +80,11 @@ public class User implements Serializable,UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CarReservation> rezCar;
-    
+    /*
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ReservationRoom> rezRoom;
-    
+    */
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<FlightReservation> rezFlight;
@@ -99,14 +100,14 @@ public class User implements Serializable,UserDetails {
 		this.rezFlight = rezFlight;
 	}
 
-	public List<ReservationRoom> getRezRoom() {
+	/*public List<ReservationRoom> getRezRoom() {
 		return rezRoom;
 	}
 
 	public void setRezRoom(List<ReservationRoom> rezRoom) {
 		this.rezRoom = rezRoom;
 	}
-
+*/
 	public Long getId() {
 		return id;
 	}

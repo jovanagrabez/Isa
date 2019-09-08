@@ -21,10 +21,48 @@
     </ul>
     <div *ngIf="dnevni" style="display: block">
         <h4>Broj prijava u hotelu u prethodnoj nedelji po danima</h4>
-       <div class="chart">
-               <canvas ></canvas>
-       
-                <canvas ></canvas>
-       </div>
+        <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
+    </div>
+    <div *ngIf="nedeljni" style="display: block">
+        <blockquote>Broj zauzetih soba po danima</blockquote>
+       <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
+    </div>
+    <div *ngIf="mesecni" style="display: block">
+        <blockquote>Broj prijavljenih soba u mesecu</blockquote>
+        <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
+    </div>
+    <div *ngIf="oceneH" style="display: block">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Ocena</th>
+                <th>Korisnik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of allRatings">
+                <td>{{o.rate}}</td>
+                <td> {{o.user.email}} </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div *ngIf="oceneS" style="display: block">
+        <table *ngIf="allRatingsRoom.length != 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Ocena</th>
+                <th>Korisnik</th>
+                <th>Broj sobe</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of allRatingsRoom">
+                <td>{{o.rate}}</td>
+                <td>{{o.user.email}}</td>
+                <td>{{o.room.number}}</td>
+              </tr>
+            </tbody>
+          </table>
     </div>
 </div>
