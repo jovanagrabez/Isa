@@ -206,6 +206,7 @@ export class SeatComponent implements OnInit {
     for (const row of this.seatsInRows) {
       for (const seat of row) {
         if (seat.isSelected === true) {
+          seat.discountPrice = this.discountSeatPrice;
           seat.price = this.discountSeatPrice;
           seat.state = 'reserved';
           seat.isSelected = false;

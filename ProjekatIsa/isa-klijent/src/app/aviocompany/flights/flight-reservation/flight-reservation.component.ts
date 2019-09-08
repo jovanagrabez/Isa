@@ -44,6 +44,20 @@ export class FlightReservationComponent implements OnInit {
 
     this.userService.getLogged(this.appComp.token).subscribe(data => {
       this.user = data;
+
+      this.friendsService.getFriendsByUser(this.user.username).subscribe(allFriendshipsList => {
+        let list;
+        list = allFriendshipsList;
+        for (const f of list) {
+          if (f.accepted === true) {
+            if (f.user2.username === this.user.username) {    // ako je trenutni user1, dodaj user2 u prijatelje ako je prihvaceno
+              this.friends.push(f.user1);
+            } else {                 // ako je trenutni user1 dodaj user2 u prijatelje ako je prihvaceno
+              this.friends.push(f.user2);
+            }
+          }
+        }
+      });
     });
 
 
@@ -210,7 +224,7 @@ export class FlightReservationComponent implements OnInit {
       }
       if (!isValid) {
       } else {
-        this.flightReservation.userId=this.user.id;
+        this.flightReservation.userId = this.user.id;
         this.reservationService.createReservation(this.flightReservation).subscribe(res => {
 
           this.router.navigate(['/home']);
@@ -221,9 +235,24 @@ export class FlightReservationComponent implements OnInit {
        error('Nije rezervisano sjediste');
     }
 
+
+
   }
 
 
+
+  inviteFriend(friend: any, index: number) {
+    this.invitedFriends.push(friend);
+    this.friends.splice(index, 1);
+    for (let i = 0; i < this.flightReservation.passengersOnSeats.length; i++) {
+      if (this.flightReservation.passengersOnSeats[i].passengerId === 0) {
+        this.flightReservation.passengersOnSeats[i].passengerId = friend.id;
+        this.flightReservation.passengersOnSeats[i].passengerName = friend.name;
+        this.flightReservation.passengersOnSeats[i].passengerLastName = friend.lastName;
+        break;
+      }
+    }
+  }
 
 
 

@@ -11,6 +11,8 @@ import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import { DomSanitizer} from '@angular/platform-browser';
+import {UserService} from '../../services/user-service/user.service';
+import {FlightReservationService} from '../../services/flight-reservation.service';
 
 @Component({
   selector: 'app-profilcompany',
@@ -30,15 +32,16 @@ export class ProfilcompanyComponent implements OnInit {
   update = false;
   add = false;
   presjedanja: any;
+  user: any;
 //za mape
   adresa = "";
   finalna = "";
   map;
   
-  constructor(private router: Router,private sanitizer:DomSanitizer, private data : AviocompanySService,
+  constructor(private appComp: AppComponent, private router: Router,private sanitizer: DomSanitizer, private data : AviocompanySService,
               private dest: DestinationServiceService, private flightService: FlightService,
               private ngbDateParserFormatter: NgbDateParserFormatter,
-              private appCom: AppComponent) {
+              private appCom: AppComponent, private  userService: UserService, private reservationService: FlightReservationService) {
 
     this.selectedDestinations = [{id: null, name: '', country: ''}];
     this.presjedanja  = 0;
@@ -56,16 +59,17 @@ export class ProfilcompanyComponent implements OnInit {
   this.presjedanja = 0;
 
     this.data.currentCompany.subscribe(
-      currentCompany => 
+      currentCompany =>
       {
         this.currentCompany = currentCompany;
-
-
+        this.userService.getLogged(this.appComp.token).subscribe(data => {
+          this.user = data;
+        });
 
   }
-           
+
     );
-    this.getAddress()
+    this.getAddress();
       }
 
   saveAviocompany() {
@@ -172,7 +176,7 @@ export class ProfilcompanyComponent implements OnInit {
   }
   
   inicijalizujMapu() {
-      console.log("usao u mapu");
+      console.log('usao u mapu');
       this.map = new Map({
         target: 'map',
         layers: [
@@ -189,9 +193,35 @@ export class ProfilcompanyComponent implements OnInit {
 
 getAddress() {
   this.adresa += this.currentCompany.adress.replace(/ /g, '%20');
-  this.finalna += "https://maps.google.com/maps?q=" + this.adresa + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
-  console.log("adresse");
+  this.finalna += 'https://maps.google.com/maps?q=' + this.adresa + '&t=&z=13&ie=UTF8&iwloc=&output=embed';
+  console.log('adresse');
   console.log(this.adresa);
   console.log(this.finalna);
 }
+
+  reserve(flight, seat) {
+
+    if (seat.passport === '' || seat.passport === undefined) {
+          // poslati poruku da je okej
+    } else {
+      const reservation = {userId: this.user.id, flightReservation: {}};
+      const flightReservation = {flightId: flight.id, userId: this.user.id, passengersOnSeats: []};
+      const passenger = {
+        passengerId: this.user.id, passengerName: this.user.name, passengerLastName: this.user.lastName,
+        passengerPassport: seat['passport'], seat: seat
+      };
+
+      flightReservation.passengersOnSeats.push(passenger);
+      reservation.flightReservation = flightReservation;
+      this.reservationService.createReservation(reservation).subscribe(res => {
+        seat.state = 'taken';
+        const reserv = res['id'];
+      //   this.reservationService.sendCreatedReservationEmail(reserv).subscribe( val => {
+      //     console.log('Email sent');
+      //   }, error1 => {console.log('Email not sent'); });
+       });
+    }
+  }
+
+
 }

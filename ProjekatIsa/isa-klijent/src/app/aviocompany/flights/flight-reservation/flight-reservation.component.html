@@ -72,6 +72,36 @@
       </form>
     </mat-step>
 
+    <mat-step [stepControl]="secondFormGroup">
+      <form >
+        <ng-template matStepLabel>Invite friends</ng-template>
+        <div>
+          <div>
+            <h5  *ngIf="selectedSeats?.length > 1 && selectedSeats?.length - 1 > invitedFriends?.length">Invite friend</h5>
+            <h5  *ngIf="selectedSeats?.length <= 1 && selectedSeats?.length - 1 <= invitedFriends?.length">You have not selected enough seats to invite friends</h5>
+
+            <div class="list-group">
+              <a *ngFor="let f of friends; index as i" class="list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-between">
+                  <h5 class="mb-1">{{f['name']}} {{f['lastName']}}</h5>
+                  <!--<small>{{airline.name}}</small>-->
+                </div>
+                <br>
+                <div class="pull-right">
+                  <button class="btn btn-outline-primary" (click)="inviteFriend(f, i)" *ngIf="selectedSeats?.length > 1 && selectedSeats?.length - 1 > invitedFriends?.length">Invite friend</button>
+                </div>
+              </a>
+            </div>
+          </div>
+          <label *ngIf="friends?.length < 1">You have not added any friends</label>
+        </div>
+        <div class="pull-right">
+          <button class="btn btn-outline-primary" matStepperPrevious>Back</button>
+          <button class="btn btn-outline-primary" matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
 
     <mat-step>
       <ng-template matStepLabel>Passenger info</ng-template>
