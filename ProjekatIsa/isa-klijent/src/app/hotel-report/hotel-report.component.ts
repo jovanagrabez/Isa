@@ -82,6 +82,20 @@ export class HotelReportComponent implements OnInit {
       this.prihodi = true;
       this.oceneS = false;
   }
+  intervalDatuma() {
+      this.pomocDva = (<HTMLInputElement>document.getElementById("datMin")).value;
+     // alert("USAO " + this.pomocDva);
+    }
+  pretraziHotele() {
+      this.od = this.datePipe.transform(this.intervalOd, "yyyy-MM-dd HH:mm:ss.S");
+      this.do = this.datePipe.transform(this.intervalDo, "yyyy-MM-dd HH:mm:ss.S");
+      console.log(this.od + " this od");
+      this.hotelService.getHotelRevenue(this.currentHotel.id, this.od, this.do).subscribe(data => {
+        this.suma = data
+
+      });
+    }
+
   dnevniClick() {
       this.nedeljni = false;
       this.mesecni = false;

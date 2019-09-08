@@ -447,33 +447,6 @@ public class HotelController {
 		long ltime=today.getTime()-7*24*60*60*1000;
 		Date today_7=new Date(ltime);
 		System.out.println("pocetak: " + today_7);
-		/*Date dOd = null;
-		Date dDo = null;
-		
-		LocalDate kraj = new LocalDate(od).plusDays(7);
-		System.out.println("kraj: " + kraj);
-		System.out.println("iz parametara : " + od);
-		java.sql.Date sql = null;
-		java.sql.Date sql2 = null;
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-		Date novoOd = null;
-		LocalDate novoDo = null;
-		try {
-		
-			//dOd = new SimpleDateFormat("yyyy-MM-dd").parse(od);
-			//dDo = new SimpleDateFormat("yyyy-MM-dd").parse(kraj.toString());
-			dOd = formatter.parse(od);
-			dDo = formatter.parse(kraj.toString());
-			sql = new java.sql.Date(dOd.getTime());
-			sql2 = new java.sql.Date(dDo.getTime());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("od od " + dOd.toString() + dDo.toString());
-		System.out.println("od od sql " + sql.toString() + sql2.toString());
-		
-		*/
 		
 		Hotel hotel = hotelRepository.findOneById(idHotela);
 		List<Room> rooms = roomRepository.findAllByHotel(hotel);
@@ -489,25 +462,12 @@ public class HotelController {
 					{
 						System.out.println("pronsasao1  " + rrr.getStartDate());
 						returnList.add(rrr);
-					} /*else if(today.getTime() >= rrr.getStartDate().getTime() && today_7.getTime() <= rrr.getEndDate().getTime())
-					{
-						returnList.add(rrr);
-						System.out.println("pronsasao2  " + rrr.getStartDate());
-					}*/
-				}
-				}
-				/*pomList = reservationRoomRepository.findAllForInterval(r.getId(), sql, sql2);
-				if (!pomList.isEmpty()) {
-					for(ReservationRoom rr : pomList) {
-						System.out.println("broj rezervacija " + pomList.size());
-						returnList.add(rr);
+					} 
 					}
-				}*/
-				
+				}	
 			}
 		}
-		
-		
+	
 		return new ResponseEntity<List<ReservationRoom>>(returnList,HttpStatus.OK);
 	}
 	@PreAuthorize("hasAuthority('getAllReservations')")
@@ -546,6 +506,53 @@ public class HotelController {
 		returnList = ratingHotelRepository.findAllByHotel(hotel);
 		
 		return new ResponseEntity<List<RatingHotel>>(returnList,HttpStatus.OK);
+	}
+	
+	@PreAuthorize("hasAuthority('getHotelRevenue')")
+	@RequestMapping(value="/getHotelRevenue/{idHotela}/{od}/{Do}",
+					method = RequestMethod.GET)
+	public double getHotelRevenue(@PathVariable Long idHotela,@PathVariable String od,@PathVariable String Do){
+	
+		double suma = 0;
+		Date dOd = null;
+		Date dDo = null;
+		java.sql.Date sqlOD = null;
+		java.sql.Date sqlDO = null;
+		java.sql.Date sqlstart = null;
+		try {
+			dOd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(od);
+			dDo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(Do);
+			sqlOD = new java.sql.Date(dOd.getTime());
+			sqlDO = new java.sql.Date(dDo.getTime());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("od od " + dOd.toString() + dDo.toString());
+		System.out.println("od od sql " + sqlOD.toString() + sqlDO.toString());
+		Hotel hotel = hotelRepository.findOneById(idHotela);
+		List<Room> rooms = roomRepository.findAllByHotel(hotel);
+		System.out.println("broj soba " + rooms.size());
+		if (!rooms.isEmpty()) {
+			for (Room r : rooms) {
+				System.out.println("broj rezervacija bilo kakvih " + r.getReservationRoom().size());
+				//proba
+				if (!r.getReservationRoom().isEmpty()) {
+				for (ReservationRoom rrr : r.getReservationRoom()) {
+					sqlstart = new java.sql.Date(rrr.getStartDate().getTime());
+					System.out.println("proba  " + sqlstart);
+					if(sqlDO.getTime() >= sqlstart.getTime() && sqlOD.getTime()<= sqlstart.getTime())
+					{
+						System.out.println("pronsasao1  " + rrr.getStartDate());
+						suma+=rrr.getTotalPrice();
+					} 
+					}
+				}	
+			}
+		}
+		
+		return suma;
+	
 	}
 }
 

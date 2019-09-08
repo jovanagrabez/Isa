@@ -1,34 +1,30 @@
+<div id="fh5co-tours" class="fh5co-section-gray">
 <div class="container">
-    <ul class="nav nav-tabs">
-        <li class="nav-item">
-            <a class="nav-link" (click)=prihodiHotelaClick()>Prihodi hotela</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)=dnevniClick()>Dnevni izvestaj</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)=nedeljniClick()>Nedeljni izvestaj</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)=mesecniClick()>Mesecni izvestaj</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)=oceneHotela()>Ocene hotela</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" (click)=oceneSoba()>Ocene soba</a>
-        </li>
-    </ul>
+    <div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+			<h3>{{currentHotel.name}}</h3>
+			<a  class="btn btn-primary btn-outline" (click)="prihodiHotelaClick()">Prihodi hotela</a>
+			<br/>
+			<br/>
+			<a class="btn btn-primary btn-outline" (click)="dnevniClick()">Dnevni izvestaj</a>
+			<a class="btn btn-primary btn-outline"  (click)="nedeljniClick()">Nedeljni izvestaj</a>
+			<a class="btn btn-primary btn-outline"   (click)="mesecniClick()">Mesecni izvestaj</a>	
+			<br/>
+			<br/>
+			<a class="btn btn-primary btn-outline"  (click)="oceneHotela()">Ocene hotela</a>	
+			<a class="btn btn-primary btn-outline"  (click)="oceneSoba()">Ocene soba</a>		
+			</div>
+	</div>
     <div *ngIf="dnevni" style="display: block">
         <h4>Broj prijava u hotelu u prethodnoj nedelji po danima</h4>
         <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
     </div>
     <div *ngIf="nedeljni" style="display: block">
-        <blockquote>Broj zauzetih soba po danima</blockquote>
+        <h4>Broj zauzetih soba po danima</h4>
        <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
     </div>
     <div *ngIf="mesecni" style="display: block">
-        <blockquote>Broj prijavljenih soba u mesecu</blockquote>
+        <h4>Broj prijavljenih soba u mesecu</h4>
         <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
     </div>
     <div *ngIf="oceneH" style="display: block">
@@ -65,4 +61,31 @@
             </tbody>
           </table>
     </div>
+     <div *ngIf="nedeljni == false && mesecni==false && dnevni==false && oceneH==false && oceneS==false" style="display: block">
+        <h4>Izaberite interval za koji zelite da vidite prihode hotela</h4>
+        <form class="booking-form" (ngSubmit)="pretraziHotele()">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="date" id="datMin" (change)="intervalDatuma()" max={{pomoc}} class="form-control" name="prijavljivanje" name="intervalOd" [(ngModel)]="intervalOd" />
+
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="date" min={{pomocDva}} max={{pomoc}} class="form-control" name="prijavljivanje" name="intervalDo" [(ngModel)]="intervalDo" />
+                    </div>
+                </div>
+                <div class="form-btn">
+                    <button class="submit-btn">OK</button>
+                </div>
+                <div class="col-sm-12" *ngIf = "suma!=undefined">
+                    <h4>Prihod je {{suma}}</h4> 
+            	</div>
+            </div>
+            
+        </form>
+        
+    </div>
+</div>
 </div>

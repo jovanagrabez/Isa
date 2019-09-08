@@ -144,6 +144,7 @@ insert into myrole (id,name) values (23,'lastWeekReservations');
 insert into myrole (id,name) values (24,'getAllReservations');
 insert into myrole (id,name) values (25,'getAllRatingsHotel');
 insert into myrole (id,name) values (26,'getRatingRoom');
+insert into myrole (id,name) values (27,'getHotelRevenue');
 
 
 --privilegije car admina
@@ -173,7 +174,7 @@ insert into roles_privileges(role_id,privilege_id) values (4,23);
 insert into roles_privileges(role_id,privilege_id) values (4,24);
 insert into roles_privileges(role_id,privilege_id) values (4,25);
 insert into roles_privileges(role_id,privilege_id) values (4,26);
-
+insert into roles_privileges(role_id,privilege_id) values (4,27);
 --car admin
 insert into roles_privileges(role_id,privilege_id) values (5,17);
 

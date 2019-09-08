@@ -76,4 +76,7 @@ export class HotelServiceService {
   getRatingRoom(id: number): Observable<any> {
       return this.http.get('http://localhost:8080/rooms/getRatingRoom/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
+  getHotelRevenue(id: number, od :string, Do : string) : Observable<any> {
+      return this.http.get('http://localhost:8080/hotels/getHotelRevenue/'+id +'/' + od +'/' + Do,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
 }
