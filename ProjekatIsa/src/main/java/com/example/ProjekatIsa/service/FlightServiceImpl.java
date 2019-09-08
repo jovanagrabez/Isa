@@ -127,7 +127,6 @@ public class FlightServiceImpl implements FlightService {
 	         List<Seat> seats = new ArrayList<>();
 	         
 	         for (Seat seat : flightDto.getSeats()) {
-	        	 
 	             if (seat.getSeatClass() != null) {
 	                 if (seat.getSeatClass().equals("ECONOMY")) {            // postavi cenu ako je novo sediste, ili je klasa promenjena
 	                     seat.setPrice(flight.getEconomyPrice());
@@ -139,6 +138,9 @@ public class FlightServiceImpl implements FlightService {
 	                     seat.setPrice(flight.getFirstPrice());
 	                 }
 	             }
+	        	 
+	        
+	        	 seat.setDiscountPrice(seat.getDiscountPrice());
 	             seat = this.seatService.updateSeat(seat);                 // snimi promenjeno sediste
 	             seats.add(seat);
 	         }
