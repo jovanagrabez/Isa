@@ -57,12 +57,10 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
-<<<<<<< HEAD
 import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
 import { ServiceReportComponent } from './service-report/service-report.component';
-=======
-import { ChangePasswordComponent } from './change-password/change-password.component';
->>>>>>> branch 'master' of https://github.com/jovanagrabez/Isa
+import {ChangePasswordComponent} from './change-password/change-password.component';
+
 
 @NgModule({
   declarations: [
@@ -95,12 +93,9 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
     HotelReportComponent,
     MyReservationsComponent,
     SearchpageComponent,
-<<<<<<< HEAD
     QuickReservationComponent,
-    ServiceReportComponent
-=======
+    ServiceReportComponent,
     ChangePasswordComponent
->>>>>>> branch 'master' of https://github.com/jovanagrabez/Isa
 
 
 
@@ -126,7 +121,7 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 
 
   ],
-  providers: [ HttpClientModule,DatePipe, AviocompanySService, ViewHotelsService,
+  providers: [ HttpClientModule, DatePipe, AviocompanySService, ViewHotelsService,
     AuthServiceService
 
   ],
