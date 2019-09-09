@@ -56,6 +56,9 @@ public class User implements Serializable,UserDetails {
     @Column(name = "password_hash", nullable = false)
     private String passwordHash;
     
+    @Column(name = "password_confirm")
+    private String passwordConfirm;
+    
     @Column(name="city",nullable=true)
     private String city;
     
@@ -264,6 +267,14 @@ public class User implements Serializable,UserDetails {
 	public boolean isCredentialsNonExpired() {
 		// TODO Auto-generated method stub
 		return true;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 
 	

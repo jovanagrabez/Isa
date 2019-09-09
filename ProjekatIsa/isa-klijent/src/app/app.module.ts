@@ -57,6 +57,7 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
     MyReservationsComponent,
     HotelReportComponent,
     MyReservationsComponent,
-    SearchpageComponent
+    SearchpageComponent,
+    ChangePasswordComponent
 
 
 

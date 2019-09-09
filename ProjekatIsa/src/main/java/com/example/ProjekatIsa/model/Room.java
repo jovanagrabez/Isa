@@ -19,6 +19,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlTransient;
 
 import com.example.ProjekatIsa.DTO.RoomDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -49,7 +50,8 @@ public class Room implements Serializable{
 	@Column(name = "room_average_rating", nullable = true)
 	private Double room_average_rating;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne
+	@JsonBackReference
 	@JoinColumn(name="hotel_id")
 	private Hotel hotel;
 	
@@ -61,8 +63,9 @@ public class Room implements Serializable{
 	@OneToMany(mappedBy="room")
     protected List<Pricing> pricing;
 	
-	@JsonIgnore
-	@OneToMany(mappedBy="room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	//@JsonIgnore
+	//@OneToMany(mappedBy="room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="room", fetch = FetchType.LAZY)
     private Set<RatingRoom> ratings;
 	
 	public Set<RatingRoom> getRoom_ratings() {

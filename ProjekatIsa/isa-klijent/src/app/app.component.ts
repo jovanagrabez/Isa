@@ -29,7 +29,7 @@ export class AppComponent implements OnInit {
   nocarAdmin: boolean;
   noUser: boolean;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private auth: AuthServiceService) {  }
+  constructor(private userService: UserService,private router : Router, private route: ActivatedRoute, private auth: AuthServiceService) {  }
 
   ngOnInit() {
     this.token = this.auth.getJwtToken();
@@ -53,7 +53,10 @@ export class AppComponent implements OnInit {
       console.log(data);
       console.log('Uloga trenutnog usera');
       console.log(currentUser.roles);
-      
+     /* if (currentUser.verified==false) {
+          alert("Morate prvo promeniti lozinku!");
+          this.router.navigateByUrl('/change-password');
+      }*/
       });
      }
   }
