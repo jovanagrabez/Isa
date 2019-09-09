@@ -130,7 +130,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/category").permitAll()
 						.antMatchers("/searchRooms").permitAll()
 						.antMatchers("/searchRooms/**").permitAll()
-						//.antMatchers("/bookRoom").permitAll()
 						.antMatchers("/carReservation").permitAll()
 						.antMatchers("/rating").permitAll()
 						.antMatchers("/h2-console/**").permitAll()
