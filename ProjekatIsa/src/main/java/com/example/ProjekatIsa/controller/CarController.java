@@ -69,14 +69,16 @@ public class CarController {
 	
 	
 	@RequestMapping(
-			value = "/getDiscountCars", 
+			value = "/getDiscountCars/{id}", 
 			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public List<Discount>  getDiscountCars() {
+	public ResponseEntity<List<Discount>>  getDiscountCars(@PathVariable("id") Long id) {
 		
-		System.out.println("Number of cars: " + discountRepository.findAll().size());
+		RentACar rent = rentRepository.findOneById(id);
+		List<Discount> pomocni = discountRepository.findAllByRentACar(rent);
 		
-		return  discountRepository.findAll();
+		System.out.println("Pronasao je discount vozila" + pomocni);
+		return new ResponseEntity<List<Discount>>(pomocni, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value="/addCar",method = RequestMethod.POST)

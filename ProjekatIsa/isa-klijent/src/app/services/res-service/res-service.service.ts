@@ -49,6 +49,10 @@ export class ResServiceService {
         return this.http.delete('http://localhost:8080/carReservation/deleteFlight/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
   }
     
+    fastReservations(idFlight: any, idCar: any ,  startDate: Date, endDate: Date,idUser): Observable<any> {
+        return this.http.post('http://localhost:8080/carReservation/fastReservations/'+idFlight+ "/" + idCar + "/" + startDate +"/" +endDate+"/"+idUser,{headers: this.auth.createAuthorizationTokenHeader()});
+  }
+    
     
     
 }

@@ -32,24 +32,31 @@ public class Discount {
 	private Long id;
 	
 	@Column(name = "date_from", nullable=false)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm", timezone="GMT")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
 	@Temporal(TemporalType.DATE)
 	private Date dateFrom;
 	
 	@Column(name = "date_to", nullable=false)
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd'T'HH:mm", timezone="GMT")
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone="GMT")
 	@Temporal(TemporalType.DATE)
 	private Date dateTo;
 	
+	@Column(name = "discount_price", nullable = false)
+	private Double discountprice;
 	
 	
-	@Column(name="discount",nullable = false)
-	private int discount;
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Car car;
+	
+	@Column(name = "price")
+	private Double price;
 	
 	
+	
+	@ManyToOne
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "discount")
-	private List<Car> cars;
+	private RentACar rentACar;
+	
 	
 	
 	public Discount() {
@@ -57,19 +64,130 @@ public class Discount {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Discount(Long id, Date dateFrom, Date dateTo, int discount) {
+	
+	
+
+	
+
+	
+
+	public Discount(Long id, Date dateFrom, Date dateTo, Car car, Double price, Double discount) {
 		super();
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.discount = discount;
+		this.car = car;
+		this.price = price;
+		this.discountprice = discount;
 	}
 	
 	
 
-	
 
-	
+
+
+
+
+
+
+	public Double getDiscountprice() {
+		return discountprice;
+	}
+
+
+
+
+
+
+
+
+	public void setDiscountprice(Double discountprice) {
+		this.discountprice = discountprice;
+	}
+
+
+
+
+
+
+
+
+	public RentACar getRentACar() {
+		return rentACar;
+	}
+
+
+
+
+
+
+
+
+	public void setRentACar(RentACar rentACar) {
+		this.rentACar = rentACar;
+	}
+
+
+
+
+
+
+
+
+	public Car getCar() {
+		return car;
+	}
+
+
+
+
+
+
+
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+
+
+
+
+
+
+
+	public Double getPrice() {
+		return price;
+	}
+
+
+
+
+
+
+
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+
+
+
+
+
+
+
+	public void setDiscount(Double discount) {
+		this.discountprice = discount;
+	}
+
+
+
+
+
+
+
 
 	public Long getId() {
 		return id;
@@ -95,15 +213,6 @@ public class Discount {
 		this.dateTo = dateTo;
 	}
 
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
-	}
-	
-	
 	
 
 }

@@ -8,6 +8,7 @@ import {ChartsModule} from 'ng2-charts';
 import {RequestOptions, XHRBackend} from '@angular/http';
 import {Router, RouterModule} from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 
 

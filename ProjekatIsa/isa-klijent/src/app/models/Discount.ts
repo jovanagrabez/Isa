@@ -4,6 +4,6 @@ export class Discount{
     id : number;
     dateTo : string;
     dateFrom : string;
-    discount : number;
-    car : Car = new Car();
+    discountprice : number;
+    car_car_id : number;
 }

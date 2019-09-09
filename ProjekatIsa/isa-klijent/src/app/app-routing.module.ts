@@ -28,6 +28,7 @@ import { MyReservationsComponent } from './my-reservations/my-reservations.compo
 import {SearchpageComponent} from './aviocompany/searchpage/searchpage.component';
 import { HotelReportComponent } from './hotel-report/hotel-report.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
+import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
 
 
 const routes: Routes = [
@@ -155,6 +156,11 @@ const routes: Routes = [
 
   {
     path: 'change-password', component:   ChangePasswordComponent
+
+  },
+
+  {
+    path: 'quick-res', component:   QuickReservationComponent
 
   }
 

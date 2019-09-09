@@ -217,26 +217,29 @@ public class RatingController {
 		//dodavanje ocene
 		RatingAvio o = ratingAvioRepository.save(dodavanje);
 		//azuriranje ocene vozila
-//		List<RatingAvio> noveOcene = ratingAvioRepository.findAll();
-//		int br = 0;
-//		int ocene = 0;
-//		for(RatingAvio ov : noveOcene)
-//		{
-//			if(ov.getAvioCompany().getId() == servis.getId())
-//			{
-//				br++;
-//				ocene += ov.getRate();
-//			}
-//		}
-//		
-//		double novaOcena = ocene / br;
-//		s
-//		try{
-//			RentACar izmenjeno = rentalRepository.save(servis);
-//		}catch(NoSuchElementException e)
-////		{
-////			return new ResponseEntity<>(HttpStatus.CONFLICT);
-////		}
+		List<RatingAvio> noveOcene = ratingAvioRepository.findAll();
+		int br = 0;
+		int ocene = 0;
+		for(RatingAvio ov : noveOcene)
+		{
+			if(ov.getAvioCompany().getId() == servis.getId())
+			{
+				br++;
+				ocene += ov.getRate();
+			}
+		}
+		
+		
+		double nova = ocena.getRate();
+		double novaOcena =(nova + ocene)/ br;
+		
+		
+		try{
+			Aviocompany izmenjeno = avioRepository.save(servis);
+		}catch(NoSuchElementException e)
+		{
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
 		return new ResponseEntity<>(new RatingAvioDTO(o), HttpStatus.CREATED);
 		
 		

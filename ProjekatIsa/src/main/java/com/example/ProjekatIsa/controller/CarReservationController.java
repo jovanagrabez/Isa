@@ -25,12 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjekatIsa.DTO.CarReservationDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
+import com.example.ProjekatIsa.model.Discount;
 import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.User;
 import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.CarReservationRepository;
+import com.example.ProjekatIsa.repository.DiscountRepository;
 import com.example.ProjekatIsa.repository.FlightRepository;
 import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.repository.ReservationRoomRepository;
@@ -62,6 +64,9 @@ public class CarReservationController {
 	
 	@Autowired
 	FlightRepository fRepository;
+	
+	@Autowired
+	DiscountRepository discountRepository;
 	
 	
 	@RequestMapping(value="/getUserRes/{id}",method = RequestMethod.POST)
@@ -323,6 +328,49 @@ public class CarReservationController {
 	public static long getDateDiff(Date date1, Date date2, TimeUnit timeUnit) {
 	    long diffInMillies = date2.getTime() - date1.getTime();
 	    return timeUnit.convert(diffInMillies,TimeUnit.MILLISECONDS);
+	}
+	
+	
+	@RequestMapping(value="/fastReservations/{idFlight}/{idCar}/{startDate}/{endDate}/{idUser}",method = RequestMethod.POST)
+	public void fastReservations(@PathVariable Long idFlight, @PathVariable Long idCar ,@PathVariable String startDate,
+			@PathVariable String endDate, @PathVariable Long idUser) {
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date preuzimanje = null;
+		Date vracanje = null;
+		
+		try {
+			preuzimanje = dateFormat.parse(startDate);
+			vracanje = dateFormat.parse(endDate);
+
+			
+		} catch (ParseException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		
+		FlightReservation flightReservation = flightRepository.findByFlightId(idFlight);//nadji tu rezervaciju leta
+		Car car = carRepository.findOneById(idCar);
+		Discount disc = discountRepository.findOneByCar(car); //nadjem taj auto na popustu
+		User user = userRepository.findOneById(idUser);
+		
+		CarReservation fastRes = new CarReservation(); //napravljena brza rezervacija
+		fastRes.setCar(car);
+		fastRes.setEndDate(vracanje);
+		fastRes.setStartDate(preuzimanje);
+		double price = car.getPrice();
+		double discountPrice = disc.getDiscountprice();
+		double totalPrice = price - (price*discountPrice)/100;
+		
+		fastRes.setTotalPrice(totalPrice);
+		fastRes.setCategory(car.getCategory().getMark().toString());
+		fastRes.setUser(user);
+		
+		carresRepository.save(fastRes);
+		//u flight res se treba postaviti i brza rez vozila
+		
 	}
 	
 

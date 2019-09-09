@@ -27,22 +27,22 @@ public class CarReservation {
 	@Column(name = "end_date", nullable=false)
     protected Date endDate;
 	
-	@Column(name="pickup_place", nullable = true)
+	@Column(name="pickup_place")
 	private String pickupPlace;
 	
-	@Column(name="return_place", nullable = true)
+	@Column(name="return_place")
 	private String returnPlace;
 	
 	@Column(name="category", nullable = false)
 	private String category;
 	
-	@Column(name="num_people", nullable= true)
+	@Column(name="num_people")
 	private int numPeople;
 	
-	@Column(name="num_days",nullable = false)
+	@Column(name="num_days")
 	private int numDays;
 	
-	@Column(name="total_price", nullable = false)
+	@Column(name="total_price")
 	private double totalPrice;
 	
 	@Column(name = "day_rez")

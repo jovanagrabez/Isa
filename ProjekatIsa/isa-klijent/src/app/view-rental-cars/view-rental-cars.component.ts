@@ -73,6 +73,24 @@ export class ViewRentalCarsComponent implements OnInit {
         this.router.navigateByUrl('/rentacar-details');
     }
     
+    discountedCars(RentACar:any) : void {
+        
+        this.selectedRentACar = RentACar;
+        this.viewRentalCarsService.selectRentACar(RentACar);
+         this.viewRentalCarsService.currentRentACar.subscribe(
+          currentRentACar=>
+          {
+              console.log("Rent a car service" + currentRentACar);
+              }
+       );
+        
+        this.router.navigateByUrl('/quick-res');
+        
+        }
+    
+    
+    
+    
     pretraga(){
         
         console.log(this.searchFormServices.city);
