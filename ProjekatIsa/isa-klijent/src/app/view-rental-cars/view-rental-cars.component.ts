@@ -17,6 +17,7 @@ export class ViewRentalCarsComponent implements OnInit {
         
   private selectedRentACar: any;  
   sviServisi : RentACar[];
+    ///
       
   rentalcars$: Object;
   user : User = new User();
