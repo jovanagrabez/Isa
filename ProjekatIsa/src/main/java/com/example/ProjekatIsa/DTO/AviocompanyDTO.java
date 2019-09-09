@@ -12,9 +12,10 @@ public class AviocompanyDTO {
     private String description;
     private Set<Destination> destination;
     private Set<Flight> flight;
+    private double rating;
     
     public AviocompanyDTO(Aviocompany avio) {
-		this(avio.getId(), avio.getName(), avio.getAdress(), avio.getDescription(), avio.getDestination(), avio.getFlight());
+		this(avio.getId(), avio.getName(), avio.getAdress(),avio.getRating(), avio.getDescription(),avio.getDestination(), avio.getFlight());
 	}
     
     
@@ -23,12 +24,13 @@ public class AviocompanyDTO {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public AviocompanyDTO(Long id, String name, String adress, String description, Set<Destination> destination,
+	public AviocompanyDTO(Long id, String name, String adress, double rating, String description, Set<Destination> destination,
 			Set<Flight> flight) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
+		this.rating = rating;
 		this.description = description;
 		this.destination = destination;
 		this.flight = flight;
@@ -36,6 +38,16 @@ public class AviocompanyDTO {
 
 	
 	
+
+	public double getRating() {
+		return rating;
+	}
+
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
 
 	public Set<Destination> getDestination() {
 		return destination;

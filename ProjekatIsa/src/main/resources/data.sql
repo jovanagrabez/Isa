@@ -60,9 +60,9 @@ insert into additional_service_hotel (name,price,hotel_id) values ('Spa', 30,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('WiFi', 10,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,1);
 
-insert into aviocompany (name, adress, description) values ('AirN', 'Aerodrom Beograd 59, Beograd, Srbija', 'opis');
-insert into aviocompany (name, adress, description) values ('TurkishAirlines', 'Yeşilköy, 34149 Bakırköy/İstanbul, Turkey', 'opis');
-insert into aviocompany (name, adress, description) values ('Urije', 'Prijedor Urije Airport, Prijedor, Bosna i Hercegovina', 'Najjaci aerodrom');
+insert into aviocompany (name, adress, description,rating) values ('AirN', 'Aerodrom Beograd 59, Beograd, Srbija', 'opis',4);
+insert into aviocompany (name, adress, description, rating) values ('TurkishAirlines', 'Yeşilköy, 34149 Bakırköy/İstanbul, Turkey', 'opis',3.2);
+insert into aviocompany (name, adress, description,rating) values ('Urije', 'Prijedor Urije Airport, Prijedor, Bosna i Hercegovina', 'Najjaci aerodrom',5);
 
 
 insert into destination(name, country, description) values ('Berlin', 'Njemacka','to');
