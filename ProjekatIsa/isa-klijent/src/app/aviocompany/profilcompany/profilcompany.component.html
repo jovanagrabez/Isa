@@ -376,39 +376,32 @@
           </div>
         </div>
 
-        <div class="list-group">
+
           <div *ngFor="let flight of currentCompany.flight; index as i "
-               class="list-group-item list-group-item-action flex-column align-items-start">
+             >
             <div *ngFor="let seat of flight.seats">
-              <div *ngIf="seat.state === 'reserved'">
-                <!--<span class="mb-1 pull-right"><a (click)="deleteFlight(flight, i)" *ngIf="userRole === 'ROLE_ADMIN_AIRLINE' && user.inChargeOf === airline.id"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>-->
+              <div *ngIf="seat.state === 'reserved'"  class="col-md-12 animate-box">
+                <div class="flight-book">
                 <div class="w-100 justify-content-between">
-                  <!--(click)="flightProfile(flight)"-->
-                  <!-- <span class="glyphicon glyphicon-plane"></span>-->
+
                   <div class="d-flex-row">
-                    <h5 class="col-sm-8"> From: {{flight.destination[0].name}} {{flight.destination[0].country}}</h5>
-                    <h5 class="col-sm-8"> To: {{flight.destination[1].name}} {{flight.destination[1].country}} </h5>
+                    <h5 class="col-sm-8"> Od: {{flight.destination[0].name}} ,{{flight.destination[0].country}}</h5>
+                    <h5 class="col-sm-8"> Do: {{flight.destination[1].name}} ,{{flight.destination[1].country}} </h5>
                   </div>
                   <div class="flex-row">
-                    <label class="col-sm-4">Departure: {{flight['take_off'] | date:'MM/dd/yyyy hh:mm'}}</label><label class="col-sm-4">Arrival: {{flight['landing'] | date:'MM/dd/yyyy hh:mm'}}</label>
-                    <!--<span class="mb-1 pull-right"><a (click)="deleteFlight(flight, i)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>-->
+                    <label class="col-sm-4">Polazak: {{flight['take_off'] | date:'MM/dd/yyyy hh:mm'}}</label><label class="col-sm-4">Dolazak: {{flight['landing'] | date:'MM/dd/yyyy hh:mm'}}</label>
                   </div>
-                  <div class="flex-row"><label class="col-sm-4">Seat row: {{seat['seatRow']}}, column: {{seat['seatColumn']}}</label></div>
-                  <div class="flex-row"><label class="col-sm-4">Seat class: {{seat['seatClass']}}</label></div>
+                  <div class="flex-row"><label class="col-sm-4">Red: {{seat['seatRow']}}, Br: {{seat['seatColumn']}}</label></div>
+                  <div class="flex-row"><label class="col-sm-4">Klasa: {{seat['seatClass']}}</label></div>
                   <div class="flex-row">
-                    <label class="col-sm-4"><b>Price: {{seat['discountPrice']}}€</b></label><label class="col-sm-4">Old price: {{seat['price']}}€</label>
+                    <label class="col-sm-4"><b>Cijena: {{seat['discountPrice']}}€</b></label><label class="col-sm-4">Stara cijena: {{seat['price']}}€</label>
                   </div>
 
                   <div class="form-group" *ngIf="appCom.noavioAdmin">
                     <label for="passport" class="col-sm-3">Passport</label>
-                    <input id="passport" name="passport" type="text" [(ngModel)]="seat['passport']" class="col-sm-3" placeholder="Insert your passport number">
-                    <button class="btn btn-outline-primary pull-right" (click)="reserve(flight, seat)" >Reserve</button>
+                    <input id="passport" name="passport" type="text" [(ngModel)]="seat['passport']" class="col-sm-3" placeholder="Unesite br pasosa">
+                    <button class="btn btn-outline-primary pull-right" (click)="reserve(flight, seat)" >Rezervisi</button>
                   </div>
-
-
-                  <!-- <h5 class="mb-1">From:{{flight['from']['city']}}, {{flight['from']['country']}}</h5>
-                   <h5 class="mb-1">To:{{flight['to']['city']}}, {{flight['to']['country']}}</h5>-->
-                  <!--<small>3 days ago</small>-->
 
                 </div>
                 <hr>
@@ -416,9 +409,6 @@
               </div>
             </div>
 
-
-            <!-- <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-             <small>Donec id elit non mi porta.</small>-->
           </div>
         </div>
 
@@ -430,7 +420,7 @@
             <div class="row-md-2 row-sm-2 fh5co-tours animate-box"
                  data-animate-effect="fadeIn">
               <div href="profil">
-                <img src="assets/images/box.png"  width="350" height="300">
+                <img src="assets/images/box.jpg"  width="350" height="300">
 
                 <div class="desc">
                   <span></span>
@@ -456,6 +446,13 @@
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
     <div id="fh5co-testimonial" style="background-image:url(images/img_bg_1.jpg);">
       <div class="container">
         <div class="row animate-box">

@@ -35,6 +35,7 @@ export class ProfilcompanyComponent implements OnInit {
   presjedanja: any;
   departureTime: NgbTime;
   arrivalTime: NgbTime;
+  karteSaPopustom: [{}];
 
   user: any;
 //za mape
@@ -66,8 +67,10 @@ export class ProfilcompanyComponent implements OnInit {
       currentCompany =>
       {
         this.currentCompany = currentCompany;
+
         this.userService.getLogged(this.appComp.token).subscribe(data => {
           this.user = data;
+
         });
 
   }
@@ -212,7 +215,7 @@ getAddress() {
     if (seat.passport === '' || seat.passport === undefined) {
           // poslati poruku da je okej
     } else {
-      const reservation = {userId: this.user.id, flightReservation: {}};
+      const reservation = {userId: this.user.id, flightReservation: {}, flightId: flight.id};
       const flightReservation = {flightId: flight.id, userId: this.user.id, passengersOnSeats: []};
       const passenger = {
         passengerId: this.user.id, passengerName: this.user.name, passengerLastName: this.user.lastName,
@@ -221,7 +224,7 @@ getAddress() {
 
       flightReservation.passengersOnSeats.push(passenger);
       reservation.flightReservation = flightReservation;
-      this.reservationService.createReservation(reservation).subscribe(res => {
+      this.reservationService.createReservation(flightReservation).subscribe(res => {
         seat.state = 'taken';
         const reserv = res['id'];
       //   this.reservationService.sendCreatedReservationEmail(reserv).subscribe( val => {

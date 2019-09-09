@@ -3,15 +3,19 @@ package com.example.ProjekatIsa.model;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.DestinationDTO;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "destination")
@@ -42,6 +46,9 @@ public class Destination implements Serializable {
 	@ManyToMany(mappedBy="destination")
 	private Set<Flight> flight;
 	
+	
+/*	@OneToMany(mappedBy = "destinations", cascade = CascadeType.ALL)
+    private Set<FlightDest> flights;*/
 	
 	public Destination(DestinationDTO d) {
 		

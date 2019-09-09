@@ -282,6 +282,15 @@ insert into flight_destination(flight_id, destination_id) values (5,3);
 insert into flight_destination(flight_id, destination_id) values (5,4);
 
 
+
+/*insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',1,1);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',2,1);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',3,5);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',4,5);
+*/
+
+
+
 insert into flight_seats(flight_flight_id, seats_seat_id)values(5,1);
 insert into flight_seats(flight_flight_id, seats_seat_id)values(5,2);
 insert into flight_seats(flight_flight_id, seats_seat_id)values(5,3);

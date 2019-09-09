@@ -16,9 +16,11 @@ import com.example.ProjekatIsa.DTO.SearchDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
+import com.example.ProjekatIsa.model.FlightDest;
 import com.example.ProjekatIsa.model.Seat;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.DestinationRepository;
+import com.example.ProjekatIsa.repository.FlightDestRepository;
 import com.example.ProjekatIsa.repository.FlightRepository;
 
 
@@ -90,7 +92,7 @@ public class FlightServiceImpl implements FlightService {
 	        Set<Destination> flightDestinations = new HashSet<>();
 	  //      this.flightRepository.save(flightDto);
 	        for (Destination dest : noveDestinacije) {
-                  System.out.println(dest.getCountry()+ "id" + dest.getId());
+             //     System.out.println(dest.getCountry()+ "id" + dest.getId());
 	   //     	this.destinationRepository.save(dest);
 	           flightDestinations.add(dest);
 	         }
@@ -211,7 +213,7 @@ public class FlightServiceImpl implements FlightService {
 	            Set<Destination> fdd = flight.getDestination();
 	            for (Destination flightDestination : flight.getDestination()) {
 
-	                if (flightDestination.getDescription().equals("from")){
+	                if (flightDestination.getDescription().equals("departure")){
 	                    for (String fromString : stringsFrom) {                 //za svaku rec iz from trazi
 	                        if ((flightDestination.getName().toLowerCase().contains(fromString.toLowerCase()) ||
 	                                flightDestination.getCountry().toLowerCase().contains(fromString.toLowerCase()) ) ||
@@ -221,7 +223,7 @@ public class FlightServiceImpl implements FlightService {
 	                            break;
 	                        }
 	                    }
-	                } else if (flightDestination.getDescription().equals("to")){
+	                } else if (flightDestination.getDescription().equals("arrival")){
 
 	                    for (String toString : stringsTo) {                 //za svaku rec iz from trazi
 	                        if ((flightDestination.getName().toLowerCase().contains(toString.toLowerCase()) ||

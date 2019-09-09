@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -45,6 +46,11 @@ public class Flight implements Serializable {
 	
 	@Column(name = "number", nullable = true, columnDefinition="INT(2)")
     private int number;
+	
+
+/*	@OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE)
+    private Set<FlightDest> destination;*/
+
 	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinTable(name = "flight_destination", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "destination_id"))   
@@ -268,7 +274,10 @@ public class Flight implements Serializable {
 		this.number = number;
 	}
 
-
+   
+	
+	
+	
 	public Set<Destination> getDestination() {
 		return destination;
 	}
@@ -291,6 +300,16 @@ public class Flight implements Serializable {
 
 */
 	
+
+/*	public Set<FlightDest> getDestination() {
+		return destination;
+	}
+
+
+	public void setDestination(Set<FlightDest> destination) {
+		this.destination = destination;
+	}*/
+
 
 	public Flight() {
 		super();
