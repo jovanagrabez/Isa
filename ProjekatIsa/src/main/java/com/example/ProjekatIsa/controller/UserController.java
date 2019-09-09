@@ -35,6 +35,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -94,6 +95,9 @@ public class UserController {
 	 @Autowired
 	 private RoleService roleService;
 	   
+	// @Autowired
+	//PasswordEncoder encoder;
+	 
 	 @PutMapping
 	 public ResponseEntity<User> updateUser(@RequestBody User u){
 		 this.userService.update(u);
@@ -375,6 +379,40 @@ public class UserController {
 		}
 		
 	} 
-	    
+	
+  @RequestMapping(value ="/changePassword/{id}",
+			method = RequestMethod.POST,
+			consumes = MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	public ResponseEntity<?> changePassword(@Valid @RequestBody User user1,@PathVariable("id") Long idUser, BindingResult result){
+	  
+	  BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	  User newUser = userService.findOneById(idUser);
+	  System.out.println(encoder.encode(user1.getPassword())+ " - user s fronta...pronadjen user: " + newUser.getPassword());
+	  
+	  if (user1.getPassword()!=null) {
+		  if (encoder.matches((user1.getPassword()), newUser.getPassword())) {
+			  if (user1.getPasswordConfirm().length() < 6) {
+				  return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			  }
+			  newUser.setVerified(true);
+			  
+			  
+			  String hash = org.springframework.security.crypto.bcrypt.BCrypt.gensalt();
+			  String hashedP = org.springframework.security.crypto.bcrypt.BCrypt.hashpw(newUser.getPasswordConfirm(), hash);
+				
+			  newUser.setPassword(hashedP);
+			  userService.save(newUser);
+			  return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+		  }
+		  else {
+			  System.out.println("Ne poklapaju se trenutna lozinka i unijeta trenutna lozinka");
+			  return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		  }
+	  }
+	  
+	  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+  }
 	   
 }    

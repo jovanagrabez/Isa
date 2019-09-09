@@ -57,8 +57,12 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
+<<<<<<< HEAD
 import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
 import { ServiceReportComponent } from './service-report/service-report.component';
+=======
+import { ChangePasswordComponent } from './change-password/change-password.component';
+>>>>>>> branch 'master' of https://github.com/jovanagrabez/Isa
 
 @NgModule({
   declarations: [
@@ -91,8 +95,12 @@ import { ServiceReportComponent } from './service-report/service-report.componen
     HotelReportComponent,
     MyReservationsComponent,
     SearchpageComponent,
+<<<<<<< HEAD
     QuickReservationComponent,
     ServiceReportComponent
+=======
+    ChangePasswordComponent
+>>>>>>> branch 'master' of https://github.com/jovanagrabez/Isa
 
 
 

@@ -27,6 +27,7 @@ import { AddAdminComponent } from './add-admin/add-admin.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 import {SearchpageComponent} from './aviocompany/searchpage/searchpage.component';
 import { HotelReportComponent } from './hotel-report/hotel-report.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -149,6 +150,11 @@ const routes: Routes = [
 
   {
     path: 'search/flight', component:   SearchpageComponent
+
+  },
+
+  {
+    path: 'change-password', component:   ChangePasswordComponent
 
   }
 
