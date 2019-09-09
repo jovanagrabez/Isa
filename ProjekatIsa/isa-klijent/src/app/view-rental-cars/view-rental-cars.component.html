@@ -8,29 +8,58 @@
 						<span></span>
 						<h3>Najpovoljniji rent a car servisi &amp; najbolja ponuda automobila</h3>
 						<p>Pretražite ponude i otkrijte iskustva širom sveta,od malih i praktičnih do luksuznih i komfornih automobila</p>
-						<br/>
+					    
+						
 					    <h3>SORTIRAJ</h3>
-						
-						<div class="box-tools pull-left">
-						 <tr>
-                        <th scope="col"><a id="linkS" (click)="sortName()">Servis</a></th>
-                        <th scope="col"><a id="linkS" (click)="sortirajDrzava()">Drzava</a></th>
-                        <th scope="col"><a id="linkS" (click)="sortirajGrad()">Grad</a></th>
-                        <th scope="col" width="120"><a id="linkS" (click)="sortirajOcena()">Ocena</a></th>
-                    </tr>
-                 
-             </div>
-          
-         					
-						
-						<br/>
+					    
+					    <span class="hidden-xs" id="changeButton"><a  class="btn btn-primary btn-outline" (click)="sortClick()">SORTIRANJE</a></span>    					
+				        <span class="hidden-xs" id="changeButton"><a  class="btn btn-primary btn-outline" (click)="searchClick()">PRETRAGA</a></span>    					
 									
 					</div>
+					
+					<div class="col-xs-6" id = "sortDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+ 							<select name="sortItem" id="sortItem" [(ngModel)]="sortForm.sortItem" class="form-control"  required>
+                   			<option value="name">Naziv</option>
+                   			<option value="adress">Adresa</option>
+                   			<option value="rate">Ocena</option>
+               				</select> 
+               			  </div>
+			              <div class="form-group">
+							<select name="sortType" id="sortType" [(ngModel)]="sortForm.sortType" class="form-control" required >
+                          	<option value="ascending">ascending</option>
+                            <option value="descending">descending</option>
+                     	    </select> 			              </div>
+			       
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                			<div class="col-md-1" *ngIf="sortForm.sortItem == undefined || sortForm.sortType == undefined">
+           <div class="form-btn">
+           	 <button type="button"  (click)="sortServices()" class="btn  btn-lg" disabled>Sort</button>
+           </div>
+      </div>
+      <div class="col-md-8" *ngIf="sortForm.sortItem != undefined && sortForm.sortType != undefined">
+           <div class="form-btn">
+                <button type="button" (click)="sortServices()" class="btn btn-primary">Sort</button>
+       </div>              	
+			              </div>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+					
 		</div>
 				
 				<!-- Div za pretragu -->
 				
-				<div class="row">
+<div class="row" id = "searchDiv" hidden="true">
 	<div class="col-xs-12">
 
       <!-- SELECT2 EXAMPLE -->
@@ -105,7 +134,9 @@
 										<span></span>
 										<h3>{{r.name}}</h3>
 									    <h3>{{r.description}}</h3>
-									    <span>{{r.adress}}</span> <a
+									    <span>{{r.city}}</span>
+									    <span>{{r.average_rating}}</span>
+									     <a
                                       (click)="onClickCompanyDetails(r)"	class="btn btn-primary btn-outline" >Detaljnije <i
                   ></i></a>																			
 										<!--  a  (click)="onClickCompanyDetails(c)" class="btn btn-primary btn-outline">Prikazi vozila</a-->

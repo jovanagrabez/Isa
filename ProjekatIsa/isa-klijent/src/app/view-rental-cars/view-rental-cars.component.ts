@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
 import { ViewRentalCarsService } from '../services/view-rental-cars.service';
 import { Observable } from 'rxjs';
 import { User } from '../models/User';
@@ -16,26 +16,48 @@ import { RentACar } from '../models/RentACar';
 export class ViewRentalCarsComponent implements OnInit {
         
   private selectedRentACar: any;  
-  sviServisi : Array<any>;
+  sviServisi : RentACar[];
       
   rentalcars$: Object;
   user : User = new User();
   searchFormServices : SearchFormServices = new SearchFormServices();
+  servisi : RentACar = new RentACar();
+  idRez : number;
+  drzava : string;
+  grad : string;
+  adress : string;
   sortForm : SortForm = new SortForm();
-  servisi : Array<RentACar> = [];
 
-  constructor(private router : Router, private viewRentalCarsService : ViewRentalCarsService) { }
+
+  constructor(private router : Router,private route : ActivatedRoute, private viewRentalCarsService : ViewRentalCarsService) { 
+    this.adress = this.route.snapshot.params.adress;
+   
+      
+  }
 
   ngOnInit() {
-      
+    
+  
+    
   this.user = JSON.parse(localStorage.getItem('user'));
       console.log(this.user);
 
       
   this.viewRentalCarsService.getRentalCars().subscribe(
-    data => this.sviServisi = data
+    data => {
+        this.sviServisi = data;
+       
+        }
       );
   }
+    
+  sortClick(){
+      document.getElementById('sortDiv').removeAttribute('hidden');
+      }
+    
+  searchClick(){
+      document.getElementById('searchDiv').removeAttribute('hidden');
+      }
     
    onClickCompanyDetails(RentACar:any) : void {
         this.selectedRentACar = RentACar;
@@ -64,47 +86,49 @@ export class ViewRentalCarsComponent implements OnInit {
     }
     
     
-//    sortHotels()
-//   {
-//    console.log(this.sortForm);
-//    this.accService.sortingHotels(this.sortForm, this.hotels).subscribe(data => {
-//        this.hotels = data as Array<AccommodationDTO>;
-//        console.log(this.hotels);
-//        console.log('List is sorted.');
-//    });
-//      }
+ sortServices()
+   {
+    console.log(this.sortForm);
+    this.viewRentalCarsService.sortingService(this.sortForm, this.sviServisi).subscribe(data => {
+        this.sviServisi = data as Array<RentACar>;
+        console.log(this.sviServisi);
+        console.log('List is sorted.');
+    });
+      }
     
-    sortName(){
-      var pomocna = this.sviServisi;
-      //pomocna.sort((a,b) => a.name.rendered.localeCompare(b.name.rendered));
-      console.log(pomocna);
-      var sortedArray : string[] = pomocna.sort((n1,n2) => {
-        if(n1.name > n2.name){
-          return 1;
-        }
+    
 
-        if(n2.name > n1.name){
-          return -1;
-        }
-      });
-      this.sviServisi = sortedArray;
-        console.log(sortedArray);
-        }
-   
-
-
-    sortCity(){
-      var pomocna = this.sviServisi;
-      var sortedArray : string[] = pomocna.sort((n1,n2) => {
-        if(n1.adress > n2.adress){
-          return 1;
-        }
-
-        if(n2.adress > n1.adress){
-          return -1;
-        }
-      });
-      this.sviServisi = sortedArray;
-        console.log(sortedArray);
-        }
+//    sortName(){
+//      var pomocna = this.sviServisi;
+//      //pomocna.sort((a,b) => a.name.rendered.localeCompare(b.name.rendered));
+//      console.log(pomocna);
+//      var sortedArray : string[] = pomocna.sort((n1,n2) => {
+//        if(n1.name > n2.name){
+//          return 1;
+//        }
+//
+//        if(n2.name > n1.name){
+//          return -1;
+//        }
+//      });
+//      this.sviServisi = sortedArray;
+//        console.log(sortedArray);
+//        }
+//   
+//
+//
+//    sortCity(){
+//      var pomocna = this.sviServisi;
+//      var sortedArray : string[] = pomocna.sort((n1,n2) => {
+//        if(n1.adress > n2.adress){
+//          return 1;
+//        }
+//
+//        if(n2.adress > n1.adress){
+//          return -1;
+//        }
+//      });
+//      this.sviServisi = sortedArray;
+//        console.log(sortedArray);
+//        }
     }

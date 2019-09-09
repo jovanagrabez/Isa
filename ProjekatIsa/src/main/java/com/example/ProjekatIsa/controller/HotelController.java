@@ -6,10 +6,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -553,6 +555,99 @@ public class HotelController {
 		
 		return suma;
 	
+	}
+	
+	@RequestMapping(value="/sortForm/{param}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> sortForm(@PathVariable("param") String param, @RequestBody List<HotelDTO> servisi){
+		System.out.println("usao u sortiranjee");
+		
+		List<HotelDTO> sorted = new ArrayList<HotelDTO>();
+		
+		for(HotelDTO acc : servisi) {
+			System.out.println("naziv hotela je" + acc.getName());
+		}
+		
+		String[] paramArray = param.split("=");
+		String item = paramArray[0];
+		String order = paramArray[1];
+		boolean descending=false; 
+		boolean ascending=false; 
+		
+		if(order.equals("descending")) {
+			descending = true;
+		}
+		
+		
+		if(item.equals("adress") && order.equals("ascending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getAddress))
+					  .collect(Collectors.toList());
+			
+			System.out.println("Adresa" + sorted);
+		}
+		
+		
+        if(item.equals("adress") && order.equals("descending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getAddress).reversed())
+					  .collect(Collectors.toList());
+			
+			System.out.println("Adresa" + sorted);
+		}
+        
+        
+        if(item.equals("name") && order.equals("ascending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getName))
+					  .collect(Collectors.toList());
+			
+			System.out.println("Name" + sorted);
+		}
+        
+        if(item.equals("name") && order.equals("ascending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getName))
+					  .collect(Collectors.toList());
+			
+			System.out.println("Name" + sorted);
+		}
+        
+        if(item.equals("name") && order.equals("descending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getName).reversed())
+					  .collect(Collectors.toList());
+			
+			System.out.println("Adresa" + sorted);
+		}
+        
+        
+        if(item.equals("rate") && order.equals("ascending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getAverage_rating))
+					  .collect(Collectors.toList());
+			
+			System.out.println("Name" + sorted);
+		}
+        
+        if(item.equals("rate") && order.equals("descending") ) {
+			
+			sorted = servisi.stream()
+					  .sorted(Comparator.comparing(HotelDTO::getAverage_rating).reversed())
+					  .collect(Collectors.toList());
+			
+			System.out.println("Adresa" + sorted);
+		}
+		
+	
+		return  new ResponseEntity<List<HotelDTO>>(sorted, HttpStatus.OK);
+		
 	}
 }
 

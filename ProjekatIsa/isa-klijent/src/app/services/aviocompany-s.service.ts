@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import {Http, Response, Headers } from "@angular/http";
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { SortForm } from '../models/SortForm';
+import { AvioCompany } from '../models/AvioCompany';
 
 import 'rxjs/Rx'
 
@@ -71,5 +73,19 @@ export class AviocompanySService {
 
   getCompanyByFlight(id) {
     return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+  }
+    
+  sortingService(sortForm: SortForm, servisi: Array<AvioCompany>) {
+    var item = sortForm.sortItem;
+    console.log(item);
+    var type = sortForm.sortType;
+    console.log(type);
+    console.log(servisi.length);
+    console.log('sorting rent a car');
+    var sending= item + '=' + type;
+    console.log(item);
+    console.log(type);
+    // tslint:disable-next-line:max-line-length
+    return this.http.post("http://localhost:8080/avioCompany/sortForm/" + sending, servisi);
   }
 }

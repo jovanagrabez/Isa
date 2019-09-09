@@ -57,6 +57,8 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
+import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
+import { ServiceReportComponent } from './service-report/service-report.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +90,9 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
     MyReservationsComponent,
     HotelReportComponent,
     MyReservationsComponent,
-    SearchpageComponent
+    SearchpageComponent,
+    QuickReservationComponent,
+    ServiceReportComponent
 
 
 

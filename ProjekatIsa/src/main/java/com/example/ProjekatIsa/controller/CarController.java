@@ -22,10 +22,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjekatIsa.DTO.CarDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
+import com.example.ProjekatIsa.model.Discount;
 import com.example.ProjekatIsa.model.Filijale;
+import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.RatingCar;
+import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.RentACar;
+import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.repository.CarRepository;
+import com.example.ProjekatIsa.repository.DiscountRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
+import com.example.ProjekatIsa.repository.RatingCarRepository;
 import com.example.ProjekatIsa.repository.RentalCarRepository;
 import com.example.ProjekatIsa.service.CarService;
 import com.example.ProjekatIsa.service.FilijaleService;
@@ -52,6 +59,25 @@ public class CarController {
 	
 	@Autowired
 	RentalCarRepository rentRepository;
+	
+	@Autowired 
+	DiscountRepository discountRepository;
+	
+	@Autowired
+	RatingCarRepository ratingCarRepository;
+	
+	
+	
+	@RequestMapping(
+			value = "/getDiscountCars", 
+			method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public List<Discount>  getDiscountCars() {
+		
+		System.out.println("Number of cars: " + discountRepository.findAll().size());
+		
+		return  discountRepository.findAll();
+	}
 	
 	@RequestMapping(value="/addCar",method = RequestMethod.POST)
 	public ResponseEntity<?> addNewCar(@RequestBody CarDTO car){
@@ -83,6 +109,50 @@ public class CarController {
 		
 		List<Car> returnList = new ArrayList<Car>();
 		returnList = carRepository.findAllByFilijale(fil);
+		System.out.println("Pronasao" + returnList);
+		if (returnList==null) {
+			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<List<Car>>(returnList, HttpStatus.OK);
+		}	
+		
+}
+	
+	@RequestMapping(
+			value = "/getAll", 
+			method = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getAll(@RequestBody Long Id) {
+		
+		Car car = new Car();
+		RentACar servis = rentRepository.findOneById(Id);
+		
+		List<Car> returnList = new ArrayList<Car>();
+		returnList = carRepository.findAllByRentalcars(servis);
+		System.out.println("Pronasao" + returnList);
+		if (returnList==null) {
+			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+		else {
+			return new ResponseEntity<List<Car>>(returnList, HttpStatus.OK);
+		}	
+		
+}
+	
+	
+	
+	@RequestMapping(
+			value = "/getCarById", 
+			method = RequestMethod.POST, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getCarById(@RequestBody Long Id) {
+		System.out.println("Usaoooo");
+		Car car = new Car();
+		Discount discount = discountRepository.findOneById(Id);
+		
+		List<Car> returnList = new ArrayList<Car>();
+		returnList = carRepository.findAllByDiscount(discount);
 		System.out.println("Pronasao" + returnList);
 		if (returnList==null) {
 			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -240,6 +310,22 @@ public class CarController {
 		}
 		
 	}
+	
+	@RequestMapping(value="/getRatingCar/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<RatingCar>>  getRatingCar(@PathVariable("id") Long idCar) {
+
+		List<RatingCar> returnList = new ArrayList<RatingCar>();
+		Car car = carService.findOneById(idCar);
+		returnList = ratingCarRepository.findAllByCar(car);
+		
+		return new ResponseEntity<List<RatingCar>>(returnList,HttpStatus.OK);
+
+	}
+	
+	
+	
 	
 
 }

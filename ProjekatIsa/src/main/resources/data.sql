@@ -185,11 +185,11 @@ insert into roles_privileges(role_id,privilege_id) values (3,22);
 insert into roles_privileges(role_id,privilege_id) values (4,22);
 insert into roles_privileges(role_id,privilege_id) values (5,22);
 
-insert into rentalcars (name,adress,description,average_rating) values ('CarFlexi','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
-insert into rentalcars (name,adress,description,average_rating) values ('EasyRentCars','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
-insert into rentalcars (name,adress,description,average_rating) values ('EuropeCar','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
-insert into rentalcars (name,adress,description,average_rating) values ('Inex Rent A Car','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
-insert into rentalcars (name,adress,description,average_rating) values ('Max Rent A Car','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
+insert into rentalcars (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
+insert into rentalcars (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
+insert into rentalcars (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
+insert into rentalcars (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
+insert into rentalcars (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
 
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);
@@ -212,9 +212,6 @@ insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,
 
 insert into discount(discount_id,date_from,date_to,discount) values (1,'2019-09-05','2019-09-25',30);
 insert into discount(discount_id,date_from,date_to,discount) values (2,'2019-09-05','2019-09-25',20);
-
-insert into car_discount(car_id,discount_id) values (1,1);
-insert into car_discount(car_id,discount_id) values (2,2);
 
 
 --filijale za carflexi
@@ -305,6 +302,45 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (3,'2020-08-07 00:00:00','2020-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2020-08-07 00:00:00',14,1,true);
+
+--PRIMJERI ZA IZVJESTAJ
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (4,'2018-10-15','2018-10-25','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (5,'2018-10-01','2018-10-13','Novi Sad','Beograd','B',3,10,250,'2018-09-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (6,'2019-11-10','2019-11-15','Novi Sad','Beograd','B',3,10,250,'2019-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (7,'2018-11-01','2018-11-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (8,'2019-12-09','2019-12-12','Novi Sad','Beograd','B',3,10,250,'2019-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (9,'2018-12-03','2018-12-11','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (10,'2019-01-01','2019-01-05','Novi Sad','Beograd','B',3,10,250,'2018-12-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (11,'2019-02-10','2019-07-13','Novi Sad','Beograd','B',3,10,250,'2019-02-07',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (12,'2019-03-05','2019-09-10','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (13,'2019-09-03','2019-07-04','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (14,'2019-09-05','2019-09-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+	values (15,'2019-09-05','2019-09-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+
+insert into rating_rentacarservice (ratingcar_id,user_user_id,car_id,rate) 
+	values (1,1,12,5);
+insert into rating_rentacarservice (ratingcar_id,user_user_id,car_id,rate) 
+	values (2,1,12,4);
+insert into rating_rentacarservice (ratingcar_id,user_user_id,car_id,rate) 
+	values (3,1,12,3);
+
+
+
+
+
+
 
 --PRIMJERI ZA IZVJESTAJ
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	

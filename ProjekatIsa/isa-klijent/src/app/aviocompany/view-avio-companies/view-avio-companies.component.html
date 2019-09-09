@@ -8,6 +8,47 @@
 						<h3>Avio kompanije</h3>
 						<p>Jednom godisnje, idite na neko mesto na kome nikada to tada niste bili. (Dalaj Lama)</p>
 					</div>
+					
+         <span class="hidden-xs" id="changeButton"><a  class="btn btn-primary btn-outline" (click)="sortClick()">SORTIRANJE</a></span>    					
+		<div class="col-xs-6" id = "sortDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+ 							<select name="sortItem" id="sortItem" [(ngModel)]="sortForm.sortItem" class="form-control"  required>
+                   			<option value="name">Naziv</option>
+                   			<option value="adress">Adresa</option>
+                   			<option value="rate">Ocena</option>
+               				</select> 
+               			  </div>
+			              <div class="form-group">
+							<select name="sortType" id="sortType" [(ngModel)]="sortForm.sortType" class="form-control" required >
+                          	<option value="ascending">ascending</option>
+                            <option value="descending">descending</option>
+                     	    </select> 			              </div>
+			       
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                			<div class="col-md-1" *ngIf="sortForm.sortItem == undefined || sortForm.sortType == undefined">
+           <div class="form-btn">
+           	 <button type="button"  (click)="sortServices()" class="btn  btn-lg" disabled>Sort</button>
+           </div>
+      </div>
+      <div class="col-md-8" *ngIf="sortForm.sortItem != undefined && sortForm.sortType != undefined">
+           <div class="form-btn">
+                <button type="button" (click)="sortServices()" class="btn btn-primary">Sort</button>
+       </div>              	
+			              </div>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+					
+		</div>			
 				
 	</div>
 	</div>
@@ -16,11 +57,14 @@
 	<div class="fh5co-overlay"></div>
 	<div class="fh5co-cover" data-stellar-background-ratio="0.5"
 		style="background-image: url(assets/images/pic.png);">
+		
+		
+		
 	
 			
 				
 				<div class="row row-bottom-padded-md">
-					<div *ngFor="let a of niz$">
+					<div *ngFor="let a of sviServisi">
 						<div class="row-md-4 row-sm-6 fh5co-tours animate-box"
 							data-animate-effect="fadeIn">
 							<div href="profil">
