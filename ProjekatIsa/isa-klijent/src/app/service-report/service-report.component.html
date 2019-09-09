@@ -1,0 +1,103 @@
+<div id="fh5co-tours" class="fh5co-section-gray">
+<div class="container">
+    <div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+			<h3>{{currentRentACar.name}}</h3>
+			<a  class="btn btn-primary btn-outline" (click)="prihodiServisaClick()">Prihodi servisa</a>
+			<br/>
+			<br/>
+			<a class="btn btn-primary btn-outline" (click)="dnevniClick()">Dnevni izvestaj</a>
+			<a class="btn btn-primary btn-outline"  (click)="nedeljniClick()">Nedeljni izvestaj</a>
+			<a class="btn btn-primary btn-outline"   (click)="mesecniClick()">Mesecni izvestaj</a>	
+			<br/>
+			<br/>
+			<a class="btn btn-primary btn-outline"  (click)="oceneServisa()">Ocene servisa</a>	
+			<a class="btn btn-primary btn-outline"  (click)="oceneVozila()">Ocene vozila</a>		
+			</div>
+			
+			
+			</div>
+			
+	<div *ngIf="dnevni" style="display: block">
+        <h4>Broj rezervacija u servisu u prethodnoj nedelji po danima</h4>
+        <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
+    </div>
+    
+    <div *ngIf="nedeljni" style="display: block">
+        <h4>Broj rezervisanih  vozila po danima</h4>
+       <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
+    </div>
+    
+    <div *ngIf="mesecni" style="display: block">
+        <h4>Broj prijavljenih vozila u mesecu</h4>
+        <canvas baseChart [datasets]="podaci" [labels]="labele" [options]="opcije" [legend]="legenda" [chartType]="tip"></canvas>
+    </div>
+    
+    
+    <div *ngIf="oceneS" style="display: block">
+        <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Ocena</th>
+                <th>Korisnik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of allRatings">
+                <td>{{o.rate}}</td>
+                <td> {{o.user.email}} </td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    
+    <div *ngIf="oceneC" style="display: block">
+        <table *ngIf="allRatingsCar.length != 0" class="table table-hover">
+            <thead>
+              <tr>
+                <th>Ocena</th>
+                <th>Korisnik</th>
+                <th>Broj sobe</th>
+            </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let o of allRatingsCar">
+                <td>{{o.rate}}</td>
+                <td>{{o.user.email}}</td>
+                <td>{{o.car.number}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    
+    <div *ngIf="nedeljni == false && mesecni==false && dnevni==false && oceneS==false && oceneC==false" style="display: block">
+        <h4>Izaberite interval za koji zelite da vidite prihode servisa</h4>
+        <form class="booking-form" (ngSubmit)="pretraziServise()">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="date" id="datMin" (change)="intervalDatuma()" max={{pomoc}} class="form-control" name="prijavljivanje" name="intervalOd" [(ngModel)]="intervalOd" />
+
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <input type="date" min={{pomocDva}} max={{pomoc}} class="form-control" name="prijavljivanje" name="intervalDo" [(ngModel)]="intervalDo" />
+                    </div>
+                </div>
+                <div class="form-btn">
+                    <button class="submit-btn">OK</button>
+                </div>
+                <div class="col-sm-12" *ngIf = "suma!=undefined">
+                    <h4>Prihod je {{suma}}</h4> 
+            	</div>
+            </div>
+            
+        </form>
+        
+    </div>
+			
+			
+			
+	</div>
+</div>

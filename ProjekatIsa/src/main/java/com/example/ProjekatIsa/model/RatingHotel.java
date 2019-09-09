@@ -25,9 +25,11 @@ public class RatingHotel implements Serializable {
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="user_id")
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="hotel_id")
 	private Hotel hotel;
 	
 	@Column(name="rate", nullable = false)

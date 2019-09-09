@@ -13,6 +13,10 @@
 						<br/>
 						<br/>
 						<span class="hidden-xs" id="addFillButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline"  (click)="addFilClick()">Dodaj filijalu</a></span>
+						<br/>
+						<br/>
+						<span class="hidden-xs" id="addServiceButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline"  (click)="reportClick()">Pogledaj prihode</a></span>
+						
 						
 					</div>
 					
@@ -240,10 +244,10 @@
                 <td>{{c.car_number}}</td>
                 <td>{{c.average_rating}}</td> 
                 <td>{{c.price}}<b>/</b> 1 dan</td>
-                <td>{{c.price*brojDana}}<b>/</b></td>
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">{{c.price*brojDana + rez.totalPrice}}â‚¬</span></td>
                 <td>{{c.prod_year}}</td>               
                               
-                <td><span class="hidden-xs" id="bookCarId"><button type="button"  class="btn btn-outline-primary" (click)="reserve(c)">Book me</button></span></td> 
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="reserve(c)">Book me</button></span></td> 
                 </tr>
              </tbody>
 

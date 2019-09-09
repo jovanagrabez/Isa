@@ -78,6 +78,9 @@ export class UserService {
     return this.http.put('http://localhost:8080/api', user);
 
   }
+  changePassword(u: User, id : number) : Observable<any> {
+      return this.http.post('http://localhost:8080/api/changePassword/'+id,u);
+    }
 }
    
 

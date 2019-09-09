@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient,} from '@angular/common/http';
 import { HttpModule,Http } from '@angular/http';
 import { DatePipe } from '@angular/common';
+import {ChartsModule} from 'ng2-charts';
 
 import {RequestOptions, XHRBackend} from '@angular/http';
 import {Router, RouterModule} from '@angular/router';
@@ -56,6 +57,12 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SearchpageComponent } from './aviocompany/searchpage/searchpage.component';
+<<<<<<< HEAD
+import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
+import { ServiceReportComponent } from './service-report/service-report.component';
+=======
+import { ChangePasswordComponent } from './change-password/change-password.component';
+>>>>>>> branch 'master' of https://github.com/jovanagrabez/Isa
 
 @NgModule({
   declarations: [
@@ -87,7 +94,13 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
     MyReservationsComponent,
     HotelReportComponent,
     MyReservationsComponent,
-    SearchpageComponent
+    SearchpageComponent,
+<<<<<<< HEAD
+    QuickReservationComponent,
+    ServiceReportComponent
+=======
+    ChangePasswordComponent
+>>>>>>> branch 'master' of https://github.com/jovanagrabez/Isa
 
 
 
@@ -106,7 +119,8 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
    NgbModule.forRoot(),
    FormsModule,
     BrowserAnimationsModule,
-    NgSelectModule
+    NgSelectModule,
+    ChartsModule
 
 
 

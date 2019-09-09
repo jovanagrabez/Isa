@@ -1,6 +1,9 @@
 package com.example.ProjekatIsa.controller;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.AviocompanyDTO;
 import com.example.ProjekatIsa.DTO.DestinationDTO;
+import com.example.ProjekatIsa.DTO.RentACarDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
@@ -97,6 +101,100 @@ public class AviocompanyController {
 	            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
 	        }
 	    }
+	 
+	 
+	 @RequestMapping(value="/sortForm/{param}",
+				method = RequestMethod.POST)
+		public ResponseEntity<?> sortForm(@PathVariable("param") String param, @RequestBody List<AviocompanyDTO> servisi){
+			System.out.println("usao u sortiranjee");
+			
+			List<AviocompanyDTO> sorted = new ArrayList<AviocompanyDTO>();
+			
+			for(AviocompanyDTO acc : servisi) {
+				System.out.println("naziv hotela je" + acc.getName());
+			}
+			
+			String[] paramArray = param.split("=");
+			String item = paramArray[0];
+			String order = paramArray[1];
+			boolean descending=false; 
+			boolean ascending=false; 
+			
+			if(order.equals("descending")) {
+				descending = true;
+			}
+			
+			
+			if(item.equals("adress") && order.equals("ascending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getAdress))
+						  .collect(Collectors.toList());
+				
+				System.out.println("Adresa" + sorted);
+			}
+			
+			
+         if(item.equals("adress") && order.equals("descending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getAdress).reversed())
+						  .collect(Collectors.toList());
+				
+				System.out.println("Adresa" + sorted);
+			}
+         
+         
+         if(item.equals("name") && order.equals("ascending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getName))
+						  .collect(Collectors.toList());
+				
+				System.out.println("Name" + sorted);
+			}
+         
+         if(item.equals("name") && order.equals("ascending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getName))
+						  .collect(Collectors.toList());
+				
+				System.out.println("Name" + sorted);
+			}
+         
+         if(item.equals("name") && order.equals("descending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getName).reversed())
+						  .collect(Collectors.toList());
+				
+				System.out.println("Adresa" + sorted);
+			}
+         
+         
+//         if(item.equals("rate") && order.equals("ascending") ) {
+//				
+//				sorted = servisi.stream()
+//						  .sorted(Comparator.comparing(AviocompanyDTO::getAverage_rating))
+//						  .collect(Collectors.toList());
+//				
+//				System.out.println("Name" + sorted);
+//			}
+//         
+//         if(item.equals("rate") && order.equals("descending") ) {
+//				
+//				sorted = servisi.stream()
+//						  .sorted(Comparator.comparing(AviocompanyDTO::getAverage_rating).reversed()
+//						  .collect(Collectors.toList());
+//				
+//				System.out.println("Adresa" + sorted);
+//			}
+			
+		
+			return  new ResponseEntity<List<AviocompanyDTO>>(sorted, HttpStatus.OK);
+			
+		}
 
 	
 	 

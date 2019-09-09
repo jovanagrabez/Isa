@@ -4,6 +4,8 @@ import { AviocompanySService } from '../../services/aviocompany-s.service';
 
 import { Observable } from 'rxjs';
 import {AuthServiceService} from '../../services/auth-service.service';
+import { SortForm } from '../../models/SortForm';
+import { AvioCompany } from '../../models/AvioCompany';
 
 @Component({
   selector: 'app-view-avio-companies',
@@ -14,9 +16,13 @@ export class ViewAvioCompaniesComponent implements OnInit {
 
        niz$: Object ;
       private selectedCompany : any;
+      sviServisi : any;
+
 
 
   currentRate:string;
+  sortForm : SortForm = new SortForm();
+
    
 constructor(private router: Router, private avioService: AviocompanySService , private  role: AuthServiceService) {
 
@@ -27,13 +33,31 @@ constructor(private router: Router, private avioService: AviocompanySService , p
   ngOnInit() {
 
   this.avioService.getAvioCompany().subscribe(
-    data => this.niz$ = data
-    );
-         console.log();
+    data => {
+    //this.niz$ = data;
+    this.sviServisi = data;
+    console.log(data);
+    });
+         
 
 
 
   }
+    
+      
+   sortClick(){
+      document.getElementById('sortDiv').removeAttribute('hidden');
+      }
+   
+   sortServices()
+   {
+    console.log(this.sortForm);
+    this.avioService.sortingService(this.sortForm, this.sviServisi).subscribe(data => {
+        this.niz$ = data;
+        console.log(this.sviServisi);
+        console.log('List is sorted.');
+    });
+      }
     
     
    onClickCompanyDetails(Aviocompany : any) :void {

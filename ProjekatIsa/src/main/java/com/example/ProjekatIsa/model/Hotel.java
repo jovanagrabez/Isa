@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import com.example.ProjekatIsa.DTO.AviocompanyDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
 @Table(name = "hotel")
@@ -48,8 +49,10 @@ public class Hotel implements Serializable{
 	@Column(name = "average_rating", nullable = true)
 	private Double average_rating;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="hotel")
+	//@JsonIgnore
+	//@OneToMany(mappedBy="hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="hotel", orphanRemoval = true, cascade = CascadeType.REMOVE)
+	@JsonManagedReference
 	private List<Room> rooms;
 	
 	@JsonIgnore

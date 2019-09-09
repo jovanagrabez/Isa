@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { SearchFormHotel } from '../models/SearchFormHotel';
 import { Hotel } from '../models/Hotel';
+import { SortForm } from '../models/SortForm';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ViewHotelsComponent implements OnInit {
   hotels : Hotel[];
   searchFormHotel : SearchFormHotel = new SearchFormHotel();
   constructor(private router : Router, private viewHotelsService : ViewHotelsService,private http: HttpClient) { }
+  sortForm : SortForm = new SortForm();
 
   ngOnInit() {
   
@@ -58,6 +60,20 @@ export class ViewHotelsComponent implements OnInit {
 	        console.log(data);
 	    });
 	}
+
+   sortClick(){
+      document.getElementById('sortDiv').removeAttribute('hidden');
+      }
+   
+   sortHotels()
+   {
+    console.log(this.sortForm);
+    this.viewHotelsService.sortingHotels(this.sortForm, this.hotels).subscribe(data => {
+        this.hotels = data as Array<Hotel>;
+        console.log(this.hotels);
+        console.log('List is sorted.');
+    });
+      }
 	
 	isBlank(str) {
         return (!str || /^\s*$/.test(str));

@@ -50,9 +50,10 @@ public class Car implements Serializable {
 	@Column(name="prod_year", nullable = false)
 	private int prod_year;
 	
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="rentacar_id")
 	private RentACar rentalcars;
+	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="filijale_id")
@@ -70,15 +71,24 @@ public class Car implements Serializable {
 	@OneToMany(mappedBy="car", fetch = FetchType.LAZY)
     private Set<RatingCar> ratings;
 
-	
-	@OneToMany(mappedBy="car",orphanRemoval = true, fetch = FetchType.LAZY)
+	@JsonIgnore
+	@OneToMany(mappedBy="car")
 	private List<CarReservation> reservation;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "car_discount",
-            joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "car_id"),
-            inverseJoinColumns = @JoinColumn(name = "discount_id", referencedColumnName = "discount_id"))
-	private Set<Discount> discount;
+	
+//	@JsonIgnore
+//	@OneToMany(mappedBy="car")
+//	private List<Discount> discount;
+	
+	@ManyToOne( fetch = FetchType.EAGER)
+	@JoinColumn(name="discount_id")
+	private Discount discount;
+	
+//	@ManyToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "car_discount",
+//            joinColumns = @JoinColumn(name = "car_id", referencedColumnName = "car_id"),
+//            inverseJoinColumns = @JoinColumn(name = "discount_id", referencedColumnName = "discount_id"))
+//	private Set<Discount> discount;
 	
 	
 	

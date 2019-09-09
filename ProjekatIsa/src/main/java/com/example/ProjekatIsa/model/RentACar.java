@@ -36,6 +36,9 @@ public class RentACar implements Serializable {
 	@Column(name = "name", unique = true, columnDefinition="VARCHAR(40)")
     private String name;
 	
+	@Column(name = "city", nullable = false, columnDefinition="VARCHAR(40)")
+    private String city;
+	
 	@Column(name = "adress", columnDefinition="VARCHAR(100)")
     private String adress;
 	
@@ -54,7 +57,7 @@ public class RentACar implements Serializable {
 	private Set<Car> price;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy = "rentalcars")
+	@OneToMany(fetch = FetchType.LAZY,mappedBy = "rentalcars")
 	private List<Filijale> filijale;
 	
 	@JsonIgnore
@@ -67,6 +70,14 @@ public class RentACar implements Serializable {
 	
 	
 	
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
 
 	public List<Car> getCar() {
 		return car;
@@ -141,13 +152,14 @@ public class RentACar implements Serializable {
 		this.filijale.add(f);
 	}
 
-	public RentACar(Long id, String name, String adress, String description, Double average_rating) {
+	public RentACar(Long id, String name, String city, String adress, String description, Double average_rating) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.adress = adress;
 		this.description = description;
 		this.average_rating = average_rating;
+		this.city = city;
 	}
 
 	public RentACar() {

@@ -25,10 +25,13 @@ import com.example.ProjekatIsa.DTO.HotelDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
 import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.RatingHotel;
+import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.model.User;
 import com.example.ProjekatIsa.repository.HotelRepository;
+import com.example.ProjekatIsa.repository.RatingRoomRepository;
 import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
@@ -54,6 +57,9 @@ public class RoomController {
 	
 	@Autowired 
 	private UserRepository userRepository;
+	
+	@Autowired
+	private RatingRoomRepository ratingRoomRepository;
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -150,7 +156,7 @@ public class RoomController {
 	@PreAuthorize("hasAuthority('bookRoom')")
 	@RequestMapping(value="/bookRoom",
 			method = RequestMethod.POST)
-	ResponseEntity<CarReservationDTO> bookRoom(@RequestBody ReservationRoom roomRes){
+	public ResponseEntity<?> bookRoom(@RequestBody ReservationRoom roomRes){
 		System.out.println("Usao u bookRoom");
 		
 		Date startDate = null;
@@ -177,7 +183,7 @@ public class RoomController {
 			return new ResponseEntity<>(HttpStatus.CREATED);
 			
 		}else {
-			return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 
@@ -197,5 +203,19 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 			}
 		}
 		return false;
+	}
+	
+	@PreAuthorize("hasAuthority('getRatingRoom')")
+	@RequestMapping(value="/getRatingRoom/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<RatingRoom>>  getRatingRoom(@PathVariable("id") Long idRoom) {
+
+		List<RatingRoom> returnList = new ArrayList<RatingRoom>();
+		Room room = roomService.findOneById(idRoom);
+		returnList = ratingRoomRepository.findAllByRoom(room);
+		
+		return new ResponseEntity<List<RatingRoom>>(returnList,HttpStatus.OK);
+
 	}
 }

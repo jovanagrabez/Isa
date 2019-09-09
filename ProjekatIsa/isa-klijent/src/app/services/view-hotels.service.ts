@@ -4,6 +4,8 @@ import { Observable } from 'rxjs/Observable';
 import {Http, Response, Headers } from "@angular/http";
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SearchFormHotel } from '../models/SearchFormHotel';
+import { SortForm } from '../models/SortForm';
+import { Hotel } from '../models/Hotel';
 
 import 'rxjs/Rx'
 
@@ -50,4 +52,18 @@ export class ViewHotelsService {
   searchHotels(searchForm: SearchFormHotel) : Observable<any> {
       return this.http.post('http://localhost:8080/hotels/searchHotels/',searchForm); 
   };
+    
+  sortingHotels(sortForm: SortForm, hoteli: Array<Hotel>) {
+    var item = sortForm.sortItem;
+    console.log(item);
+    var type = sortForm.sortType;
+    console.log(type);
+    console.log(hoteli.length);
+    console.log('sorting rent a car');
+    var sending= item + '=' + type;
+    console.log(item);
+    console.log(type);
+    // tslint:disable-next-line:max-line-length
+    return this.http.post("http://localhost:8080/hotels/sortForm/" + sending, hoteli);
+  }
 }

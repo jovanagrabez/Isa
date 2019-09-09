@@ -58,6 +58,7 @@ public class CarReservation {
 
 	@Column(name="flag", nullable = false)
 	private boolean flag;
+
 	
 	
 

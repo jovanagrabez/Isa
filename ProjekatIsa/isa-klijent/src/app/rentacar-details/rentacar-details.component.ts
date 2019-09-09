@@ -53,6 +53,7 @@ export class RentacarDetailsComponent implements OnInit {
   brojDana : number;
   cenaDo : number;
   cenaOd : number;
+  canBook : boolean;
     //za mape
     adresa = "";
     finalna = "";
@@ -68,8 +69,12 @@ export class RentacarDetailsComponent implements OnInit {
           console.log('Sve kategorije' + data);
           this.kategorije = data;
           console.log(data);
-          
+          this.canBook = true;
           });
+      
+     
+      
+      
       this.token = this.auth.getJwtToken();
 
       this.user = JSON.parse(localStorage.getItem('user'));
@@ -100,6 +105,14 @@ export class RentacarDetailsComponent implements OnInit {
             this.currentRentACar = currentRentACar;
             console.log(currentRentACar);
             console.log(currentRentACar.id);
+            
+            
+          this.carService.getAll(this.currentRentACar.id).subscribe(data=>{
+             console.log('Sve kategorije' + data);
+             this.pronadjenaVozila = data;
+             console.log(data);
+          
+          });
             
             
             this.service.getFilijale(this.currentRentACar.id).subscribe(data=>{
@@ -217,6 +230,7 @@ export class RentacarDetailsComponent implements OnInit {
                 console.log(this.currentRentACar.id);
                 this.carService.searchCars(this.rez.startDate, this.rez.endDate,this.currentRentACar.id,this.rez.category,-1,-1).subscribe(data=>{
                     this.pronadjenaVozila=data;
+                    this.canBook = false;
                     });
                 
                 }
@@ -239,6 +253,7 @@ export class RentacarDetailsComponent implements OnInit {
              this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
              this.carService.searchCars(this.rez.startDate, this.rez.endDate,this.currentRentACar.id,this.rez.category,this.cenaOd,this.cenaDo).subscribe(data=>{
                     this.pronadjenaVozila=data;
+                    this.canBook = false;
                     });
             }
      }
@@ -305,4 +320,17 @@ export class RentacarDetailsComponent implements OnInit {
         console.log(this.adresa);
         console.log(this.finalna);
       }
+    
+     reportClick(){
+        this.service.selectRentACar(this.currentRentACar);
+        this.service.currentRentACar.subscribe(
+                currentRentACar => 
+                {
+                    console.log("Current service: " +  currentRentACar);
+                }
+            );
+
+            this.router.navigateByUrl('/serviceReport');
+         }
+
 }
