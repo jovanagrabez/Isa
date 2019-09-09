@@ -104,7 +104,7 @@ public class Aviocompany implements Serializable{
 	     setName(a.getName());
 	     setDescription(a.getDescription());
 	     setAdress(a.getAdress());
-	     //setRating(a.getRating());
+	     setRating(a.getRating());
 		
 	}
 	public Aviocompany() {

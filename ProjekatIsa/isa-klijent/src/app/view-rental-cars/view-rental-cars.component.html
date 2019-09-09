@@ -133,16 +133,11 @@
 									<div class="desc">
 										<span></span>
 										<h3>{{r.name}}</h3>
-									    <h3>{{r.description}}</h3>
+									    <h4>{{r.description}}</h4>
 									    <span>{{r.city}}</span>
 									    <span>{{r.average_rating}}</span>
-									     <a
-                                      (click)="onClickCompanyDetails(r)"	class="btn btn-primary btn-outline" >Detaljnije <i
-                  ></i></a>				
-                   <a
-                                      (click)="discountedCars(r)"	class="btn btn-primary btn-outline" >Vozila na popustu <i
-                  ></i></a>																			
-										<!--  a  (click)="onClickCompanyDetails(c)" class="btn btn-primary btn-outline">Prikazi vozila</a-->
+									    <span><a (click)="onClickCompanyDetails(r)" class="btn btn-primary btn-outline">Detaljnije</a></span>				
+                                        <span><a (click)="discountedCars(r)" class="btn btn-primary btn-outline" >Popust<i></i></a></span>																			
 										
 									</div>
 								</div>

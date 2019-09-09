@@ -60,11 +60,9 @@ public class RentACar implements Serializable {
 	@OneToMany(fetch = FetchType.LAZY,mappedBy = "rentalcars")
 	private List<Filijale> filijale;
 	
-	@JsonIgnore
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "rent_rating_car", joinColumns = @JoinColumn(name = "rentacar_id"), inverseJoinColumns = @JoinColumn(name = "car_id"))
-    private Set<RatingRentACar> rentacarRatings;
-   
+	//@JsonIgnore
+	@OneToMany(mappedBy="rentalcars")    
+	private List<RatingRentACar> service_ratings;   
 	
 	
 	

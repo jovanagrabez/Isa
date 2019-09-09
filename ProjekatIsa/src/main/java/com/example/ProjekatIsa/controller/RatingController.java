@@ -155,11 +155,10 @@ public class RatingController {
 			}
 		}
 		
-		double novaOcena = ocene / br;
-		double ocenaVozila = c.getAverage_rating();
-		double ukupno;
-		ukupno = (ocene + ocenaVozila)/br;
-		c.setAverage_rating(novaOcena);
+		double nova = ocena.getRate();
+		double stara = c.getAverage_rating();
+		double ukupno = (nova + stara)/2;
+		c.setAverage_rating(ukupno);
 		try{
 			Car izmenjeno = carService.save(c);
 		}catch(NoSuchElementException e)
@@ -290,6 +289,7 @@ public class RatingController {
 		List<RatingRentACar> noveOcene = servisCarRepository.findAll();
 		int br = 0;
 		int ocene = 0;
+		int nova = ocena.getRate();
 		for(RatingRentACar ov : noveOcene)
 		{
 			if(ov.getCar().getId() == servis.getId())
@@ -298,8 +298,8 @@ public class RatingController {
 				ocene += ov.getRate();
 			}
 		}
-		
-		double novaOcena = ocene / br;
+		double stara = servis.getAverage_rating();
+		double novaOcena = (stara+ocena.getRate()) / 2;
 		servis.setAverage_rating(novaOcena);
 		try{
 			RentACar izmenjeno = rentalRepository.save(servis);
@@ -369,8 +369,10 @@ public class RatingController {
 			}
 		}
 		
-		double novaOcena = ocene / br;
-		hotel.setAverage_rating(novaOcena);
+		double nova = ocena.getRate();
+		double stara = hotel.getAverage_rating();
+		double ukupno = (nova+stara)/2;
+		hotel.setAverage_rating(ukupno);
 		try{
 			Hotel izmenjeno = hotelRepository.save(hotel);
 		}catch(NoSuchElementException e)
@@ -427,8 +429,10 @@ public class RatingController {
 			}
 		}
 		
-		double novaOcena = ocene / br;
-		c.setRoom_average_rating(novaOcena);
+		double nova = ocena.getRate();
+		double stara = c.getRoom_average_rating();
+		double ukupno = (nova+stara)/2;
+		c.setRoom_average_rating(ukupno);
 		try{
 			Room izmenjeno = roomRepository.save(c);
 		}catch(NoSuchElementException e)
@@ -492,8 +496,11 @@ public class RatingController {
 	@RequestMapping(value="userServiceRating/{id}", method=RequestMethod.GET)
 	ResponseEntity<List<RatingRentACarDTO>> userServiceRating(@PathVariable("id") Long id)
 	{
+		
 		User user = userRepository.findOneById(id);
+		System.out.println(id + "IDDDDDDDDDDDDDDD");
 		List<RatingRentACar> ocene = servisCarRepository.findAllByUser(user);
+		System.out.println(ocene.size());
 		List<RatingRentACarDTO> oceneDTO = new ArrayList<>();
 		
 		for(RatingRentACar o : ocene){
@@ -538,7 +545,7 @@ public class RatingController {
 	
 	
 	
-	@RequestMapping(value="rateFlight", method=RequestMethod.POST)
+	@RequestMapping(value="rateFlight/{id}", method=RequestMethod.POST)
 	ResponseEntity<RatingFlightDTO> rateFlight(@RequestBody RatingFlightDTO ocena)throws Exception{
 		System.out.println("USAO " + ocena.getUser().getFirstName() + " ");
 		

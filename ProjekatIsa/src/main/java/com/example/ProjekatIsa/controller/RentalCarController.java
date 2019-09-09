@@ -499,15 +499,18 @@ public class RentalCarController {
 		
 		
 		@RequestMapping(value="/getAllRatingsService/{id}",
-				method = RequestMethod.GET,
-				produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<List<RatingRentACarService>>  getAllRatingsService(@PathVariable("id") Long idServisa) {
-			List<RatingRentACarService> returnList = new ArrayList<RatingRentACarService>();
+				method = RequestMethod.GET
+				)
+		public ResponseEntity<List<RatingRentACar>>  getAllRatingsService(@PathVariable("id") Long idServisa) {
+			
+			List<RatingRentACar> returnList = new ArrayList<RatingRentACar>();
 			RentACar service = rentalcarRepository.findOneById(idServisa);
 			
-			returnList = ratingRentACarRepository.findAllByCar(service);
+			returnList = ratingRentACarRepository.findAllByRentalcars(service);
+			System.out.println("Id servisa "+ idServisa);
+			System.out.println("ocjene " + returnList.size());
 			
-			return new ResponseEntity<List<RatingRentACarService>>(returnList,HttpStatus.OK);
+			return new ResponseEntity<List<RatingRentACar>>(returnList,HttpStatus.OK);
 		}
 	}
 

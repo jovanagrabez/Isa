@@ -161,7 +161,7 @@ figure {
 }
 .fh5co-cover .btn {
   padding: 1em 2em;
-  opacity: .9;
+  opacity: .7;
 }
 .fh5co-cover.fh5co-cover_2 {
   height: 600px;
@@ -818,10 +818,10 @@ div.cs-select span {
 }
 .fh5co-tours > div .desc .btn {
   opacity: 1;
-  border: 2px solid #fff !important;
+  border: 1px solid #fff !important;
   color: #fff !important;
   letter-spacing: 1px !important;
-  font-weight: 400 !important;
+  font-weight: 40 !important;
 }
 .fh5co-tours > div .desc .btn:hover, .fh5co-tours > div .desc .btn:focus, .fh5co-tours > div .desc .btn:active {
   border: 2px solid #F78536 !important;
@@ -1653,23 +1653,23 @@ div.cs-select span {
 }
 
 .btn {
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-transition: 0.1s;
+  -o-transition: 0.1s;
+  transition: 0.1s;
 }
 
 .btn {
   text-transform: uppercase;
   letter-spacing: 1px;
-  -webkit-transition: 0.3s;
-  -o-transition: 0.3s;
-  transition: 0.3s;
+  -webkit-transition: 0.1s;
+  -o-transition: 0.1s;
+  transition: 0.1s;
 }
 .btn.btn-primary {
   background: #F78536;
   color: #fff;
   border: none !important;
-  border: 2px solid transparent !important;
+  border: 1px solid transparent !important;
 }
 .btn.btn-primary:hover, .btn.btn-primary:active, .btn.btn-primary:focus {
   box-shadow: none;
@@ -1687,7 +1687,7 @@ div.cs-select span {
 .btn.btn-outline {
   background: transparent;
   color: #F78536;
-  border: 2px solid #F78536 !important;
+  border: 1px solid #F78536 !important;
 }
 .btn.btn-outline:hover, .btn.btn-outline:focus, .btn.btn-outline:active {
   background: #F78536 !important;
@@ -1698,7 +1698,7 @@ div.cs-select span {
   letter-spacing: 0;
   text-transform: none;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 8px;
 }
 
 .js .animate-box {
@@ -2549,7 +2549,7 @@ div.cs-select span {
 
 .hotel-box {
 	width: 320px;
-	height: 240px;
+	height: 300px;
 
 	
 }

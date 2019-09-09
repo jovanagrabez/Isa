@@ -30,6 +30,7 @@ import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.RentACar;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.repository.CarRepository;
+import com.example.ProjekatIsa.repository.CarReservationRepository;
 import com.example.ProjekatIsa.repository.DiscountRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
 import com.example.ProjekatIsa.repository.RatingCarRepository;
@@ -66,6 +67,9 @@ public class CarController {
 	@Autowired
 	RatingCarRepository ratingCarRepository;
 	
+	@Autowired 
+	CarReservationRepository carResRepository;
+	
 	
 	
 	@RequestMapping(
@@ -95,6 +99,41 @@ public class CarController {
 		System.out.println("Usao u delete service");
 		
 		Car car = carRepository.findOneById(id);
+		List<CarReservation> res = new ArrayList<CarReservation>();
+		res = carResRepository.findAllByCar(car);
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date today = new Date();    
+		String danasString = dateFormat.format(today);
+		
+		Date danasDatum=null;
+		Date kraj=null;
+		try {
+			danasDatum = dateFormat.parse(danasString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	
+		System.out.println("Danaas " + danasDatum);
+		
+		for(CarReservation carr : res) {
+			Date end = carr.getEndDate();
+			String stringkraja = dateFormat.format(end);
+			try {
+				kraj = dateFormat.parse(stringkraja);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+			if(danasDatum.before(kraj)) {
+				return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+			}
+			else {
+				
+			}
+			
+		}
+		
+		
 		carRepository.delete(car);
 		return new ResponseEntity<>(HttpStatus.OK);
 

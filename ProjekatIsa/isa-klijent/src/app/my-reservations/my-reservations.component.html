@@ -111,8 +111,8 @@
                 <td>{{c.endDate}}</td> 
                 <td><a *ngIf='c.daysLeft >= 2'  (click)="otkazi(c)" class="btn btn-outline-danger">Odjavi</a></td> 
                 <td>
-                      <input id="s{{c.car.id}}" name="rating" type="number" placeholder="Ocena auta">
-                   <a *ngIf='c.rateCar == true' id="s{{c.car.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
+                      <input id="voz{{c.car.id}}" name="rating" type="number" placeholder="Ocena auta">
+                   <a *ngIf='c.rateCar == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
                 </td>
                  <td>
                       <input id="service{{c.car.id}}" type="number" placeholder="Ocena servisa" >

@@ -53,7 +53,7 @@ constructor(private router: Router, private avioService: AviocompanySService , p
    {
     console.log(this.sortForm);
     this.avioService.sortingService(this.sortForm, this.sviServisi).subscribe(data => {
-        this.niz$ = data;
+        this.sviServisi = data;
         console.log(this.sviServisi);
         console.log('List is sorted.');
     });

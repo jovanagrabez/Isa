@@ -67,9 +67,9 @@ public class Car implements Serializable {
 	@OneToMany(mappedBy="car")
     protected List<PricingCar> pricingCar;
 	
-	
-	@OneToMany(mappedBy="car", fetch = FetchType.LAZY)
-    private Set<RatingCar> ratings;
+//	@JsonIgnore
+//	@OneToMany(mappedBy="car", fetch = FetchType.LAZY)
+//    private Set<RatingCar> ratings;
 
 	@JsonIgnore
 	@OneToMany(mappedBy="car")
@@ -247,17 +247,17 @@ public class Car implements Serializable {
 
 
 
-	public Set<RatingCar> getRatings() {
-		return ratings;
-	}
-
-
-
-
-	public void setRatings(Set<RatingCar> ratings) {
-		this.ratings = ratings;
-	}
-	
+//	public Set<RatingCar> getRatings() {
+//		return ratings;
+//	}
+//
+//
+//
+//
+//	public void setRatings(Set<RatingCar> ratings) {
+//		this.ratings = ratings;
+//	}
+//	
 	
 
 
@@ -275,7 +275,7 @@ public class Car implements Serializable {
 		this.filijale = filijale;
 		this.category = category;
 		this.pricingCar = pricingCar;
-		this.ratings = ratings;
+		//this.ratings = ratings;
 		this.reservation = reservation;
 	}
 	
