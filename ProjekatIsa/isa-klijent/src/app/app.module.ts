@@ -60,6 +60,7 @@ import { SearchpageComponent } from './aviocompany/searchpage/searchpage.compone
 import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
 import { ServiceReportComponent } from './service-report/service-report.component';
 import {ChangePasswordComponent} from './change-password/change-password.component';
+import { AvioReportComponent } from './aviocompany/profilcompany/avio-report/avio-report.component';
 
 
 @NgModule({
@@ -95,7 +96,8 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
     SearchpageComponent,
     QuickReservationComponent,
     ServiceReportComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    AvioReportComponent
 
 
 

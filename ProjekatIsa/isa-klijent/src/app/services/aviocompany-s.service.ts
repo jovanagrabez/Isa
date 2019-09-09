@@ -88,4 +88,29 @@ export class AviocompanySService {
     // tslint:disable-next-line:max-line-length
     return this.http.post("http://localhost:8080/avioCompany/sortForm/" + sending, servisi);
   }
+
+  getLastWeekReservations(id: any, pomoc: string) {
+    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+
+  }
+
+  getAllReservations(id: any) {
+    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+
+
+  }
+
+  getAvioRevenue(id: any, od: string, doo: string) {
+  return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+  }
+
+  getAllRatingsCompany(id: any) {
+    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+
+  }
+
+  getRatingFlight(id: any) {
+    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+
+  }
 }

@@ -235,4 +235,8 @@ getAddress() {
   }
 
 
+  prihodi() {
+    this.router.navigate(['/avioReport', this.currentCompany.id]);
+
+  }
 }

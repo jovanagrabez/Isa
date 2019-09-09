@@ -101,6 +101,7 @@
             <h3>Book A Flight</h3>
             <button *ngIf="!appCom.noavioAdmin" (click)="destinacije()" >Dodaj destinacije</button>
             <button *ngIf="!appCom.noavioAdmin" (click)="letovi()">Dodaj let</button>
+            <button *ngIf="!appCom.noavioAdmin" (click)="prihodi()">Poslovanje</button>
 
             <div *ngIf="ifflight">
               <form   name="form" #f="ngForm" style="margin-left: 15%; margin-right: 15%">
