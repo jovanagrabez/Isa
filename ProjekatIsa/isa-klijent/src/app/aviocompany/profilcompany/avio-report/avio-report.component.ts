@@ -13,6 +13,8 @@ import {FlightService} from '../../../services/flight.service';
 export class AvioReportComponent implements OnInit {
 
 
+
+
   airline: any;
   flights: any;
   minDatum: Date;
@@ -45,7 +47,10 @@ export class AvioReportComponent implements OnInit {
   constructor(private datePipe: DatePipe, private route: ActivatedRoute,
              private airlineService: AviocompanySService, private flightService: FlightService) {
 
-    this.airline = {name: '', adress: '', description: '', flight: []};
+    this.airline = {id: 0, name: '', adress: '', description: '', flight: []};
+    let data = [0, 0, 0, 0, 0, 0, 0];
+
+
 }
 
 
@@ -63,7 +68,7 @@ ngOnInit() {
     this.airlineService.getCompany(avioId).subscribe(airline => {
       this.airline = airline;
       this.flights = this.airline.flight;
-    });
+
 
     this.airlineService.getLastWeekReservations(this.airline.id, this.pomoc).subscribe(data => {
       this.prethodnaNedelja = data;
@@ -75,6 +80,7 @@ ngOnInit() {
       console.log(' sve rezervacija aviokompanije ' + this.reservations.length);
       console.log(data);
     });
+  });
   });
 
 }
@@ -123,24 +129,25 @@ ngOnInit() {
 
 
     this.prethodnaNedelja.forEach(element => {
-      const pomoc = new Date(element.startDate);
+
+      const pomoc = new Date(element.datum);
       console.log('datum pomoc ' + pomoc);
-      console.log('datum rez' + element.startDate);
+      console.log('datum rez' + element.datum);
       if (pomoc.getDay() == 1) {
-        pon += 1;
+        pon += element.passengersOnSeats.length;
       } else if (pomoc.getDay() == 2) {
-        uto += 1;
+        uto += element.passengersOnSeats.length;
 
       } else if (pomoc.getDay() == 3) {
-        sre += 1;
+        sre += element.passengersOnSeats.length;
       } else if (pomoc.getDay() == 4) {
-        cet += 1;
+        cet += element.passengersOnSeats.length;
       } else if (pomoc.getDay() == 5) {
-        pet += 1;
+        pet += element.passengersOnSeats.length;
       } else if (pomoc.getDay() == 6) {
-        sub += 1;
+        sub += element.passengersOnSeats.length;
       } else if (pomoc.getDay() == 7) {
-        ned += 1;
+        ned += element.passengersOnSeats.length;
       }
 
 
@@ -186,41 +193,41 @@ ngOnInit() {
     let dec = 0;
 
     this.reservations.forEach(element => {
-      const pomoc = new Date(element.startDate);
+      const pomoc = new Date(element.datum);
       console.log('datum pomoc ' + pomoc);
-      console.log('datum rez' + element.startDate);
-      let casa = new Date(element.startDate);
+      console.log('datum rez' + element.datum);
+      let casa = new Date(element.datum);
       casa = new Date(this.datePipe.transform(casa, 'yyyy-MM-dd'));
 
       let casa2 = new Date(Date.now());
       casa2 = new Date(this.datePipe.transform(casa2, 'yyyy-MM-dd'));
-      if (casa < casa2) {
+      if (casa <= casa2) {
         if (pomoc.getMonth() == 0) {
-          jan += 1;
+          jan += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 1) {
-          feb += 1;
+          feb += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 2) {
-          mart += 1;
+          mart += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 3) {
-          april += 1;
+          april += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 4) {
-          maj += 1;
+          maj += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 5) {
-          jun += 1;
+          jun += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 6) {
-          jul += 1;
+          jul += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 7) {
           console.log('av' + pomoc.getMonth());
-          av += 1;
+          av += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 8) {
           console.log('sept' + pomoc.getMonth());
-          sep += 1;
+          sep += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 9) {
-          okt += 1;
+          okt += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 10) {
-          nov += 1;
+          nov += element.passengersOnSeats.length;
         } else if (pomoc.getMonth() == 11) {
-          dec += 1;
+          dec += element.passengersOnSeats.length;
         }
       }
 
@@ -278,20 +285,19 @@ ngOnInit() {
 
 
     this.reservations.forEach(element => {
-      const pomoc = new Date(element.startDate);
-      const proba = Math.abs(new Date(element.endDate).getTime() - new Date(element.startDate).getTime());
+      const pomoc = new Date(element.datum);
+      const odjava = new Date(pomoc.getFullYear(), pomoc.getMonth(), pomoc.getDate() + 8);
+      const proba = Math.abs(new Date(odjava).getTime() - new Date(element.datum).getTime());
       this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24));
       let noci = this.brojDana;
       const dan = new Array();
-      console.log('datum pomoc ' + pomoc);
-      console.log('datum rez' + element.startDate);
-      console.log('datum rez' + noci);
-      let casa = new Date(element.startDate);
+
+      let casa = new Date(element.datum);
       casa = new Date(this.datePipe.transform(casa, 'yyyy-MM-dd'));
 
       let casa2 = new Date(Date.now());
       casa2 = new Date(this.datePipe.transform(casa2, 'yyyy-MM-dd'));
-      if (casa < casa2) {
+      if (casa <= casa2) {
         if (pomoc.getDay() == 1) {
           dan.push(0);
           dan.push(0);
@@ -300,12 +306,11 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
           dan.push(0);
-          pon += 1;
+          pon += element.passengersOnSeats.length - 1;
           noci--;
           let i = 0;
           while (noci != 0) {
             dan[i] += 1;
-            console.log('sledeci ' + i + ' ' + dan[i]);
             noci--;
             i++;
           }
@@ -327,12 +332,11 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
 
-          uto += 1;
+          uto += element.passengersOnSeats.length - 1;
           noci--;
           let i = 0;
           while (noci != 0) {
             dan[i] += 1;
-            console.log('sledeci ' + i + ' ' + dan[i]);
             noci--;
             i++;
           }
@@ -354,12 +358,11 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
 
-          sre += 1;
+          sre += element.passengersOnSeats.length - 1;
           noci--;
           let i = 0;
           while (noci != 0) {
             dan[i] += 1;
-            console.log('sledeci ' + i + ' ' + dan[i]);
             noci--;
             i++;
           }
@@ -381,7 +384,7 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
 
-          cet += 1;
+          cet += element.passengersOnSeats.length - 1;
           noci--;
           let i = 0;
           while (noci != 0) {
@@ -399,9 +402,7 @@ ngOnInit() {
           sre += dan[5];
           cet += dan[6];
 
-          console.log('pet ' + pet);
-          console.log('sub ' + sub);
-          console.log('ned ' + ned);
+
 
         } else if (pomoc.getDay() == 5) {
           dan.push(0);
@@ -412,14 +413,12 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
 
-          pet += 1;
-          console.log('pet ' + pet);
+          pet += element.passengersOnSeats.length - 1;
 
           noci--;
           let i = 0;
           while (noci != 0) {
             dan[i] += 1;
-            console.log('sledeci ' + i + ' ' + dan[i]);
             noci--;
             i++;
           }
@@ -431,14 +430,7 @@ ngOnInit() {
           sre += dan[4];
           cet += dan[5];
           pet += dan[6];
-          console.log('6 je ' + dan[6]);
 
-          console.log('pet ' + pet);
-          console.log('sub ' + sub);
-          console.log('ned ' + ned);
-          console.log('pon ' + pon);
-          console.log('uto ' + uto);
-          console.log('sre ' + sre);
         } else if (pomoc.getDay() == 6) {
           dan.push(0);
           dan.push(0);
@@ -448,12 +440,11 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
 
-          sub += 1;
+          sub += element.passengersOnSeats.length - 1;
           noci--;
           let i = 0;
           while (noci != 0) {
             dan[i] += 1;
-            console.log('sledeci ' + i + ' ' + dan[i]);
             noci--;
             i++;
           }
@@ -475,12 +466,11 @@ ngOnInit() {
           dan.push(0);
           dan.push(0);
 
-          ned += 1;
+          ned += element.passengersOnSeats.length - 1;
           noci--;
           let i = 0;
           while (noci != 0) {
             dan[i] += 1;
-            console.log('sledeci ' + i + ' ' + dan[i]);
             noci--;
             i++;
           }

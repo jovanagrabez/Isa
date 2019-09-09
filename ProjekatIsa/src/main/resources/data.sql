@@ -213,8 +213,8 @@ insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('MiniCooper','JC-4875',350,3.1,'2004',9,2,5);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat','AC-4875',350,3.1,'2004',9,2,5);
 
-insert into discount(discount_id,date_from,date_to,discount) values (1,'2019-09-05','2019-09-25',30);
-insert into discount(discount_id,date_from,date_to,discount) values (2,'2019-09-05','2019-09-25',20);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (1,'2019-09-05','2019-09-25',30.0,1,1);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (2,'2019-09-05','2019-09-25',20.0,2,1);
 
 
 --filijale za carflexi

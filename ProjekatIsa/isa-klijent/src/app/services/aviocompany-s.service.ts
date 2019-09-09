@@ -86,31 +86,31 @@ export class AviocompanySService {
     console.log(item);
     console.log(type);
     // tslint:disable-next-line:max-line-length
-    return this.http.post("http://localhost:8080/avioCompany/sortForm/" + sending, servisi);
+    return this.http.post('http://localhost:8080/avioCompany/sortForm/' + sending, servisi);
   }
 
-  getLastWeekReservations(id: any, pomoc: string) {
-    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+  getLastWeekReservations(id: any, dateToday: string) {
+    return this.http.get('http://localhost:8080/avioCompany/getLastWeekReservations/' + id + '/' + dateToday);
 
   }
 
   getAllReservations(id: any) {
-    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+    return this.http.get('http://localhost:8080/avioCompany/getAllReservations/' + id);
 
 
   }
 
   getAvioRevenue(id: any, od: string, doo: string) {
-  return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+    return this.http.get('http://localhost:8080/avioCompany/getHotelRevenue/' + id  + '/' + od + '/' + doo);
   }
 
   getAllRatingsCompany(id: any) {
-    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+    return this.http.get('http://localhost:8080/avioCompany/getAllRatingsHotel/' + id );
 
   }
 
   getRatingFlight(id: any) {
-    return this.http.get('http://localhost:8080/avioCompany/flight/'.concat(id));
+    return this.http.get('http://localhost:8080/avioCompany/getRatingRoom/' + id);
 
   }
 }

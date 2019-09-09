@@ -1,5 +1,6 @@
 package com.example.ProjekatIsa.service;
 
+import java.util.Date;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class FlightReservationServiceImpl implements FlightReservationService {
 	        FlightReservation reservation = new FlightReservation();
 	        reservation.setFlightId(flightReservation.getFlightId());
 	        reservation.setUserId(flightReservation.getUserId());
+	        reservation.setDatum(new Date());
 
 	        for (Passenger passengerOnFlightSeat : flightReservation.getPassengersOnSeats()) {
 	            passengerOnFlightSeat.getSeat().setState("taken");

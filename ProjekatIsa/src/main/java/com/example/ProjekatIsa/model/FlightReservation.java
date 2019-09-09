@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -31,7 +32,12 @@ public class FlightReservation implements Serializable{
 	    private Long flightId;
 
 	    @Column
-	    private Long userId;                    // onaj koji je napravio rezervaciju
+	    private Long userId;    
+	    // onaj koji je napravio rezervaciju
+	    
+	    
+	    @Column
+	    private Date datum;
 
 	    @OneToMany(cascade={CascadeType.ALL}, fetch=FetchType.LAZY, orphanRemoval = true)
 	    @JoinColumn(name = "flight_reservation", referencedColumnName = "flight_reservation_id")
@@ -42,10 +48,25 @@ public class FlightReservation implements Serializable{
 
 	    public FlightReservation() {
 
+	    	datum= new Date();
 	        passengersOnSeats = new HashSet<>();
 	    }
 
-	    public Long getId() {
+	    
+	    
+	    public Date getDatum() {
+			return datum;
+		}
+
+
+
+		public void setDatum(Date datum) {
+			this.datum = datum;
+		}
+
+
+
+		public Long getId() {
 	        return id;
 	    }
 

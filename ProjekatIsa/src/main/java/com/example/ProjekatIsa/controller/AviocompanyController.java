@@ -1,14 +1,20 @@
 package com.example.ProjekatIsa.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,11 +27,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.AviocompanyDTO;
 import com.example.ProjekatIsa.DTO.DestinationDTO;
+import com.example.ProjekatIsa.DTO.HotelDTO;
 import com.example.ProjekatIsa.DTO.RentACarDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
+import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.Passenger;
+import com.example.ProjekatIsa.model.RatingAvio;
+import com.example.ProjekatIsa.model.RatingHotel;
+import com.example.ProjekatIsa.model.ReservationRoom;
+import com.example.ProjekatIsa.model.Room;
+import com.example.ProjekatIsa.repository.AviocompanyRepository;
+import com.example.ProjekatIsa.repository.FlightRepository;
+import com.example.ProjekatIsa.repository.FlightReservationRepository;
+import com.example.ProjekatIsa.repository.RatingAvioRepository;
 import com.example.ProjekatIsa.repository.RatingHotelRepository;
 import com.example.ProjekatIsa.service.AviocompanyService;
 import com.example.ProjekatIsa.service.DestinationService;
@@ -43,6 +60,21 @@ public class AviocompanyController {
 	
 	@Autowired
 	private DestinationService destinationService;
+	
+	
+	@Autowired
+	private AviocompanyRepository avioRepository;
+	
+	@Autowired
+	private RatingAvioRepository ratingAvioRepository;
+	
+	
+	@Autowired
+	private FlightReservationRepository flightReservationRep;
+	
+	@Autowired
+	private FlightRepository flightRepository;
+	
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -195,6 +227,124 @@ public class AviocompanyController {
 			return  new ResponseEntity<List<AviocompanyDTO>>(sorted, HttpStatus.OK);
 			
 		}
+	 
+	 
+		@RequestMapping(value="/getLastWeekReservations/{id}/{dateToday}",
+				method = RequestMethod.GET,
+				produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<FlightReservation>>  getLastWeekReservations(@PathVariable("id") Long idHotela, @PathVariable("dateToday") String od) {
+			List<FlightReservation> returnList = new ArrayList<FlightReservation>();
+			Set<FlightReservation> pomList = new HashSet<FlightReservation>();
+			
+			Date today=new Date();
+			long ltime=today.getTime()-7*24*60*60*1000;
+			Date today_7=new Date(ltime);
+			System.out.println("pocetak: " + today_7);
+			
+			Aviocompany avio = avioRepository.findOneById(idHotela);
+			Set<Flight> flights = avio.getFlight();
+		//	System.out.println("broj soba " + rooms.size());
+			
+			for(Flight f: flights) {
+				pomList.addAll(this.flightReservationRep.findAllByFlightId(f.getId()));
+			}
+			
+			
+			if (!pomList.isEmpty()) {
+					for (FlightReservation fff : pomList) {
+						if(today.getTime() >= fff.getDatum().getTime() && today_7.getTime()<= fff.getDatum().getTime())
+						{
+						//	System.out.println("pronsasao1  " + rrr.getStartDate());
+							returnList.add(fff);
+						} 
+						}
+					}	
+			
+		
+			return new ResponseEntity<List<FlightReservation>>(returnList,HttpStatus.OK);
+		}
+		@RequestMapping(value="/getAllReservations/{id}",
+				method = RequestMethod.GET,
+				produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<Set<FlightReservation>>  getAllReservations(@PathVariable("id") Long idHotela) {
+			List<ReservationRoom> returnList = new ArrayList<ReservationRoom>();
+			Set<FlightReservation> pomList = new HashSet<FlightReservation>();
+
+			Aviocompany hotel = avioRepository.findOneById(idHotela);
+			Set<Flight> flights = hotel.getFlight();
+			for(Flight f: flights) {
+				pomList.addAll(this.flightReservationRep.findAllByFlightId(f.getId()));
+			}
+			
+			
+
+			return new ResponseEntity<Set<FlightReservation>>(pomList,HttpStatus.OK);
+		}
+		
+		@RequestMapping(value="/getAllRatingsHotel/{id}",
+				method = RequestMethod.GET,
+				produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<RatingAvio>>  getAllRatingsHotel(@PathVariable("id") Long idHotela) {
+			List<RatingAvio> returnList = new ArrayList<RatingAvio>();
+			Aviocompany hotel = avioRepository.findOneById(idHotela);
+			
+			returnList = ratingAvioRepository.findAllByAviocompany(hotel);
+			
+			return new ResponseEntity<List<RatingAvio>>(returnList,HttpStatus.OK);
+		}
+		
+		@RequestMapping(value="/getHotelRevenue/{idHotela}/{od}/{Do}",
+						method = RequestMethod.GET)
+		public double getHotelRevenue(@PathVariable Long idHotela,@PathVariable String od,@PathVariable String Do){
+		
+			Set<FlightReservation> pomList = new HashSet<FlightReservation>();
+
+			
+			double suma = 0;
+			Date dOd = null;
+			Date dDo = null;
+			java.sql.Date sqlOD = null;
+			java.sql.Date sqlDO = null;
+			java.sql.Date sqlstart = null;
+			try {
+				dOd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(od);
+				dDo = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(Do);
+				sqlOD = new java.sql.Date(dOd.getTime());
+				sqlDO = new java.sql.Date(dDo.getTime());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			System.out.println("od od " + dOd.toString() + dDo.toString());
+			System.out.println("od od sql " + sqlOD.toString() + sqlDO.toString());
+			Aviocompany aviocompany = avioRepository.findOneById(idHotela);
+			Set<Flight> flights = aviocompany.getFlight();	//		System.out.println("broj soba " + rooms.size());
+			for(Flight f: flights) {
+				pomList.addAll(this.flightReservationRep.findAllByFlightId(f.getId()));
+			}
+			
+			
+			if (!pomList.isEmpty()) {
+					for (FlightReservation fff : pomList) {
+						sqlstart = new java.sql.Date(fff.getDatum().getTime());
+						for(Passenger p : fff.getPassengersOnSeats()) {
+							
+						
+						if(sqlDO.getTime() >= sqlstart.getTime() && sqlOD.getTime()<= sqlstart.getTime())
+						{
+		
+							suma= suma + p.getSeat().getPrice();
+						} 
+						}
+					}
+					}	
+			
+			
+			return suma;
+		
+		}
+		
+	
 
 	
 	 

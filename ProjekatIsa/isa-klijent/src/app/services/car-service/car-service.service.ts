@@ -41,15 +41,19 @@ export class CarServiceService {
         return this.http.get('//localhost:8080/car/searchCar/'+startDate+"/"+endDate+"/"+id+"/"+category+"/"+cenaOd+"/"+cenaDo);
   }
     
-     getDiscountCars(): Observable<any>{
+     getDiscountCars(id:number): Observable<any>{
   
-        return this.http.get('http://localhost:8080/car/getDiscountCars',{headers: this.auth.createAuthorizationTokenHeader()});
+        return this.http.get('http://localhost:8080/car/getDiscountCars/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
         }
     
      getCarById(id : number): Observable<any>{
   
         return this.http.post('http://localhost:8080/car/getCarById',id,{headers: this.auth.createAuthorizationTokenHeader()});
         }
+    
+    
+    
+    
     
     
 }
