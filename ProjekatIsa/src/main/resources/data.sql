@@ -400,11 +400,11 @@ insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate)
 insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate) 
 	values (3,1,1,3);
 --primjeri za ocjene soba
---insert into rating_room (ratingroom_id,user_id,room_id,rate) 
---	values (1,1,8,5);
---insert into rating_room (ratingroom_id,user_id,room_id,rate) 
---	values (2,1,1,2);
---insert into rating_room (ratingroom_id,user_id,room_id,rate) 
---	values (3,1,2,3);
+insert into rating_room (ratingroom_id,user_id,room_id,rate) 
+	values (1,1,8,5);
+insert into rating_room (ratingroom_id,user_id,room_id,rate) 
+	values (2,1,1,2);
+insert into rating_room (ratingroom_id,user_id,room_id,rate) 
+	values (3,1,2,3);
 
 	

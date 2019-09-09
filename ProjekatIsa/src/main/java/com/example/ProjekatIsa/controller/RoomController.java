@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.CarReservationDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
+import com.example.ProjekatIsa.DTO.ReservationRoomDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
 import com.example.ProjekatIsa.model.Hotel;
@@ -100,16 +101,17 @@ public class RoomController {
 		List<Room> returnList = new ArrayList<Room>();
 		
 		for (Room r : allRooms) {
-			List<ReservationRoom> reservationRoom = r.getReservationRoom();
+			List<ReservationRoom> reservationRoom = reservationRoomRepository.findAllByRoom(r);
 			boolean free = true;
 			
 			int reserved = 0;
-			
-			for(ReservationRoom res : reservationRoom) {
-				
-				free = checkforfree(res, endDate, startDate);
-				if (!free) {
-					reserved ++;
+			if (!reservationRoom.isEmpty()) {
+				for(ReservationRoom res : reservationRoom) {
+					
+					free = checkforfree(res, endDate, startDate);
+					if (!free) {
+						reserved ++;
+					}
 				}
 			}
 			if (reserved == 0) {
@@ -153,10 +155,13 @@ public class RoomController {
 			}
 		}
 	}
-	@PreAuthorize("hasAuthority('bookRoom')")
+	//@PreAuthorize("hasAuthority('bookRoom')")
+	
 	@RequestMapping(value="/bookRoom",
-			method = RequestMethod.POST)
-	public ResponseEntity<?> bookRoom(@RequestBody ReservationRoom roomRes){
+			method = RequestMethod.POST,
+			consumes =MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> bookRoom(@RequestBody ReservationRoomDTO roomRes){
 		System.out.println("Usao u bookRoom");
 		
 		Date startDate = null;

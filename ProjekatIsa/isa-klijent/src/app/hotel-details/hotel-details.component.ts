@@ -322,6 +322,7 @@ export class HotelDetailsComponent implements OnInit {
           this.reservationRoom.user = this.user;
           this.reservationRoom.room = r;
           this.reservationRoom.totalPrice = this.reservationRoom.totalPrice + this.brojDana*r.price;
+          console.log(this.reservationRoom);
           console.log("rezervaciju je izvrsio: " + this.reservationRoom.user.email);
           this.hotelService.bookRoom(this.reservationRoom).subscribe(data=>{
               alert("rezervacija uspesna");

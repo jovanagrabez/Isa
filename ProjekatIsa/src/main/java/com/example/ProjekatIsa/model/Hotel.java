@@ -49,10 +49,8 @@ public class Hotel implements Serializable{
 	@Column(name = "average_rating", nullable = true)
 	private Double average_rating;
 	
-	//@JsonIgnore
-	//@OneToMany(mappedBy="hotel", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@OneToMany(mappedBy="hotel", orphanRemoval = true, cascade = CascadeType.REMOVE)
-	@JsonManagedReference
+	@JsonIgnore
+	@OneToMany(mappedBy="hotel",fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Room> rooms;
 	
 	@JsonIgnore

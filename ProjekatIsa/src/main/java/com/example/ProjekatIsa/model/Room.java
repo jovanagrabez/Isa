@@ -39,7 +39,7 @@ public class Room implements Serializable{
 	private int number;
 
 	@Column(name = "room_price", nullable = false)
-	private int price;
+	private Double price;
 	
 	@Column(name = "capacity", nullable = false)
 	private Double capacity;
@@ -50,21 +50,19 @@ public class Room implements Serializable{
 	@Column(name = "room_average_rating", nullable = true)
 	private Double room_average_rating;
 	
-	@ManyToOne
-	@JsonBackReference
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="hotel_id")
 	private Hotel hotel;
 	
-	@JsonIgnore
+	/*@JsonIgnore
 	@OneToMany(mappedBy="room")
     protected List<ReservationRoom> reservationRoom;
-	
+	*/
 	@JsonIgnore
 	@OneToMany(mappedBy="room")
     protected List<Pricing> pricing;
 	
-	//@JsonIgnore
-	//@OneToMany(mappedBy="room", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+/*	//@JsonIgnore
 	@OneToMany(mappedBy="room", fetch = FetchType.LAZY)
     private Set<RatingRoom> ratings;
 	
@@ -74,13 +72,13 @@ public class Room implements Serializable{
 
 	public void setRoom_ratings(Set<RatingRoom> room_ratings) {
 		this.ratings = room_ratings;
-	}
+	}*/
 
-	public int getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
@@ -116,14 +114,13 @@ public class Room implements Serializable{
 		this.room_average_rating = room_average_rating;
 	}
 
-	public Room(Long id,int number, int price, String room_description, Double room_average_rating,Set<RatingRoom> ratings) {
+	public Room(Long id,int number, Double price, String room_description, Double room_average_rating) {
 		super();
 		this.id = id;
 		this.number = number;
 		this.price = price;
 		this.room_description = room_description;
 		this.room_average_rating = room_average_rating;
-		this.ratings = ratings;
 	}
 
 	public Room() {
@@ -164,13 +161,13 @@ public class Room implements Serializable{
 		this.capacity = capacity;
 	}
 
-	public List<ReservationRoom> getReservationRoom() {
+	/*public List<ReservationRoom> getReservationRoom() {
 		return reservationRoom;
 	}
 
 	public void setReservationRoom(List<ReservationRoom> reservationRoom) {
 		this.reservationRoom = reservationRoom;
-	}
+	}*/
 	
 	
 }
