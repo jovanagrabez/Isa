@@ -39,6 +39,10 @@ public class Aviocompany implements Serializable{
 	
 	@Column(name = "adress", nullable = false, columnDefinition="VARCHAR(100)")
     private String adress;
+	
+	
+	@Column(name = "rating", nullable = true)
+    private double rating;
 
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "avio_destination", joinColumns = @JoinColumn(name = "aviocompany_id"), inverseJoinColumns = @JoinColumn(name = "destination_id"))   
@@ -60,6 +64,15 @@ public class Aviocompany implements Serializable{
 	
 	
 	
+	
+	public double getRating() {
+		return rating;
+	}
+
+	public void setRating(double rating) {
+		this.rating = rating;
+	}
+
 	public Set<Destination> getDestination() {
 		return destination;
 	}
