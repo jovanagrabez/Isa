@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.AdditionalServiceForHotelDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
+import com.example.ProjekatIsa.DTO.ReservationRoomDTO;
 import com.example.ProjekatIsa.DTO.RoomDTO;
 import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
 import com.example.ProjekatIsa.model.Aviocompany;
@@ -452,13 +453,16 @@ public class HotelController {
 		
 		Hotel hotel = hotelRepository.findOneById(idHotela);
 		List<Room> rooms = roomRepository.findAllByHotel(hotel);
+		List<ReservationRoom> resrooms = new ArrayList<ReservationRoom>();
+		
 		System.out.println("broj soba " + rooms.size());
 		if (!rooms.isEmpty()) {
 			for (Room r : rooms) {
-				System.out.println("broj rezervacija bilo kakvih " + r.getReservationRoom().size());
+				resrooms = reservationRoomRepository.findAllByRoom(r);
+				System.out.println("broj rezervacija bilo kakvih " + resrooms.size());
 				//proba
-				if (!r.getReservationRoom().isEmpty()) {
-				for (ReservationRoom rrr : r.getReservationRoom()) {
+				if (!resrooms.isEmpty()) {
+				for (ReservationRoom rrr : resrooms) {
 					System.out.println("proba  " + rrr.getStartDate());
 					if(today.getTime() >= rrr.getStartDate().getTime() && today_7.getTime()<= rrr.getStartDate().getTime())
 					{
@@ -478,16 +482,18 @@ public class HotelController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReservationRoom>>  getAllReservations(@PathVariable("id") Long idHotela) {
 		List<ReservationRoom> returnList = new ArrayList<ReservationRoom>();
-		
+		List<ReservationRoom> resrooms = new ArrayList<ReservationRoom>();
+
 		Hotel hotel = hotelRepository.findOneById(idHotela);
 		List<Room> rooms = roomRepository.findAllByHotel(hotel);
 		System.out.println("broj soba " + rooms.size());
 		if (!rooms.isEmpty()) {
 			for (Room r : rooms) {
-				System.out.println("broj rezervacija bilo kakvih " + r.getReservationRoom().size());
+				resrooms = reservationRoomRepository.findAllByRoom(r);
+				System.out.println("broj rezervacija bilo kakvih " + resrooms.size());
 				//proba
-				if (!r.getReservationRoom().isEmpty()) {
-					for (ReservationRoom rrr : r.getReservationRoom()) {
+				if (!resrooms.isEmpty()) {
+					for (ReservationRoom rrr : resrooms) {
 						returnList.add(rrr);
 					}
 				}
@@ -514,7 +520,8 @@ public class HotelController {
 	@RequestMapping(value="/getHotelRevenue/{idHotela}/{od}/{Do}",
 					method = RequestMethod.GET)
 	public double getHotelRevenue(@PathVariable Long idHotela,@PathVariable String od,@PathVariable String Do){
-	
+		List<ReservationRoom> resrooms = new ArrayList<ReservationRoom>();
+
 		double suma = 0;
 		Date dOd = null;
 		Date dDo = null;
@@ -537,10 +544,12 @@ public class HotelController {
 		System.out.println("broj soba " + rooms.size());
 		if (!rooms.isEmpty()) {
 			for (Room r : rooms) {
-				System.out.println("broj rezervacija bilo kakvih " + r.getReservationRoom().size());
-				//proba
-				if (!r.getReservationRoom().isEmpty()) {
-				for (ReservationRoom rrr : r.getReservationRoom()) {
+				resrooms = reservationRoomRepository.findAllByRoom(r);
+
+				System.out.println("broj rezervacija bilo kakvih " + resrooms.size());
+				
+				if (!resrooms.isEmpty()) {
+				for (ReservationRoom rrr : resrooms) {
 					sqlstart = new java.sql.Date(rrr.getStartDate().getTime());
 					System.out.println("proba  " + sqlstart);
 					if(sqlDO.getTime() >= sqlstart.getTime() && sqlOD.getTime()<= sqlstart.getTime())

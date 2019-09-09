@@ -83,11 +83,11 @@ public class User implements Serializable,UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CarReservation> rezCar;
-    /*
+    
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ReservationRoom> rezRoom;
-    */
+    
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<FlightReservation> rezFlight;

@@ -6,7 +6,7 @@ public class RoomDTO {
 
 	private Long id;
 	private int number;
-	private int price;
+	private Double price;
 	private Double capacity;
 	private String room_description;
 	private Double room_average_rating;
@@ -15,7 +15,7 @@ public class RoomDTO {
 		
 	}
 
-	public RoomDTO(Long id, int number, int price,Double capacity, String room_description, Double room_average_rating) {
+	public RoomDTO(Long id, int number, Double price,Double capacity, String room_description, Double room_average_rating) {
 		super();
 		this.id = id;
 		this.number = number;
@@ -53,11 +53,11 @@ public class RoomDTO {
 		this.number = number;
 	}
 
-	public int getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(int price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
