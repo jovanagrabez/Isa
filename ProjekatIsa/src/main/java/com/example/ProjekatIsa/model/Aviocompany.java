@@ -89,12 +89,13 @@ public class Aviocompany implements Serializable{
 		this.flight = flight;
 	}
 
-	public Aviocompany(Long id, String name, String description, String adress) {
+	public Aviocompany(Long id, String name, String description, String adress, double rating) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.adress = adress;
+		this.rating=rating;
 	}
 
 	
@@ -103,6 +104,7 @@ public class Aviocompany implements Serializable{
 	     setName(a.getName());
 	     setDescription(a.getDescription());
 	     setAdress(a.getAdress());
+	     setRating(a.getRating());
 		
 	}
 	public Aviocompany() {
