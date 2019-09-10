@@ -106,8 +106,11 @@ export class ViewRentalCarsService {
   getAllRatingsService(id: number): Observable<any> {
       return this.http.get('http://localhost:8080/rentalcars/getAllRatingsService/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
-    
-    
-    
-  
+
+
+  searchServiceFast(searchForm: SearchFormServices): Observable<any> {
+    return this.http.post('http://localhost:8080/rentalcars/searchFast/', searchForm);
+
+
+  }
 }

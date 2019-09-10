@@ -6,6 +6,12 @@ import {UserService} from '../../../services/user-service/user.service';
 import {AppComponent} from '../../../app.component';
 import {error} from '@angular/compiler/src/util';
 import {FlightReservationService} from '../../../services/flight-reservation.service';
+import {SearchFormServices} from '../../../models/SearchFormServices';
+import {ViewRentalCarsService} from '../../../services/view-rental-cars.service';
+import {Discount} from '../../../models/Discount';
+import {CarReservation} from '../../../models/CarReservation';
+import {ResServiceService} from '../../../services/res-service/res-service.service';
+import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-flight-reservation',
@@ -22,10 +28,12 @@ export class FlightReservationComponent implements OnInit {
   invitedFriends: any;
   flightReservation: any;
   reservation: any;
-
+  searchFormServices : SearchFormServices = new SearchFormServices();
+  discount : Array<Discount>;
 
   constructor(private currentRoute: ActivatedRoute, private flightService: FlightService,
               private friendsService: FriendsService, private userService: UserService,
+              private rentalCarsService: ViewRentalCarsService, private resServise: ResServiceService,
               private  appComp: AppComponent, private  router: Router, private reservationService: FlightReservationService) {
     this.flight = {seatArrangement: {seatRows: 0, seatColumns: 0}, seats: []};
     this.seatsInRows = [];
@@ -43,7 +51,8 @@ export class FlightReservationComponent implements OnInit {
   ngOnInit() {
 
     this.userService.getLogged(this.appComp.token).subscribe(data => {
-      this.user = data;
+      this.user = data
+
 
       this.friendsService.getFriendsByUser(this.user.username).subscribe(allFriendshipsList => {
         let list;
@@ -66,6 +75,11 @@ export class FlightReservationComponent implements OnInit {
       this.flightReservation.flightId = flightId;
       this.flightService.getFlight(flightId).subscribe(flight => {
         this.flight = flight;
+
+        let date = new Date(this.flight.landing);
+        this.searchFormServices.startDate = date;
+        this.searchFormServices.city = this.flight.destination[0].city;
+
         let maxRowNumber = 0;
         for (const seat of this.flight.seats) {
           if (seat.seatRow > maxRowNumber) {
@@ -99,6 +113,33 @@ export class FlightReservationComponent implements OnInit {
         }
       });
     });
+  }
+
+  reserveCar(id: number){
+    const startDate = this.searchFormServices.startDate;
+ //   console.log(this.rez.startDate.getTime);
+    const endDate = this.searchFormServices.endDate;
+    console.log('rezervacija je uspjesno izvrsena');
+    this.resServise.fastReservations(-1, id , startDate, endDate, this.user.id).subscribe(data =>{
+      this.reservation.carReservation = data;
+      alert('Uspjesno ste rezervisali vozilo');
+
+      //    this.router.navigateByUrl('/rentalCars');
+    });
+  }
+
+
+  pretraga(){
+
+    console.log(this.searchFormServices.city);
+    console.log(this.searchFormServices.name);
+
+    this.rentalCarsService.searchServiceFast(this.searchFormServices).subscribe(data=>{
+      this.discount = data;
+      console.log('pretrazeni servisi');
+      console.log(data);
+    });
+
   }
 
 
@@ -226,9 +267,13 @@ export class FlightReservationComponent implements OnInit {
       } else {
         this.flightReservation.userId = this.user.id;
         this.reservationService.createReservation(this.flightReservation).subscribe(res => {
+       //   const reserv = res['id'];
+          this.reservationService.sendCreatedReservationEmail(1).subscribe( val => {
+            console.log('Email sent');
+            this.router.navigate(['/home']);
 
-          this.router.navigate(['/home']);
-          const reserv = res['id'];
+          });
+       //   const reserv = res['id'];
         });
       }
     } else {

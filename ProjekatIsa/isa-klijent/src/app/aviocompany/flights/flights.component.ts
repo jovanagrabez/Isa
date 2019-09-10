@@ -105,16 +105,9 @@ export class FlightsComponent implements OnInit {
 
 
   saveFlight() {
-    // if (this.flight.fromDest === undefined || this.flight.toDest === undefined) {
-    // } else if (this.departureDate === undefined || this.departureTime === null || this.arrivalDate === undefined ||
-    //   this.arrivalTime === null || this.arrivalTime === undefined || this.departureTime === undefined) {
-    // } else {
-
-      // const temp = this.flight.destinations;        // jer je bila lista veza flight-destination
+     // jer je bila lista veza flight-destination
       this.flight.destination = [];                // a dto prima samo listu indexa svih destinacija
-      // for (const d of  temp) {
-      //   this.flight.destinations.push(d.destination.id);
-      // }
+
       for (const dest of this.selectedDestinations) {
         if (dest !== undefined) {
           if (dest['id'] !== undefined) {
