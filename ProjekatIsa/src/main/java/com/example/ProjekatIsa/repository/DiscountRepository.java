@@ -1,6 +1,7 @@
 package com.example.ProjekatIsa.repository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -16,6 +17,7 @@ public interface DiscountRepository extends JpaRepository<Discount,Long> {
 
 	ArrayList<Discount> findAllByRentACar(RentACar rent);
 
+	List<Car> findAllCarByRentACar(RentACar rent);
 	Discount findOneByCar(Car car);
 
 }

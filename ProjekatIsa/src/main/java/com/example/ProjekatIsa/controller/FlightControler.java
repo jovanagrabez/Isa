@@ -20,16 +20,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.FilterDTO;
 import com.example.ProjekatIsa.DTO.FlightDTO;
+import com.example.ProjekatIsa.DTO.ReservationDto;
 import com.example.ProjekatIsa.DTO.SearchDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.FlightReservation;
+import com.example.ProjekatIsa.model.Reservation;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.service.AviocompanyService;
 import com.example.ProjekatIsa.service.FlightReservationService;
 import com.example.ProjekatIsa.service.FlightService;
+import com.example.ProjekatIsa.service.ReservationService;
 
 @RestController
 @RequestMapping(value="/flight",produces = MediaType.APPLICATION_JSON_VALUE)
@@ -47,6 +50,10 @@ public class FlightControler {
 	
 	@Autowired
 	private FlightReservationService reservationsService;
+	
+	
+	@Autowired
+	private ReservationService resServiceComplete;
 	
 	
 	@GetMapping(value="/{id}")
@@ -71,6 +78,27 @@ public class FlightControler {
         return ResponseEntity.ok(reservationDto);
 
     }
+	
+	
+	
+	 @PostMapping(value="/resComplete")
+	    public ResponseEntity<ReservationDto> completeReservation(@RequestBody ReservationDto reservationDto) {
+	        Reservation reservation = resServiceComplete.createReservation(reservationDto);
+
+	        reservationDto = new ReservationDto(reservation);
+	        return ResponseEntity.ok(reservationDto);
+
+	    }
+	
+	 @GetMapping(value = "/email/{id}")
+	    public void sendReservationInfoMailAfterCreating(@PathVariable Long id) {
+	        try {
+	            this.resServiceComplete.sendReservationEmail(id);
+	        } catch (Exception e) {}
+	    }
+	 
+	 
+	 
 	
 	@DeleteMapping(value = "/{id}/{avio_id}")
 	 

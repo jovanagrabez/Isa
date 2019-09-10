@@ -332,7 +332,7 @@ public class CarReservationController {
 	
 	
 	@RequestMapping(value="/fastReservations/{idFlight}/{idCar}/{startDate}/{endDate}/{idUser}",method = RequestMethod.POST)
-	public void fastReservations(@PathVariable Long idFlight, @PathVariable Long idCar ,@PathVariable String startDate,
+	public ResponseEntity<CarReservation> fastReservations(@PathVariable Long idFlight, @PathVariable Long idCar ,@PathVariable String startDate,
 			@PathVariable String endDate, @PathVariable Long idUser) {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -370,6 +370,8 @@ public class CarReservationController {
 		
 		carresRepository.save(fastRes);
 		//u flight res se treba postaviti i brza rez vozila
+		
+		return new ResponseEntity<CarReservation>(fastRes,HttpStatus.OK);
 		
 	}
 	

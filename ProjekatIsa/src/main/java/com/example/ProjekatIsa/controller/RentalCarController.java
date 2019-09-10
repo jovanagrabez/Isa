@@ -6,7 +6,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,7 @@ import com.example.ProjekatIsa.DTO.FilijaleDTO;
 import com.example.ProjekatIsa.DTO.RentACarDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
+import com.example.ProjekatIsa.model.Discount;
 import com.example.ProjekatIsa.model.Filijale;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.RatingHotel;
@@ -36,6 +39,7 @@ import com.example.ProjekatIsa.model.SearchFormHotel;
 import com.example.ProjekatIsa.model.SearchFormServices;
 import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.CarReservationRepository;
+import com.example.ProjekatIsa.repository.DiscountRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
 import com.example.ProjekatIsa.repository.RatingCarRepository;
 import com.example.ProjekatIsa.repository.RatingRentACarRepository;
@@ -69,6 +73,8 @@ public class RentalCarController {
 	
 	@Autowired
 	private RatingCarRepository ratingCarRepository;
+	
+	@Autowired DiscountRepository discountRepository;
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -274,6 +280,97 @@ public class RentalCarController {
 				return new ResponseEntity<List<RentACar>>(all, HttpStatus.OK);
 			}
 		}
+		
+		
+		
+		
+		@RequestMapping(value="/searchFast",
+				method = RequestMethod.POST,
+				produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm){
+			System.out.println("Dosao u search ");
+			
+			List<Discount> povratna= new ArrayList<Discount>();
+			
+			List<RentACar> all = rentalcarService.getAll();
+			Set<RentACar> returnList = new HashSet<RentACar>();
+			List<RentACar> returnList2 = new ArrayList<RentACar>();
+			List<RentACar> returnList3 = new ArrayList<RentACar>();
+
+			//pretraga po datumu
+			
+			if (searchForm.getStartDate()!=null && searchForm.getEndDate()!=null) {
+				for (RentACar hot : all) {
+					System.out.println("usao u prvu petlju : svih servisa");
+					System.out.println("servis ima vozila: " + hot.getCar().size());
+					//pronalazim sve sobe hotela
+					List<Car> car = carRepository.findAllByRentalcars(hot);
+					if (car.size()>0) {
+						int num = car.size();
+						System.out.println("broj soba " + car.size());
+						for (Car r : car) {
+							if(reserved(r, searchForm.getStartDate(), searchForm.getEndDate())) {
+								System.out.println("umanjujem sobu");
+								--num;
+							}
+						}
+						if(num!=0) {
+							System.out.println("Dodajem hotel");
+							returnList3.add(hot);
+						}
+					}
+				}
+			}else {
+				returnList3 = rentalcarService.getAll();
+			}
+
+			//ako se pretrazuje po nazivu
+			if (searchForm.getName() != null) {
+				for (RentACar h : returnList3) {
+					if (h.getName().contains(searchForm.getName())) {
+						returnList.add(h);
+					}
+				}
+				//ako se pretrazuje i po nazivu i po gradu
+				if (searchForm.getCity() != null) {
+					for (RentACar h : returnList) {
+						if (h.getCity().equals(searchForm.getCity())) {
+							returnList2.add(h);
+						}
+					}
+	//				return new ResponseEntity<List<RentACar>>(returnList2, HttpStatus.OK);
+				}
+				//ako se pretrazuje samo po nazivu
+				else {
+		//			return new ResponseEntity<Set<RentACar>>(returnList, HttpStatus.OK);
+				}
+			}
+			//ako se ne pretrazuje po nazivu nego samo gradu 
+			else {
+				if (searchForm.getCity() != null) {
+					for (RentACar h : returnList3) {
+						if (h.getCity().equals(searchForm.getCity())) {
+							returnList.add(h);
+						}
+					}
+			//		return new ResponseEntity<Set<RentACar>>(returnList, HttpStatus.OK);
+				}
+				//ako ne pretrazuje ni po nazivu ni po gradu
+			//	return new ResponseEntity<Set<RentACar>>(all, HttpStatus.OK);
+			}
+			
+			
+			for(RentACar rent: returnList) {
+				List<Discount> auta = this.discountRepository.findAllByRentACar(rent);
+				povratna.addAll(auta);
+			}
+			
+			
+			return new ResponseEntity<List<Discount>>(povratna, HttpStatus.OK);
+		}
+		
+		
+		
 		
 		
 		private boolean reserved(Car r, Date startDate, Date endDate) {

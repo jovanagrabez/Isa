@@ -94,6 +94,8 @@ insert into user (user_id,first_name,last_name,email,password_hash,enabled,verif
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (6,'Admin','Admin','tanja@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,false);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) 
+	values (7,'Jovana','Grabez','jovana.grabez@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
 insert into role (id,name) values (1,'USER');
@@ -103,6 +105,8 @@ insert into role (id,name) values (4,'HOTEL_ADMIN');
 insert into role (id,name) values (5,'CAR_ADMIN');
 
 INSERT INTO user_roles(user_id, role_id) VALUES(1,1);
+INSERT INTO user_roles(user_id, role_id) VALUES(7,1);
+
 INSERT INTO user_roles(user_id, role_id) VALUES(2,1);
 
 
