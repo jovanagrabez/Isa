@@ -24,8 +24,9 @@ export class FlightsComponent implements OnInit {
   date2: any;
   fromDest: any;
   toDest: any;
+  desti: any;
 
-  selectedDestinations: [{}];
+  selectedDestinations: [];
   departureDate: NgbDate;
   departureTime: string;
   arrivalDate: NgbDate;
@@ -33,13 +34,14 @@ export class FlightsComponent implements OnInit {
   constructor(private appComp: AppComponent, private currentRoute: ActivatedRoute,
               private flightService: FlightService, private SeatArrangement: SeatArrangementService,
               private airlineService: AviocompanySService, private  router : Router) {
-    this.flight = {take_off: Date, landing: Date , destinations: [{}], seats: [{}], seatArrangement: {id: null, seatRows: 5, seatColumns: 5}, airlineDto: {}, fromDest: {id: null, name: '', country: '', description: ''}, toDest: {id: null, name: '', country: '', description: ''}};
-    this.selectedDestinations = [{}];
+    this.flight = {take_off: Date, landing: Date , destination: [{id: 0, name: '', country: '', description: ''}], seats: [{}], seatArrangement: {id: null, seatRows: 5, seatColumns: 5}, airlineDto: {}, fromDest: {id: null, name: '', country: '', description: ''}, toDest: {id: null, name: '', country: '', description: ''}};
+    this.selectedDestinations = [];
     this.connecting = [{address: {}}];
     this.fromDest = {address: {}};
     this.toDest = {address: {}};
     this.user = {inChargeOf: 0};
     this.airline = {destination: []};
+    this.desti = {id: 0, name: '', country: '', description: ''};
 
 
   }
@@ -57,32 +59,17 @@ export class FlightsComponent implements OnInit {
       this.flightService.getFlight(flightId).subscribe(flight => {
         this.flight = flight;
 
-        // // for (const dest of this.flight.destinations) {
-        // //   if (dest.description === 'departure') {
-             this.flight.fromDest = this.flight.destination[0];
-           this.flight.fromDest = this.flight.destination[0];
-        //   // } else if (dest.description === 'arrival') {
-             this.flight.toDest = this.flight.destination[1];
-             this.toDest = this.flight.destination[1];
-        //   // } else {
 
-         for(let i = 2; i < this.flight.destination.length; i++) {
-           this.selectedDestinations.push(this.flight.destination[i]);
-         }
-        //   //  this.connecting.push(dest.destination);
-        //     // this.selectedDestinations.push(dest.destination.id);
-        // //   }
-        // // }
         let date = new Date(this.flight.take_off);
 
         this.date1 = date;
-        this.departureDate = new NgbDate(this.date1.getUTCFullYear(), this.date1.getUTCMonth() + 2, this.date1.getUTCDate());
-        this.departureTime = date.getUTCHours().toString() + ':' + date.getUTCMinutes();
+        this.departureDate = new NgbDate(this.date1.getUTCFullYear(), this.date1.getUTCMonth() + 1, this.date1.getUTCDate());
+        this.departureTime = this.date1.getHours() + ':' + this.date1.getMinutes() + ':00' ;
 
         date = new Date(this.flight.landing);
         this.date2 = date;
         this.arrivalDate = new NgbDate(date.getUTCFullYear(), date.getUTCMonth() + 2, date.getUTCDate());
-        this.arrivalTime = date.getUTCHours().toString() + ':' + date.getUTCMinutes();
+        this.arrivalTime = this.date2.getHours() + ':' + this.date2.getMinutes() + ':00' ;
 
 
         this.SeatArrangement.getSeatArrangement(this.flight.seatArrangement.id).subscribe( seat => {
@@ -90,6 +77,27 @@ export class FlightsComponent implements OnInit {
         }, err => {
           console.log(err);
         });
+
+        // // for (const dest of this.flight.destinations) {
+        // //   if (dest.description === 'departure') {
+             this.flight.fromDest = this.flight.destination[0];
+           this.fromDest = this.flight.destination[0];
+        //   // } else if (dest.description === 'arrival') {
+             this.flight.toDest = this.flight.destination[1];
+             this.toDest = this.flight.destination[1];
+        //   // } else {
+
+         for(let i = 2; i < this.flight.destination.length; i++) {
+            this.desti = this.flight.destination[i];
+           this.selectedDestinations.push(this.desti);
+
+         }
+
+        //   //  this.connecting.push(dest.destination);
+        //     // this.selectedDestinations.push(dest.destination.id);
+        // //   }
+        // // }
+
       });
     });
   }
@@ -106,13 +114,13 @@ export class FlightsComponent implements OnInit {
       // for (const d of  temp) {
       //   this.flight.destinations.push(d.destination.id);
       // }
-      // for (const dest of this.connecting) {
-      //   if (dest !== undefined) {
-      //     if (dest['id'] !== undefined) {
-      //       this.flight.destination.push(dest['id']);
-      //     }
-      //   }
-      // }
+      for (const dest of this.selectedDestinations) {
+        if (dest !== undefined) {
+          if (dest['id'] !== undefined) {
+            this.flight.destination.push(dest);
+          }
+        }
+       }
    //   this.flight.flightChanges = this.flight.destination.length;
 
       this.flight.destination.push(this.flight.fromDest);

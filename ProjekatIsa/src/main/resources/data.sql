@@ -245,6 +245,9 @@ insert into category(category_id,mark,description,seats,price) values (2,'B','Ni
 insert into category(category_id,mark,description,seats,price) values (3,'C','Srednja klasa',5,60);
 insert into category(category_id,mark,description,seats,price) values (4,'D','Visa srednja',7,70);
 
+
+insert into seat_arrangement( name, seat_columns, seat_rows)values('ime',8,8);
+
 insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,1,'free');
 insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,2,'free');
 insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,3,'free');
@@ -252,11 +255,11 @@ insert into seat(discount_price, price, seat_class, seat_column, seat_row, state
 
 
 
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',20,2.5,2);
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',11,1,3);
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',5,12,4);
-insert into flight(distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',14,3.5,5);
-insert into flight(average_rating, baggage_description, business_price, distance, economy_price, first_price, landing, number, number_of_rating, premium_economy_price, sum_rating, take_off, time, travel_time, seat_arrangement_id) values (4.3,'nema',789,25,125,541,'2019-08-10 10-30',0,0,458,0,'2019-08-13 10-30','5',5,null);
+insert into flight(seat_arrangement_id,distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (1,50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',20,2.5,2);
+insert into flight(seat_arrangement_id,distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (1,50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',11,1,3);
+insert into flight(seat_arrangement_id,distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (1,50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',5,12,4);
+insert into flight(seat_arrangement_id,distance,baggage_description,business_price,economy_price,first_price,premium_economy_price,average_rating,number_of_rating,sum_rating,take_off,landing, time, travel_time,number) values (1,50,'nema',500,100,200,300,1,2,3,'2019-02-10 10-30','2019-02-10 10-30',14,3.5,5);
+insert into flight(seat_arrangement_id,average_rating, baggage_description, business_price, distance, economy_price, first_price, landing, number, number_of_rating, premium_economy_price, sum_rating, take_off, time, travel_time) values (1,4.3,'nema',789,25,125,541,'2019-08-10 10-30',0,0,458,0,'2019-08-13 10-30','5',5);
 
 
 
@@ -293,6 +296,14 @@ insert into flight_destination(flight_id, destination_id) values (5,4);
 
 /*insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',1,1);
 insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',2,1);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',2,2);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',3,2);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',3,3);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',1,3);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',4,4);
+insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',5,4);
+
+
 insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('arrival',3,5);
 insert into flight_dest( description, destinations_destination_id, flight_flight_id) values ('departure',4,5);
 */

@@ -2,6 +2,7 @@ package com.example.ProjekatIsa.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -19,7 +20,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.FlightDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -48,9 +51,10 @@ public class Flight implements Serializable {
     private int number;
 	
 
-/*	@OneToMany(mappedBy = "flight", cascade = CascadeType.REMOVE)
-    private Set<FlightDest> destination;*/
-
+/*	@JsonIgnore
+	@OneToMany(mappedBy="flight",cascade={CascadeType.PERSIST, CascadeType.REMOVE},fetch=FetchType.LAZY, orphanRemoval = true)
+    private Set<FlightDest> destination;
+*/
 	
 	@ManyToMany(cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
 	@JoinTable(name = "flight_destination", joinColumns = @JoinColumn(name = "flight_id"), inverseJoinColumns = @JoinColumn(name = "destination_id"))   
@@ -308,8 +312,8 @@ public class Flight implements Serializable {
 
 	public void setDestination(Set<FlightDest> destination) {
 		this.destination = destination;
-	}*/
-
+	}
+*/
 
 	public Flight() {
 		super();
@@ -342,6 +346,34 @@ public class Flight implements Serializable {
 		this.distance = distance;
 		this.baggage_description = baggage_description;
 	}
+
+
+/*	public Flight(FlightDTO flightdto) {
+		// TODO Auto-generated constructor stub
+		this.id= flightdto.getId();
+		this.take_off= flightdto.getTake_off();
+	
+		this.landing = flightdto.getLanding();
+		this.time = flightdto.getTime();
+		this.travel_time = flightdto.getTravel_time();
+		this.number = flightdto.getNumber();
+		this.destination = new HashSet<>();
+		
+		
+		this.seats = flightdto.getSeats();
+		this.seatArrangement=flightdto.getSeatArrangement();
+		this.average_rating = flightdto.getAverageRating();
+		this.number_of_rating = flightdto.getNumberOfRating();
+		this.sum_rating = flightdto.getSumRating();
+	//	this.price = price;
+		this.economy_price = flightdto.getEconomyPrice();
+		this.premium_economy_price = flightdto.getPremiumEconomyPrice();
+		this.business_price = flightdto.getBusinessPrice();
+		this.first_price = flightdto.getFirstPrice();
+		this.distance = flightdto.getDistance();
+		this.baggage_description = flightdto.getBaggage_description();
+		
+	}*/
 
 
 	

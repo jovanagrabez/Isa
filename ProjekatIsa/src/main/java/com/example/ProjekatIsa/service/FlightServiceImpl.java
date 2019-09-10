@@ -43,6 +43,10 @@ public class FlightServiceImpl implements FlightService {
 	private DestinationRepository destinationRepository;
 	
 	@Autowired
+	private FlightDestService flightdestinationService;
+	
+	
+	@Autowired
 	private DestinationService destinationService;
 	
 	 @Override
@@ -57,11 +61,13 @@ public class FlightServiceImpl implements FlightService {
 
 	    @Override
 	    public Flight addFlight(Flight flight) {
+	    	
 	    	for(Destination d : flight.getDestination()) {
-	    	this.destinationRepository.save(d);
-	    	}
-	    	this.seatAService.saveSeatArrangement(flight.getSeatArrangement());
-	        return this.flightRepository.save(flight);
+		    	this.destinationRepository.save(d);
+		    	}
+		    	this.seatAService.saveSeatArrangement(flight.getSeatArrangement());
+		        return this.flightRepository.save(flight);    	
+	    
 	    }
 
 	    @Override
@@ -92,9 +98,11 @@ public class FlightServiceImpl implements FlightService {
 	        Set<Destination> flightDestinations = new HashSet<>();
 	  //      this.flightRepository.save(flightDto);
 	        for (Destination dest : noveDestinacije) {
-             //     System.out.println(dest.getCountry()+ "id" + dest.getId());
-	   //     	this.destinationRepository.save(dest);
-	           flightDestinations.add(dest);
+
+	        	Destination destinacija= this.destinationService.getDestinationById(dest.getId());
+	        	
+	        	//     	this.destinationRepository.save(dest);
+	           flightDestinations.add(destinacija);
 	         }
 	       flightDto.setDestination(flightDestinations);
 	         this.flightRepository.save(flightDto);
@@ -213,7 +221,7 @@ public class FlightServiceImpl implements FlightService {
 	            Set<Destination> fdd = flight.getDestination();
 	            for (Destination flightDestination : flight.getDestination()) {
 
-	                if (flightDestination.getDescription().equals("departure")){
+	                if (flightDestination.getDescription().equals("from")){
 	                    for (String fromString : stringsFrom) {                 //za svaku rec iz from trazi
 	                        if ((flightDestination.getName().toLowerCase().contains(fromString.toLowerCase()) ||
 	                                flightDestination.getCountry().toLowerCase().contains(fromString.toLowerCase()) ) ||
@@ -223,7 +231,7 @@ public class FlightServiceImpl implements FlightService {
 	                            break;
 	                        }
 	                    }
-	                } else if (flightDestination.getDescription().equals("arrival")){
+	                } else if (flightDestination.getDescription().equals("to")){
 
 	                    for (String toString : stringsTo) {                 //za svaku rec iz from trazi
 	                        if ((flightDestination.getName().toLowerCase().contains(toString.toLowerCase()) ||

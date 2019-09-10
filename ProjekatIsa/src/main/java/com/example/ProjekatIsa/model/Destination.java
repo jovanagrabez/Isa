@@ -15,6 +15,7 @@ import javax.persistence.Table;
 
 import com.example.ProjekatIsa.DTO.DestinationDTO;
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -46,8 +47,8 @@ public class Destination implements Serializable {
 	@ManyToMany(mappedBy="destination")
 	private Set<Flight> flight;
 	
-	
-/*	@OneToMany(mappedBy = "destinations", cascade = CascadeType.ALL)
+/*	@JsonIgnore
+	@OneToMany(mappedBy = "destinations", cascade = CascadeType.ALL)
     private Set<FlightDest> flights;*/
 	
 	public Destination(DestinationDTO d) {

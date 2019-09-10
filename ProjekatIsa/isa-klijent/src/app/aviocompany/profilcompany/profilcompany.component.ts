@@ -48,7 +48,7 @@ export class ProfilcompanyComponent implements OnInit {
               private ngbDateParserFormatter: NgbDateParserFormatter,
               private appCom: AppComponent, private  userService: UserService, private reservationService: FlightReservationService) {
 
-    this.selectedDestinations = [{id: null, name: '', country: ''}];
+ //   this.selectedDestinations = [{id: null, name: '', country: ''}];
     this.presjedanja  = 0;
     this.destinationNew = {id: null, name: '', country: '', description: ''};
     this.ff = { id: null, take_off: NgbDate, landing: NgbDate, number: 11, seat: [{}], averageRating: 0,
@@ -123,8 +123,14 @@ export class ProfilcompanyComponent implements OnInit {
   }
 
   saveFlight() {
+
+
     this.ff.destination.push(this.destinationss.fromDest);
     this.ff.destination.push(this.destinationss.toDest);
+
+    // for(let i=0; i< this.selectedDestinations.length; i++){
+    //   this.ff.destination.push(this.selectedDestinations[i]);
+    // }
     this.ff.take_off = new Date(Date.UTC(this.ff.take_off.year, this.ff.take_off.month - 1, this.ff.take_off.day,
       this.departureTime.hour, this.departureTime.minute, 0, 0));
   this.ff.landing = new Date(Date.UTC(this.ff.landing.year, this.ff.landing.month - 1, this.ff.landing.day,
@@ -132,21 +138,21 @@ export class ProfilcompanyComponent implements OnInit {
 
     //this.ngbDateParserFormatter.format(this.ff.landing);
   this.ff.seatArrangement = {seatColumns: 0, seatRows: 0};
-    // if (this.selectedDestinations !== undefined) {
-    //   for (const dest of this.selectedDestinations) {
-    //     if (dest !== undefined) {
-    //       if (dest instanceof Array) {
-    //         for (const d of dest) {
-    //           if (d['id'] !== undefined) {
-    //             this.ff.destination.push(d);
-    //           }
-    //         }
-    //       } else if (dest['id'] !== undefined) {
-    //         this.ff.destination.push(dest);
-    //       }
-    //     }
-    //   }
-    // }
+    if (this.selectedDestinations !== undefined) {
+      for (const dest of this.selectedDestinations) {
+        if (dest !== undefined) {
+          if (dest instanceof Array) {
+            for (const d of dest) {
+              if (d['id'] !== undefined) {
+                this.ff.destination.push(d);
+              }
+            }
+          } else if (dest['id'] !== undefined) {
+            this.ff.destination.push(dest);
+          }
+        }
+      }
+    }
 
 
 

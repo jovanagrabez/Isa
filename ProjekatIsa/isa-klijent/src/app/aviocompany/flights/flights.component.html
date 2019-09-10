@@ -32,27 +32,39 @@
           </div>
         </div>
 
+
         <div class="form-group row">
-          <label class="col-sm-2 col col-form-label" for="dest">Flight changes locations:</label>
-          <div class="col-sm-10">
-                  <span class="pull-left col-sm-9" style=" margin-bottom: 20px;">
-
-                    <ng-select id="dest"  class="form-control"
-                               [items]="airline.destination"
-                               [multiple]="true"
-                               name="selectDestination"
-                               [closeOnSelect]="false"
-                               [searchable]="false"
-                               bindLabel="name"
-                               bindValue="item"
-                               [(ngModel)]="selectedDestinations"
-                               (change)="onChange($event)">
-
-                   </ng-select>
-
-                  </span>
-          </div>
+          <label class="col-sm-3 col col-form-label" for="dest">Presjedanje:</label>
         </div>
+        <ul class="list-group" *ngFor="let destination of selectedDestinations; index as i">
+          <li class="list-group-item d-flex justify-content-between align-items-center">
+            <p><b>{{destination['name']}} </b>,  {{destination['country']}}</p>
+            <span><a (click)="deleteDestination(i)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>
+            <!--class="badge badge-primary badge-pill"-->
+          </li>
+        </ul>
+
+        <!--<div class="form-group row">-->
+          <!--<label class="col-sm-2 col col-form-label" for="dest">Flight changes locations:</label>-->
+          <!--<div class="col-sm-10">-->
+                  <!--<span class="pull-left col-sm-9" style=" margin-bottom: 20px;">-->
+
+                    <!--<ng-select id="dest"  class="form-control"-->
+                               <!--[items]="airline.destination.id"-->
+                               <!--[multiple]="true"-->
+                               <!--name="selectDestination"-->
+                               <!--[closeOnSelect]="false"-->
+                               <!--[searchable]="false"-->
+                               <!--bindLabel="name"-->
+                               <!--bindValue="item"-->
+                               <!--[(ngModel)]="selectedDestinations"-->
+                               <!--(change)="onChange($event)">-->
+
+                   <!--</ng-select>-->
+
+                  <!--</span>-->
+          <!--</div>-->
+        <!--</div>-->
 
 
 
@@ -203,10 +215,10 @@
       </div>
       <div class="form-group row">
         <label class="col-sm-3 col col-form-label" for="flChanges">Presjedanja</label>
-        <div *ngIf="flight.flightChanges !== 0">
-          <ul id="flChanges" class="list-group col-sm-10" *ngFor="let destination of connecting" >
+        <div >
+          <ul id="flChanges" class="list-group col-sm-10" *ngFor="let destination of selectedDestinations" >
             <li class="list-group-item d-flex justify-content-between align-items-center">
-              <p><b>{{destination['name']}} {{destination['shortName']}}</b>, {{destination['address']['city']}}, {{destination['address']['country']}}</p>
+              <p><b>{{destination['name']}}</b>,  {{destination['country']}}</p>
             </li>
           </ul>
         </div>

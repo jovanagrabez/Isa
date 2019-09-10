@@ -29,7 +29,6 @@ public class FlightDest implements Serializable{
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    private Flight flight;
 
-	   
 	    @ManyToOne(fetch = FetchType.LAZY)
 	    private Destination destinations;
 
@@ -56,7 +55,7 @@ public class FlightDest implements Serializable{
 	        this.id = id;
 	    }
 
-/*	    public Flight getFlight() {
+	    public Flight getFlight() {
 	        return flight;
 	    }
 
@@ -70,7 +69,7 @@ public class FlightDest implements Serializable{
 
 	    public void setDestination(Destination destinations) {
 	        this.destinations = destinations;
-	    }*/
+	    }
 
 	    public String getDescription() {
 	        return description;

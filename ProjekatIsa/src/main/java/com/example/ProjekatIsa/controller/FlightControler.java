@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.FilterDTO;
+import com.example.ProjekatIsa.DTO.FlightDTO;
 import com.example.ProjekatIsa.DTO.SearchDTO;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
@@ -57,7 +58,6 @@ public class FlightControler {
 	@PostMapping
 	 public ResponseEntity<Flight> addFlight(@RequestBody Flight flight){
 		
-	    System.out.println("BLA BLA BLA" + flight.getBusinessPrice() + flight.getBaggageDescription());
 				 this.flightService.addFlight(flight);
 			        return ResponseEntity.ok(flight);
 			    }
