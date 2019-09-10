@@ -84,12 +84,12 @@ public class AuthController {
 			
 				}*/
 				
-				/*if(!user.isVerified())
+				if(!user.isVerified())
 				{
 					System.out.println("Morate verifikovati svoj nalog");
 					return new ResponseEntity<>(new UserTokenState("notActivated",(long) 0), HttpStatus.OK);
 
-				}*/
+				}
 	        MultiValueMap<String, String> headers = new LinkedMultiValueMap<String, String>();
 	        headers.add("Content-Type", "application/json");
 	        HttpEntity<JwtAuthenticationRequest> HReq=new HttpEntity<JwtAuthenticationRequest>(authenticationRequest,headers);

@@ -30,6 +30,7 @@ import { HotelReportComponent } from './hotel-report/hotel-report.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { QuickReservationComponent } from './quick-reservation/quick-reservation.component';
 import { ServiceReportComponent } from './service-report/service-report.component';
+import { MakeDiscountsComponent } from './make-discounts/make-discounts.component';
 
 
 const routes: Routes = [
@@ -167,6 +168,11 @@ const routes: Routes = [
 
   {
     path: 'serviceReport', component:   ServiceReportComponent
+
+  },
+
+  {
+    path: 'make-discounts', component:   MakeDiscountsComponent
 
   }
 

@@ -151,6 +151,8 @@ public class UserController {
 				newUser.setPassword(hashedP);
 				newUser.setCity(user1.getCity());
 				newUser.setPhoneNumber(user1.getPhoneNumber());	
+				newUser.setPoints(0.0);
+				newUser.setFirstLogin(true);
 												
 				Role rolica = new Role();
 				rolica = roleService.findById(1);
@@ -332,7 +334,7 @@ public class UserController {
 			newUser.setPassword(hashedP);
 			newUser.setCity(user1.getCity());
 			newUser.setPhoneNumber(user1.getPhoneNumber());	
-			
+			newUser.setPoints(0.0);
 			//ako je num 1 - uloga je avio
 			//ako je num 2 - uloga je hotel
 			//ako je num 3 - uloga je car
@@ -354,8 +356,8 @@ public class UserController {
 			r1.add(rolica);
 			newUser.setRoles(r1);
 			newUser.setEnabled(true);
-			newUser.setVerified(false);
-
+			newUser.setVerified(true);
+			newUser.setFirstLogin(false);
 			System.out.println("Uloga registrovanog korisnika je:" + newUser.getRoles().toString());
 			userService.save(newUser);
 			System.out.println("Uloga sacuvanog korisnika" + newUser.getRoles());
@@ -396,8 +398,8 @@ public class UserController {
 			  if (user1.getPasswordConfirm().length() < 6) {
 				  return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 			  }
-			  newUser.setVerified(true);
-			  
+			  //newUser.setVerified(true);
+			  newUser.setFirstLogin(true);
 			  
 			  String hash = org.springframework.security.crypto.bcrypt.BCrypt.gensalt();
 			  String hashedP = org.springframework.security.crypto.bcrypt.BCrypt.hashpw(newUser.getPasswordConfirm(), hash);

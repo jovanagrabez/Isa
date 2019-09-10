@@ -34,6 +34,7 @@ import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
 import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.RatingHotel;
+import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.model.SearchFormHotel;
@@ -514,6 +515,25 @@ public class HotelController {
 		returnList = ratingHotelRepository.findAllByHotel(hotel);
 		
 		return new ResponseEntity<List<RatingHotel>>(returnList,HttpStatus.OK);
+	}
+	
+	@RequestMapping(value="/countAverageRating/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public Double  countAverageRating(@PathVariable("id") Long idHotela) {
+		Double finalCount = 0.0;
+		int sum = 0;
+		List<RatingHotel> returnList = new ArrayList<RatingHotel>();
+		Hotel hotel = hotelRepository.findOneById(idHotela);
+		
+		returnList = ratingHotelRepository.findAllByHotel(hotel);
+		for (RatingHotel rr:returnList) {
+			sum += rr.getRate();
+		}
+		if (!returnList.isEmpty()) {
+			finalCount = (double) (sum/returnList.size());
+		}
+		return finalCount;
 	}
 	
 	@PreAuthorize("hasAuthority('getHotelRevenue')")

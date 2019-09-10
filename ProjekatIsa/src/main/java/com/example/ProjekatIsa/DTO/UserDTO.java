@@ -17,6 +17,8 @@ private Long id;
 	private String password;	
 	private String city;
 	private String phoneNumber;
+	private Double points;
+	private boolean firstLogin;
 	private boolean verified = false;
 	private boolean enabled = true;	
 	private List<MyRoleDTO> rolesDTO;
@@ -28,7 +30,7 @@ private Long id;
 		
 	}
 	public UserDTO(Long id, String firstName, String lastName, String email, String password, String city,
-			String phoneNumber, boolean verified, boolean enabled) {
+			String phoneNumber, boolean verified, boolean enabled, Double points, boolean firstLogin) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -39,13 +41,16 @@ private Long id;
 		this.phoneNumber = phoneNumber;
 		this.verified = verified;
 		this.enabled = enabled;
+		this.points = points;
+		this.firstLogin = firstLogin;
 		
 	}
 	
 	
 public UserDTO(User user) {
 		
-		this(user.getId(), user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword(),user.getLastName(),user.getCity(),user.isVerified(),user.isEnabled());
+		this(user.getId(), user.getFirstName(),user.getLastName(),user.getEmail(),user.getPassword(),
+				user.getLastName(),user.getCity(),user.isVerified(),user.isEnabled(), user.getPoints(),user.isFirstLogin());
 		rolesDTO = new ArrayList<>();
 		
 	}
@@ -108,6 +113,18 @@ public UserDTO(User user) {
 	}
 	public void setRolesDTO(List<MyRoleDTO> rolesDTO) {
 		this.rolesDTO = rolesDTO;
+	}
+	public Double getPoints() {
+		return points;
+	}
+	public void setPoints(Double points) {
+		this.points = points;
+	}
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
 	}
 
 	

@@ -74,10 +74,10 @@ checkUser(logged) {
           this.auth.setJwtToken(user_token.accessToken);
           console.log(user_token.accessToken);
           console.log("prije getLogged");
-         /* if(user_token.accessToken == 'notActivated') {
+          if(user_token.accessToken == 'notActivated') {
               alert("Morate verifikovati svoj nalog da bi se mogli prijaviti");
               
-          } else {*/
+          } else {
           this.userService.getLogged(user_token.accessToken).subscribe(data => {
               console.log("u getLogged");
               var currentUser=data as User; 
@@ -98,7 +98,7 @@ checkUser(logged) {
               console.log(currentUser);
               
               this.user1 = JSON.parse(localStorage.getItem('user'))
-            if (currentUser.verified==false) {
+            if (currentUser.firstLogin==false) {
                       alert("Morate prvo promeniti lozinku!");
                       window.location.href = 'http://localhost:4200/change-password';
                   }
@@ -115,7 +115,7 @@ checkUser(logged) {
 
              }
      });
-  //}
+  }
             }
     }
     

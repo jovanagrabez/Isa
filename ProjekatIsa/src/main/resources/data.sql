@@ -82,18 +82,18 @@ insert into destination(name, country, description) values ('New Delhi', 'Indija
 
 
 
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) 
-	values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (2,'Admin','Admin','admin@gmail.com',
-	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (3,'Admin','Admin','avioadmin@gmail.com',
-	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (4,'Admin','Admin','hoteladmin@gmail.com',
-	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (5,'Admin','Admin','caradmin@gmail.com',
-	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (6,'Admin','Admin','tanja@gmail.com',
-	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,false);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login) 
+	values (1,'Sara','Celik','isasaracelik@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,15,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,first_login) values (2,'Admin','Admin','admin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,first_login) values (3,'Admin','Admin','avioadmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,first_login) values (4,'Admin','Admin','hoteladmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,first_login) values (5,'Admin','Admin','caradmin@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,true);
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login) values (6,'Admin','Admin','tanja@gmail.com',
+	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,16,false);
 
 
 insert into role (id,name) values (1,'USER');
@@ -412,4 +412,10 @@ insert into rating_room (ratingroom_id,user_id,room_id,rate)
 insert into rating_room (ratingroom_id,user_id,room_id,rate) 
 	values (3,1,2,3);
 
+insert into system_discount (system_discount_id,amount,percent) 
+	values (1,200,10);	
+insert into system_discount (system_discount_id,amount,percent) 
+	values (2,200,3);
+insert into system_discount (system_discount_id,amount,percent) 
+	values (3,5,10);	
 	

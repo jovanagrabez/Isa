@@ -223,4 +223,23 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		return new ResponseEntity<List<RatingRoom>>(returnList,HttpStatus.OK);
 
 	}
+	@RequestMapping(value="/countAverageRating/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public Double countAverageRating(@PathVariable("id") Long idRoom) {
+
+		Double finalCount = 0.0;
+		int sum = 0;
+		List<RatingRoom> returnList = new ArrayList<RatingRoom>();
+		Room room = roomService.findOneById(idRoom);
+		returnList = ratingRoomRepository.findAllByRoom(room);
+		for (RatingRoom rr:returnList) {
+			sum += rr.getRate();
+		}
+		if (!returnList.isEmpty()) {
+			finalCount = (double) (sum/returnList.size());
+		}
+		return finalCount;
+
+	}
 }

@@ -53,10 +53,10 @@ export class AppComponent implements OnInit {
       console.log(data);
       console.log('Uloga trenutnog usera');
       console.log(currentUser.roles);
-     /* if (currentUser.verified==false) {
+      if (currentUser.firstLogin==false) {
           alert("Morate prvo promeniti lozinku!");
           this.router.navigateByUrl('/change-password');
-      }*/
+      }
       });
      }
   }
