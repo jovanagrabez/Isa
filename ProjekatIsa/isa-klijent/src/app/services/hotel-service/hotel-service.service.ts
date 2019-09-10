@@ -60,7 +60,7 @@ export class HotelServiceService {
       return this.http.post('http://localhost:8080/rooms/searchRooms/'+id + "/"+cenaod + "/" +cenado,res); 
   };
   bookRoom(res : ReservationRoom) : Observable<any> {
-      return this.http.post('http://localhost:8080/rooms/bookRoom',res,{headers: this.auth.createAuthorizationTokenHeader()}); 
+      return this.http.post('http://localhost:8080/rooms/bookRoom',res); 
   };
   
   getLastWeekReservations(id: number, dateToday : string): Observable<any> {
@@ -78,5 +78,11 @@ export class HotelServiceService {
   };
   getHotelRevenue(id: number, od :string, Do : string) : Observable<any> {
       return this.http.get('http://localhost:8080/hotels/getHotelRevenue/'+id +'/' + od +'/' + Do,{headers: this.auth.createAuthorizationTokenHeader()}); 
+  };
+  countAverageRating(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/rooms/countAverageRating/'+id); 
+  };
+  countAverageRatingHotel(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/hotels/countAverageRating/'+id); 
   };
 }

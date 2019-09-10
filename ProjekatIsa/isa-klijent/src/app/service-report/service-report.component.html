@@ -57,14 +57,14 @@
               <tr>
                 <th>Ocena</th>
                 <th>Korisnik</th>
-                <th>Broj sobe</th>
+                <th>Vozilo</th>
             </tr>
             </thead>
             <tbody>
               <tr *ngFor="let o of allRatingsCar">
                 <td>{{o.rate}}</td>
                 <td>{{o.user.email}}</td>
-                <td>{{o.car.number}}</td>
+                <td>{{o.car.name}}</td>
               </tr>
             </tbody>
           </table>

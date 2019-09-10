@@ -16,6 +16,8 @@ import Map from 'ol/Map';
 import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
+import { DiscountServiceService } from '../services/discount-service/discount-service.service';
+import { SystemDiscount } from '../models/SystemDiscount';
 
 @Component({
   selector: 'app-hotel-details',
@@ -49,19 +51,24 @@ export class HotelDetailsComponent implements OnInit {
     brojDana : number;
     canBook : boolean;
     
+    //za discount
+    discount : SystemDiscount = new SystemDiscount();
+    discount2 : SystemDiscount = new SystemDiscount();
+    popust : boolean;
+    iskoristiPoene: boolean;
     //za mape
     adresa = "";
     finalna = "";
     map;
     constructor(private router: Router,private sanitizer:DomSanitizer,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
-            private hotelService : HotelServiceService,private ngZone : NgZone, private modalService: NgbModal) { }
+            private hotelService : HotelServiceService,private ngZone : NgZone, private modalService: NgbModal ,  private sds : DiscountServiceService) { }
 
     ngOnInit() {
         this.reservationRoom.totalPrice = 0;
         this.user = JSON.parse(localStorage.getItem('user'));
         this.token = this.auth.getJwtToken();
         this.canBook = true;
-        
+
        if(this.user.roles==null){
             this.nohotelAdmin = true;
         } 
@@ -95,7 +102,17 @@ export class HotelDetailsComponent implements OnInit {
           
           });
           this.getAddress();
-        
+          //za popuste
+         this.popust = false;
+         this.iskoristiPoene = false;
+         this.sds.getDiscount(1).subscribe(data=>{
+                    this.discount = data;
+                    console.log(this.discount);
+          });
+                this.sds.getDiscount(3).subscribe(data=>{
+                    this.discount2 = data;
+                    console.log(this.discount2);
+          });
        
     };
     
@@ -303,6 +320,7 @@ export class HotelDetailsComponent implements OnInit {
               if(value == true){
                 this.idServices.set(id, false);
                 this.reservationRoom.totalPrice =this.reservationRoom.totalPrice - this.services[i].price;
+           
               }
               else{
                 this.idServices.set(id, true);
@@ -321,11 +339,46 @@ export class HotelDetailsComponent implements OnInit {
       else{
           this.reservationRoom.user = this.user;
           this.reservationRoom.room = r;
+          //popust na dodatne servise
+          if (this.reservationRoom.totalPrice > this.discount.amount){
+              this.reservationRoom.totalPrice = this.reservationRoom.totalPrice - ((this.reservationRoom.totalPrice*this.discount.percent) / 100); 
+              this.popust = true;
+          }
+          
           this.reservationRoom.totalPrice = this.reservationRoom.totalPrice + this.brojDana*r.price;
+          
+          //popust na rezervaciju hotela
+          if (this.iskoristiPoene){
+              console.log("dosao u iskoristi poene");
+              this.reservationRoom.totalPrice =this.reservationRoom.totalPrice - ( (this.reservationRoom.totalPrice*this.discount2.percent) / 100); 
+              this.sds.usePoints(this.discount2.amount, this.user.id).subscribe(data=>{
+                  console.log("Umanjio broj poena");
+                  this.user.points -= this.discount2.amount;
+              });
+          }
+          console.log(this.reservationRoom);
           console.log("rezervaciju je izvrsio: " + this.reservationRoom.user.email);
           this.hotelService.bookRoom(this.reservationRoom).subscribe(data=>{
-              alert("rezervacija uspesna");
-              window.location.href="hotels/";
+              if (this.popust){
+                  
+                  if (this.iskoristiPoene){
+                      alert("Uspesna rezervacija. Ostvarili ste popust "+this.discount.percent+"% na dodatne servise jer ukupan iznos prelazi: " 
+                              + this.discount.amount + "Ostvarili ste dodatnih " + this.discount2.percent + "% popusta na ulozene bonus poene!");
+                  }else{
+                      alert("Uspesna rezervacija. Ostvarili ste popust "+this.discount.percent+"% na dodatne servise jer ukupan iznos prelazi: " 
+                              + this.discount.amount);
+                  }
+              }else{
+                  if (this.iskoristiPoene){
+                      alert("Uspesna rezervacija. Ostvarili ste " + this.discount2.percent + "% popusta na ulozene bonus poene!");
+                 
+                  }else{
+                      alert("rezervacija uspesna"); 
+                  }
+                  
+              }
+              
+              window.location.href="hotels";
           });
       }
           
@@ -363,5 +416,15 @@ export class HotelDetailsComponent implements OnInit {
             );
 
             this.router.navigateByUrl('/hotelReport');
+    };
+    
+    bonusPoeniChange(){
+        if (this.iskoristiPoene){
+            this.iskoristiPoene = false ; 
+        }
+        else{
+            this.iskoristiPoene = true ;
+        }
+        console.log("iskoristi poene je: "+this.iskoristiPoene)
     }
 }

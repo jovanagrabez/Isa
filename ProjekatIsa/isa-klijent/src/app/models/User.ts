@@ -10,6 +10,8 @@ export class User {
     city: string;
     phoneNumber : string;
     verified: boolean; 
-    roles : Array<Role>;   
+    roles : Array<Role>;
+    points :number;
+    firstLogin:boolean;
     
 }

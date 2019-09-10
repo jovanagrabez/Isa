@@ -1,0 +1,66 @@
+<div id="fh5co-tours" class="fh5co-section-gray">
+	<div class="container">
+		
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+				<h6>Definisi nacin odredjivanja popusta za dodatne servise:</h6>
+				<p *ngIf="discount != null" >Trenutni popust: Za vrijednost preko {{discount.amount}} umanjuje se {{discount.percent}}% .</p>
+			</div>
+			<div class="col-xs-12" >
+				
+				<div class="form-group">
+				<label>Ako prilikom rezervisanja sobe, cena dodatnih servisa prelazi:</label>
+				   <input type="number" class="form-control" min = "1" placeholder="Unesite vrijednost u evrima.."  [(ngModel)]="newDiscount.amount">
+				</div>
+				<div class="form-group">
+				<label>Ostvaruje se popust:</label>
+				   <input type="number" class="form-control" min = "1" max="100" placeholder="Unesite vrijednost u procentima.."  [(ngModel)]="newDiscount.percent">
+				</div>
+				<br/>
+				<button type="submit" class="btn btn-primary" (click)="changeDiscount(newDiscount)" > Potvrdi</button>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+				<h6>Definisi nacin odredjivanja popusta za letove:</h6>
+				<p *ngIf="discount2 != null" >Trenutni popust: Za vrijednost preko {{discount2.amount}} dobija se {{discount2.percent}} dodatnih poena.</p>
+			</div>
+			<div class="col-xs-12" >
+				
+				<div class="form-group">
+				<label>Ako prilikom rezervisanja leta, cena prelazi:</label>
+				   <input type="number" class="form-control" min = "1" placeholder="Unesite vrijednost u evrima.."  [(ngModel)]="newDiscount2.amount">
+				</div>
+				<div class="form-group">
+				<label>Dobija se:</label>
+				   <input type="number" class="form-control" min = "1" max="100" placeholder="Unesite broj poena.."  [(ngModel)]="newDiscount2.percent">
+				</div>
+				<br/>
+				<button type="submit" class="btn btn-primary" (click)="changeDiscount2(newDiscount2)" > Potvrdi</button>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+				<h6>Definisi nacin odredjivanja popusta za hotele:</h6>
+				<p *ngIf="discount3 != null" >Trenutni popust: Za broj poena {{discount3.amount}} 
+							dobija se {{discount3.percent}}% popusta na rezervaciju smjestaja.</p>
+			</div>
+			<div class="col-xs-12" >
+				
+				<div class="form-group">
+				<label>Ako prilikom rezervisanja smjestaja, korisnik ima:</label>
+				   <input type="number" class="form-control" min = "1" placeholder="Unesite broj poena.."  [(ngModel)]="newDiscount3.amount">
+				</div>
+				<div class="form-group">
+				<label>Moze ostvariti popust:</label>
+				   <input type="number" class="form-control" min = "1" max="100" placeholder="Unesite vrijednost u procentima.."  [(ngModel)]="newDiscount3.percent">
+				</div>
+				<br/>
+				<button type="submit" class="btn btn-primary" (click)="changeDiscount3(newDiscount3)" > Potvrdi</button>
+				
+			</div>
+		</div>
+	</div>
+</div>

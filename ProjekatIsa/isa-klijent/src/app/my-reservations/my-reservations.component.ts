@@ -113,13 +113,16 @@ export class MyReservationsComponent implements OnInit {
                     }
                   else 
                     {
-                       this.carRatings.forEach(element2=>{
-                           
-                           if(element2.car.id == element.car.id)
-                           {
-                               element.rateCar = false;
-                               }
-                           });
+//                       this.carRatings.forEach(element2=>{
+//                           
+//                           if(element2.car.id == element.car.id)
+//                           {
+//                               element.rateCar = false;
+//                               } else {
+//                               element.rateCar = true;
+// 
+//                               }
+//                           });
                     }
                   
                     });
@@ -130,6 +133,7 @@ export class MyReservationsComponent implements OnInit {
           
           this.ratingService.getServiceRatings(this.currentUser.id).subscribe(data=>{
               this.serviceRatings = data;
+              console.log(data);
               
               
               this.rezervisanaVozila.forEach(element=>{
@@ -145,13 +149,13 @@ export class MyReservationsComponent implements OnInit {
 
                       
                   
-                  this.serviceRatings.forEach(element2=>{
-                      
-                      if(element2.service.id==element2.service.id){
-                          element.rateService = false;
-                          }
-                      
-                      });
+//                  this.serviceRatings.forEach(element3=>{
+//                      
+//                      if(element3.service.id==element3.service.id){
+//                          element.rateService = false;
+//                          }
+//                      
+//                      });
                       
                       }
                   });
@@ -350,7 +354,7 @@ export class MyReservationsComponent implements OnInit {
     
     rateCar(car : Car){
         
-        this.ratingCarNumber.rate = (<HTMLInputElement>document.getElementById("s"+car.id)).valueAsNumber;
+        this.ratingCarNumber.rate = (<HTMLInputElement>document.getElementById("voz"+car.id)).valueAsNumber;
         console.log(this.ratingCarNumber.rate);
         if(this.isBlank(this.ratingCarNumber.rate))
         {
@@ -465,7 +469,7 @@ export class MyReservationsComponent implements OnInit {
           this.ocenaLeta.user = this.user;
           this.ocenaLeta.flight = flight;
           this.ratingService.rateFlight(this.ocenaLeta,flight.id).subscribe(data =>{
-            alert("Ocenili ste sobu");
+            alert("Ocenili ste let");
             window.location.href="http://localhost:4200";
           });
         }

@@ -68,6 +68,12 @@ public class User implements Serializable,UserDetails {
     @Column(name = "enabled", nullable = true)
     private boolean enabled;
     
+    @Column(name = "first_login")
+    private boolean firstLogin;
+    
+    @Column(name = "points")
+    private Double points;
+    
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable( 
             name = "user_roles", 
@@ -83,11 +89,11 @@ public class User implements Serializable,UserDetails {
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Set<CarReservation> rezCar;
-    /*
+    
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<ReservationRoom> rezRoom;
-    */
+    
     @JsonIgnore
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<FlightReservation> rezFlight;
@@ -196,7 +202,8 @@ public class User implements Serializable,UserDetails {
 	}
 
 
-	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber,boolean verified,List<Role> roles) {
+	public User(String firstName, String lastName, String email, String passwordHash, String city, String phoneNumber,
+			boolean verified,List<Role> roles, Double points,boolean firstLogin) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -206,10 +213,21 @@ public class User implements Serializable,UserDetails {
 		this.phoneNumber = phoneNumber;
 		this.verified = verified;
 		this.roles = roles;
+		this.points = points;
+		this.firstLogin = firstLogin;
 	}
 	
 	public void setVerified(boolean verified) {
 		this.verified = verified;
+	}
+
+	
+	public Double getPoints() {
+		return points;
+	}
+
+	public void setPoints(Double points) {
+		this.points = points;
 	}
 
 	@Override
@@ -275,6 +293,14 @@ public class User implements Serializable,UserDetails {
 
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
+	}
+
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
 	}
 
 	

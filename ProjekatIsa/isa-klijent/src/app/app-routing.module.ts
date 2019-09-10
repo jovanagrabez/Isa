@@ -28,7 +28,9 @@ import { MyReservationsComponent } from './my-reservations/my-reservations.compo
 import {SearchpageComponent} from './aviocompany/searchpage/searchpage.component';
 import { HotelReportComponent } from './hotel-report/hotel-report.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
-import {QuickReservationComponent } from './quick-reservation/quick-reservation.component';
+import { QuickReservationComponent } from './quick-reservation/quick-reservation.component';
+import { ServiceReportComponent } from './service-report/service-report.component';
+import { MakeDiscountsComponent } from './make-discounts/make-discounts.component';
 import {AvioReportComponent} from './aviocompany/profilcompany/avio-report/avio-report.component';
 
 
@@ -167,6 +169,16 @@ const routes: Routes = [
 
   {
     path: 'quick-res', component:   QuickReservationComponent
+
+  },
+
+  {
+    path: 'serviceReport', component:   ServiceReportComponent
+
+  },
+
+  {
+    path: 'make-discounts', component:   MakeDiscountsComponent
 
   }
 

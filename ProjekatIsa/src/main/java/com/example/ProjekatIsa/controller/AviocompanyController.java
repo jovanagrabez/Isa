@@ -205,23 +205,23 @@ public class AviocompanyController {
 			}
          
          
-//         if(item.equals("rate") && order.equals("ascending") ) {
-//				
-//				sorted = servisi.stream()
-//						  .sorted(Comparator.comparing(AviocompanyDTO::getAverage_rating))
-//						  .collect(Collectors.toList());
-//				
-//				System.out.println("Name" + sorted);
-//			}
-//         
-//         if(item.equals("rate") && order.equals("descending") ) {
-//				
-//				sorted = servisi.stream()
-//						  .sorted(Comparator.comparing(AviocompanyDTO::getAverage_rating).reversed()
-//						  .collect(Collectors.toList());
-//				
-//				System.out.println("Adresa" + sorted);
-//			}
+         if(item.equals("rate") && order.equals("ascending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getRating))
+						  .collect(Collectors.toList());
+				
+				System.out.println("Name" + sorted);
+			}
+         
+         if(item.equals("rate") && order.equals("descending") ) {
+				
+				sorted = servisi.stream()
+						  .sorted(Comparator.comparing(AviocompanyDTO::getRating).reversed())
+						  .collect(Collectors.toList());
+				
+				System.out.println("Adresa" + sorted);
+			}
 			
 		
 			return  new ResponseEntity<List<AviocompanyDTO>>(sorted, HttpStatus.OK);

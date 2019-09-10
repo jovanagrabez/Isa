@@ -123,6 +123,7 @@ figure {
 .fh5co-cover,
 .fh5co-hero {
   position: relative;
+  height: 800px;
 }
 @media screen and (max-width: 768px) {
   .fh5co-cover,
@@ -133,12 +134,12 @@ figure {
 .fh5co-cover .fh5co-overlay,
 .fh5co-hero .fh5co-overlay {
   position: absolute !important;
-  
+  width: 100%;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  z-index: 0;
+  z-index: 1;
   background: rgba(255, 62, 28, 0.5);
   background: -moz-linear-gradient(left, rgba(255, 62, 28, 0.5) 0%, rgba(255, 140, 0, 0.5) 100%);
   background: -webkit-gradient(left top, right top, color-stop(0%, rgba(255, 62, 28, 0.5)), color-stop(100%, rgba(255, 140, 0, 0.5)));
@@ -147,6 +148,12 @@ figure {
   background: -ms-linear-gradient(left, rgba(255, 62, 28, 0.5) 0%, rgba(255, 140, 0, 0.5) 100%);
   background: linear-gradient(to right, rgba(255, 62, 28, 0.5) 0%, rgba(255, 140, 0, 0.5) 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3e1c', endColorstr='#ff8c00', GradientType=1 );
+}
+
+.two-columns{
+	column-count: 2;
+	column-width: 400px;
+	column-gap: 50px;
 }
 
 .fh5co-cover {
@@ -161,7 +168,7 @@ figure {
 }
 .fh5co-cover .btn {
   padding: 1em 2em;
-  opacity: .7;
+  opacity: .9;
 }
 .fh5co-cover.fh5co-cover_2 {
   height: 600px;
@@ -203,7 +210,7 @@ figure {
 .fh5co-cover .desc p {
   display: block;
   margin-bottom: 30px;
-  font-size: 28px;
+  font-size: 16px;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.7);
 }
@@ -725,6 +732,13 @@ div.cs-select span {
   font-size: 40px;
   font-weight: 400;
   position: relative;
+  text-transform: uppercase;
+}
+.heading-section h4 {
+  font-size: 30px;
+  font-weight: 400;
+  position: relative;
+  text-transform: uppercase;
 }
 .heading-section p {
   font-size: 20px;
@@ -774,7 +788,7 @@ div.cs-select span {
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 30px;
+  padding: 10px;
   z-index: 12;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
@@ -785,10 +799,10 @@ div.cs-select span {
   margin: 0;
   padding: 0;
   opacity: 1;
-  font-size: 30px;
-  font-weight: 400;
+  font-size: 20px;
+  font-weight: 200;
   visibility: visible;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -798,10 +812,10 @@ div.cs-select span {
   margin: 0;
   padding: 0;
   opacity: 1;
-  font-size: 23px;
-  font-weight: 400;
+  font-size: 15px;
+  font-weight: 200;
   visibility: visible;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
   -webkit-transition: 0.3s;
   -o-transition: 0.3s;
   transition: 0.3s;
@@ -809,24 +823,28 @@ div.cs-select span {
 .fh5co-tours > div .desc span {
   display: block;
   color: rgba(255, 255, 255, 0.9);
-  margin-bottom: 5px;
+  margin-bottom: 1px;
 }
 .fh5co-tours > div .desc .price {
-  font-size: 23px;
-  font-weight: bold;
+  font-size: 15px;
+ /* font-weight: bold;*/
   color: #646464;
+  margin-bottom: 1px;
 }
 .fh5co-tours > div .desc .btn {
   opacity: 1;
   border: 1px solid #fff !important;
   color: #fff !important;
   letter-spacing: 1px !important;
-  font-weight: 40 !important;
+  font-weight: 200 !important;
+  margin-bottom: 1px;
 }
 .fh5co-tours > div .desc .btn:hover, .fh5co-tours > div .desc .btn:focus, .fh5co-tours > div .desc .btn:active {
-  border: 2px solid #F78536 !important;
+  border: 1px solid #F78536 !important;
   background: #F78536 !important;
   color: #fff !important;
+   margin-bottom: 1px;
+  
 }
 .fh5co-tours > div:hover {
   -webkit-box-shadow: 0px 18px 71px -10px rgba(0, 0, 0, 0.75);
@@ -1653,17 +1671,17 @@ div.cs-select span {
 }
 
 .btn {
-  -webkit-transition: 0.1s;
-  -o-transition: 0.1s;
-  transition: 0.1s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .btn {
   text-transform: uppercase;
   letter-spacing: 1px;
-  -webkit-transition: 0.1s;
-  -o-transition: 0.1s;
-  transition: 0.1s;
+  -webkit-transition: 0.3s;
+  -o-transition: 0.3s;
+  transition: 0.3s;
 }
 .btn.btn-primary {
   background: #F78536;
@@ -1698,7 +1716,7 @@ div.cs-select span {
   letter-spacing: 0;
   text-transform: none;
   font-weight: bold;
-  font-size: 8px;
+  font-size: 18px;
 }
 
 .js .animate-box {
@@ -1918,6 +1936,19 @@ div.cs-select span {
 .row-bottom-padded-md {
   padding-bottom: 4em;
 }
+
+.row-bottom-padded-md:after{
+  position: absolute;
+  content: '';
+  bottom: 0;
+  left: 50%;
+  width: 100px;
+  margin-left: -50px;
+  height: 2px;
+  background: #F78536;
+	
+}
+
 @media screen and (max-width: 768px) {
   .row-bottom-padded-md {
     padding-bottom: 2em;
@@ -2548,8 +2579,8 @@ div.cs-select span {
 }
 
 .hotel-box {
-	width: 320px;
-	height: 300px;
+	width: 220px;
+	height: 150px;
 
 	
 }
@@ -2660,5 +2691,6 @@ a.text-warning:focus {
 .icon-arrow-right22:before {
     content: "\ebfa";
 }
+
 
 /*# sourceMappingURL=style.css.map */

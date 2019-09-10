@@ -54,7 +54,6 @@ public class Discount {
 	
 	
 	@ManyToOne
-	@JsonIgnore
 	private RentACar rentACar;
 	
 	

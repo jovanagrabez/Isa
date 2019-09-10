@@ -249,16 +249,16 @@ export class ServiceReportComponent implements OnInit {
       let pomocna;
       this.nedeljni = false;
       this.mesecni = false;
-      this.oceneS = false;
-      this.dnevni = false;
       this.oceneC = false;
-      this.oceneS = true;
+      this.dnevni = false;
+      this.oceneS = false;
+      this.oceneC = true;
       this.cars.forEach(element => {
         this.viewRentalService.getRatingCar(element.id).subscribe(data => {
           pomocna = data;
           if (pomocna.length != 0 && data != undefined) {
             pomocna.forEach(el => {
-              //console.log(el.ocena);
+              console.log(el);
               this.allRatingsCar.push(el);
             
             });

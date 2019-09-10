@@ -18,6 +18,8 @@ public interface RatingRentACarRepository extends JpaRepository<RatingRentACar, 
 
 	List<RatingRentACar> findAllByUser(User user);
 
-	List<RatingRentACarService> findAllByCar(RentACar service);
+	List<RatingRentACar> findAllById(Long id);
+
+	List<RatingRentACar> findAllByRentalcars(RentACar service);
 
 }

@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -26,6 +27,7 @@ public class RatingCar implements Serializable {
 	private User user;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="car_id")
 	private Car car;
 	
 	@Column(name="rate", nullable = false)

@@ -192,6 +192,19 @@
 			<br/>
 	</div>
 </div>	
+<!-- info o popustu-->
+	<div [hidden]="canBook" class="row">
+				<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+				<p>Ako prilikom rezervisanja sobe, cijena dodatnih servisa prelazi: {{discount.amount}}€
+					Ostvarujete popust: {{discount.percent}}%.</p>
+				<p *ngIf="user.points > 0">Imate {{user.points}} bonus poena.</p>
+				<p>Ako imate vise od {{discount2.amount}} poena mozete ostvariti 
+					{{discount2.percent}}% popusta na rezervaciju smjestaja.</p>
+				<div *ngIf="user.points >= discount2.amount">
+					<input type="checkbox"  name="bonusPoeni" value="iskoristiPoene" (change)="bonusPoeniChange()"> ISKORISTI POENE
+				</div>
+				</div>
+	</div>
 		<!-- prikazivanje soba-->
 		<div class="row">
 		<div class="col-xs-11">
@@ -221,7 +234,8 @@
                 <td>{{r.capacity}}</td>
                 <td>{{r.price}}€ <b>/</b> 1 noć</td>
                 <td><span *ngIf="!(r.room_average_rating == null)" class="price"> {{r.room_average_rating}} </span></td>               
-                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">{{r.price*brojDana + reservationRoom.totalPrice}}€</span></td>               
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">
+                	{{r.price * brojDana}} + {{reservationRoom.totalPrice}} = {{r.price*brojDana + reservationRoom.totalPrice}}€</span></td>               
                 <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="bookClick(r)">Book me</button></span></td> 
                 <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeRoomClick(r)">Izmeni</button></span></td>             
                 <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteRoomClick(r)">Obrisi</button></span></td>
@@ -344,10 +358,11 @@
 			          </div>
               		</div> 
            <div class="row">
-			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+           <div class="col-xs-12">
+			<div class="col-md-12 col-md-offset-2 text-center heading-section animate-box">
 			<h4>Pronadji nas na mapi</h4>
 			<div class="mapouter"><div class="gmap_canvas"><iframe  webkitallowfullscreen mozallowfullscreen allowfullscreen  id="gmap_canvas" [src]='sanitizer.bypassSecurityTrustResourceUrl(finalna)' frameborder="0"  scrolling="no" marginheight="0" height="500px" width="100%" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div><style>.mapouter{text-align:right;height:500px;width:100%;}.gmap_canvas {overflow:hidden;background:none!important;}</style></div>
-			
+			</div>
 			</div>
            </div>
 		</div>

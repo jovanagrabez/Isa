@@ -94,7 +94,7 @@ insert into user (user_id,first_name,last_name,email,password_hash,enabled,verif
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) values (6,'Admin','Admin','tanja@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,false);
-insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified) 
+insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified)
 	values (7,'Jovana','Grabez','jovana.grabez@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true);
 
 
@@ -326,44 +326,49 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (3,false,3,4);
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (4,false,3,5);
 
-insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
-insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);
-insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag) values (3,'2020-08-07 00:00:00','2020-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2020-08-07 00:00:00',14,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);
+insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag) values (3,'2020-08-07 00:00:00','2020-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2020-08-07 00:00:00',14,1,true);
 
 --PRIMJERI ZA IZVJESTAJ
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (4,'2018-10-15','2018-10-25','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (5,'2018-10-01','2018-10-13','Novi Sad','Beograd','B',3,10,250,'2018-09-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (6,'2019-11-10','2019-11-15','Novi Sad','Beograd','B',3,10,250,'2019-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (7,'2018-11-01','2018-11-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (8,'2019-12-09','2019-12-12','Novi Sad','Beograd','B',3,10,250,'2019-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (9,'2018-12-03','2018-12-11','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (10,'2019-01-01','2019-01-05','Novi Sad','Beograd','B',3,10,250,'2018-12-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (11,'2019-02-10','2019-07-13','Novi Sad','Beograd','B',3,10,250,'2019-02-07',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (12,'2019-03-05','2019-09-10','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (13,'2019-09-03','2019-07-04','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (14,'2019-09-05','2019-09-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
-insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_car_id,user_user_id,flag)	
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (15,'2019-09-05','2019-09-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
 
-insert into rating_rentacarservice (ratingcar_id,user_user_id,car_id,rate) 
+insert into rating_rentacarservice (ratingcar_id,user_user_id,rentacar_id,rate)
+	values (1,1,4,5);
+insert into rating_rentacarservice (ratingcar_id,user_user_id,rentacar_id,rate)
+	values (2,1,4,4);
+insert into rating_rentacarservice (ratingcar_id,user_user_id,rentacar_id,rate)
+	values (3,1,4,3);
+
+insert into rating_car (ratingcar_id,user_user_id,car_id,rate)
 	values (1,1,12,5);
-insert into rating_rentacarservice (ratingcar_id,user_user_id,car_id,rate) 
-	values (2,1,12,4);
-insert into rating_rentacarservice (ratingcar_id,user_user_id,car_id,rate) 
-	values (3,1,12,3);
-
-
+insert into rating_car (ratingcar_id,user_user_id,car_id,rate)
+	values (2,1,12,2);
+insert into rating_car (ratingcar_id,user_user_id,car_id,rate)
+	values (3,1,14,3);
 
 
 
@@ -415,11 +420,16 @@ insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate)
 insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate) 
 	values (3,1,1,3);
 --primjeri za ocjene soba
---insert into rating_room (ratingroom_id,user_id,room_id,rate) 
---	values (1,1,8,5);
---insert into rating_room (ratingroom_id,user_id,room_id,rate) 
---	values (2,1,1,2);
---insert into rating_room (ratingroom_id,user_id,room_id,rate) 
---	values (3,1,2,3);
+insert into rating_room (ratingroom_id,user_id,room_id,rate)
+	values (1,1,8,5);
+insert into rating_room (ratingroom_id,user_id,room_id,rate)
+	values (2,1,1,2);
+insert into rating_room (ratingroom_id,user_id,room_id,rate)
+	values (3,1,2,3);
 
-	
+insert into system_discount (system_discount_id,amount,percent)
+	values (1,200,10);
+insert into system_discount (system_discount_id,amount,percent)
+	values (2,200,3);
+insert into system_discount (system_discount_id,amount,percent)
+	values (3,5,10);
