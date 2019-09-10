@@ -12,6 +12,7 @@ import {Discount} from '../../../models/Discount';
 import {CarReservation} from '../../../models/CarReservation';
 import {ResServiceService} from '../../../services/res-service/res-service.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
+import {DiscountServiceService} from '../../../services/discount-service/discount-service.service';
 
 @Component({
   selector: 'app-flight-reservation',
@@ -28,17 +29,23 @@ export class FlightReservationComponent implements OnInit {
   invitedFriends: any;
   flightReservation: any;
   reservation: any;
-  searchFormServices : SearchFormServices = new SearchFormServices();
-  discount : Array<Discount>;
+  discount : any;
+  discounts : Array<Discount>;
 
-  constructor(private currentRoute: ActivatedRoute, private flightService: FlightService,
+  // constructor(,private currentRoute: ActivatedRoute, private flightService: FlightService,
+  // searchFormServices : SearchFormServices = new SearchFormServices();
+  // discount : Array<Discount>;
+
+  constructor(private sds: DiscountServiceService,private currentRoute: ActivatedRoute, private flightService: FlightService,
               private friendsService: FriendsService, private userService: UserService,
+            private   searchFormServices: SearchFormServices = new SearchFormServices(),
               private rentalCarsService: ViewRentalCarsService, private resServise: ResServiceService,
               private  appComp: AppComponent, private  router: Router, private reservationService: FlightReservationService) {
     this.flight = {seatArrangement: {seatRows: 0, seatColumns: 0}, seats: []};
     this.seatsInRows = [];
     this.selectedSeats = [];
     this.friends = [];
+
     this.invitedFriends = [];
     this.user = {firstName: '', lastName: '', password: '', email: '', phoneNumber: '', city: ''};
 
@@ -50,6 +57,11 @@ export class FlightReservationComponent implements OnInit {
 
   ngOnInit() {
 
+      //za dodavanje dodatnih poena
+      this.sds.getDiscount(2).subscribe(data=>{
+          this.discount = data;
+          console.log(this.discount);
+      });
     this.userService.getLogged(this.appComp.token).subscribe(data => {
       this.user = data
 
@@ -135,7 +147,7 @@ export class FlightReservationComponent implements OnInit {
     console.log(this.searchFormServices.name);
 
     this.rentalCarsService.searchServiceFast(this.searchFormServices).subscribe(data=>{
-      this.discount = data;
+      this.discounts = data;
       console.log('pretrazeni servisi');
       console.log(data);
     });
@@ -266,6 +278,9 @@ export class FlightReservationComponent implements OnInit {
       if (!isValid) {
       } else {
         this.flightReservation.userId = this.user.id;
+        this.sds.addPoints(this.discount.percent, this.user.id).subscribe(data=>{
+            console.log("uspjesno dodani poeni!" );
+        });
         this.reservationService.createReservation(this.flightReservation).subscribe(res => {
        //   const reserv = res['id'];
           this.reservationService.sendCreatedReservationEmail(1).subscribe( val => {

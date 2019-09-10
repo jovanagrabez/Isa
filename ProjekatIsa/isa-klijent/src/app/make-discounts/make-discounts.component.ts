@@ -4,6 +4,9 @@ import { SystemDiscount } from '../models/SystemDiscount';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { DiscountServiceService } from '../services/discount-service/discount-service.service';
+import { UserService } from '../services/user-service/user.service';
+import { AuthServiceService } from '../services/auth-service.service';
+import { User } from '../models/User';
 
 @Component({
   selector: 'app-make-discounts',
@@ -19,7 +22,12 @@ export class MakeDiscountsComponent implements OnInit {
   discount3 : SystemDiscount = new SystemDiscount();
   newDiscount3 : SystemDiscount = new SystemDiscount();
 
-    constructor(private router: Router, private sds : DiscountServiceService) { }
+  user : User = new User();
+  token: string;
+  hotelAdmin : boolean;
+
+    constructor(private router: Router, private sds : DiscountServiceService,
+            private us:UserService, private auth: AuthServiceService) { }
 
   ngOnInit() {
       
@@ -35,7 +43,20 @@ export class MakeDiscountsComponent implements OnInit {
       this.sds.getDiscount(3).subscribe(data=>{
           this.discount3 = data;
       });
-  
+      this.user = JSON.parse(localStorage.getItem('user'));
+
+      if(this.user.roles==null){
+          this.hotelAdmin = false;
+      } 
+      for (var i=0; i<this.user.roles.length; i++) {
+          if(this.user.roles[i].name.toString() === 'HOTEL_ADMIN'){
+              this.hotelAdmin = true;
+          }  
+          else{
+          this.hotelAdmin = false;
+          }
+      }
+ 
   }
   changeDiscount (newDiscount){
       this.newDiscount = newDiscount;
@@ -57,10 +78,7 @@ export class MakeDiscountsComponent implements OnInit {
   changeDiscount2 (newDiscount2){
       this.newDiscount2 = newDiscount2;
       console.log(this.newDiscount2);
-      if(this.isBlank(this.newDiscount2.amount)){
-          alert("Morate uneti iznos!");
-      }
-      else if(this.isBlank(this.newDiscount2.percent)){
+     if(this.isBlank(this.newDiscount2.percent)){
           alert("Morate uneti broj poena!");
       }      
       else{

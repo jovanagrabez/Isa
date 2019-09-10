@@ -16,6 +16,7 @@
 						<br/>
 						<br/>
 						<span class="hidden-xs" id="addServiceButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline"  (click)="reportClick()">Pogledaj prihode</a></span>
+						<span class="hidden-xs" id="addDiscountButton" [hidden]="nohotelAdmin"><a class="btn btn-primary btn-outline"  href="/make-discounts">Uredi popuste</a></span>
 						
 			</div>
 					
@@ -140,7 +141,7 @@
                 <label>Datum dolaska:</label>
                  <div class="input-group">
 	                    <span class="input-group-addon"> <i class="glyphicon glyphicon-calendar"></i></span>
-	                    <input class="form-control" type="date" required="required" data-placeholder="Check in" [(ngModel)]="reservationRoom.startDate" #startDate="ngModel" name="startDate" >
+	                    <input class="form-control" id="datMin" (change)="intervalDatuma()" type="date" min={{pomoc}} required="required" data-placeholder="Check in" [(ngModel)]="reservationRoom.startDate" #startDate="ngModel" name="startDate" >
 	                    <span id="errorStart"></span>                    
 	            </div>
               </div>
@@ -168,7 +169,7 @@
                <label>Datum odlaska:</label>
                 <div class="input-group"> 
 	                      <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	                      <input class="form-control" type="date" name="endDate" required="required"   [(ngModel)]="reservationRoom.endDate" #endDate="ngModel" name="endDate" data-placeholder="Check out">
+	                      <input class="form-control" type="date" min={{pomocDva}}  name="endDate" required="required"   [(ngModel)]="reservationRoom.endDate" #endDate="ngModel" name="endDate" data-placeholder="Check out">
 	                      <span id="errorEnd"></span>
 	                </div>
               </div>
@@ -295,7 +296,7 @@
 				
 		<!--DIV ZA PRIKAZ SERVISA -->		
 	
-		
+		<div class="row">
 		<div class="col-xs-10">
        	<div class="box">
  
@@ -357,9 +358,10 @@
 			            <!-- /.box-footer -->
 			          </div>
               		</div> 
+              		</div>
            <div class="row">
            <div class="col-xs-12">
-			<div class="col-md-12 col-md-offset-2 text-center heading-section animate-box">
+			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 			<h4>Pronadji nas na mapi</h4>
 			<div class="mapouter"><div class="gmap_canvas"><iframe  webkitallowfullscreen mozallowfullscreen allowfullscreen  id="gmap_canvas" [src]='sanitizer.bypassSecurityTrustResourceUrl(finalna)' frameborder="0"  scrolling="no" marginheight="0" height="500px" width="100%" marginwidth="0"></iframe><a href="https://www.pureblack.de"></a></div><style>.mapouter{text-align:right;height:500px;width:100%;}.gmap_canvas {overflow:hidden;background:none!important;}</style></div>
 			</div>

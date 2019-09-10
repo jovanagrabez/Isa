@@ -20,4 +20,7 @@ export class DiscountServiceService {
   usePoints(points: number, id: number) : Observable<any> {
       return this.http.get('http://localhost:8080/discounts/usePoints/'+id+"/"+points); 
   };
+  addPoints(points: number, id: number) : Observable<any> {
+      return this.http.get('http://localhost:8080/discounts/addPoints/'+id+"/"+points); 
+  };
 }

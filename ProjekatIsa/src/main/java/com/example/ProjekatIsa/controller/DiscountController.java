@@ -88,4 +88,27 @@ public class DiscountController {
 
 		}
 	}
+	
+	@RequestMapping(
+			value = "/addPoints/{id}/{points}", 
+			method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> addPoints(@PathVariable("id") Long id,@PathVariable("points") Long points) {
+		System.out.println("Dosao u usePoints");
+
+		User user = userService.findOneById(id);
+		if(user!=null) {
+			System.out.println("nasao usera");
+			Double newPoints = user.getPoints()+points;
+			System.out.println("novi poeni "+newPoints);
+			user.setPoints(newPoints);
+			userService.save(user);
+			return new ResponseEntity<>(HttpStatus.OK);
+
+		}
+		else {
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+
+		}
+	}
 }
