@@ -52,6 +52,7 @@ export class HotelDetailsComponent implements OnInit {
     reservationRoom : ReservationRoom = new ReservationRoom();
     brojDana : number;
     canBook : boolean;
+    isReserved : boolean;
     
     //za discount
     discount : SystemDiscount = new SystemDiscount();
@@ -241,16 +242,30 @@ export class HotelDetailsComponent implements OnInit {
       //rad sa sobama
       changeRoomClick(r){
           this.changeRoom = r;
-          document.getElementById('changeRoomDiv').removeAttribute('hidden');
-
+          this.hotelService.isReserved(this.changeRoom.id).subscribe(data=>{
+              this.isReserved = data;
+          });
+          if (this.isReserved){
+              alert("Nije moguce izmeniti sobu, rezervisana je!"); 
+          }else{
+              document.getElementById('changeRoomDiv').removeAttribute('hidden');
+          }
       };
       deleteRoomClick(r) {
           if (confirm("Da li ste sigurni da zelite da obrisete sobu?")){
-              this.hotelService.deleteRoom(r.id).subscribe(data=>{
-                  alert("Uspjesno obrisana soba iz hotela!");
-                  window.location.href = 'http://localhost:4200/hotels';
+              this.hotelService.isReserved(r.id).subscribe(data=>{
+                  this.isReserved = data;
               });
               
+              if (this.isReserved){
+                  alert("Nije moguce obrisati sobu, rezervisana je!"); 
+              }else{
+                  this.hotelService.deleteRoom(r.id).subscribe(data=>{
+                      alert("Uspjesno obrisana soba iz hotela!");
+                      window.location.href = 'http://localhost:4200/hotels';
+                  });
+              }
+  
           }else{
           }
           
@@ -258,6 +273,7 @@ export class HotelDetailsComponent implements OnInit {
       finalChangeRoomClick(newRoom2) {
           
           console.log(newRoom2);
+          
           this.hotelService.changeRoom(newRoom2, this.changeRoom.id).subscribe(data=>{
               document.getElementById('changeRoomDiv').setAttribute("hidden", "true");
               alert("uspjesno");

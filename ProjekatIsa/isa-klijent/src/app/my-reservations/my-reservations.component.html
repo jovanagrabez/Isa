@@ -34,6 +34,7 @@
               <table id="lista" class="table table-hover">
               <thead>
                	<tr>
+               	<th>Hotel</th>
             	<th>Konfiguracija sobe</th>
             	<th>Rezervisano od</th>
             	<th>Rezervisano do</th>
@@ -46,17 +47,18 @@
        		 
        		 <tbody>
                 <tr *ngFor="let c of rezervisaniHoteli">
+                <td>{{c.room.hotel.name}}</td>
                 <td>{{c.room.capacity}}</td> 
                 <td>{{c.startDate}}</td>
                 <td>{{c.endDate}}</td> 
                 <td><a *ngIf='c.daysLeft >= 3'  (click)="otkaziSobu(c)" class="btn btn-outline-danger">Odjavi</a></td>
                 <td>
-                   <input id="hotel{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                   <input [(ngModel)] = "c.room.rate" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
                 <td><a *ngIf='c.rateRoom == true' id="hotel{{c.room.id}}" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateRoom(c.room)">Oceni</a>
                 </td> 
                 <td>
-                   <input id="s{{c.room.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
-                <td><a *ngIf='c.rateHotel == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateHotel(c.room)">Oceni</a>
+                   <input [(ngModel)] = "c.room.hotel.rate" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                <td><a *ngIf='c.rateHotel == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateHotel(c.room.hotel)">Oceni</a>
                 </td>
                 </tr>
              </tbody>
@@ -105,18 +107,18 @@
        		 
        		 <tbody>
                 <tr *ngFor="let c of rezervisanaVozila">
-                <td>{{c.car.rentalcars}}</td>                 
+                <td>{{c.car.rentacar.name}}</td>                 
                 <td>{{c.car.name}}</td> 
                 <td>{{c.startDate}}</td>
                 <td>{{c.endDate}}</td> 
                 <td><a *ngIf='c.daysLeft >= 2'  (click)="otkazi(c)" class="btn btn-outline-danger">Odjavi</a></td> 
                 <td>
-                      <input id="voz{{c.car.id}}" name="rating" type="number" placeholder="Ocena auta">
-                   <a *ngIf='c.rateCar == true'  class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
+                      <input [(ngModel)] = "c.car.rate" name="rating" id="rating" type="number" placeholder="Ocena auta">
+                   <a *ngIf='c.rateCar == true' id="c.car.rate" class="btn btn-outline-danger" id="btnOcenaV" (click)="rateCar(c.car)">Oceni</a>
                 </td>
                  <td>
-                      <input id="service{{c.car.id}}" type="number" placeholder="Ocena servisa" >
-                      <a *ngIf='c.rateService == true' id="service{{c.car.id}}" (click)="rateService(c.car)" class="btn btn-outline-danger"
+                      <input [(ngModel)] = "c.car.rentacar.rate" name="rating" id="rating" type="number" placeholder="Ocena servisa" >
+                      <a *ngIf='c.rateService == true' id="service{{c.car.id}}" (click)="rateService(c.car.rentacar)" class="btn btn-outline-danger"
                         id="btnOcenaS">Oceni</a>
                  </td>
                 </tr>
@@ -156,7 +158,7 @@
                	<tr>
             	<th>Flight</th>
             	<th>Poletanje</th>
-            	<th>Duzina leta</th>
+            	<th>Destinacija</th>
             	<th>Oceni let</th>
             	<th>Oceni kompaniju </th>           	
 
@@ -168,10 +170,10 @@
                 <tr *ngFor="let c of flight">
                 <td>{{c.take_off}}</td>                 
                 <td>{{c.landing}}</td> 
-                <td>{{c.travel_time}}</td>
-                <td><a (click)="otkaziLet(c)" class="btn btn-outline-danger">Otkazi</a></td> 
+                <td>{{c.destination.name}}</td>
+                <td><a *ngIf='c.hoursLeft >= 3' (click)="otkaziLet(c)" class="btn btn-outline-danger">Otkazi</a></td> 
                 <td>
-                      <input id="let{{c.id}}" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
+                      <input [(ngModel)] = "c.rate" name="rating" type="number" placeholder="Ocena od 1 do 5"></td>
                 <td><a   class="btn btn-outline-danger" id="btnOcenaV" (click)="rateFlight(c)">Oceni</a>
                 </td>
                  <td>

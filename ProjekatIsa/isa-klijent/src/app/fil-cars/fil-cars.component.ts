@@ -45,6 +45,7 @@ export class FilCarsComponent implements OnInit {
   rez : CarReservation = new CarReservation();
   pronadjenaVozila : Array<Car>;
   selektovana : Category;
+  idKategorije : number;
 
 
   constructor(private router: Router, private ngZone : NgZone, private modalService: NgbModal,
@@ -52,6 +53,13 @@ export class FilCarsComponent implements OnInit {
   private auth: AuthServiceService, private categoryService : CategoryServiceService) { }
 
   ngOnInit() {
+      
+       this.categoryService.getAll().subscribe(data=>{
+          console.log('Sve kategorije' + data);
+          this.kategorije = data;
+          console.log(data);
+    
+          });
       
       
       
@@ -148,7 +156,9 @@ export class FilCarsComponent implements OnInit {
             } else if(newCar.prod_year==null) {
                 alert("Morate uneti godinu proizvodnje");
             }else {
-                this.filService.addCar(newCar,this.currentFil.id).subscribe(data=>{
+                console.log(newCar.category + "Kategorijaaaaaaaaa");
+                this.idKategorije = newCar.category;
+                this.filService.addCar(newCar,this.currentFil.id,this.idKategorije).subscribe(data=>{
                     alert("Vozilo je uspesno dodano!");
                     window.location.href = 'http://localhost:4200/rentalCars';  
                     });

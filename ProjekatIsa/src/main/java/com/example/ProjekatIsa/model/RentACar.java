@@ -22,7 +22,7 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table (name = "rentalcars")
+@Table (name = "rentacar")
 public class RentACar implements Serializable {
 	
 	
@@ -49,7 +49,7 @@ public class RentACar implements Serializable {
 	private Double average_rating;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy="rentalcars")
+	@OneToMany(mappedBy="rentacar",fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Car> car;
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -57,11 +57,11 @@ public class RentACar implements Serializable {
 	private Set<Car> price;
 	
 	@JsonIgnore
-	@OneToMany(fetch = FetchType.LAZY,mappedBy = "rentalcars")
+	@OneToMany(mappedBy = "rentacar",fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Filijale> filijale;
 	
 	//@JsonIgnore
-	@OneToMany(mappedBy="rentalcars")    
+	@OneToMany(mappedBy="rentacar")    
 	private List<RatingRentACar> service_ratings;   
 	
 	
@@ -163,6 +163,16 @@ public class RentACar implements Serializable {
 	public RentACar() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	public void addCar(Car car) {
+		// TODO Auto-generated method stub
+		if(this.car!=null) {
+			this.car = new ArrayList<Car>();
+		}
+		
+		this.car.add(car);
+		
 	}
 	
 	

@@ -33,6 +33,7 @@ import { ServiceReportComponent } from './service-report/service-report.componen
 import { MakeDiscountsComponent } from './make-discounts/make-discounts.component';
 import {AvioReportComponent} from './aviocompany/profilcompany/avio-report/avio-report.component';
 import {AcceptComponent} from './profil/accept/accept.component';
+import { QuickReservationHotelComponent } from './quick-reservation-hotel/quick-reservation-hotel.component';
 
 
 const routes: Routes = [
@@ -172,6 +173,12 @@ const routes: Routes = [
     path: 'quick-res', component:   QuickReservationComponent
 
   },
+
+  {
+    path: 'quick-res-hotel', component:   QuickReservationHotelComponent
+
+  },
+
 
   {
     path: 'serviceReport', component:   ServiceReportComponent

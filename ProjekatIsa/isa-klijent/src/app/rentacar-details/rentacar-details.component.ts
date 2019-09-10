@@ -33,7 +33,7 @@ export class RentacarDetailsComponent implements OnInit {
   private currentRentACar : any;
   private serviceArray : any[] = [];
   car : [];
-  fil : [];
+  fil : Filijale[];
   private selectedFil: any;
   filijale$ : Object;
   nocarAdmin : boolean;
@@ -118,6 +118,8 @@ export class RentacarDetailsComponent implements OnInit {
             this.service.getFilijale(this.currentRentACar.id).subscribe(data=>{
                 data => this.filijale$ = data
                 this.fil = data;
+              
+                //this.fil = this.pronadjenaVozila.filijale;
                 });
 
         }
@@ -208,6 +210,9 @@ export class RentacarDetailsComponent implements OnInit {
         else if(this.preuzeto>this.vraceno){
             alert("Neispravni datumi");
             }
+//       else if(this.rez.pickupPlace != this.pronadjenaVozila.filijale.grad){
+//            alert("Morate uneti mesto preuzimanja");
+//            }
         else if(this.isBlank(this.cenaOd) && this.isBlank(this.cenaDo))
              { 
             
@@ -228,7 +233,7 @@ export class RentacarDetailsComponent implements OnInit {
             
             else {
                 console.log(this.currentRentACar.id);
-                this.carService.searchCars(this.rez.startDate, this.rez.endDate,this.currentRentACar.id,this.rez.category,-1,-1).subscribe(data=>{
+                this.carService.searchCars(this.rez,this.currentRentACar.id,-1,-1).subscribe(data=>{
                     this.pronadjenaVozila=data;
                     this.canBook = false;
                     });
@@ -251,7 +256,7 @@ export class RentacarDetailsComponent implements OnInit {
         }
              var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
              this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
-             this.carService.searchCars(this.rez.startDate, this.rez.endDate,this.currentRentACar.id,this.rez.category,this.cenaOd,this.cenaDo).subscribe(data=>{
+             this.carService.searchCars(this.rez,this.currentRentACar.id,this.cenaOd,this.cenaDo).subscribe(data=>{
                     this.pronadjenaVozila=data;
                     this.canBook = false;
                     });

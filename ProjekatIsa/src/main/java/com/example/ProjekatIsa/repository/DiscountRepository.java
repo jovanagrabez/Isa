@@ -15,9 +15,9 @@ public interface DiscountRepository extends JpaRepository<Discount,Long> {
 
 	Discount findOneById(Long id);
 
-	ArrayList<Discount> findAllByRentACar(RentACar rent);
+	ArrayList<Discount> findAllByRentacar(RentACar rent);
 
-	List<Car> findAllCarByRentACar(RentACar rent);
+	List<Car> findAllCarByRentacar(RentACar rent);
 	Discount findOneByCar(Car car);
 
 }

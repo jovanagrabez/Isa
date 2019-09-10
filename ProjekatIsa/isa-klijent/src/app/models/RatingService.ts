@@ -4,6 +4,6 @@ import { User } from './User';
 export class RatingService{
     id : number;
     user : User;
-    service : RentACar;
+    car : RentACar;
     rate : number;
 }

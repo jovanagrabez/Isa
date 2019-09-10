@@ -10,4 +10,5 @@ export class Flight {
     rateFlight : boolean;
     rateAvio : boolean;
     hoursLeft : number;
+    rate : number;
     }

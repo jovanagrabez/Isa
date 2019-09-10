@@ -37,11 +37,11 @@ public class Category {
 	private double price;
 	
 	@JsonIgnore
-	@OneToMany(mappedBy="category",fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy="category",fetch = FetchType.LAZY,orphanRemoval = true)
 	private List<Car> cars;
 	
 	
-	Category(){
+	public Category(){
 		
 	}
 	

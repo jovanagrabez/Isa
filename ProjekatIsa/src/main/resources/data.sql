@@ -95,8 +95,8 @@ insert into user (user_id,first_name,last_name,email,password_hash,enabled,verif
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login) values (6,'Admin','Admin','tanja@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,16,false);
 
-	
-	insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login) 
+
+	insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login)
 	values (7,'Jovana','Grabez','jovana.grabez@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,15,true);
 
 insert into role (id,name) values (1,'USER');
@@ -193,11 +193,11 @@ insert into roles_privileges(role_id,privilege_id) values (3,22);
 insert into roles_privileges(role_id,privilege_id) values (4,22);
 insert into roles_privileges(role_id,privilege_id) values (5,22);
 
-insert into rentalcars (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
-insert into rentalcars (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
-insert into rentalcars (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
-insert into rentalcars (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
-insert into rentalcars (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
+insert into rentacar (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
+insert into rentacar (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
+insert into rentacar (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
+insert into rentacar (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
+insert into rentacar (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
 
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);
@@ -435,3 +435,8 @@ insert into system_discount (system_discount_id,amount,percent)
 	values (2,200,3);
 insert into system_discount (system_discount_id,amount,percent)
 	values (3,5,10);
+
+--sobe na popustu
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (1,'2019-09-05','2019-09-25',30.0,1,1);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (2,'2019-09-05','2019-09-25',20.0,2,1);
+

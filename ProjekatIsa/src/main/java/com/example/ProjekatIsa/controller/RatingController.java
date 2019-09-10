@@ -251,14 +251,14 @@ public class RatingController {
 		
 		List<RatingRentACar> sveOcene = servisCarRepository.findAll();
 		
-		Car ocenjen = new Car();
-		ocenjen = carService.findOneById(id);
-		System.out.println(ocenjen + "Pronasao vozilo");
+		RentACar ocenjen = new RentACar();
+		ocenjen = rentalRepository.findOneById(id);
+		System.out.println(ocenjen + "Pronasao servis koji ocjenjujemo");
 		
-		RentACar servis = new RentACar();
+		//RentACar servis = new RentACar();
 		
-		servis = rentalRepository.findOneByCar(ocenjen);
-		System.out.println(servis + "Servis je pronadjen");
+		//s//ervis = rentalRepository.findOneByCar(ocenjen);
+		//System.out.println(servis + "Servis je pronadjen");
 		
 		
 		
@@ -279,7 +279,7 @@ public class RatingController {
 		
 		RatingRentACar dodavanje = new RatingRentACar();
 		dodavanje.setUser(u);
-		dodavanje.setCar(servis);
+		dodavanje.setCar(ocenjen);
 		dodavanje.setRate(ocena.getRate());
 		
 		System.out.println("OCJENA" + dodavanje.getRate());
@@ -292,17 +292,17 @@ public class RatingController {
 		int nova = ocena.getRate();
 		for(RatingRentACar ov : noveOcene)
 		{
-			if(ov.getCar().getId() == servis.getId())
+			if(ov.getCar().getId() == ocenjen.getId())
 			{
 				br++;
 				ocene += ov.getRate();
 			}
 		}
-		double stara = servis.getAverage_rating();
+		double stara = ocenjen.getAverage_rating();
 		double novaOcena = (stara+ocena.getRate()) / 2;
-		servis.setAverage_rating(novaOcena);
+		ocenjen.setAverage_rating(novaOcena);
 		try{
-			RentACar izmenjeno = rentalRepository.save(servis);
+			RentACar izmenjeno = rentalRepository.save(ocenjen);
 		}catch(NoSuchElementException e)
 		{
 			return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -322,14 +322,10 @@ public class RatingController {
 		
 		List<RatingHotel> sveOcene = ratingHotelRepository.findAll();
 		
-		Room soba = new Room();
-		soba = roomService.findOneById(id);
-		System.out.println(soba + "Pronasao vozilo");
-		
 		Hotel hotel = new Hotel();
+		hotel = hotelRepository.findOneById(id);
 		
-		hotel = hotelRepository.findOneByRooms(soba);
-		System.out.println(hotel + "Hotel je pronadjen");
+		System.out.println(hotel.getName() + "Hotel je pronadjen");
 		
 		
 		
@@ -589,14 +585,17 @@ public class RatingController {
 			}
 		}
 		
-		double novaOcena = ocene / br;
+		double nova = ocena.getRate();
+		double stara = c.getAverageRating();
+		double ukupno = (nova+stara)/2;
+		c.setAverageRating(ukupno);
 		//c.setRoom_average_rating(novaOcena);
-//		try{
-//			Room izmenjeno = roomRepository.save(c);
-//		}catch(NoSuchElementException e)
-//		{
-//			return new ResponseEntity<>(HttpStatus.CONFLICT);
-//		}
+		try{
+			Flight izmenjeno = flightRepository.save(c);
+		}catch(NoSuchElementException e)
+		{
+			return new ResponseEntity<>(HttpStatus.CONFLICT);
+		}
 		return new ResponseEntity<>(new RatingFlightDTO(o), HttpStatus.CREATED);
 		
 		

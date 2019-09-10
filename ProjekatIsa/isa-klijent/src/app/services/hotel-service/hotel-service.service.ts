@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Hotel } from '../../models/Hotel';
 import { Room } from '../../models/Room';
 import { ReservationRoom } from '../../models/ReservationRoom';
+import { SearchFormServices } from '../../models/SearchFormServices';
 
 import {AuthServiceService} from '../auth-service.service';
 import { AdditionalServiceForHotel } from '../../models/AdditionalServiceForHotel';
@@ -84,5 +85,15 @@ export class HotelServiceService {
   };
   countAverageRatingHotel(id: number): Observable<any> {
       return this.http.get('http://localhost:8080/hotels/countAverageRating/'+id); 
+  };
+  getDiscountRooms(city:any): Observable<any>{
+      return this.http.get('http://localhost:8080/rooms/getDiscountRooms/'+city);
+  };
+  searchDiscountRooms(ss : SearchFormServices): Observable<any>{
+      return this.http.post('http://localhost:8080/rooms/searchFast',ss);
+  };
+  
+  isReserved(id:number): Observable<any>{
+      return this.http.get('http://localhost:8080/rooms/isReserved/'+id);
   };
 }

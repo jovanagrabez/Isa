@@ -52,7 +52,7 @@ public class Car implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="rentacar_id")
-	private RentACar rentalcars;
+	private RentACar rentacar;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -192,14 +192,14 @@ public class Car implements Serializable {
 
 
 	public RentACar getRentalcars() {
-		return rentalcars;
+		return rentacar;
 	}
 
 
 
 
-	public void setRentalcars(RentACar rentalcars) {
-		this.rentalcars = rentalcars;
+	public void setRentalcars(RentACar rentacar) {
+		this.rentacar = rentacar;
 	}
 
 
@@ -262,7 +262,7 @@ public class Car implements Serializable {
 
 
 	public Car(Long id, String car_number, String name, int price, Double average_rating, int prod_year,
-			RentACar rentalcars, Filijale filijale, Category category, List<PricingCar> pricingCar,
+			RentACar rentacar, Filijale filijale, Category category, List<PricingCar> pricingCar,
 			Set<RatingCar> ratings, List<CarReservation> reservation) {
 		super();
 		this.id = id;
@@ -271,7 +271,7 @@ public class Car implements Serializable {
 		this.price = price;
 		this.average_rating = average_rating;
 		this.prod_year = prod_year;
-		this.rentalcars = rentalcars;
+		this.rentacar = rentacar;
 		this.filijale = filijale;
 		this.category = category;
 		this.pricingCar = pricingCar;
@@ -292,7 +292,10 @@ public class Car implements Serializable {
 		setPrice(c.getPrice());
 		setProd_year(c.getProd_year());
 		setAverage_rating(c.getAverage_rating());
+		//setCategory(c.getCategory());
 	}
+	
+	
 	
 	
 

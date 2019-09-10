@@ -21,4 +21,10 @@ public class ReservationRoomServiceImpl implements ReservationRoomService {
 		return resRepository.findAllForInterval(idRoom, od, Do);
 	}
 
+	@Override
+	public ReservationRoom save(ReservationRoom reservationRoom) {
+		// TODO Auto-generated method stub
+		return resRepository.save(reservationRoom);
+	}
+
 }

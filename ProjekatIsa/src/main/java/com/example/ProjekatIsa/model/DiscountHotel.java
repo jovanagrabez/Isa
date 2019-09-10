@@ -1,9 +1,6 @@
 package com.example.ProjekatIsa.model;
 
 import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,21 +8,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name="discount")
-public class Discount {
-	
+@Table(name="discount_hotel")
+public class DiscountHotel {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "discount_id", nullable = false, updatable = false)
@@ -44,149 +37,33 @@ public class Discount {
 	@Column(name = "discount_price", nullable = false)
 	private Double discountprice;
 	
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	private Car car;
-	
 	@Column(name = "price")
 	private Double price;
 	
-	
-	
 	@ManyToOne
-	private RentACar rentacar;
+	private Hotel hotel;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	private Room room;
+
 	
 	
-	
-	public Discount() {
+	public DiscountHotel() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
-	
-
-	
-
-	
-
-	public Discount(Long id, Date dateFrom, Date dateTo, Car car, Double price, Double discount) {
+	public DiscountHotel(Long id, Date dateFrom, Date dateTo, Double discountprice, Double price, Hotel hotel,
+			Room room) {
 		super();
 		this.id = id;
 		this.dateFrom = dateFrom;
 		this.dateTo = dateTo;
-		this.car = car;
-		this.price = price;
-		this.discountprice = discount;
-	}
-	
-	
-
-
-
-
-
-
-
-
-	public Double getDiscountprice() {
-		return discountprice;
-	}
-
-
-
-
-
-
-
-
-	public void setDiscountprice(Double discountprice) {
 		this.discountprice = discountprice;
-	}
-
-
-
-
-
-
-
-
-	public RentACar getRentACar() {
-		return rentacar;
-	}
-
-
-
-
-
-
-
-
-	public void setRentACar(RentACar rentacar) {
-		this.rentacar = rentacar;
-	}
-
-
-
-
-
-
-
-
-	public Car getCar() {
-		return car;
-	}
-
-
-
-
-
-
-
-
-	public void setCar(Car car) {
-		this.car = car;
-	}
-
-
-
-
-
-
-
-
-	public Double getPrice() {
-		return price;
-	}
-
-
-
-
-
-
-
-
-	public void setPrice(Double price) {
 		this.price = price;
+		this.hotel = hotel;
+		this.room = room;
 	}
-
-
-
-
-
-
-
-
-	public void setDiscount(Double discount) {
-		this.discountprice = discount;
-	}
-
-
-
-
-
-
-
 
 	public Long getId() {
 		return id;
@@ -212,6 +89,37 @@ public class Discount {
 		this.dateTo = dateTo;
 	}
 
-	
+	public Double getDiscountprice() {
+		return discountprice;
+	}
 
+	public void setDiscountprice(Double discountprice) {
+		this.discountprice = discountprice;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Hotel getHotel() {
+		return hotel;
+	}
+
+	public void setHotel(Hotel hotel) {
+		this.hotel = hotel;
+	}
+
+	public Room getRoom() {
+		return room;
+	}
+
+	public void setRoom(Room room) {
+		this.room = room;
+	}
+	
+	
 }

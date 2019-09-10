@@ -5,6 +5,7 @@ import java.util.Date;
 public class SearchFormServices {
 	
 	String name;
+	String nameHotel;
 	String city;
 	Date startDate;
 	Date endDate;
@@ -17,12 +18,13 @@ public class SearchFormServices {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SearchFormServices(String name, String city, Date startDate, Date endDate) {
+	public SearchFormServices(String name,String nameHotel, String city, Date startDate, Date endDate) {
 		super();
 		this.name = name;
 		this.city = city;
 		this.startDate = startDate;
 		this.endDate = endDate;
+		this.nameHotel = nameHotel;
 	}
 	public String getName() {
 		return name;
@@ -47,6 +49,12 @@ public class SearchFormServices {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public String getNameHotel() {
+		return nameHotel;
+	}
+	public void setNameHotel(String nameHotel) {
+		this.nameHotel = nameHotel;
 	}
 	
 	

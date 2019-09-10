@@ -32,7 +32,7 @@ public class RatingRentACar implements Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name="rentacar_id")
-	private RentACar rentalcars;
+	private RentACar rentacar;
 	
 	@Column(name="rate", nullable = false)
 	private int rate;
@@ -49,7 +49,7 @@ public class RatingRentACar implements Serializable {
 		super();
 		this.id = id;
 		this.user = user;
-		this.rentalcars = car;
+		this.rentacar = car;
 		this.rate = rate;
 	}
 
@@ -70,11 +70,11 @@ public class RatingRentACar implements Serializable {
 	}
 
 	public RentACar getCar() {
-		return rentalcars;
+		return rentacar;
 	}
 
 	public void setCar(RentACar car) {
-		this.rentalcars = car;
+		this.rentacar = car;
 	}
 
 	public int getRate() {

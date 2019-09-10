@@ -11,6 +11,7 @@ export class Hotel {
     rating : number;
     additional_services:Array<AdditionalServiceForHotel>;
     rooms:Array<Room>;
+    rate : number;
 
 
  }

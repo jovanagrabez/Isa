@@ -5,6 +5,7 @@ import { Filijale } from '../models/Filijale';
 import { NewCar } from '../models/NewCar';
 import { CarServiceService } from '../services/car-service/car-service.service';
 import { Router } from '@angular/router';
+import { CategoryServiceService } from '../services/cat-service/category-service.service';
 
 @Component({
   selector: 'app-add-cars',
@@ -20,11 +21,18 @@ export class AddCarsComponent implements OnInit {
   filijala : Filijale;
   newC : NewCar = new NewCar();
   category : Category;
+  kategorije : Array<Category>;
 
-  constructor(private router : Router,private carService : CarServiceService) { }
+  constructor(private router : Router,private carService : CarServiceService,private categoryService : CategoryServiceService) { }
 
   ngOnInit() {
     this.hideError = true;
+      
+      this.categoryService.getAll().subscribe(data=>{
+          console.log('Sve kategorije' + data);
+          this.kategorije = data;
+          console.log(data);
+          });
   }
 
   addCar() {
