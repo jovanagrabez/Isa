@@ -95,6 +95,10 @@ insert into user (user_id,first_name,last_name,email,password_hash,enabled,verif
 insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login) values (6,'Admin','Admin','tanja@gmail.com',
 	'$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,16,false);
 
+	
+	insert into user (user_id,first_name,last_name,email,password_hash,enabled,verified,points,first_login) 
+	values (7,'Jovana','Grabez','jovana.grabez@gmail.com','$2a$04$Vbug2lwwJGrvUXTj6z7ff.97IzVBkrJ1XfApfGNl.Z695zqcnPYra',true,true,15,true);
+
 insert into role (id,name) values (1,'USER');
 insert into role (id,name) values (2,'SYSTEM_ADMIN');
 insert into role (id,name) values (3,'AVIO_ADMIN');
@@ -322,6 +326,7 @@ insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) value
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (2,true,3,2);
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (3,false,3,4);
 insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (4,false,3,5);
+insert into friends(friends_id, is_accepted, user1_user_id, user2_user_id) values (5,true,1,7);
 
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag) values (1,'2019-09-07 00:00:00','2019-09-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-09-07 00:00:00',12,1,true);
 insert into car_reservation(reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag) values (2,'2019-08-07 00:00:00','2019-08-09 00:00:00','Novi Sad','Beograd','B',2,2,50,'2019-08-07 00:00:00',12,1,true);

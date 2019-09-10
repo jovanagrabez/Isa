@@ -31,14 +31,15 @@ export class FlightReservationComponent implements OnInit {
   reservation: any;
   discount : any;
   discounts : Array<Discount>;
+  private searchFormServices: SearchFormServices = new SearchFormServices();
 
   // constructor(,private currentRoute: ActivatedRoute, private flightService: FlightService,
   // searchFormServices : SearchFormServices = new SearchFormServices();
   // discount : Array<Discount>;
 
-  constructor(private sds: DiscountServiceService,private currentRoute: ActivatedRoute, private flightService: FlightService,
+  constructor(private sds: DiscountServiceService, private currentRoute: ActivatedRoute, private flightService: FlightService,
               private friendsService: FriendsService, private userService: UserService,
-            private   searchFormServices: SearchFormServices = new SearchFormServices(),
+
               private rentalCarsService: ViewRentalCarsService, private resServise: ResServiceService,
               private  appComp: AppComponent, private  router: Router, private reservationService: FlightReservationService) {
     this.flight = {seatArrangement: {seatRows: 0, seatColumns: 0}, seats: []};
@@ -307,7 +308,7 @@ export class FlightReservationComponent implements OnInit {
     for (let i = 0; i < this.flightReservation.passengersOnSeats.length; i++) {
       if (this.flightReservation.passengersOnSeats[i].passengerId === 0) {
         this.flightReservation.passengersOnSeats[i].passengerId = friend.id;
-        this.flightReservation.passengersOnSeats[i].passengerName = friend.name;
+        this.flightReservation.passengersOnSeats[i].passengerName = friend.firstName;
         this.flightReservation.passengersOnSeats[i].passengerLastName = friend.lastName;
         break;
       }

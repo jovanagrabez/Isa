@@ -1,0 +1,26 @@
+<br><br>
+<div class="text-lg-center">
+  <div>
+    <div>
+      <label class="col-sm-2">Name:</label>
+      <label class="col-sm-3" >{{reservation.passengerName}}</label>
+    </div>
+    <div>
+      <label class="col-sm-2">Last name:</label>
+      <label class="col-sm-3">{{reservation.passengerLastName}}</label>
+    </div>
+    <div>
+      <label class="col-sm-2">Passport:</label>
+      <label class="col-sm-3">{{reservation.passengerPassport}}</label>
+    </div>
+    <div>
+      <label class="col-sm-2">Seat:</label>
+      <label class="col-sm-6">Class: {{reservation.seat['seatClass']}}, row: {{reservation.seat['seatRow']}} column: {{reservation.seat['seatColumn']}}</label>
+    </div>
+  </div>
+  <hr>
+  <div>
+    <button class="btn btn-primary" (click)="accept()">Accept</button>
+    <button class="btn btn-primary" (click)="delete()">Delete</button>
+  </div>
+</div>

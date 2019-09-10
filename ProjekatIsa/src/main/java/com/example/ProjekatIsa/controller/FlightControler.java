@@ -26,6 +26,7 @@ import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Destination;
 import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.FlightReservation;
+import com.example.ProjekatIsa.model.Passenger;
 import com.example.ProjekatIsa.model.Reservation;
 import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.FlightReservationRepository;
@@ -98,6 +99,24 @@ public class FlightControler {
 	    }
 	 
 	 
+	 
+	 @GetMapping(value = "/invite/{id}")
+	    public ResponseEntity<List<Passenger>> getPassengerSeatReservation(@PathVariable Long id) {
+
+	        Passenger pass = this.reservationsService.getPassengerSeatById(id);
+	        if (pass == null) {
+	            return ResponseEntity.notFound().build();
+	        }
+
+	        return new ResponseEntity(pass, HttpStatus.OK);
+	    }
+
+	    @DeleteMapping(value = "/invite/{id}")
+	    public ResponseEntity deleteInvitation(@PathVariable Long id) {
+	        this.reservationsService.deleteInvite(id);
+
+	        return ResponseEntity.ok().build();
+	    }
 	 
 	
 	@DeleteMapping(value = "/{id}/{avio_id}")

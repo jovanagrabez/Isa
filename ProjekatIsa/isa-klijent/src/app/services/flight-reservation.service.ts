@@ -25,4 +25,12 @@ export class FlightReservationService {
     return this.http.get('http://localhost:8080/flight/email/'.concat(reserv));
     
   }
+
+  getInvitation(id: any) {
+    return this.http.get('http://localhost:8080/flight/invite/'.concat(id));
+  }
+
+  deleteInvitation(id: any) {
+    return this.http.delete('http://localhost:8080/flight/invite/'.concat(id));
+  }
 }
