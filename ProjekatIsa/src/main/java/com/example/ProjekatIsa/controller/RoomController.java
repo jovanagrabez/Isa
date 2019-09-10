@@ -47,6 +47,7 @@ import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
 import com.example.ProjekatIsa.service.HotelService;
+import com.example.ProjekatIsa.service.ReservationRoomService;
 import com.example.ProjekatIsa.service.RoomService;
 
 @CrossOrigin(origins = "*")
@@ -67,6 +68,9 @@ public class RoomController {
 	private ReservationRoomRepository reservationRoomRepository;
 	
 	@Autowired 
+	private ReservationRoomService reservationRoomService;
+	
+	@Autowired 
 	private UserRepository userRepository;
 	
 	@Autowired
@@ -76,10 +80,10 @@ public class RoomController {
 	private DiscountHotelRepository dhRepository;
 	
 	@Autowired
-	FlightReservationRepository flightRepository;
+	private FlightReservationRepository flightRepository;
 	
 	@Autowired
-	FlightRepository fRepository;
+	private FlightRepository fRepository;
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -203,7 +207,7 @@ public class RoomController {
 			returnValue.setCategory(roomRes.getCategory());
 			returnValue.setRoom(room);
 			
-			reservationRoomRepository.save(returnValue);
+			reservationRoomService.save(returnValue);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 			
 		}else {
@@ -259,6 +263,31 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 			finalCount = (double) (sum/returnList.size());
 		}
 		return finalCount;
+
+	}
+	
+	@RequestMapping(value="/isReserved/{id}",
+			method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean isReserved(@PathVariable("id") Long idRoom) {
+
+		Date today=new Date();
+				
+		List<ReservationRoom> returnList = new ArrayList<ReservationRoom>();
+		Room room = roomService.findOneById(idRoom);
+		returnList = reservationRoomRepository.findAllByRoom(room);
+		
+		if(!returnList.isEmpty()) {
+			for (ReservationRoom rr: returnList) {
+				if(today.getTime() <= rr.getStartDate().getTime() && today.getTime()<= rr.getEndDate().getTime())
+				{
+					System.out.println("pronsasao1  " + rr.getStartDate());
+					return true;
+				} 
+			}
+		}
+		
+		return false;
 
 	}
 	
@@ -331,7 +360,7 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		fastRes.setCategory(room.getRoom_description());
 		fastRes.setUser(user);
 		
-		reservationRoomRepository.save(fastRes);
+		reservationRoomService.save(fastRes);
 		//u flight res se treba postaviti i brza rez vozila
 		
 		return new ResponseEntity<ReservationRoom>(fastRes,HttpStatus.OK);

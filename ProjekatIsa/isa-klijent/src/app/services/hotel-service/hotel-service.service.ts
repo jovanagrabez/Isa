@@ -92,4 +92,8 @@ export class HotelServiceService {
   searchDiscountRooms(ss : SearchFormServices): Observable<any>{
       return this.http.post('http://localhost:8080/rooms/searchFast',ss);
   };
+  
+  isReserved(id:number): Observable<any>{
+      return this.http.get('http://localhost:8080/rooms/isReserved/'+id);
+  };
 }
