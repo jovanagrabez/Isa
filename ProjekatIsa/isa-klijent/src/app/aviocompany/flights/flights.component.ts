@@ -89,6 +89,7 @@ export class FlightsComponent implements OnInit {
 
          for(let i = 2; i < this.flight.destination.length; i++) {
             this.desti = this.flight.destination[i];
+           // @ts-ignore
            this.selectedDestinations.push(this.desti);
 
          }
