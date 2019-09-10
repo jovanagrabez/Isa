@@ -21,19 +21,16 @@
 				
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" [hidden]="hotelAdmin">
 			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-				<h6>Definisi nacin odredjivanja popusta za letove:</h6>
-				<p *ngIf="discount2 != null" >Trenutni popust: Za vrijednost preko {{discount2.amount}} dobija se {{discount2.percent}} dodatnih poena.</p>
+				<h6>Definisi broj dodatnih poena prilikom rezervisanja leta:</h6>
+				<p *ngIf="discount2 != null" >Trenutno aktivno: Svakom rezervacijom leta dobija se {{discount2.percent}} dodatnih poena.</p>
 			</div>
 			<div class="col-xs-12" >
 				
+			
 				<div class="form-group">
-				<label>Ako prilikom rezervisanja leta, cena prelazi:</label>
-				   <input type="number" class="form-control" min = "1" placeholder="Unesite vrijednost u evrima.."  [(ngModel)]="newDiscount2.amount">
-				</div>
-				<div class="form-group">
-				<label>Dobija se:</label>
+				<label>Prilikom svakog rezervisanja leta dobija se:</label>
 				   <input type="number" class="form-control" min = "1" max="100" placeholder="Unesite broj poena.."  [(ngModel)]="newDiscount2.percent">
 				</div>
 				<br/>
@@ -41,7 +38,7 @@
 				
 			</div>
 		</div>
-		<div class="row">
+		<div class="row" [hidden]="hotelAdmin">
 			<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 				<h6>Definisi nacin odredjivanja popusta za hotele:</h6>
 				<p *ngIf="discount3 != null" >Trenutni popust: Za broj poena {{discount3.amount}} 

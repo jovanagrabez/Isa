@@ -18,6 +18,8 @@ import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import { DiscountServiceService } from '../services/discount-service/discount-service.service';
 import { SystemDiscount } from '../models/SystemDiscount';
+import { UserService } from '../services/user-service/user.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-hotel-details',
@@ -60,16 +62,30 @@ export class HotelDetailsComponent implements OnInit {
     adresa = "";
     finalna = "";
     map;
-    constructor(private router: Router,private sanitizer:DomSanitizer,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
-            private hotelService : HotelServiceService,private ngZone : NgZone, private modalService: NgbModal ,  private sds : DiscountServiceService) { }
+    
+    //za datume
+    pomoc: string;
+    pomocDva: string;
+    minDatum : Date;
+    
+    constructor(private datePipe: DatePipe,private router: Router,private sanitizer:DomSanitizer,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
+            private hotelService : HotelServiceService,private ngZone : NgZone,
+            private modalService: NgbModal ,  private sds : DiscountServiceService, private us: UserService) { }
 
     ngOnInit() {
         this.reservationRoom.totalPrice = 0;
+        
+        //za kontrolu kalendara
+        this.pomoc = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+        console.log(this.pomoc);
+        this.pomocDva = this.pomoc;
+        this.minDatum = new Date(this.pomoc);
+        
         this.user = JSON.parse(localStorage.getItem('user'));
         this.token = this.auth.getJwtToken();
         this.canBook = true;
-
-       if(this.user.roles==null){
+        
+        if(this.user.roles==null){
             this.nohotelAdmin = true;
         } 
         for (var i=0; i<this.user.roles.length; i++) {
@@ -80,6 +96,7 @@ export class HotelDetailsComponent implements OnInit {
             this.nohotelAdmin = true;
             }
         }
+
         this.viewHotelsService.currentHotel.subscribe(
           currentHotel => 
           {
@@ -115,6 +132,10 @@ export class HotelDetailsComponent implements OnInit {
           });
        
     };
+    //kontrola datum
+    intervalDatuma(){
+        this.pomocDva = (<HTMLInputElement>document.getElementById("datMin")).value;
+    }
     
     changeClick(){
         document.getElementById('changeDiv').removeAttribute('hidden');

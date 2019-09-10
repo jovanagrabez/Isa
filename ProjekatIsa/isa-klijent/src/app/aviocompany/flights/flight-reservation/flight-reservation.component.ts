@@ -6,6 +6,7 @@ import {UserService} from '../../../services/user-service/user.service';
 import {AppComponent} from '../../../app.component';
 import {error} from '@angular/compiler/src/util';
 import {FlightReservationService} from '../../../services/flight-reservation.service';
+import {DiscountServiceService} from '../../../services/discount-service/discount-service.service';
 
 @Component({
   selector: 'app-flight-reservation',
@@ -22,9 +23,9 @@ export class FlightReservationComponent implements OnInit {
   invitedFriends: any;
   flightReservation: any;
   reservation: any;
+  discount : any; 
 
-
-  constructor(private currentRoute: ActivatedRoute, private flightService: FlightService,
+  constructor(private sds: DiscountServiceService,private currentRoute: ActivatedRoute, private flightService: FlightService,
               private friendsService: FriendsService, private userService: UserService,
               private  appComp: AppComponent, private  router: Router, private reservationService: FlightReservationService) {
     this.flight = {seatArrangement: {seatRows: 0, seatColumns: 0}, seats: []};
@@ -42,6 +43,11 @@ export class FlightReservationComponent implements OnInit {
 
   ngOnInit() {
 
+      //za dodavanje dodatnih poena
+      this.sds.getDiscount(2).subscribe(data=>{
+          this.discount = data;
+          console.log(this.discount);
+      });
     this.userService.getLogged(this.appComp.token).subscribe(data => {
       this.user = data;
 
@@ -225,6 +231,9 @@ export class FlightReservationComponent implements OnInit {
       if (!isValid) {
       } else {
         this.flightReservation.userId = this.user.id;
+        this.sds.addPoints(this.discount.percent, this.user.id).subscribe(data=>{
+            console.log("uspjesno dodani poeni!" );
+        });
         this.reservationService.createReservation(this.flightReservation).subscribe(res => {
 
           this.router.navigate(['/home']);
