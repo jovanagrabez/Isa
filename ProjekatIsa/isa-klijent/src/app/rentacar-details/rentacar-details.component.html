@@ -101,8 +101,9 @@
             <div class="col-md-6">
               <div class="form-group">
               <label>Unesite lokaciju preuzimanja vozila:</label>
-                  <input  class="form-control" id="pickupPlace" placeholder="Lokacija..." name="pickupPlace" type="text" [(ngModel)]="rez.pickupPlace">
-             	  <span id="errorCity"></span>
+ 				<select class="form-control" [(ngModel)]="rez.pickupPlace">
+         	    <option class="form-control"  *ngFor="let c of fil" [value]="c.grad">{{c.grad}}, {{c.drzava}}</option>
+        		</select>             	  <span id="errorCity"></span>
               </div>
               
               <!-- /.form-group -->
@@ -132,8 +133,9 @@
             
             <div class="form-group">
               <label>Unesite lokaciju vracanja vozila:</label>            
-                  <input  class="form-control" id="returnPlace"  placeholder="Lokacija..." name="returnPlace" type="text" [(ngModel)]="rez.returnPlace">
-             	  <span id="errorCity"></span>
+				<select class="form-control" [(ngModel)]="rez.returnPlace">
+         	    <option class="form-control"  *ngFor="let c of fil" [value]="c.grad">{{c.grad}}, {{c.drzava}}</option>
+        		</select>               	  <span id="errorCity"></span>
               </div>
               <div class="form-group">
               <label>Datum kraja:</label>
@@ -243,8 +245,8 @@
                 <td>{{c.name}}</td> 
                 <td>{{c.car_number}}</td>
                 <td>{{c.average_rating}}</td> 
-                <td>{{c.price}}<b>/</b> 1 dan</td>
-                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">{{c.price*brojDana + rez.totalPrice}}â‚¬</span></td>
+                <td>{{c.price}}â‚¬ <b>/</b> 1 dan</td>
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">{{c.price * brojDana}}â‚¬ </span></td>
                 <td>{{c.prod_year}}</td>               
                               
                 <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="reserve(c)">Book me</button></span></td> 

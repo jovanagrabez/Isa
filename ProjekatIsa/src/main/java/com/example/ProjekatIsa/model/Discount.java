@@ -54,7 +54,7 @@ public class Discount {
 	
 	
 	@ManyToOne
-	private RentACar rentACar;
+	private RentACar rentacar;
 	
 	
 	
@@ -112,7 +112,7 @@ public class Discount {
 
 
 	public RentACar getRentACar() {
-		return rentACar;
+		return rentacar;
 	}
 
 
@@ -122,8 +122,8 @@ public class Discount {
 
 
 
-	public void setRentACar(RentACar rentACar) {
-		this.rentACar = rentACar;
+	public void setRentACar(RentACar rentacar) {
+		this.rentacar = rentacar;
 	}
 
 

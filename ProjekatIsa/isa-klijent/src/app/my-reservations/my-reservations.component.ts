@@ -20,6 +20,8 @@ import { RatingFlight } from '../models/RatingFlight';
 import { FlightReservation } from '../models/FlightReservation';
 import { FlightService } from '../services/flight.service';
 import { RatingAvio } from '../models/RatingAvio';
+import { ViewRentalCarsService } from '../services/view-rental-cars.service';
+import { Hotel } from '../models/Hotel';
 
 @Component({
   selector: 'app-my-reservations',
@@ -60,13 +62,13 @@ export class MyReservationsComponent implements OnInit {
   hotelRatings : Array<RatingHotel>;
   flightRatings : Array<RatingFlight>;
   avioRatings : Array<RatingAvio>;
-  
+  serviceRent : RentACar = new RentACar();
 
   today = new Date(Date.now());
 
   constructor(private userService: UserService,private router: Router, private resService : ResServiceService,
   private auth: AuthServiceService,private carService : CarServiceService, private ratingService : RatingServiceService,
-  private flightService : FlightService) {
+  private flightService : FlightService,private viewService : ViewRentalCarsService) {
       
   this.rezervisaniLetovi = { id: null, flightId: null,  userId: null}}
 
@@ -87,11 +89,19 @@ export class MyReservationsComponent implements OnInit {
       console.log('Uloga trenutnog usera');
       console.log(this.currentUser.roles);
       console.log(this.currentUser.id);
+          
+          
+     this.viewService.getRentalCars().subscribe(data=>{
+         this.serviceRent = data;
+         console.log(data);
+         
       
       
       this.resService.getUserRes(this.currentUser.id).subscribe(data=>{
           this.rezervisanaVozila = data;
           console.log(data);
+          
+          
           
           //vozila
           
@@ -151,7 +161,7 @@ export class MyReservationsComponent implements OnInit {
                   
 //                  this.serviceRatings.forEach(element3=>{
 //                      
-//                      if(element3.service.id==element3.service.id){
+//                      if(element3.car.id==element3.car.id){
 //                          element.rateService = false;
 //                          }
 //                      
@@ -164,6 +174,7 @@ export class MyReservationsComponent implements OnInit {
           
           ////ovdje nastavjam provjere za servise
              });
+         });
           
           ///sobice
           
@@ -189,13 +200,13 @@ export class MyReservationsComponent implements OnInit {
                     }
                   else 
                     {
-                       this.roomRatings.forEach(element2=>{
-                           
-                           if(element2.room.id == element.room.id)
-                           {
-                               element.rateRoom = false;
-                               }
-                           });
+//                       this.roomRatings.forEach(element2=>{
+//                           
+//                           if(element2.room.id == element.room.id)
+//                           {
+//                               element.rateRoom = false;
+//                               }
+//                           });
                     }
                    
                    
@@ -257,12 +268,12 @@ export class MyReservationsComponent implements OnInit {
                       else{
                           this.ratingService.getFlightRatings(this.currentUser.id).subscribe(data=>{
                               this.flightRatings = data;
-                              
-                              this.flightRatings.forEach(element2=>{
-                                  if(element2.id ==element.id) {
-                                      element.rateFlight = false;
-                                      }
-                                  });
+                              console.log(data);
+//                              this.flightRatings.forEach(element2=>{
+//                                  if(element2.flight.id ==element.flight.id) {
+//                                      element.rateFlight = false;
+//                                      }
+//                                  });
                               });
                           
                           
@@ -330,7 +341,7 @@ export class MyReservationsComponent implements OnInit {
     
     rateRoom(room : Room){
         
-        this.ocenaSobe.rate = (<HTMLInputElement>document.getElementById("hotel"+room.id)).valueAsNumber;
+        this.ocenaSobe.rate = room.rate;
         if(this.isBlank(this.ocenaSobe.rate))
         {
           alert("Morate odabrati ocenu");
@@ -343,7 +354,7 @@ export class MyReservationsComponent implements OnInit {
           this.ocenaSobe.user = this.user;
           this.ocenaSobe.room = room;
           this.ratingService.rateRoom(this.ocenaSobe).subscribe(data =>{
-            alert("Ocenili ste sobu");
+            alert("Ocenili ste sobu ocenom: " + this.ocenaSobe.rate + "!");
             window.location.href="http://localhost:4200";
           });
         }
@@ -354,7 +365,7 @@ export class MyReservationsComponent implements OnInit {
     
     rateCar(car : Car){
         
-        this.ratingCarNumber.rate = (<HTMLInputElement>document.getElementById("voz"+car.id)).valueAsNumber;
+        this.ratingCarNumber.rate = car.rate;
         console.log(this.ratingCarNumber.rate);
         if(this.isBlank(this.ratingCarNumber.rate))
         {
@@ -376,11 +387,11 @@ export class MyReservationsComponent implements OnInit {
     }
     
     
-     rateService(car : Car){
+     rateService(rentacar : RentACar){
         
-        this.serviceNumber.rate = (<HTMLInputElement>document.getElementById("service"+car.id)).valueAsNumber;
+        this.serviceNumber.rate = rentacar.rate;
         console.log(this.serviceNumber.rate)
-        console.log(car.id);
+        console.log(rentacar.id);
         if(this.isBlank(this.serviceNumber.rate))
         {
           alert("Morate odabrati ocenu");
@@ -392,8 +403,8 @@ export class MyReservationsComponent implements OnInit {
         {
           this.serviceNumber.user = this.user;
           //this.serviceNumber.service = car;
-          this.ratingService.rateService(this.serviceNumber,car.id).subscribe(data =>{
-            alert("Ocenili ste servis");
+          this.ratingService.rateService(this.serviceNumber,rentacar.id).subscribe(data =>{
+            alert("Ocenili ste servis " + rentacar.name + " ocenom: " + this.serviceNumber.rate + "!");
             window.location.href="http://localhost:4200";
           });
         }
@@ -418,7 +429,7 @@ export class MyReservationsComponent implements OnInit {
           this.avioNumber.user = this.user;
           //this.serviceNumber.service = car;
           this.ratingService.rateAvio(this.avioNumber,flight.id).subscribe(data =>{
-            alert("Ocenili ste servis");
+            alert("Ocenili ste servis ");
             window.location.href="http://localhost:4200";
           });
         }
@@ -426,11 +437,11 @@ export class MyReservationsComponent implements OnInit {
     }
     
     
-    rateHotel(room : Room){
+    rateHotel(hotel : Hotel){
         
-        this.hotelNumber.rate = (<HTMLInputElement>document.getElementById("s"+room.id)).valueAsNumber;
+        this.hotelNumber.rate = hotel.rate;
         console.log(this.hotelNumber.rate)
-        console.log(room.id);
+        console.log(hotel.id);
         if(this.isBlank(this.hotelNumber.rate))
         {
           alert("Morate odabrati ocenu");
@@ -442,8 +453,8 @@ export class MyReservationsComponent implements OnInit {
         {
           this.hotelNumber.user = this.user;
           //this.serviceNumber.service = car;
-          this.ratingService.rateHotel(this.hotelNumber,room.id).subscribe(data =>{
-            alert("Ocenili ste hotel");
+          this.ratingService.rateHotel(this.hotelNumber,hotel.id).subscribe(data =>{
+            alert("Ocenili ste hotel " + hotel.name + " ocenom: " + this.hotelNumber.rate + "!");
             window.location.href="http://localhost:4200";
           });
         }
@@ -455,7 +466,7 @@ export class MyReservationsComponent implements OnInit {
     
     rateFlight(flight : Flight){
         
-        this.ocenaLeta.rate = (<HTMLInputElement>document.getElementById("let"+flight.id)).valueAsNumber;
+        this.ocenaLeta.rate = flight.rate;
         console.log(this.ocenaLeta.rate);
         if(this.isBlank(this.ocenaLeta.rate))
         {

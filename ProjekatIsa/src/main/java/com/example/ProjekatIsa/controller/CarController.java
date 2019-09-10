@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -79,7 +80,7 @@ public class CarController {
 	public ResponseEntity<List<Discount>>  getDiscountCars(@PathVariable("id") Long id) {
 		
 		RentACar rent = rentRepository.findOneById(id);
-		List<Discount> pomocni = discountRepository.findAllByRentACar(rent);
+		List<Discount> pomocni = discountRepository.findAllByRentacar(rent);
 		
 		System.out.println("Pronasao je discount vozila" + pomocni);
 		return new ResponseEntity<List<Discount>>(pomocni, HttpStatus.OK);
@@ -170,7 +171,7 @@ public class CarController {
 		RentACar servis = rentRepository.findOneById(Id);
 		
 		List<Car> returnList = new ArrayList<Car>();
-		returnList = carRepository.findAllByRentalcars(servis);
+		returnList = carRepository.findAllByRentacar(servis);
 		System.out.println("Pronasao" + returnList);
 		if (returnList==null) {
 			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
@@ -237,17 +238,23 @@ public class CarController {
 	}
 	
 	
-	@RequestMapping(value="/searchCar/{id1}/{id2}/{id3}/{id4}/{id5}/{id6}",method=RequestMethod.GET)
-	ResponseEntity<List<CarDTO>> searchCar(@PathVariable("id1") String pocDatum,@PathVariable("id2") String endDatum,
-			@PathVariable("id3") Long id,@PathVariable("id4") String category,@PathVariable("id5") int cenaOd,@PathVariable("id6") int cenaDo){
-		
+	@RequestMapping(value="/searchCar/{id}/{cenaOd}/{cenaDo}",method=RequestMethod.POST)
+	public ResponseEntity<?> searchCar(@RequestBody CarReservation carReservation,
+										   @PathVariable("id") Long id,
+			                               @PathVariable("cenaOd") Long cenaOd,
+			                               @PathVariable("cenaDo") Long cenaDo){
+		 
+		   System.out.println("Dosao u search cars");
+
 		   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		   SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",
+	                Locale.ENGLISH); 
 		   Date startDate = null;
 		   Date endDate = null;
 		   
 		   try {
-			   startDate = dateFormat.parse(pocDatum);
-			   endDate = dateFormat.parse(endDatum);
+			   startDate = sdf.parse(carReservation.getStartDate().toString());
+			   endDate = sdf.parse(carReservation.getEndDate().toString());
 		   } catch (ParseException e) {
 			   e.printStackTrace();
 			   
@@ -255,22 +262,22 @@ public class CarController {
   
 		
 		   RentACar servis = rentcarService.findOneById(id);
-		   List<Filijale> filServisa = filRepository.findAllByRentalcars(servis);
-		   List<Car> carsfromService = new ArrayList<>();
+		   List<Car> allCars = carRepository.findAllByRentacar(servis);   
+		   List<Car> returnList = new ArrayList<>();
+		   
+		   
 		   List<CarDTO> carsfromServiceDTO = new ArrayList<>();
 		   
-		   for(Filijale fil : filServisa) {
+
 			   
-			   List<Car> carsfromFil = new ArrayList<Car>();
-			   carsfromFil = fil.getCars();
-			   
-			   for(Car cars : carsfromFil) {
+			   for(Car cars : allCars) {
 				   
-				   List<CarReservation> carReservation = cars.getReservation();
+				   List<CarReservation> reservation = cars.getReservation();
 				   boolean free = true;
 				   
 				   int reserved = 0;
-				   for(CarReservation res : carReservation) {
+				   if(!reservation.isEmpty()) {
+				   for(CarReservation res : reservation) {
 					   
 					   free = checkforfree(res, startDate, endDate);
 					   
@@ -280,36 +287,37 @@ public class CarController {
 					   }
 					   
 				   }
+		      }
 				   
 				   if(reserved==0)
 				   {
 					   //cena nije oznacena u pretrazi
 					   if(cenaOd == -1 && cenaDo==-1)
 					   {
-						   if(cars.getCategory().getMark().equals(category))
+						   if(cars.getCategory().getMark().equals(carReservation.getCategory()))
 						   {
-							   carsfromService.add(cars);	
+							   returnList.add(cars);	
 						   }
 					   }
 					   else if(cenaOd==-1)
 					   {
-						   if(cars.getCategory().getMark().equals(category) && cars.getPrice() <= cenaDo)
+						   if(cars.getCategory().getMark().equals(carReservation.getCategory()) && cars.getPrice() <= cenaDo)
 						   {
-							   carsfromService.add(cars);	   
+							   returnList.add(cars);	   
 						   }
 						   
 					   }
 					   else if(cenaDo==-1)
 					   {
-						   if(cars.getCategory().getMark().equals(category) && cars.getPrice() >= cenaOd)
+						   if(cars.getCategory().getMark().equals(carReservation.getCategory()) && cars.getPrice() >= cenaOd)
 						   {
-							   carsfromService.add(cars);	   
+							   returnList.add(cars);	   
 						   }
 					   }
 					   else {
-						   if(cars.getCategory().getMark().equals(category) && cars.getPrice() >= cenaOd && cars.getPrice() <= cenaDo)
+						   if(cars.getCategory().getMark().equals(carReservation.getCategory()) && cars.getPrice() >= cenaOd && cars.getPrice() <= cenaDo)
 						   {
-							   carsfromService.add(cars);	   
+							   returnList.add(cars);	   
 						   }
 						   
 					   }
@@ -319,29 +327,29 @@ public class CarController {
 				   
 				   
 			   }
-		   }
+		  
 		   
-		   for(Car cars : carsfromService) {
-			   System.out.println("Vozilo" + cars.getName() + "" + cars.getReservation().size());
-			   carsfromServiceDTO.add(new CarDTO(cars));
-		   }
-		   
-		   
-		    System.out.println("pronadjena vozila" + carsfromService.size());		
-		    return new ResponseEntity<>(carsfromServiceDTO,HttpStatus.OK);
+//		   for(Car cars : carsfromService) {
+//			   System.out.println("Vozilo" + cars.getName() + "" + cars.getReservation().size());
+//			   carsfromServiceDTO.add(new CarDTO(cars));
+//		   }
+//		   
+//		   
+//		    System.out.println("pronadjena vozila" + carsfromService.size());		
+		    return new ResponseEntity<List<Car>>(returnList,HttpStatus.OK);
 	}
 	
 	
-	public boolean checkforfree(CarReservation res, Date returnDate, Date pickupDate) {
+	public boolean checkforfree(CarReservation res, Date startDate, Date endDate) {
 		
 		//provjeravamo datum koji smo unijeli za preuzimanje vozila
 		//ako je on nakon datuma vracanja vozila koji je registrovan -ok
-		if(pickupDate.getTime() >= res.getEndDate().getTime()) {
+		if(startDate.getTime() >= res.getEndDate().getTime()) {
 			return true;
 			
 		}
 		else {
-			if(returnDate.getTime() <= res.getStartDate().getTime())
+			if(endDate.getTime() <= res.getStartDate().getTime())
 			{
 				return true;
 			}

@@ -13,12 +13,13 @@ import com.example.ProjekatIsa.model.RentACar;
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
 	
-	List<Car> findAllByRentalcars(RentACar id);
+	List<Car> findAllByRentacar(RentACar id);
 	List<Car> findAllByFilijale(Filijale id);
 	Car findOneById(Long id);
 	List<Car> findAllByDiscount(Discount discount);
 	//List<Car> findAllByRentalcars(Car h);
-	List<Car> findAllByRentalcars(Car h);
+	List<Car> findAllByRentacar(Car h);
+	Car save(Car car);
 
 	
 

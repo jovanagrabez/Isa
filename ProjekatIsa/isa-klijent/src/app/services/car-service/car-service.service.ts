@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Car } from '../../models/Car';
+import { CarReservation } from '../../models/CarReservation';
 import { AuthServiceService } from '../auth-service.service';
 
 @Injectable({
@@ -36,9 +37,9 @@ export class CarServiceService {
         return this.http.post('http://localhost:8080/car/changeCar/'+id,newCar,{headers: this.auth.createAuthorizationTokenHeader()}); 
         }
     
-    searchCars(startDate : Date, endDate : Date,id : number,category : string,cenaOd : number,cenaDo:number) :Observable<any>{
+    searchCars(car : CarReservation, id : number, cenaOd : number,cenaDo:number) :Observable<any>{
         console.log('usao u pretraga servis');
-        return this.http.get('//localhost:8080/car/searchCar/'+startDate+"/"+endDate+"/"+id+"/"+category+"/"+cenaOd+"/"+cenaDo);
+        return this.http.post('//localhost:8080/car/searchCar/'+id+"/"+cenaOd+"/"+cenaDo,car,{headers: this.auth.createAuthorizationTokenHeader()});
   }
     
      getDiscountCars(id:number): Observable<any>{

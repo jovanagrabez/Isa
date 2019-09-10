@@ -1,4 +1,5 @@
 import { Car } from "./Car";
+import { Filijale } from "./Filijale";
 
 export class RentACar{
     id : number;
@@ -6,6 +7,9 @@ export class RentACar{
     adress : string;
     description : string;
     average_rating : number;
+    rate : number;
+    car: Array<Car>;
+    filijale : Array<Filijale>;
     
     
 

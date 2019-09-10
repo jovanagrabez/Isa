@@ -95,7 +95,7 @@ public class RentalCarController {
 	public ResponseEntity<?> getAllCars(@PathVariable("id") Long id) {
 		List<Car> returnList = new ArrayList<Car> ();
 		RentACar h = rentalcarRepository.findOneById(id);
-		returnList = carRepository.findAllByRentalcars(h);
+		returnList = carRepository.findAllByRentacar(h);
 		if (returnList!=null) {
 	        return new ResponseEntity<List<Car>>(returnList,HttpStatus.OK);
 		}
@@ -114,7 +114,7 @@ public class RentalCarController {
 		RentACar rentservice = rentalcarService.findOneById(Id);
 		
 		List<Car> returnList = new ArrayList<Car>();
-		returnList = carRepository.findAllByRentalcars(rentservice);
+		returnList = carRepository.findAllByRentacar(rentservice);
 		if (returnList==null) {
 			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
@@ -133,7 +133,7 @@ public class RentalCarController {
 		RentACar rentservice = rentalcarService.findOneById(Id);
 		
 		List<Filijale> returnList = new ArrayList<Filijale>();
-		returnList = filRepository.findAllByRentalcars(rentservice);
+		returnList = filRepository.findAllByRentacar(rentservice);
 		if (returnList==null) {
 			return  new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}
@@ -225,7 +225,7 @@ public class RentalCarController {
 					System.out.println("usao u prvu petlju : svih servisa");
 					System.out.println("servis ima vozila: " + hot.getCar().size());
 					//pronalazim sve sobe hotela
-					List<Car> car = carRepository.findAllByRentalcars(hot);
+					List<Car> car = carRepository.findAllByRentacar(hot);
 					if (car.size()>0) {
 						int num = car.size();
 						System.out.println("broj soba " + car.size());
@@ -304,7 +304,7 @@ public class RentalCarController {
 					System.out.println("usao u prvu petlju : svih servisa");
 					System.out.println("servis ima vozila: " + hot.getCar().size());
 					//pronalazim sve sobe hotela
-					List<Car> car = carRepository.findAllByRentalcars(hot);
+					List<Car> car = carRepository.findAllByRentacar(hot);
 					if (car.size()>0) {
 						int num = car.size();
 						System.out.println("broj soba " + car.size());
@@ -361,7 +361,7 @@ public class RentalCarController {
 			
 			
 			for(RentACar rent: returnList) {
-				List<Discount> auta = this.discountRepository.findAllByRentACar(rent);
+				List<Discount> auta = this.discountRepository.findAllByRentacar(rent);
 				povratna.addAll(auta);
 			}
 			
@@ -499,7 +499,7 @@ public class RentalCarController {
 			System.out.println("pocetak: " + today_7);
 			
 			RentACar services = rentalcarRepository.findOneById(idServisa);
-			List<Car> cars = carRepository.findAllByRentalcars(services);
+			List<Car> cars = carRepository.findAllByRentacar(services);
 			System.out.println("broj soba " + cars.size());
 			if (!cars.isEmpty()) {
 				for (Car c : cars) {
@@ -529,7 +529,7 @@ public class RentalCarController {
 			List<CarReservation> returnList = new ArrayList<CarReservation>();
 			
 			RentACar services = rentalcarRepository.findOneById(idServisa);
-			List<Car> cars = carRepository.findAllByRentalcars(services);
+			List<Car> cars = carRepository.findAllByRentacar(services);
 			System.out.println("broj soba " + cars.size());
 			if (!cars.isEmpty()) {
 				for (Car r : cars) {
@@ -570,7 +570,7 @@ public class RentalCarController {
 					System.out.println("od od " + dOd.toString() + dDo.toString());
 					System.out.println("od od sql " + sqlOD.toString() + sqlDO.toString());
 					RentACar service = rentalcarRepository.findOneById(idServisa);
-					List<Car> cars = carRepository.findAllByRentalcars(service);
+					List<Car> cars = carRepository.findAllByRentacar(service);
 					System.out.println("broj soba " + cars.size());
 					if (!cars.isEmpty()) {
 						for (Car r : cars) {
@@ -603,7 +603,7 @@ public class RentalCarController {
 			List<RatingRentACar> returnList = new ArrayList<RatingRentACar>();
 			RentACar service = rentalcarRepository.findOneById(idServisa);
 			
-			returnList = ratingRentACarRepository.findAllByRentalcars(service);
+			returnList = ratingRentACarRepository.findAllByRentacar(service);
 			System.out.println("Id servisa "+ idServisa);
 			System.out.println("ocjene " + returnList.size());
 			

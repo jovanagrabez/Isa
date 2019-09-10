@@ -10,12 +10,22 @@ public class CarDTO {
 	private int price;
 	private int prod_year;
 	private Double average_rating;
+	private RentACarDTO rentacar;
 	
 	public CarDTO(Car car) {
-		this(car.getId(),car.getName(),car.getCar_number(),car.getPrice(),car.getProd_year(),car.getAverage_rating());
+		this.id = car.getId();
+		this.name = car.getName();
+		this.car_number = car.getCar_number();
+		this.price = car.getPrice();
+		this.prod_year = car.getProd_year();
+		this.average_rating = car.getAverage_rating();
+		this.rentacar = new RentACarDTO(car.getRentalcars());
+		
+		
+		
 	}
 	
-	public CarDTO(Long id, String name, String car_number, int price,int prod_year,Double average_rating ) {
+	public CarDTO(Long id, String name, String car_number, int price,int prod_year,Double average_rating,RentACarDTO rentacar,CategoryDTO category) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -23,8 +33,12 @@ public class CarDTO {
 		this.price = price;
 		this.prod_year = prod_year;
 		this.average_rating = average_rating;
+		this.rentacar = rentacar;
+		
+		
+		
 	}
-
+	
 
 	public CarDTO() {
 		
@@ -78,6 +92,23 @@ public class CarDTO {
 	public void setAverage_rating(Double average_rating) {
 		this.average_rating = average_rating;
 	}
+
+	public RentACarDTO getRentacar() {
+		return rentacar;
+	}
+
+	public void setRentacar(RentACarDTO rentacar) {
+		this.rentacar = rentacar;
+	}
+
+	
+
+	
+	
+	
+	
+
+
 	
 	
 	

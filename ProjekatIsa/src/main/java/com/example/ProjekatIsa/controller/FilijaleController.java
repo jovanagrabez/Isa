@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjekatIsa.DTO.CarDTO;
 import com.example.ProjekatIsa.DTO.FilijaleDTO;
 import com.example.ProjekatIsa.model.Car;
+import com.example.ProjekatIsa.model.Category;
 import com.example.ProjekatIsa.model.Filijale;
 import com.example.ProjekatIsa.model.RentACar;
 import com.example.ProjekatIsa.repository.CarRepository;
+import com.example.ProjekatIsa.repository.CategoryRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
+import com.example.ProjekatIsa.repository.RentalCarRepository;
 import com.example.ProjekatIsa.service.FilijaleService;
 
 @CrossOrigin(origins = "*")
@@ -36,6 +39,12 @@ public class FilijaleController {
 	
 	@Autowired
 	CarRepository carRepository;
+	
+	@Autowired 
+	RentalCarRepository rentRepository;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	@RequestMapping(value="/addFilijale",method = RequestMethod.POST)
 	public ResponseEntity<?> addNewFil(@RequestBody Filijale fil){
@@ -122,17 +131,20 @@ public class FilijaleController {
 		
 	}
 	
-	@RequestMapping(value="/addCar/{id}",
+	@RequestMapping(value="/addCar/{id}/{idKategorije}",
 			method = RequestMethod.POST)
-	public ResponseEntity<?> addCar(@RequestBody CarDTO newCar, @PathVariable("id") Long id){
+	public ResponseEntity<?> addCar(@RequestBody CarDTO newCar, @PathVariable("id") Long id,@PathVariable("idKategorije") Long idKategorije){
 		System.out.println("Usao u add filijale");
 		
 		Filijale fil = filRepository.findOneById(id);
-		Car car = new Car(newCar);
-		
+		Car car = new Car(newCar);		
 		//dodavanje u model
 		fil.addCar(car);
-		car.setFilijale(fil);
+		car.setFilijale(fil);		
+		Category cat = new Category();
+		cat = categoryRepository.findOneById(idKategorije);
+		System.out.println("cat+++++++++++++" + cat.getId());
+		car.setCategory(cat);
 		
 		
 		this.carRepository.save(car);

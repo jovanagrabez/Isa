@@ -189,11 +189,11 @@ insert into roles_privileges(role_id,privilege_id) values (3,22);
 insert into roles_privileges(role_id,privilege_id) values (4,22);
 insert into roles_privileges(role_id,privilege_id) values (5,22);
 
-insert into rentalcars (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
-insert into rentalcars (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
-insert into rentalcars (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
-insert into rentalcars (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
-insert into rentalcars (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
+insert into rentacar (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
+insert into rentacar (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
+insert into rentacar (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
+insert into rentacar (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
+insert into rentacar (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
 
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);

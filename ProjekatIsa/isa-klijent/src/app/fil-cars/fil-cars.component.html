@@ -65,6 +65,16 @@
 			              <div class="form-group">
 			                <input type="text" class="form-control" placeholder="Unesite godinu proizvodnje.." value='newCar.prod_year' [(ngModel)]="newCar.prod_year" >
 			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite prosecnu ocenu.." value='average_rating' [(ngModel)]="newCar.average_rating" >
+			              </div>
+			              
+			              <div class="input-box">
+                      			<label>Kategorija</label>
+                     			 <select class="form-control input_layout" name="category" [(ngModel)]="newCar.category" value="category">
+                         			 <option *ngFor="let c of kategorije" value="{{c.id}}">{{c.mark}} {{c.seats}} sedista</option>
+                      </select>
+                    </div>
 			           
 			              
 			            </div>

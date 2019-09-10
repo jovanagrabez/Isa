@@ -12,7 +12,7 @@ import com.example.ProjekatIsa.model.RentACar;
 @Repository
 public interface FilijaleRepository extends JpaRepository<Filijale,Long> {
 
-	List<Filijale> findAllByRentalcars(RentACar id);
+	List<Filijale> findAllByRentacar(RentACar id);
 	Filijale findOneById(Long id);
 
 }

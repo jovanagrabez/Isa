@@ -43,7 +43,7 @@ public class Filijale implements Serializable {
 	
 	@ManyToOne( fetch = FetchType.EAGER)
 	@JoinColumn(name="rentacar_id")
-	private RentACar rentalcars;
+	private RentACar rentacar;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="filijale",fetch = FetchType.LAZY,orphanRemoval = true)
@@ -67,7 +67,7 @@ public class Filijale implements Serializable {
 		this.grad = grad;
 		this.drzava = drzava;
 		this.adresa = adresa;
-		this.rentalcars = rentACar;
+		this.rentacar = rentACar;
 	}
 
 	public Filijale() {
@@ -99,11 +99,11 @@ public class Filijale implements Serializable {
 	}
 
 	public RentACar getRentACar() {
-		return rentalcars;
+		return rentacar;
 	}
 
-	public void setRentACar(RentACar rentACar) {
-		this.rentalcars = rentACar;
+	public void setRentACar(RentACar rentacar) {
+		this.rentacar = rentacar;
 	}
 
 	public List<Car> getCars() {

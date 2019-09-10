@@ -13,6 +13,7 @@ export class Car {
     rentalcars : RentACar;
     filijale : Filijale;
     category : Category;
+    rate : number;
     
     
 

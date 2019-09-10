@@ -39,8 +39,8 @@ export class FilijaleServiceService {
         return this.http.post('http://localhost:8080/filijale/deleteFil',id,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
         }
-    addCar(newCar: Car, id:number): Observable<any>{
-      return this.http.post('http://localhost:8080/filijale/addCar/'+id,newCar,{headers: this.auth.createAuthorizationTokenHeader()}); 
+    addCar(newCar: Car, id:number,idKategorije): Observable<any>{
+      return this.http.post('http://localhost:8080/filijale/addCar/'+id + "/" + idKategorije,newCar,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
         }
     
