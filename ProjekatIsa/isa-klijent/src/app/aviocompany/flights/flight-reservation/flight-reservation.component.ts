@@ -9,10 +9,13 @@ import {FlightReservationService} from '../../../services/flight-reservation.ser
 import {SearchFormServices} from '../../../models/SearchFormServices';
 import {ViewRentalCarsService} from '../../../services/view-rental-cars.service';
 import {Discount} from '../../../models/Discount';
+import {DiscountHotel} from '../../../models/DiscountHotel';
+import {ReservationRoom} from '../../../models/ReservationRoom';
 import {CarReservation} from '../../../models/CarReservation';
 import {ResServiceService} from '../../../services/res-service/res-service.service';
 import {NgbDate} from '@ng-bootstrap/ng-bootstrap';
 import {DiscountServiceService} from '../../../services/discount-service/discount-service.service';
+import { HotelServiceService } from '../../../services/hotel-service/hotel-service.service';
 
 @Component({
   selector: 'app-flight-reservation',
@@ -29,15 +32,17 @@ export class FlightReservationComponent implements OnInit {
   invitedFriends: any;
   flightReservation: any;
   reservation: any;
+  reservationHotel: any;
   discount : any;
   discounts : Array<Discount>;
-
+  discounts2 : Array<DiscountHotel>;
   // constructor(,private currentRoute: ActivatedRoute, private flightService: FlightService,
   // searchFormServices : SearchFormServices = new SearchFormServices();
   // discount : Array<Discount>;
 
   constructor(private sds: DiscountServiceService,private currentRoute: ActivatedRoute, private flightService: FlightService,
-              private friendsService: FriendsService, private userService: UserService,
+              private friendsService: FriendsService,
+              private hotelService: HotelServiceService, private userService: UserService,
             private   searchFormServices: SearchFormServices = new SearchFormServices(),
               private rentalCarsService: ViewRentalCarsService, private resServise: ResServiceService,
               private  appComp: AppComponent, private  router: Router, private reservationService: FlightReservationService) {
@@ -139,13 +144,29 @@ export class FlightReservationComponent implements OnInit {
       //    this.router.navigateByUrl('/rentalCars');
     });
   }
+  reserveRoom(id: number){
+      const startDate = this.searchFormServices.startDate;
+     // console.log(this.rez.startDate.getTime);
+      const endDate = this.searchFormServices.endDate;
+      //console.log('rezervacija je uspjesno izvrsena');
+      this.resServise.fastReservationsHotel(-1, id , startDate, endDate,this.user.id).subscribe(data =>{
+          alert("Uspjesno rezervisan hotel!");
+          //this.router.navigateByUrl('/home');
+        });
+  }
 
 
   pretraga(){
 
     console.log(this.searchFormServices.city);
     console.log(this.searchFormServices.name);
-
+    console.log(this.searchFormServices.nameHotel);
+    this.hotelService.searchDiscountRooms(this.searchFormServices).subscribe(data=>{
+        console.log('pretrazeni hoteli');
+        this.discounts2=data;
+        console.log(data);
+    });
+    
     this.rentalCarsService.searchServiceFast(this.searchFormServices).subscribe(data=>{
       this.discounts = data;
       console.log('pretrazeni servisi');

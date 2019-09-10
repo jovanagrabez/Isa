@@ -63,7 +63,7 @@ import { ServiceReportComponent } from './service-report/service-report.componen
 import {ChangePasswordComponent} from './change-password/change-password.component';
 import { AvioReportComponent } from './aviocompany/profilcompany/avio-report/avio-report.component';
 import { MakeDiscountsComponent } from './make-discounts/make-discounts.component';
-
+import { QuickReservationHotelComponent } from './quick-reservation-hotel/quick-reservation-hotel.component';
 
 @NgModule({
   declarations: [
@@ -101,7 +101,8 @@ import { MakeDiscountsComponent } from './make-discounts/make-discounts.componen
     ChangePasswordComponent,
     MakeDiscountsComponent,
     ChangePasswordComponent,
-    AvioReportComponent
+    AvioReportComponent,
+    QuickReservationHotelComponent
 
 
 

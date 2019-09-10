@@ -58,6 +58,10 @@ public class Room implements Serializable{
 	@OneToMany(mappedBy="room")
     protected List<ReservationRoom> reservationRoom;
 	*/
+	@ManyToOne( fetch = FetchType.EAGER)
+	@JoinColumn(name="discount_id")
+	private DiscountHotel discountHotel;
+	
 	@JsonIgnore
 	@OneToMany(mappedBy="room")
     protected List<Pricing> pricing;

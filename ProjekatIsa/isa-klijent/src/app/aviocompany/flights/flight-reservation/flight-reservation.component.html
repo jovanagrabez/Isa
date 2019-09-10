@@ -181,6 +181,11 @@
                         <span id="errorStart"></span>
                       </div>
                     </div>
+                    <div class="form-group">
+                      <label>Unesite naziv hotela:</label>
+                      <input  class="form-control" id="exampleInputEmail1" placeholder="Lokacija..." [(ngModel)]="searchFormServices.nameHotel" #nameHotel="ngModel" name="nameHotel" type="text">
+                      <span id="errorCity"></span>
+                    </div>
                     <!-- /.form-group -->
                   </div>
                   <!-- /.col -->
@@ -255,7 +260,44 @@
             </div>
           </div>
         </div>
+		<div class="row">
+		<div class="col-xs-11">
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Soba</th>
+            	<th>Popust od</th>
+            	<th>Popust do</th>
+            	<th>Cena po danu</th>
+            	<th>Popust</th>
+            	<th>Cena nakon popusta</th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		  <tbody>
+                <tr *ngFor="let r of discounts2">
+                <!--  td>{{c.car.name}}</td--> 
+                <td>{{r.room.number}}</td> 
+                <td>{{r.dateFrom}}</td>
+                <td>{{r.dateTo}}</td>
+                <td>{{r.room.price}}</td>
+                <td>{{r.discountprice}}</td>
+                <td>{{r.room.price - (r.discountprice*r.room.price)/100}}</td>                
+        		<button class="btn btn-primary" (click)="reserveRoom(r.room.id)">Rezervisi</button>
+                </tr>
+             </tbody>
 
+              </table>
+             </div>
+            <!-- /.box-body -->
+         	 </div>
+			</div>
+		</div>
 
         <div class="pull-right">
           <button class="btn btn-outline-primary" matStepperPrevious>Back</button>
