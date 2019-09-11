@@ -11,8 +11,48 @@
 					    					    
 					    <span class="hidden-xs" id="changeButton"><a  class="btn btn-primary btn-outline" (click)="sortClick()">SORTIRANJE</a></span>    					
 				        <span class="hidden-xs" id="changeButton"><a  class="btn btn-primary btn-outline" (click)="searchClick()">PRETRAGA</a></span>    					
+						<span class="hidden-xs" id="addFillButton" [hidden]="nocarAdmin"><a class="btn btn-primary btn-outline"  (click)="addServiceClick()">Dodaj servis</a></span>
 									
 					</div>
+					
+					<div class="col-xs-6" id = "addServiceDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novi servis</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite naziv.." value='newService.name' [(ngModel)]="newService.name">
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite adresu.." value='newService.adress' [(ngModel)]="newService.adress" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite grad.." value='newService.city' [(ngModel)]="newService.city" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite opis.." value='newService.description' [(ngModel)]="newService.description" >
+			              </div>
+			              <div class="form-group">
+			                <input type="text" class="form-control" placeholder="Unesite prosecnu ocenu.." value='newService.average_rating' [(ngModel)]="newService.average_rating" >
+			              </div>
+			           
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddClick(newService)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
 					
 					<div class="col-xs-6" id = "sortDiv" hidden="true">
 		              	<div class="box box-primary">
@@ -53,6 +93,9 @@
               		</div> 
 					
 		</div>
+		
+		
+		
 				
 				<!-- Div za pretragu -->
 				
@@ -134,7 +177,7 @@
 									    <span>{{r.city}}</span>
 									    <span>{{r.average_rating}}</span>
 									    <span><a (click)="onClickCompanyDetails(r)" class="btn btn-primary btn-outline">Detaljnije</a></span>				
-                                        <span><a (click)="discountedCars(r)" class="btn btn-primary btn-outline" >Popust<i></i></a></span>																			
+                                        <!--  span><a (click)="discountedCars(r)" class="btn btn-primary btn-outline" >Popust<i></i></a></span-->																		
 										
 									</div>
 								</div>

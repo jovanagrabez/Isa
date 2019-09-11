@@ -19,6 +19,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.RentACarDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -158,6 +159,15 @@ public class RentACar implements Serializable {
 		this.description = description;
 		this.average_rating = average_rating;
 		this.city = city;
+	}
+	
+	public RentACar(RentACarDTO r) {
+		setId(r.getId());
+		setName(r.getName());
+		setDescription(r.getDescription());
+		setAdress(r.getAdress());
+		setCity(r.getCity());
+		
 	}
 
 	public RentACar() {

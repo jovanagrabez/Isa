@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {UserService} from '../../services/user-service/user.service';
 import {FriendsService} from '../../services/friends.service';
 import {AppComponent} from '../../app.component';
+import { SortForm } from '../../models/SortForm';
+import { User } from '../../models/User';
 
 
 // @ts-ignore
@@ -20,6 +22,7 @@ export class FriendsComponent implements OnInit {
   friendsSearch: string;
   userRole: any;
   userTwo= false;
+  sortForm : SortForm = new SortForm();
   constructor(private userService: UserService, private friendsService: FriendsService, private appCom: AppComponent) {
     this.user = {username: '', firstName: '', lastName: ''};
   //  this.usersWhoAreNotFriends = [{firstName: '', lastName: ''}];
@@ -118,5 +121,15 @@ export class FriendsComponent implements OnInit {
       this.usersWhoAreNotFriends.splice(index, 1);
     });
   }
+    
+  sortServices()
+   {
+    console.log(this.sortForm);
+//    this.friendsService.sortingService(this.sortForm, this.friends).subscribe(data => {
+//        this.friends = data;
+//        console.log(this.friends);
+//        console.log('List is sorted.');
+//    });
+      }
 
 }

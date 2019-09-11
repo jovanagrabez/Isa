@@ -58,6 +58,11 @@ export class ViewRentalCarsService {
       return this.http.post('http://localhost:8080/rentalcars/addFil/'+id,newFil,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
   }
+  
+  addService(newService: RentACar): Observable<any>{
+      return this.http.post('http://localhost:8080/rentalcars/addService',newService,{headers: this.auth.createAuthorizationTokenHeader()}); 
+
+  }
     
   searchService(searchForm: SearchFormServices) : Observable<any> {
       return this.http.post('http://localhost:8080/rentalcars/searchService/',searchForm); 

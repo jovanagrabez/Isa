@@ -1,9 +1,56 @@
 <div >
+
+<div class="col-md-4">
+		              	<div class="box box-primary">
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+ 							<select name="sortItem" id="sortItem" [(ngModel)]="sortForm.sortItem" class="form-control"  required>
+                   			<option value="ime">Ime</option>
+                   			<option value="prezime">Prezime</option>
+               				</select> 
+               			  </div>
+			              <div class="form-group">
+							<select name="sortType" id="sortType" [(ngModel)]="sortForm.sortType" class="form-control" required >
+                          	<option value="ascending">ascending</option>
+                            <!--  option value="descending">descending</option-->
+                     	    </select> 			              </div>
+			       
+			              
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                			<div class="col-md-1" *ngIf="sortForm.sortItem == undefined || sortForm.sortType == undefined">
+           <div class="form-btn">
+           	 <button type="button"  (click)="sortServices()" class="btn  btn-lg" disabled>Sort</button>
+           </div>
+      </div>
+      <div class="col-md-8" *ngIf="sortForm.sortItem != undefined && sortForm.sortType != undefined">
+           <div class="form-btn">
+                <button (click)="sortServices()" class="btn btn-primary">Sort</button>
+       </div>              	
+			              </div>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+					
+		</div>
+
+
+
+
   <button style="margin-left: 85%" class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Add friends</button>
   <div class="container">
     <div class="row">
       <div class="offset-3"></div>
       <div class="col-md-6">
+      
+      
+		
+		<br/>
 
       <label>SEARCH</label>
       <div class="row">
@@ -23,6 +70,9 @@
         </a>
       </div>    </div>
   </div>
+  
+  
+  
 
   <div *ngIf="friendRequests?.length && !userTwo > 0">
     <label class="display-4">Friend requests</label>

@@ -24,4 +24,10 @@ public class RentalCarServiceImpl implements RentalCarService {
 		return rentalcarRepository.findOneById(id);
 	}
 
+	@Override
+	public RentACar addService(RentACar rentACar) {
+		// TODO Auto-generated method stub
+		return rentalcarRepository.save(rentACar);
+	}
+
 }

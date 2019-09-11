@@ -37,6 +37,7 @@ import com.example.ProjekatIsa.repository.FlightRepository;
 import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
+import com.example.ProjekatIsa.service.CarReservationService;
 import com.example.ProjekatIsa.service.CarService;
 
 @CrossOrigin(origins = "*")
@@ -67,6 +68,9 @@ public class CarReservationController {
 	
 	@Autowired
 	DiscountRepository discountRepository;
+	
+	@Autowired
+	CarReservationService carReservationService;
 	
 	
 	@RequestMapping(value="/getUserRes/{id}",method = RequestMethod.POST)
@@ -288,12 +292,16 @@ public class CarReservationController {
 				res.setNumPeople(carRes.getNumPeople());
 				res.setNumDays(carRes.getNumDays());
 				res.setCategory(carRes.getCategory());
-				////res.setDayRez(carRes.getDayRez());
-				//res.setTotalPrice(carRes.getTotalPrice());
+				res.setDayRez(new Date());
+				Long razlika = getDateDiff(startDate,endDate,TimeUnit.DAYS);
+				Long ukupno = null;
+				ukupno = razlika*car.getPrice();
+				res.setTotalPrice(ukupno);
+				res.setNumDays(razlika.intValue());
 				res.setUser(user);
 				res.setCar(car);
 				
-				carresRepository.save(res);
+				carReservationService.save(res);
 				
 				return new ResponseEntity<>(new CarReservationDTO(res),HttpStatus.CREATED);
 				
@@ -368,7 +376,7 @@ public class CarReservationController {
 		fastRes.setCategory(car.getCategory().getMark().toString());
 		fastRes.setUser(user);
 		
-		carresRepository.save(fastRes);
+		carReservationService.save(fastRes);
 		//u flight res se treba postaviti i brza rez vozila
 		
 		return new ResponseEntity<CarReservation>(fastRes,HttpStatus.OK);
