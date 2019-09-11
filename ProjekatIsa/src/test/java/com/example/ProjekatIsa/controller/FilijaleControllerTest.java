@@ -1,7 +1,11 @@
 package com.example.ProjekatIsa.controller;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
@@ -53,6 +57,15 @@ private static final String URL_PREFIX = "/filijale";
 		
 		String json = TestUtil.json(fil);
 		this.mockMvc.perform(post(URL_PREFIX + "/changeFil/"+1L).contentType(contentType).content(json)).andExpect(status().isOk());
+		
+	}
+	
+	@Test
+	public void testGetServis() throws Exception{
+		mockMvc.perform(get(URL_PREFIX + "/getFilijales" )).andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.[*].id").value(hasItem(1)))
+		.andExpect(jsonPath("$.[*].drzava").value(hasItem("Srbija")));		
 		
 	}
 

@@ -3,6 +3,7 @@ package com.example.ProjekatIsa.controller;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -135,6 +136,10 @@ public class RentalCarControllerTest {
 		.andExpect(jsonPath("$.[*].prod_year").value(hasItem(2011)));
 		
 	}
+	
+	
+	
+	
 	
 //	@Test
 //	public void testDeleteService() throws Exception{
