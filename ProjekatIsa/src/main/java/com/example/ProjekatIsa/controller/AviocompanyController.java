@@ -36,6 +36,7 @@ import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.Passenger;
 import com.example.ProjekatIsa.model.RatingAvio;
+import com.example.ProjekatIsa.model.RatingFlight;
 import com.example.ProjekatIsa.model.RatingHotel;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.Room;
@@ -344,6 +345,17 @@ public class AviocompanyController {
 		
 		}
 		
+		
+	/*	@RequestMapping(value="/getAllRatingsHotel/{id}",
+				method = RequestMethod.GET,
+				produces = MediaType.APPLICATION_JSON_VALUE)
+		public ResponseEntity<List<RatingFlight>>  getAllRatingsFlights(@PathVariable("id") Long idHotela) {
+
+			List
+			
+			
+			respo
+		}*/
 	
 
 	
