@@ -201,6 +201,7 @@ insert into rentacar (name,city,adress,description,average_rating) values ('Easy
 insert into rentacar (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','Brzo do zeljenih vozila',4.8);
 insert into rentacar (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
 insert into rentacar (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
+insert into rentacar (name,city,adress,description,average_rating) values ('Lux','London','London,Velika Britanija','luux',3.3);
 
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);
@@ -220,9 +221,16 @@ insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Nissan','KK-4875',350,3.1,'2004',8,2,5);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('MiniCooper','JC-4875',350,3.1,'2004',9,2,5);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Fiat','AC-4875',350,3.1,'2004',9,2,5);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Mazda','BC-4875',350,3.1,'2004',9,2,6);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Citroen','AR-4875',350,3.1,'2004',9,2,6);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Jeep','KG-4875',350,3.1,'2004',9,2,6);
 
 insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (1,'2019-09-05','2019-09-25',30.0,1,1);
 insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (2,'2019-09-05','2019-09-25',20.0,2,1);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (3,'2019-09-05','2019-09-25',30.0,19,6);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (4,'2019-09-05','2019-09-25',30.0,20,6);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (5,'2019-09-05','2019-09-25',30.0,21,6);
+
 
 
 --filijale za carflexi
