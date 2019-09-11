@@ -1,5 +1,5 @@
 
-
+<div class="novo">
 <div class="nav flex-row nav-tabs" id="v-pills-tab" role="tablist" aria-orientation="horizontal">
   <a class="nav-link nav-item active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
      aria-controls="v-pills-home" aria-selected="true">O letu</a>
@@ -241,14 +241,14 @@
 
       <div class="form-group row">
         <label for="distance" class="col-sm-2 col-form-label">Udaljenost</label>
-        <div class="col-sm-8">
+        <div class="col-sm-4">
           <label class="form-control" id="distance">{{flight.distance}} km</label>
         </div>
       </div>
 
       <div class="form-group row">
         <label for="duration" class="col-sm-2 col-form-label">Trajanje</label>
-        <div class="col-sm-8">
+        <div class="col-sm-4">
           <label class="form-control" id="duration">{{flight.time}} h</label>
         </div>
       </div>
@@ -257,21 +257,21 @@
         <label for="prices" class="col-sm-2 col-form-label">Cijene</label>
         <div class="col-sm-8" id="prices">
           <div class="row">
-            <label for="price1" class="col-sm-4 col-form-label">Ekonomska klasa</label>
+            <label for="price1" class="col-sm-6 col-form-label">Ekonomska klasa</label>
             <label class="form-control col" id="price1">{{flight.economyPrice}} €</label>
           </div>
           <div class="row">
-            <label for="price1" class="col-sm-4 col-form-label">Premium ekonomska klasa</label>
+            <label for="price1" class="col-sm-6 col-form-label">Premium ekonomska klasa</label>
             <label class="form-control col" id="price2">{{flight['premiumEconomyPrice']}} €</label>
 
           </div>
           <div class="row">
-            <label for="price1" class="col-sm-4 col-form-label">Biznis klasa</label>
+            <label for="price1" class="col-sm-6 col-form-label">Biznis klasa</label>
             <label class="form-control col" id="price3">{{flight['businessPrice']}} €</label>
           </div>
           <div class="row">
-            <label for="price1" class="col-sm-4 col-form-label">Prva klasa</label>
-            <label class="form-control col" id="price4">{{flight['firstPrice']}} €</label>
+            <label for="price1" class="col-sm-6 col-form-label">Prva klasa</label>
+            <label class="form-control col-sm-6" id="price4">{{flight['firstPrice']}} €</label>
           </div>
 
         </div>
@@ -279,7 +279,7 @@
 
       <div class="form-group row">
         <label for="averageRating1" class="col-sm-2 col-form-label">Prosjecna ocjena</label>
-        <div class="col-sm-8">
+        <div class="col-sm-4">
           <label class="form-control" id="averageRating1">{{flight['averageRating']}} ★</label>
         </div>
       </div>
@@ -298,12 +298,15 @@
     </div>
   </div>
 
-
-  <button ><a routerLink="seats" routerLinkActive="active">Sjedista</a>
+<div>
+  <button ><a *ngIf="appComp.noavioAdmin" routerLink="seats" routerLinkActive="active">Sjedista</a>
     <router-outlet></router-outlet>
+
   </button>
   <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
     <br />
+  </div>
 
   </div>
+</div>
 </div>

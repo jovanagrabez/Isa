@@ -1,25 +1,26 @@
-<div >
-
+<div class="fh5co-hero">
+  <div class="fh5co-overlay"></div>
+  <div class="novo">
   <mat-horizontal-stepper linear #stepper>
     <mat-step [stepControl]="firstFormGroup" >
       <form  >
-        <ng-template matStepLabel >Choose seats</ng-template>
+        <ng-template matStepLabel >Izaberite sjediste</ng-template>
         <div>
           <!--<input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>-->
 
           <br><br>
           <div class="row ">
             <div class="col-sm-3" style="text-align: center">
-              <label style="background-color: aquamarine">Economy class</label>
+              <button style="background-color: #83ff85">Ekonomska klasa</button>
             </div>
             <div class="col-sm-3" style="text-align: center">
-              <label style="background-color: dodgerblue">Premium economy class</label>
+              <button style="background-color: #2e6da4">Premijum ekonomska</button>
             </div>
             <div class="col-sm-3" style="text-align: center">
-              <label style="background-color: cornflowerblue">Business class</label>
+              <button style="background-color: #1bd0ed">Biznis klasa</button>
             </div>
             <div class="col-sm-3" style="text-align: center">
-              <label style="background-color: darkgray">First class</label>
+              <button style="background-color: darkgray">Prva klasa</button>
             </div>
           </div>
           <div class="row ">
@@ -41,17 +42,17 @@
             <tbody>
             <tr *ngFor="let row of seatsInRows" style="row-gap: 10px">
               <td *ngFor="let seat of row">
-                <div *ngIf="seat.seatClass === 'ECONOMY'" style="background-color: aquamarine">
+                <div *ngIf="seat.seatClass === 'ECONOMY'" style="background-color: #83ff85">
                   <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
                   <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
                   <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
                 </div>
-                <div *ngIf="seat.seatClass === 'PREMIUM_ECONOMY'" style="background-color: dodgerblue">
+                <div *ngIf="seat.seatClass === 'PREMIUM_ECONOMY'" style="background-color: #2e6da4">
                   <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
                   <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
                   <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
                 </div>
-                <div *ngIf="seat.seatClass === 'BUSINESS'" style="background-color: cornflowerblue">
+                <div *ngIf="seat.seatClass === 'BUSINESS'" style="background-color: #1bd0ed">
                   <mat-checkbox *ngIf="seat.state === 'free'" style="background-color: darkseagreen" (change)="seatSelected(seat)"></mat-checkbox>
                   <mat-checkbox *ngIf="seat.state === 'reserved'" disabled=true style="background-color: coral" (change)="seatSelected(seat)"></mat-checkbox>
                   <mat-checkbox *ngIf="seat.state === 'taken'" disabled=true style="background-color: crimson" (change)="seatSelected(seat)"></mat-checkbox>
@@ -67,7 +68,7 @@
           </table>
         </div>
         <div class="pull-right">
-          <button type="button" matStepperNext class="btn btn-outline-primary">Next</button>
+          <button type="button" matStepperNext class="btn btn-outline-primary">Naprijed</button>
         </div>
       </form>
     </mat-step>
@@ -75,7 +76,7 @@
 
     <mat-step [stepControl]="secondFormGroup">
       <form >
-        <ng-template matStepLabel>Invite friends</ng-template>
+        <ng-template matStepLabel>Pozovi prijatelja</ng-template>
         <div>
           <div>
             <h5  *ngIf="selectedSeats?.length > 1 && selectedSeats?.length - 1 > invitedFriends?.length">Invite friend</h5>
@@ -94,53 +95,53 @@
               </a>
             </div>
           </div>
-          <label *ngIf="friends?.length < 1">You have not added any friends</label>
+          <label *ngIf="friends?.length < 1">Niste dodali nijednog prijatelja</label>
         </div>
         <div class="pull-right">
-          <button class="btn btn-outline-primary" matStepperPrevious>Back</button>
-          <button class="btn btn-outline-primary" matStepperNext>Next</button>
+          <button class="btn btn-outline-primary" matStepperPrevious>Nazad</button>
+          <button class="btn btn-outline-primary" matStepperNext>Naprijed</button>
         </div>
       </form>
     </mat-step>
 
 
     <mat-step>
-      <ng-template matStepLabel>Passenger info</ng-template>
+      <ng-template matStepLabel>Informacije o putnicima</ng-template>
       <div>
 
         <div *ngIf="selectedSeats?.length === 0">
-          <label class="h4 text-lg-center">You haven't selected any seats!</label>
+          <label class="h4 text-lg-center">Niste selektovali nijedno mjesto</label>
         </div>
 
         <div *ngFor="let passenger of flightReservation.passengersOnSeats; index as i">
-          <h6>Passenger {{i + 1}}</h6>
+          <h6>Putnik {{i + 1}}</h6>
           <div>
             <div *ngIf="passenger.passengerId === 0">
               <div>
-                <label class="col-sm-3">Name:</label>
-                <input class="col-sm-3" type="text" placeholder="Insert passenger name" [(ngModel)]="passenger.passengerName">
+                <label class="col-sm-3">Ime:</label>
+                <input class="col-sm-3" type="text" placeholder="Unesite ime putnika" [(ngModel)]="passenger.passengerName">
               </div>
               <div>
-                <label class="col-sm-3">Last name:</label>
-                <input class="col-sm-3" type="text" placeholder="Insert last name" [(ngModel)]="passenger.passengerLastName">
+                <label class="col-sm-3">Prezime:</label>
+                <input class="col-sm-3" type="text" placeholder="Unesite prezime putnika" [(ngModel)]="passenger.passengerLastName">
               </div>
               <div>
-                <label class="col-sm-3">Passport:</label>
-                <input class="col-sm-3" type="text" placeholder="Insert passenger passport number" [(ngModel)]="passenger.passengerPassport">
+                <label class="col-sm-3">Pasos:</label>
+                <input class="col-sm-3" type="text" placeholder="Unesite broj pasosa" [(ngModel)]="passenger.passengerPassport">
               </div>
             </div>
             <div *ngIf="passenger.passengerId !== 0">
               <div>
-                <label class="col-sm-3">Name:</label>
-                <input class="col-sm-3" type="text" placeholder="Insert passenger name" [(ngModel)]="passenger.passengerName" readonly>
+                <label class="col-sm-3">Ime:</label>
+                <input class="col-sm-3" type="text" placeholder="Unesite ime putnika" [(ngModel)]="passenger.passengerName" readonly>
               </div>
               <div>
-                <label class="col-sm-3">Last name:</label>
-                <input class="col-sm-3" type="text" placeholder="Insert last name" [(ngModel)]="passenger.passengerLastName" readonly>
+                <label class="col-sm-3">Prezime:</label>
+                <input class="col-sm-3" type="text" placeholder="Unesite prezime putnika" [(ngModel)]="passenger.passengerLastName" readonly>
               </div>
               <div>
-                <label class="col-sm-3">Passport:</label>
-                <input class="col-sm-3" type="text" placeholder="Insert passenger passport number" [(ngModel)]="passenger.passengerPassport">
+                <label class="col-sm-3">Pasos:</label>
+                <input class="col-sm-3" type="text" placeholder="Unesite broj pasosa" [(ngModel)]="passenger.passengerPassport">
               </div>
             </div>
             <hr>
@@ -150,13 +151,13 @@
       </div>
 
       <div class="pull-right">
-        <button class="btn btn-outline-primary" matStepperPrevious>Back</button>
-        <button class="btn btn-outline-primary" matStepperNext>Next</button>
+        <button class="btn btn-outline-primary" matStepperPrevious>Nazad</button>
+        <button class="btn btn-outline-primary" matStepperNext>Naprijed</button>
       </div>
     </mat-step>
 
     <mat-step>
-      <ng-template matStepLabel>Vehicle reservation</ng-template>
+      <ng-template matStepLabel>Rezervacija vozila i hotela</ng-template>
       <div>
         <div class="row" id = "searchDiv" >
           <div class="col-xs-12">
@@ -300,35 +301,35 @@
 		</div>
 
         <div class="pull-right">
-          <button class="btn btn-outline-primary" matStepperPrevious>Back</button>
-          <button class="btn btn-outline-primary" matStepperNext>Next</button>
+          <button class="btn btn-outline-primary" matStepperPrevious>Nazad</button>
+          <button class="btn btn-outline-primary" matStepperNext>Naprijed</button>
         </div>
       </div>
     </mat-step>
 
 
     <mat-step>
-      <ng-template matStepLabel>Finish</ng-template>
+      <ng-template matStepLabel>Kraj</ng-template>
 
       <div *ngIf="flightReservation.passengersOnSeats?.length !== 0">
-        <h4>Your reservation</h4>
+        <h4>Vasa rezervacija</h4>
         <div *ngFor="let passSeat of flightReservation['passengersOnSeats']">
           <div>
             <div>
-              <label class="col-sm-2">Name:</label>
+              <label class="col-sm-2">Ime:</label>
               <label class="col-sm-3" >{{passSeat.passengerName}}</label>
             </div>
             <div>
-              <label class="col-sm-2">Last name:</label>
+              <label class="col-sm-2">Prezime:</label>
               <label class="col-sm-3">{{passSeat.passengerLastName}}</label>
             </div>
             <div>
-              <label class="col-sm-2">Passport:</label>
+              <label class="col-sm-2">Pasos:</label>
               <label class="col-sm-3">{{passSeat.passengerPassport}}</label>
             </div>
             <div>
-              <label class="col-sm-2">Seat:</label>
-              <label class="col-sm-6">Class: {{passSeat.seat['seatClass']}}, row: {{passSeat.seat['seatRow']}} column: {{passSeat.seat['seatColumn']}} price: {{passSeat.seat['price']}} </label>
+              <label class="col-sm-2">Sjediste:</label>
+              <label class="col-sm-6">Klasa: {{passSeat.seat['seatClass']}}, red: {{passSeat.seat['seatRow']}} broj: {{passSeat.seat['seatColumn']}} price: {{passSeat.seat['price']}} </label>
             </div>
           </div>
           <hr>
@@ -339,13 +340,14 @@
 
 
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button class="btn btn-primary pull-right" (click)="reserve()">Finish reservation</button>
+        <button mat-button matStepperPrevious>Nazad</button>
+        <button class="btn btn-primary pull-right" (click)="reserve()">Zavrsi rezervaciju</button>
       </div>
     </mat-step>
   </mat-horizontal-stepper>
 
 
-
-
 </div>
+  </div>
+
+

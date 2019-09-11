@@ -426,8 +426,9 @@
                 <div class="desc">
                   <span></span>
                   <h3>{{a.take_off.split('T')[0]}}</h3>
-                  <h3>{{a.time}}</h3>
-                  <span>{{a.landing.split('T')[0]}}</span> <a
+                  <h3>Od:{{a.destination[0].name}}</h3>
+                  <h3>Do:{{a.destination[1].name}}</h3>
+                   <a
                   	class="btn btn-primary btn-outline" (click)="flightProfile(a)">Detaljnije <i
                   class="icon-arrow-right22"></i></a>
 
