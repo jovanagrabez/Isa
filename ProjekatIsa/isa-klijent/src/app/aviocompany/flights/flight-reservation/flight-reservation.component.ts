@@ -94,9 +94,9 @@ export class FlightReservationComponent implements OnInit {
       this.flightService.getFlight(flightId).subscribe(flight => {
         this.flight = flight;
 
-        let date = new Date(this.flight.landing);
-        this.searchFormServices.startDate = date;
-        this.searchFormServices.city = this.flight.destination[0].city;
+      //  let date = new Date(this.flight.landing);
+     //   this.searchFormServices.startDate = new Date(2019, 9, 25);
+        this.searchFormServices.city = this.flight.destination[0].name;
 
         let maxRowNumber = 0;
         for (const seat of this.flight.seats) {

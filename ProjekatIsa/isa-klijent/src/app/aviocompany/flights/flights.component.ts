@@ -131,7 +131,7 @@ export class FlightsComponent implements OnInit {
       }
       let x = +hours[0];      // radi pretvaranje stringa u broj
       let y = +minutes[0];
-      this.flight.take_off = '2018-02-07';
+      this.flight.take_off = '2019-09-20';
         //new Date(this.departureDate.year, this.departureDate.month - 1, this.departureDate.day);
 
       // month - 1 jer ga racuna od jedan, a date od 0
@@ -143,7 +143,7 @@ export class FlightsComponent implements OnInit {
       }
       x = +hours[0];      // radi pretvaranje stringa u broj
       y = +minutes[0];
-      this.flight.landing = '2001-04-05' ;
+      this.flight.landing = '2019-09-21' ;
       this.flight.seatArrangement = {seatColumns: 5, seatRows: 5}
     //  this.flight.airlineId = this.flight.airlineDto.id;
       this.flightService.updateFlight(this.flight).subscribe(flight => {

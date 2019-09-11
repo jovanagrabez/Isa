@@ -257,6 +257,21 @@ insert into seat(discount_price, price, seat_class, seat_column, seat_row, state
 insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,2,'free');
 insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,3,'free');
 
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,4,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',1,5,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,1,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,2,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,3,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,4,'taken');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,5,'free');
+
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',3,1,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',3,2,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',3,3,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,1,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,2,'free');
+insert into seat(discount_price, price, seat_class, seat_column, seat_row, state)values(0,125,'ECONOMY',2,3,'free');
+
 
 
 
@@ -296,6 +311,12 @@ insert into flight_destination(flight_id, destination_id) values (2,3);
 insert into flight_destination(flight_id, destination_id) values (2,4);
 insert into flight_destination(flight_id, destination_id) values (5,3);
 insert into flight_destination(flight_id, destination_id) values (5,4);
+insert into flight_destination(flight_id, destination_id) values (3,4);
+insert into flight_destination(flight_id, destination_id) values (3,5);
+insert into flight_destination(flight_id, destination_id) values (4,1);
+insert into flight_destination(flight_id, destination_id) values (4,3);
+
+
 
 
 
@@ -318,6 +339,34 @@ insert into flight_dest( description, destinations_destination_id, flight_flight
 insert into flight_seats(flight_flight_id, seats_seat_id)values(5,1);
 insert into flight_seats(flight_flight_id, seats_seat_id)values(5,2);
 insert into flight_seats(flight_flight_id, seats_seat_id)values(5,3);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,4);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,5);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,6);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,7);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,8);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,9);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(5,10);
+
+
+insert into flight_seats(flight_flight_id, seats_seat_id)values(1,11);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(1,12);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(1,13);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(1,14);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(1,15);
+insert into flight_seats(flight_flight_id, seats_seat_id)values(1,16);
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

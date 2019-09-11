@@ -299,7 +299,7 @@
   </div>
 
 <div>
-  <button ><a *ngIf="appComp.noavioAdmin" routerLink="seats" routerLinkActive="active">Sjedista</a>
+  <button ><a *ngIf="!appComp.noavioAdmin" routerLink="seats" routerLinkActive="active">Sjedista</a>
     <router-outlet></router-outlet>
 
   </button>
