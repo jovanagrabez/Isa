@@ -13,6 +13,7 @@ import com.example.ProjekatIsa.model.User;
 
 @Repository
 public interface ReservationRoomRepository extends JpaRepository<ReservationRoom, Long> {
+	
 	List<ReservationRoom> findAllByRoom(Room room);
 	ReservationRoom save(ReservationRoom rr);
 	List<ReservationRoom> findAllByUser(User user);
