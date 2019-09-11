@@ -61,6 +61,7 @@ import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.Role;
 import com.example.ProjekatIsa.model.User;
 import com.example.ProjekatIsa.model.UserTokenState;
+import com.example.ProjekatIsa.repository.UserRepository;
 import com.example.ProjekatIsa.security.TokenUtils;
 import com.example.ProjekatIsa.security.auth.JwtAuthenticationRequest;
 import com.example.ProjekatIsa.service.RoleService;
@@ -98,13 +99,17 @@ public class UserController {
 	 @Autowired
 	 private RoleService roleService;
 	   
-	// @Autowired
-	//PasswordEncoder encoder;
+	 
+	 @Autowired
+	 private UserRepository rep;     
+
 	 
 	 @PutMapping
-	 public ResponseEntity<User> updateUser(@RequestBody User u){
-		 this.userService.update(u);
-		 return ResponseEntity.ok(u);
+	 public ResponseEntity<User> updateUser(@RequestBody UserDTO u){
+		 
+		 User uu= this.rep.findOneById(u.getId());
+		 this.userService.save(uu);
+		 return ResponseEntity.ok(uu);
 	 }
 	 @RequestMapping(value ="/registerUser",
 				method = RequestMethod.POST,

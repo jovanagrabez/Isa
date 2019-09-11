@@ -28,8 +28,10 @@ export class ProfilComponent implements OnInit {
     }
 
   save() {
+    this.user.passwordConfirm = this.user.password;
      this.userService.updateUser(this.user).subscribe(u => {
       console.log(this.user);
+      alert('Uspjesno izmjenjen profil');
      });
   }
 
