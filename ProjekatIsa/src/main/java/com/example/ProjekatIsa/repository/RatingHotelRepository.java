@@ -11,6 +11,8 @@ import com.example.ProjekatIsa.model.User;
 
 public interface RatingHotelRepository  extends JpaRepository<RatingHotel, Long>{
 
+	
+	
 	List<RatingHotel> findAllByUser(User user);
 	List<RatingHotel> findAllByHotel(Hotel hotel);
 
