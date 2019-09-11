@@ -28,6 +28,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.example.ProjekatIsa.security.CustomUserDetailsService;
 import com.example.ProjekatIsa.security.TokenUtils;
 import com.example.ProjekatIsa.security.auth.RestAuthenticationEntryPoint;
 import com.example.ProjekatIsa.security.auth.TokenAuthenticationFilter;
@@ -53,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 				}
 
 				@Autowired
-				private UserService jwtUserDetailsService;
+				private UserService userDetailsService;
 
 				// Neautorizovani pristup zastcenim resursima
 				@Autowired
@@ -68,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 				// Definisemo nacin autentifikacije
 				@Autowired
 				public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-					auth.userDetailsService(jwtUserDetailsService).passwordEncoder(passwordEncoder());
+					auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 				}
 
 				@Autowired
@@ -141,7 +142,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.anyRequest().authenticated().and().cors().and()
 						
 						// presretni svaki zahtev filterom
-						.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, jwtUserDetailsService), BasicAuthenticationFilter.class);
+						.addFilterBefore(new TokenAuthenticationFilter(tokenUtils, userDetailsService), BasicAuthenticationFilter.class);
 
 					http.csrf().disable();
 				}

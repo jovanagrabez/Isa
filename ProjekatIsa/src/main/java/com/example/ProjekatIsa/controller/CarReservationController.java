@@ -80,15 +80,15 @@ public class CarReservationController {
 		User user = userRepository.findOneById(id);
 		List<CarReservation> lista=carresRepository.findAllByUser(user);
 		System.out.println(lista + "return lista rezervacija");
+		System.out.println("KORISNIK" + id + user);
 		
 		List<CarReservationDTO> rezDTO = new ArrayList<>();
 		
 		for(CarReservation cr : lista) {
 			
-			if(cr.isFlag()) {
-				rezDTO.add(new CarReservationDTO(cr));
+			rezDTO.add(new CarReservationDTO(cr));
 
-			}
+			
 			
 		}
 		

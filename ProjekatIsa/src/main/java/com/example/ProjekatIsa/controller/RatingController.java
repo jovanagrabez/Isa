@@ -559,9 +559,9 @@ public class RatingController {
 		System.out.println("ID KORISNIKA" + id);
 		User u = new User(); 
 	    u =	userRepository.findByFirstName(ocena.getUser().getFirstName());
-		System.out.println("KORISNIK KOJI OCJENJUJE SOBU" + u);
+		System.out.println("KORISNIK KOJI OCJENJUJE let" + u);
 		Flight c = flightRepository.findOneById(ocena.getFlight().getId());
-		System.out.println("SOBA KOJE OCJENJUJE KORISNIK" + u);
+		System.out.println("let KOJE OCJENJUJE KORISNIK" + u);
 
 		
 		RatingFlight dodavanje = new RatingFlight();

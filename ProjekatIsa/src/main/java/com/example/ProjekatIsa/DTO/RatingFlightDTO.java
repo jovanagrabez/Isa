@@ -1,12 +1,13 @@
 package com.example.ProjekatIsa.DTO;
 
+import com.example.ProjekatIsa.model.Flight;
 import com.example.ProjekatIsa.model.RatingFlight;
 
 public class RatingFlightDTO {
 	
 	private Long id;
 	private UserDTO user;
-	private FlightDTO flight;
+	private Flight flight;
 	private int rate;
 	
 	
@@ -16,7 +17,7 @@ public class RatingFlightDTO {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public RatingFlightDTO(Long id, UserDTO user, FlightDTO flight, int rate) {
+	public RatingFlightDTO(Long id, UserDTO user, Flight flight, int rate) {
 		super();
 		this.id = id;
 		this.user = user;
@@ -27,7 +28,7 @@ public class RatingFlightDTO {
 	public RatingFlightDTO(RatingFlight rate) {
 		this.id = rate.getId();
 		this.user = new UserDTO(rate.getUser());
-		this.flight = new FlightDTO(rate.getFlight());
+		this.flight = rate.getFlight();
 		this.rate = rate.getRate();
 	}
 	public Long getId() {
@@ -42,10 +43,10 @@ public class RatingFlightDTO {
 	public void setUser(UserDTO user) {
 		this.user = user;
 	}
-	public FlightDTO getFlight() {
+	public Flight getFlight() {
 		return flight;
 	}
-	public void setFlight(FlightDTO flight) {
+	public void setFlight(Flight flight) {
 		this.flight = flight;
 	}
 	public int getRate() {

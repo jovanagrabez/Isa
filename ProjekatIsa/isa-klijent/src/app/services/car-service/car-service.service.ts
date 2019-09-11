@@ -18,7 +18,7 @@ export class CarServiceService {
         }
     
     deleteCar(id : number) : Observable<any> {
-        return this.http.post('http://localhost:8080/car/deleteCar',id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+        return this.http.delete('http://localhost:8080/car/deleteCar/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
         }
     

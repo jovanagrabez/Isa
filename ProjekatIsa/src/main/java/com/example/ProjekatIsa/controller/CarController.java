@@ -94,9 +94,9 @@ public class CarController {
 		
 	}
 	
-	@RequestMapping(value="/deleteCar",
-			method = RequestMethod.POST)
-	public ResponseEntity<?> deleteCar(@RequestBody Long id) {
+	@RequestMapping(value="/deleteCar/{id}",
+			method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteCar(@PathVariable("id") Long id) {
 		System.out.println("Usao u delete service");
 		
 		Car car = carRepository.findOneById(id);

@@ -91,9 +91,9 @@ public class RentalCarController {
 	@RequestMapping(value="/addService",
 			method = RequestMethod.POST)
 	public ResponseEntity<?> addNew(@RequestBody RentACarDTO service){
-		System.out.println("Dosao u add hotel");
+		System.out.println("Dosao u add service");
 		
-		 RentACar h = this.rentalcarService.addService(new RentACar(service));
+		 RentACar h = rentalcarService.addService(new RentACar(service));
 		
 	     return new ResponseEntity<RentACar>(h,HttpStatus.OK);
 		

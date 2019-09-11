@@ -25,6 +25,7 @@ import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.repository.ReservationRepository;
 import com.example.ProjekatIsa.repository.SeatRepository;
 import com.example.ProjekatIsa.repository.UserRepository;
+import com.example.ProjekatIsa.security.CustomUserDetailsService;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -33,7 +34,10 @@ public class ReservationServiceImpl implements ReservationService {
 	    private ReservationRepository reservationRepository;
 
 	    @Autowired
-	    private UserService userService;
+	    private CustomUserDetailsService userService;
+	    
+	    @Autowired
+	    private UserService uService;
 
 	    @Autowired
 	    private FlightReservationService flightReservationService;
@@ -105,7 +109,7 @@ public class ReservationServiceImpl implements ReservationService {
 	            }
 	        }*/
 
-	        reservation.setUser(this.userService.findOneById(reservationDto.getId()));
+	        reservation.setUser(this.uService.findOneById(reservationDto.getId()));
 
 	        reservation = this.reservationRepository.save(reservation);
 

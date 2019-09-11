@@ -123,16 +123,18 @@ export class MyReservationsComponent implements OnInit {
                     }
                   else 
                     {
-//                       this.carRatings.forEach(element2=>{
-//                           
-//                           if(element2.car.id == element.car.id)
-//                           {
-//                               element.rateCar = false;
-//                               } else {
-//                               element.rateCar = true;
-// 
-//                               }
-//                           });
+                       this.carRatings.forEach(element2=>{
+                           
+                           if(element2.car.id == element.car.id)
+                           {
+                               element.rateCar = false;
+                              // alert("Ovo vozilo ste vec ocenili");
+                               } else {
+                               element.rateCar = true;
+                               
+ 
+                               }
+                           });
                     }
                   
                     });
@@ -242,6 +244,8 @@ export class MyReservationsComponent implements OnInit {
           
           this.resService.getUserFlightRes(this.currentUser.id).subscribe(data=>{
               this.rezervisaniLetovi = data;
+              
+              
               this.resService.getFlight(this.rezervisaniLetovi.flightId).subscribe(data=>{
                   this.flight = data;
                   console.log(data);
