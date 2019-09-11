@@ -43,11 +43,6 @@ insert into hotel (name,city,adress,description,average_rating) values ('Vojvodi
 insert into hotel (name,city,adress,description,average_rating) values ('Grand hotel','Beograd','Bulevar Nikole Tesle 3, Beograd, Srbija','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
 insert into hotel (name,city,adress,description,average_rating) values ('Butique','Beograd','Trg Republike 3, Beograd, Srbija','Pro eu dolore vivendo ponderum.',4.3);
 insert into hotel (name,city,adress,description,average_rating) values ('Prezident','Novi Sad','Futoška 109, Novi Sad, Srbija',' Eos ad oblique adolescens moderatius.',3.9);
---insert into hotel (name,city,adress,description,average_rating) values ('City hotel','Novi Sad','Bulevar Oslobodjenja 1','His at quis dico impedit, mea verear imperdiet ea.',4.7);
---insert into hotel (name,city,adress,description) values ('Hilton','Beograd','Bulevar Oslobodjenja 1','Eam inani senserit id.');
---insert into hotel (name,city,adress,description) values ('Crown Plaza','Beograd','Bulevar Oslobodjenja 1','Sed vidit prompta dissentiet at.');
---insert into hotel (name,city,adress,description,average_rating) values ('Sheraton','Beograd','Bulevar Oslobodjenja 1','Eu vix solum assentior voluptatum.',4.4);
---insert into hotel (name,city,adress,description,average_rating) values ('Sheraton','Novi Sad','Bulevar Oslobodjenja 1','Tantas recusabo ut pro.',4.1);
 insert into hotel (name,city,adress,description,average_rating) values ('Biser','Derventa','Kralja Petra I, Derventa, Bosna i Hercegovina ','Cu sit sint ignota, sit id scaevola.',4.5);
 
 insert into additional_service_hotel (name,price,hotel_id) values ('Transfer do aerodorma', 50,1);
@@ -59,6 +54,14 @@ insert into additional_service_hotel (name,price,hotel_id) values ('Wellnes', 50
 insert into additional_service_hotel (name,price,hotel_id) values ('Spa', 30,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('WiFi', 10,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,1);
+
+insert into additional_service_hotel (name,price,hotel_id) values ('Koristenje bazena', 20,2);
+insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,2);
+insert into additional_service_hotel (name,price,hotel_id) values ('Sobni servis', 50,2);
+insert into additional_service_hotel (name,price,hotel_id) values ('Wellnes', 50,2);
+insert into additional_service_hotel (name,price,hotel_id) values ('Spa', 30,2);
+insert into additional_service_hotel (name,price,hotel_id) values ('WiFi', 10,2);
+insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,2);
 
 insert into aviocompany (name, adress, description,rating) values ('AirN', 'Aerodrom Beograd 59, Beograd, Srbija', 'opis',4);
 insert into aviocompany (name, adress, description, rating) values ('TurkishAirlines', 'Yeşilköy, 34149 Bakırköy/İstanbul, Turkey', 'opis',3.2);
@@ -488,4 +491,7 @@ insert into system_discount (system_discount_id,amount,percent)
 --sobe na popustu
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (1,'2019-09-05','2019-09-25',30.0,1,1);
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (2,'2019-09-05','2019-09-25',20.0,2,1);
+--sobe na popustu
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-25',30.0,1,3);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (4,'2019-09-05','2019-09-25',20.0,2,4);
 

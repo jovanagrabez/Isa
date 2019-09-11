@@ -258,8 +258,7 @@ ngOnInit() {
     this.dnevni = false;
     this.oceneH = false;
     this.oceneS = true;
-    this.flights.forEach(element => {
-      this.airlineService.getRatingFlight(element.id).subscribe(data => {
+      this.airlineService.getRatingFlight(this.airline.id).subscribe(data => {
         pomocna = data;
         if (pomocna.length != 0 && data != undefined) {
           pomocna.forEach(el => {
@@ -270,7 +269,7 @@ ngOnInit() {
         }
 
       });
-    });
+
   }
 
   popuniN() {

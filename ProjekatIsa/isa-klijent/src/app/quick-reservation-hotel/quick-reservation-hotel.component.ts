@@ -8,6 +8,8 @@ import { ReservationRoom } from '../models/ReservationRoom';
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import { User } from '../models/User';
 import { ResServiceService } from '../services/res-service/res-service.service';
+import {SearchFormServices} from '../models/SearchFormServices';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-quick-reservation-hotel',
@@ -25,22 +27,54 @@ export class QuickReservationHotelComponent implements OnInit {
     public searchFromDate: AbstractControl;
     public searchToDate: AbstractControl;
     user : User = new User();
+    searchFormServices : SearchFormServices = new SearchFormServices();
+    canBook : boolean;
+//za datume
+pomoc: string;
+pomocDva: string;
+minDatum : Date;
 
-  constructor(private resService : ResServiceService,private router: Router,private hotelService : HotelServiceService,private service : ViewHotelsService) { }
+  constructor(private datePipe: DatePipe,private resService : ResServiceService,private router: Router,private hotelService : HotelServiceService,private service : ViewHotelsService) { }
 
   ngOnInit() {
+    //za kontrolu kalendara
+      this.pomoc = this.datePipe.transform(Date.now(), 'yyyy-MM-dd');
+      console.log(this.pomoc);
+      this.pomocDva = this.pomoc;
+      this.minDatum = new Date(this.pomoc);
+      
+      this.canBook = false;
       this.user = JSON.parse(localStorage.getItem('user'));
       this.service.currentHotel.subscribe(
        currentHotel => {
            this.currentHotel = currentHotel;
            console.log(currentHotel);
 
-          this.hotelService.getDiscountRooms(this.currentHotel.id).subscribe(data=>{
+          this.hotelService.getDiscountRoomsid(this.currentHotel.id).subscribe(data=>{
               this.discount=data;
               console.log(data);
           });
        });
   }
+  //kontrola datum
+  intervalDatuma(){
+      this.pomocDva = (<HTMLInputElement>document.getElementById("datMin")).value;
+  }
+  pretraga(){
+
+      this.searchFormServices.city = this.currentHotel.city;
+      this.searchFormServices.nameHotel = this.currentHotel.name;
+      console.log(this.searchFormServices.nameHotel);
+      this.hotelService.searchDiscountRooms(this.searchFormServices).subscribe(data=>{
+          console.log('pretrazeni hoteli');
+          this.discount=data;
+          console.log(data);
+      });
+      this.rez.startDate = this.searchFormServices.startDate;
+      this.rez.endDate = this.searchFormServices.endDate;
+      this.canBook = true;
+
+    }
   
   reserve(id: number){
       const startDate = this.rez.startDate;

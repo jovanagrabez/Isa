@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
+import org.bouncycastle.crypto.agreement.DHStandardGroups;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -179,6 +180,55 @@ public class RoomController {
 		}
 	}
 	//@PreAuthorize("hasAuthority('bookRoom')")
+/*@RequestMapping(value="/checkbookRoom/{id}",
+			method = RequestMethod.POST,
+			consumes =MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public boolean checkbookRoom(@RequestBody ReservationRoomDTO roomRes,@PathVariable("id") Long id){
+		
+		System.out.println("Dosao u search rooms");
+		List<FlightReservation> frList =  flightRepository.findAllByUserId(id);
+		if (!frList.isEmpty()) {
+			System.out.println("postoji flajt");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",
+	                Locale.ENGLISH); 
+			   Date startDate = null;
+			   Date endDate = null;
+			   
+			   try {
+				   startDate = sdf.parse(roomRes.getStartDate().toString());
+				   endDate = sdf.parse(roomRes.getEndDate().toString());
+			   } catch (ParseException e) {
+				   e.printStackTrace();
+				   
+			   }
+			for(FlightReservation f : frList) {
+				if(endDate.getTime() >= f.getStartDate().getTime() && endDate.getTime()<= f.getEndDate().getTime())
+				{
+					return true;
+				} else if(startDate.getTime() >= f.getStartDate().getTime() && startDate.getTime() <= f.getEndDate().getTime())
+				{
+					return true;
+				}
+				
+				
+			}
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		return true;
+	}*/
+	
 	
 	@RequestMapping(value="/bookRoom",
 			method = RequestMethod.POST,
@@ -232,7 +282,7 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		}
 		return false;
 	}
-	
+
 	@PreAuthorize("hasAuthority('getRatingRoom')")
 	@RequestMapping(value="/getRatingRoom/{id}",
 			method = RequestMethod.GET,
@@ -319,6 +369,8 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		return new ResponseEntity<List<DiscountHotel>>(returnValue, HttpStatus.OK);
 	}
 	
+	
+	
 	@RequestMapping(
 			value="/fastReservationsHotel/{idFlight}/{idRoom}/{startDate}/{endDate}/{idUser}",
 			method = RequestMethod.GET)
@@ -377,73 +429,114 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		
 		//List<RentACar> all = rentalcarService.getAll();
 		List<Hotel> all = hotelRepository.findAll();
-		Set<Hotel> returnList = new HashSet<Hotel>();
+		List<Hotel> returnList = new ArrayList<Hotel>();
+		
 		List<Hotel> returnList2 = new ArrayList<Hotel>();
 		List<Hotel> returnList3 = new ArrayList<Hotel>();
+		List<DiscountHotel> pomocna1= new ArrayList<DiscountHotel>();
 
+		//ako se pretrazuje po nazivu
+				if (searchForm.getNameHotel() != null) {
+					for (Hotel h : all) {
+						if (h.getName().contains(searchForm.getNameHotel())) {
+							returnList.add(h);
+						}
+						returnList3 = returnList;
+					}
+					//ako se pretrazuje i po nazivu i po gradu
+					if (searchForm.getCity() != null) {
+						for (Hotel h : returnList) {
+							if (h.getCity().equals(searchForm.getCity())) {
+								returnList2.add(h);
+							}
+						}
+						returnList3 = returnList2;
+					}
+				}
+				//ako se ne pretrazuje po nazivu nego samo gradu 
+				else {
+					if (searchForm.getCity() != null) {
+						for (Hotel h : all) {
+							if (h.getCity().equals(searchForm.getCity())) {
+								returnList.add(h);	
+							}
+						}
+						returnList3 = returnList;
+					}
+					
+					//ni po nazivu ni po gradu
+					returnList3 = all;
+				}
+		
 		//pretraga po datumu
 		
 		if (searchForm.getStartDate()!=null && searchForm.getEndDate()!=null) {
-			for (Hotel hot : all) {
+			System.out.println("u trecoj lisri ima hotela: " +returnList3.size() );
+			for (Hotel hot : returnList3) {
+				 boolean free = true;
+				 
 				System.out.println("usao u prvu petlju : svih hotela");
-				System.out.println("servis ima soba: " + hot.getRooms().size());
 				//pronalazim sve sobe hotela
-				List<Room> rooms = roomRepository.findAllByHotel(hot);
-				if (rooms.size()>0) {
-					int num = rooms.size();
-					System.out.println("broj soba " + rooms.size());
-					for (Room r : rooms) {
-						if(reserved(r, searchForm.getStartDate(), searchForm.getEndDate())) {
-							System.out.println("umanjujem sobu");
-							--num;
+				pomocna1 = dhRepository.findAllByHotel(hot);
+				int reserved = pomocna1.size();
+				
+				if (!pomocna1.isEmpty()) {			
+					for(DiscountHotel dh : pomocna1) {
+						free = checkforfreeDH(dh, searchForm.getEndDate(), searchForm.getStartDate());
+						if (!free) {
+							povratna.add(dh);
 						}
 					}
-					if(num!=0) {
-						System.out.println("Dodajem hotel");
-						returnList3.add(hot);
-					}
 				}
-			}
-		}else {
-			returnList3 = hotelRepository.findAll();
-		}
 
-		//ako se pretrazuje po nazivu
-		if (searchForm.getNameHotel() != null) {
-			for (Hotel h : returnList3) {
-				if (h.getName().contains(searchForm.getNameHotel())) {
-					returnList.add(h);
-				}
 			}
-			//ako se pretrazuje i po nazivu i po gradu
-			if (searchForm.getCity() != null) {
-				for (Hotel h : returnList) {
-					if (h.getCity().equals(searchForm.getCity())) {
-						returnList2.add(h);
-					}
-				}
-			}
-			else {
-			}
+
+
 		}
-		//ako se ne pretrazuje po nazivu nego samo gradu 
-		else {
-			if (searchForm.getCity() != null) {
-				for (Hotel h : returnList3) {
-					if (h.getCity().equals(searchForm.getCity())) {
-						returnList.add(h);
-					}
-				}
-			}
-		}
-		
+		/*
 		if (!returnList.isEmpty()) {
 			for(Hotel hot: returnList) {
 				List<DiscountHotel> dh = dhRepository.findAllByHotel(hot);
 				povratna.addAll(dh);
 			}
-		}
+		}*/
 		
 		return new ResponseEntity<List<DiscountHotel>>(povratna, HttpStatus.OK);
+	}
+	
+	@RequestMapping(
+			value = "/getDiscountRoomsid/{id}", 
+			method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<DiscountHotel>>  getDiscountRoomsid(@PathVariable("id") Long id) {
+		
+		Hotel hotel = hotelRepository.findOneById(id);
+		List<DiscountHotel> pomocni = new ArrayList<DiscountHotel>();
+		
+		if (hotel!=null) {
+			pomocni= dhRepository.findAllByHotel(hotel);
+			
+		}
+		return new ResponseEntity<List<DiscountHotel>>(pomocni, HttpStatus.OK);
+	
+	}
+	
+public boolean checkforfreeDH(DiscountHotel res, Date endDate, Date startDate) {
+		
+		//provjeravamo datum koji smo unijeli za preuzimanje vozila
+		//ako je on nakon datuma vracanja vozila koji je registrovan -ok
+		if(startDate.getTime() >= res.getDateTo().getTime()) {
+			return true;
+			
+		}
+		else {
+			if(endDate.getTime() <= res.getDateFrom().getTime())
+			{
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
 	}
 }

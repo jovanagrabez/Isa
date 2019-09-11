@@ -12,7 +12,7 @@
               		<label>Datum pocetka:</label>
                 	<div class="input-group">
 	                	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-		                <input class="form-control" type="date" name="endDate" id="endDate" required="required"  data-placeholder="Check out" [(ngModel)]="rez.startDate">
+		                <input class="form-control"  (change)="intervalDatuma()" type="date" min={{pomoc}}  name="endDate" id="endDate" required="required"  data-placeholder="Check out" [(ngModel)]="searchFormServices.startDate">
 		                <span id="errorEnd"></span>
 	           		</div>
 	            </div>
@@ -20,7 +20,7 @@
                 	<label>Datum kraja:</label>
                 <div class="input-group">
                 	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-	                 <input class="form-control" type="date" name="endDate" id="endDate" required="required"  data-placeholder="Check out" [(ngModel)]="rez.endDate">
+	                 <input class="form-control" type="date" name="endDate" id="endDate" min={{pomocDva}}  required="required"  data-placeholder="Check out" [(ngModel)]="searchFormServices.endDate">
 	                 <span id="errorEnd"></span>
 	            </div>
 	            </div>
@@ -48,6 +48,7 @@
             	<th>Soba</th>
             	<th>Popust od</th>
             	<th>Popust do</th>
+            	<th>Kapacitet</th>
             	<th>Cena po danu</th>
             	<th>Popust</th>
             	<th>Cena nakon popusta</th>
@@ -61,10 +62,11 @@
                 <td>{{r.room.number}}</td> 
                 <td>{{r.dateFrom}}</td>
                 <td>{{r.dateTo}}</td>
+                <td>{{r.room.capacity}}</td>
                 <td>{{r.room.price}}</td>
                 <td>{{r.discountprice}}</td>
                 <td>{{r.room.price - (r.discountprice*r.room.price)/100}}</td>                
-        		<button class="btn btn-primary" (click)="reserve(r.room.id)">Rezervisi</button>
+        		<button  *ngIf="canBook" class="btn btn-primary" (click)="reserve(r.room.id)">Rezervisi</button>
                 </tr>
              </tbody>
 

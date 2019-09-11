@@ -44,14 +44,14 @@ export class HotelServiceService {
 
   }
   deleteService(id:number): Observable<any>{
-      return this.http.post('http://localhost:8080/hotels/deleteService/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+      return this.http.get('http://localhost:8080/hotels/deleteService/'+id); 
 
   }
   changeService(service: AdditionalServiceForHotel, id: number) : Observable<any> {
       return this.http.post('http://localhost:8080/hotels/changeService/'+id,service,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
   deleteRoom(id:number): Observable<any>{
-      return this.http.post('http://localhost:8080/hotels/deleteRoom/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+      return this.http.get('http://localhost:8080/hotels/deleteRoom/'+id); 
   };
   
   changeRoom(room: Room, id: number) : Observable<any> {
@@ -88,6 +88,9 @@ export class HotelServiceService {
   };
   getDiscountRooms(city:any): Observable<any>{
       return this.http.get('http://localhost:8080/rooms/getDiscountRooms/'+city);
+  };
+  getDiscountRoomsid(id:number): Observable<any>{
+      return this.http.get('http://localhost:8080/rooms/getDiscountRoomsid/'+id);
   };
   searchDiscountRooms(ss : SearchFormServices): Observable<any>{
       return this.http.post('http://localhost:8080/rooms/searchFast',ss);

@@ -243,9 +243,9 @@ public class HotelController {
 		
 	}
 	//dovrsiti
-	@PreAuthorize("hasAuthority('deleteService')")
+	//@PreAuthorize("hasAuthority('deleteService')")
 	@RequestMapping(value="/deleteService/{id}",
-			method = RequestMethod.POST)
+			method = RequestMethod.GET)
 	public ResponseEntity<?> deleteService(@PathVariable("id") Long id){
 		System.out.println("Dosao u delete service");
 		
@@ -263,9 +263,9 @@ public class HotelController {
 		
 	}
 	
-	@PreAuthorize("hasAuthority('deleteRoom')")
+	//@PreAuthorize("hasAuthority('deleteRoom')")
 	@RequestMapping(value="/deleteRoom/{id}",
-			method = RequestMethod.POST)
+			method = RequestMethod.GET)
 	public ResponseEntity<?> deleteRoom(@PathVariable("id") Long id){
 		System.out.println("Dosao u delete room ");
 
@@ -287,15 +287,16 @@ public class HotelController {
 	public ResponseEntity<?> changeService(@RequestBody AdditionalServiceForHotelDTO add,
 										@PathVariable("id") Long id){
 		System.out.println("Dosao u change service");
-		
-		AdditionalServiceForHotel a = addRepository.findOneById(add.getId());
+		AdditionalServiceForHotel aa = new AdditionalServiceForHotel(add);
+		AdditionalServiceForHotel a = addRepository.findOneById(id);
+		System.out.println("id servisa :"  + id);
 		
 		
 		if (add.getName()!=null) {
-			a.setName(add.getName());
+			a.setName(aa.getName());
 		}
 		if (add.getPrice()!=null) {
-			a.setPrice(add.getPrice());
+			a.setPrice(aa.getPrice());
 		}
 		
 		try {
@@ -321,7 +322,7 @@ public class HotelController {
 		if (room.getCapacity()!=null) {
 			r.setCapacity(r2.getCapacity());
 		}
-		if  (room.getPrice() > 0) {
+		if  (room.getPrice()!=null) {
 			r.setPrice(r2.getPrice());
 		}
 		if(room.getRoom_description()!= null) {
@@ -365,7 +366,7 @@ public class HotelController {
 				System.out.println("hotel ima soba: " + hot.getRooms().size());
 				//pronalazim sve sobe hotela
 				List<Room> rooms = roomRepository.findAllByHotel(hot);
-				if (rooms.size()>0) {
+				if (!rooms.isEmpty()) {
 					int num = rooms.size();
 					System.out.println("broj soba " + rooms.size());
 					for (Room r : rooms) {
@@ -394,7 +395,7 @@ public class HotelController {
 			//ako se pretrazuje i po nazivu i po gradu
 			if (searchForm.getCity() != null) {
 				for (Hotel h : returnList) {
-					if (h.getCity().equals(searchForm.getCity())) {
+					if (h.getCity().contains(searchForm.getCity())) {
 						returnList2.add(h);
 					}
 				}
@@ -409,14 +410,14 @@ public class HotelController {
 		else {
 			if (searchForm.getCity() != null) {
 				for (Hotel h : returnList3) {
-					if (h.getCity().equals(searchForm.getCity())) {
+					if (h.getCity().contains(searchForm.getCity())) {
 						returnList.add(h);
 					}
 				}
 				return new ResponseEntity<List<Hotel>>(returnList, HttpStatus.OK);
 			}
 			//ako ne pretrazuje ni po nazivu ni po gradu
-			return new ResponseEntity<List<Hotel>>(allHotels, HttpStatus.OK);
+			return new ResponseEntity<List<Hotel>>(returnList3, HttpStatus.OK);
 		}
 		
 	
@@ -426,14 +427,16 @@ public class HotelController {
 		
 		List<ReservationRoom> resRoom = reservationRoomRepository.findAllByRoom(r);
 		
-		for(ReservationRoom reservation : resRoom) {
-			
-			if(endDate.getTime() >= reservation.getStartDate().getTime() && endDate.getTime()<= reservation.getEndDate().getTime())
-			{
-				return true;
-			} else if(startDate.getTime() >= reservation.getStartDate().getTime() && startDate.getTime() <= reservation.getEndDate().getTime())
-			{
-				return true;
+		if(!resRoom.isEmpty()) {
+			for(ReservationRoom reservation : resRoom) {
+				
+				if(endDate.getTime() >= reservation.getStartDate().getTime() && endDate.getTime()<= reservation.getEndDate().getTime())
+				{
+					return true;
+				} else if(startDate.getTime() >= reservation.getStartDate().getTime() && startDate.getTime() <= reservation.getEndDate().getTime())
+				{
+					return true;
+				}
 			}
 		}
 		return false;
