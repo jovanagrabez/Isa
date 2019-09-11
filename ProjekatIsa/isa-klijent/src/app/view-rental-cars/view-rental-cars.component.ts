@@ -28,6 +28,7 @@ export class ViewRentalCarsComponent implements OnInit {
   grad : string;
   adress : string;
   sortForm : SortForm = new SortForm();
+  newService : RentACar = new RentACar();
 
 
   constructor(private router : Router,private route : ActivatedRoute, private viewRentalCarsService : ViewRentalCarsService) { 
@@ -52,12 +53,41 @@ export class ViewRentalCarsComponent implements OnInit {
       );
   }
     
+  addServiceClick(){
+      document.getElementById('addServiceDiv').removeAttribute('hidden');
+      }
+    
   sortClick(){
       document.getElementById('sortDiv').removeAttribute('hidden');
       }
     
   searchClick(){
       document.getElementById('searchDiv').removeAttribute('hidden');
+      }
+    
+  discardClick(){
+       document.getElementById('addServiceDiv').setAttribute('hidden', 'true');
+      }
+    
+  finalAddClick(newService){
+      
+      console.log(newService);
+        
+        if(newService.name==null){
+            alert("Morate uneti vrednost za polje naziv");
+            } else if(newService.adress==null){
+                alert("Morate uneti vrednost za polje adresa");
+            } else if(newService.description==null) {
+                alert("Morate uneti vrednost za polje opis");
+            } else {
+                this.viewRentalCarsService.addService(newService).subscribe(data=>{
+                    alert("Servis je uspesno kreiran!");
+                    window.location.href = 'http://localhost:4200/rentalCars';  
+                    });
+                document.getElementById('addServiceDiv').setAttribute("hidden", "true");  
+
+            }
+      
       }
     
    onClickCompanyDetails(RentACar:any) : void {

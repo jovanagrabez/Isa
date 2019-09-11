@@ -7,7 +7,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -53,6 +55,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.WebRequest;
 
+import com.example.ProjekatIsa.DTO.RentACarDTO;
 import com.example.ProjekatIsa.DTO.UserDTO;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.Role;
@@ -416,5 +419,8 @@ public class UserController {
 	  
 	  return new ResponseEntity<>(HttpStatus.NOT_FOUND);
   }
+  
+  
+ 
 	   
 }    

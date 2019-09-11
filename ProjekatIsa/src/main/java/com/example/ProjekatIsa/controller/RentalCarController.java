@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.FilijaleDTO;
+import com.example.ProjekatIsa.DTO.HotelDTO;
 import com.example.ProjekatIsa.DTO.RentACarDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
@@ -86,6 +87,17 @@ public class RentalCarController {
 		
 		return rentalcarService.getAll();
 }
+	
+	@RequestMapping(value="/addService",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> addNew(@RequestBody RentACarDTO service){
+		System.out.println("Dosao u add hotel");
+		
+		 RentACar h = this.rentalcarService.addService(new RentACar(service));
+		
+	     return new ResponseEntity<RentACar>(h,HttpStatus.OK);
+		
+	}
 	
 	
 	@RequestMapping(

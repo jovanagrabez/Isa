@@ -189,9 +189,9 @@ insert into roles_privileges(role_id,privilege_id) values (3,22);
 insert into roles_privileges(role_id,privilege_id) values (4,22);
 insert into roles_privileges(role_id,privilege_id) values (5,22);
 
-insert into rentacar (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','adjiaisdj',4.2);
-insert into rentacar (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','bla bla bla',3.9);
-insert into rentacar (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','cccc',4.8);
+insert into rentacar (name,city,adress,description,average_rating) values ('CarFlexi','Beograd','Dunavska 22, Beograd, Srbija','Servis broj 1.',4.2);
+insert into rentacar (name,city,adress,description,average_rating) values ('EasyRentCars','Beograd','Knez Mihajlova 45, Beograd, Srbija','Najveci izbor vozila',3.9);
+insert into rentacar (name,city,adress,description,average_rating) values ('EuropeCar','Beograd','Cara Dusana 10, Beograd, Srbija','Brzo do zeljenih vozila',4.8);
 insert into rentacar (name,city,adress,description,average_rating) values ('Inex Rent A Car','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija','Najpovoljnije usluge',4.6);
 insert into rentacar (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
 

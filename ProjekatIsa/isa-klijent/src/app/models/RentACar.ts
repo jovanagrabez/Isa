@@ -6,6 +6,7 @@ export class RentACar{
     name : string;
     adress : string;
     description : string;
+    city : string;
     average_rating : number;
     rate : number;
     car: Array<Car>;
