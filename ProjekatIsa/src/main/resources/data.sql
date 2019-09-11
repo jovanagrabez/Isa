@@ -227,6 +227,9 @@ insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,ren
 
 --filijale za carflexi
 insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(1,'Srbija','Beograd','Tekelijina 53, Beograd, Srbija',1);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(10,'Velika Britanija','London','London',1);
+insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(11,'Francuska','Pariz','Pariz',1);
+
 insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(2,'Srbija','Novi Sad','Bulevar Evrope 2, Novi Sad, Srbija',1);
 --filijale za easyrentcars
 insert into filijale(filijale_id,drzava,grad,adresa,rentacar_id) values(3,'Srbija','Beograd','Knez Mihajlova 45, Beograd, Srbija',2);
