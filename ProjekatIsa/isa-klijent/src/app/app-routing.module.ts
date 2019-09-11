@@ -34,6 +34,7 @@ import { MakeDiscountsComponent } from './make-discounts/make-discounts.componen
 import {AvioReportComponent} from './aviocompany/profilcompany/avio-report/avio-report.component';
 import {AcceptComponent} from './profil/accept/accept.component';
 import { QuickReservationHotelComponent } from './quick-reservation-hotel/quick-reservation-hotel.component';
+import { AddServiceComponent } from './add-service/add-service.component';
 
 
 const routes: Routes = [
@@ -192,6 +193,11 @@ const routes: Routes = [
 
   {
     path: 'accept/:id', component:   AcceptComponent
+
+  },
+
+  {
+    path: 'addService', component:   AddServiceComponent
 
   }
 

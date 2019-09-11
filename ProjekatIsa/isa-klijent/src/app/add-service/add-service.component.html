@@ -1,0 +1,27 @@
+<div class="fh5co-hero">
+			<div class="fh5co-overlay"></div>             
+		
+<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
+  <div class="login-page">
+	<div class="form">
+   
+      <form  class="registration" (submit)="addService()" method="POST">
+		    <input type="text" [(ngModel)] = "newService.name" #name= "ngModel" name="name" class="form-control"  data-validation="required" #name placeholder = "Unesite naziv ">
+      			<span id="error_name" class="text-danger"></span>
+      	<input type="text"[(ngModel)] = "newService.adress" #address= "ngModel" name="adress" class="form-control"  data-validation="required" #address placeholder = "Unesite adresu ">
+      			<span id="error_address" class="text-danger"></span>
+      		<input type="text" height="200" [(ngModel)] = "newService.description" #description= "ngModel" name="description" class="form-control"  data-validation="required" #description placeholder = "Unesite opis ">
+      			<span id="error_description" class="text-danger"></span>
+      		<input type="text" height="200" [(ngModel)] = "newService.city" #city= "ngModel" name="descriptifdgon" class="form-control"  data-validation="required" #description placeholder = "Unesite grad ">
+
+		     <button type="submit" id="submit" class="btn btn-primary">Registruj servis</button>
+		</form>
+   </div>
+  </div>
+ </div>
+</div>
+        
+  
+
+
+

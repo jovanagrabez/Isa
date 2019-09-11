@@ -66,6 +66,7 @@ import { MakeDiscountsComponent } from './make-discounts/make-discounts.componen
 import { AcceptComponent } from './profil/accept/accept.component';
 
 import { QuickReservationHotelComponent } from './quick-reservation-hotel/quick-reservation-hotel.component';
+import { AddServiceComponent } from './add-service/add-service.component';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,8 @@ import { QuickReservationHotelComponent } from './quick-reservation-hotel/quick-
     ChangePasswordComponent,
     AvioReportComponent,
     QuickReservationHotelComponent,
-    AcceptComponent
+    AcceptComponent,
+    AddServiceComponent
 
 
 
