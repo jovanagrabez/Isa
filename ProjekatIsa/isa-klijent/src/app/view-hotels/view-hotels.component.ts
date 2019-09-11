@@ -49,7 +49,19 @@ export class ViewHotelsComponent implements OnInit {
 
     	this.router.navigateByUrl('/hotel-details');
 	}
-	
+	onClickShowDiscounts(Hotel:any){
+	    this.selectedHotel = Hotel;
+        console.log("Hotel: " + Hotel);  
+        this.viewHotelsService.selectHotel(Hotel);
+        this.viewHotelsService.currentHotel.subscribe(
+            currentHotel => 
+            {
+                console.log("Current hotel: " +  currentHotel);
+            }
+        );
+
+        this.router.navigateByUrl('/quick-res-hotel');
+	}
 	findHotels(){
 	    console.log("CITY" + this.searchFormHotel.city);
 	    console.log(this.searchFormHotel.name + "nazivvvvv");
