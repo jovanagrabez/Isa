@@ -1,5 +1,8 @@
 package com.example.ProjekatIsa.controller;
 
+import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
+import static org.mockito.Matchers.anySet;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +47,7 @@ import com.example.ProjekatIsa.repository.AviocompanyRepository;
 import com.example.ProjekatIsa.repository.FlightRepository;
 import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.repository.RatingAvioRepository;
+import com.example.ProjekatIsa.repository.RatingFlightRepository;
 import com.example.ProjekatIsa.repository.RatingHotelRepository;
 import com.example.ProjekatIsa.service.AviocompanyService;
 import com.example.ProjekatIsa.service.DestinationService;
@@ -69,6 +73,8 @@ public class AviocompanyController {
 	@Autowired
 	private RatingAvioRepository ratingAvioRepository;
 	
+	@Autowired
+	private RatingFlightRepository rat;
 	
 	@Autowired
 	private FlightReservationRepository flightReservationRep;
@@ -346,16 +352,26 @@ public class AviocompanyController {
 		}
 		
 		
-	/*	@RequestMapping(value="/getAllRatingsHotel/{id}",
+	@RequestMapping(value="/getRatingRoom/{id}",
 				method = RequestMethod.GET,
 				produces = MediaType.APPLICATION_JSON_VALUE)
 		public ResponseEntity<List<RatingFlight>>  getAllRatingsFlights(@PathVariable("id") Long idHotela) {
 
-			List
+			List<RatingFlight> list = new ArrayList<RatingFlight>();
+			
+			Aviocompany a = this.avioRepository.getOne(idHotela);
+			
+			Set<Flight> letovi =   a.getFlight();
+			for(Flight f: letovi) {
+		
+			list.addAll(this.rat.findAllByFlight(f));
+				
+			}
 			
 			
-			respo
-		}*/
+			
+			return new ResponseEntity<List<RatingFlight>>(list, HttpStatus.OK);
+		}
 	
 
 	
