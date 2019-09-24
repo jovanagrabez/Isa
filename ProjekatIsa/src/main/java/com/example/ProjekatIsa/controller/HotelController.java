@@ -89,39 +89,7 @@ public class HotelController {
 		
 		return hotelService.getAll();
 	}
-	
-	@RequestMapping(
-			value = "/getAllRooms/{id}", 
-			method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getRooms(@PathVariable("id") Long id) {
-		List<Room> returnList = new ArrayList<Room> ();
-		Hotel h = hotelRepository.findOneById(id);
-		returnList = roomRepository.findAllByHotel(h);
-		if (returnList!=null) {
-	        return new ResponseEntity<List<Room>>(returnList,HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		}
-	}
-	@RequestMapping(
-			value = "/getAllServices/{id}", 
-			method = RequestMethod.GET, 
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getServices(@PathVariable("id") Long id) {
-		List<AdditionalServiceForHotel> returnList = new ArrayList<AdditionalServiceForHotel> ();
-		Hotel h = hotelRepository.findOneById(id);
-		returnList = addRepository.findAllByHotel(h);
-		if (returnList!=null) {
-	        return new ResponseEntity<List<AdditionalServiceForHotel>>(returnList,HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	@PreAuthorize("hasAuthority('addHotel')")
+
 	@RequestMapping(value="/addHotel",
 			method = RequestMethod.POST)
 	public ResponseEntity<?> addNewHotel(@RequestBody HotelDTO hotel){
@@ -133,8 +101,6 @@ public class HotelController {
 		
 	}
 	
-	
-	@PreAuthorize("hasAuthority('changeHotel')")
 	@RequestMapping(value="/changeHotel/{id}",
 			method = RequestMethod.POST)
 	public ResponseEntity<?> changeHotel(@RequestBody HotelDTO newHotel,
@@ -162,8 +128,8 @@ public class HotelController {
 		}
 	}
 	
-	@PreAuthorize("hasAuthority('deleteHotel')")
-	@RequestMapping(value="/deleteHotel",
+	@RequestMapping(
+			value="/deleteHotel",
 			method = RequestMethod.POST)
 	public ResponseEntity<?> deleteHotel(@RequestBody Long id){
 		System.out.println("Dosao u delete hotel");
@@ -181,166 +147,6 @@ public class HotelController {
 		
 	    return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		
-	}
-	
-	@PreAuthorize("hasAuthority('addService')")
-	@RequestMapping(value="/addService/{id}",
-			method = RequestMethod.POST)
-	public ResponseEntity<?> addService(@RequestBody AdditionalServiceForHotelDTO newService,
-										@PathVariable("id") Long id){
-		System.out.println("Dosao u add service hotel");
-		
-		Hotel hotel = hotelRepository.findOneById(id);
-		AdditionalServiceForHotel a =new AdditionalServiceForHotel(newService);
-		
-		//dodavanje u model
-		hotel.addAdditionalService(a);
-		a.setHotel(hotel);
-		
-		//cuvanje u bazu
-		this.addService.addService(a);
-		hotelRepository.save(hotel);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		
-	}
-	
-	@PreAuthorize("hasAuthority('addRoom')")
-	@RequestMapping(value="/addRoom/{id}",
-			method = RequestMethod.POST)
-	public ResponseEntity<?> addRoom(@RequestBody RoomDTO newRoom,
-										@PathVariable("id") Long id){
-		System.out.println("Dosao u add room hotel");
-		
-		Hotel hotel = hotelRepository.findOneById(id);
-		Room r =new Room(newRoom);
-		r.setNumber(hotel.getRooms().size()+1);
-		//dodavanje u model
-		hotel.addRoom(r);
-		r.setHotel(hotel);
-		
-		//cuvanje u bazu
-		this.roomRepository.save(r);
-		hotelRepository.save(hotel);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		
-	}
-	
-	@PreAuthorize("hasAuthority('getAdditionalServices')")
-	@RequestMapping(value="/getAllAdditionalServices",
-			method = RequestMethod.GET,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getAllAdditionalServices(){
-		System.out.println("Dosao u getAllAdditionalServices");
-		List<AdditionalServiceForHotel> returnList = new ArrayList<AdditionalServiceForHotel>();
-		returnList = addService.getAll();
-	    
-		if(returnList!=null) {
-			return new ResponseEntity<List<AdditionalServiceForHotel>>(returnList,HttpStatus.OK);
-		}
-		else {
-			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
-		}
-		
-	}
-	//dovrsiti
-	//@PreAuthorize("hasAuthority('deleteService')")
-	@RequestMapping(value="/deleteService/{id}",
-			method = RequestMethod.GET)
-	public ResponseEntity<?> deleteService(@PathVariable("id") Long id){
-		System.out.println("Dosao u delete service");
-		
-		//Hotel h = hotelRepository.findOneById(id);
-		AdditionalServiceForHotel a = addRepository.findOneById(id);
-		
-		try {
-			addService.deleteAdditionalServiceForHotel(a);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		}catch(Exception e ) {
-			
-		}
-		
-	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		
-	}
-	
-	//@PreAuthorize("hasAuthority('deleteRoom')")
-	@RequestMapping(value="/deleteRoom/{id}",
-			method = RequestMethod.GET)
-	public ResponseEntity<?> deleteRoom(@PathVariable("id") Long id){
-		System.out.println("Dosao u delete room ");
-
-		Room rdel = roomRepository.findOneById(id);
-		try {
-			roomService.deleteRoom(rdel);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		}catch(Exception e ) {
-			
-		}
-		
-	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		
-	}
-	
-	@PreAuthorize("hasAuthority('changeService')")
-	@RequestMapping(value="/changeService/{id}",
-			method = RequestMethod.POST)
-	public ResponseEntity<?> changeService(@RequestBody AdditionalServiceForHotelDTO add,
-										@PathVariable("id") Long id){
-		System.out.println("Dosao u change service");
-		AdditionalServiceForHotel aa = new AdditionalServiceForHotel(add);
-		AdditionalServiceForHotel a = addRepository.findOneById(id);
-		System.out.println("id servisa :"  + id);
-		
-		
-		if (add.getName()!=null) {
-			a.setName(aa.getName());
-		}
-		if (add.getPrice()!=null) {
-			a.setPrice(aa.getPrice());
-		}
-		
-		try {
-			addRepository.save(a);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		}catch(Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-	
-	}
-	
-	@PreAuthorize("hasAuthority('changeRoom')")
-	@RequestMapping(value="/changeRoom/{id}",
-			method = RequestMethod.POST)
-	public ResponseEntity<?> changeRoom(@RequestBody RoomDTO room,
-										@PathVariable("id") Long id){
-		System.out.println("Dosao u change service");
-		Room r2 = new Room(room); 
-		
-
-		Room r = roomRepository.findOneById(id);
-
-		if (room.getCapacity()!=null) {
-			r.setCapacity(r2.getCapacity());
-		}
-		if  (room.getPrice()!=null) {
-			r.setPrice(r2.getPrice());
-		}
-		if(room.getRoom_description()!= null) {
-			System.out.println(r2.getRoom_description());
-
-			r.setRoom_description(r2.getRoom_description());
-		}
-		if (room.getRoom_average_rating()!=null) {
-			r.setRoom_average_rating(r2.getRoom_average_rating());
-		}
-		
-		try {
-			roomRepository.save(r);
-			return new ResponseEntity<>(null, HttpStatus.OK);
-		}catch(Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-		}
-	
 	}
 	
 	//pretraga

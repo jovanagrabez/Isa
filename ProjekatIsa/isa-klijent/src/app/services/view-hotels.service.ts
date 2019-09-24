@@ -31,11 +31,11 @@ export class ViewHotelsService {
   };
   
   getAllRooms(id:number): Observable<any>{    
-      return this.http.get('http://localhost:8080/hotels/getAllRooms/'+id)
+      return this.http.get('http://localhost:8080/rooms/getAllRooms/'+id)
   };  
   getAllServices(id:number): Observable<any>{
       
-      return this.http.get('http://localhost:8080/hotels/getAllServices/'+id)
+      return this.http.get('http://localhost:8080/addServices/getAllServices/'+id)
 
 }
   

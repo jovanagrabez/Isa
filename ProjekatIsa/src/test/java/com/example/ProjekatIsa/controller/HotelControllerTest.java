@@ -101,35 +101,12 @@ public class HotelControllerTest {
 	}
 	
 	@Test
-	 public void obrisiHotel() throws Exception{
-	     mockMvc.perform(delete(URL_PREFIX+ "/deleteHotel/"+(long) 3)
-	                .contentType(MediaType.APPLICATION_JSON)
-	                .accept(MediaType.APPLICATION_JSON))
-	                .andExpect(status().isOk());
-	 }
-	
-	@Test
-	public void testDodajSobu() throws Exception {
-		Room room = new Room();
-		Hotel hotel = new Hotel();
-		room.setCapacity((double) 2);
-		room.setPrice(25.2);
-		room.setRoom_description("Nova soba");
-		room.setRoom_average_rating(3.5);
-		room.setHotel(hotel);
+	public void testDeleteHotel() throws Exception {
 
-		String json = TestUtil.json(room);
-		this.mockMvc.perform(post("/addRoom/"+(long) 30).contentType(contentType).content(json)).andExpect(status().isOk());
+		Long idHotel = (long)3 ;
+		String json = TestUtil.json(idHotel);
+		this.mockMvc.perform(post(URL_PREFIX + "/deleteHotel").contentType(contentType).content(json)).andExpect(status().isOk());
 	}
 	
-	@Test
-	public void testDodajServis() throws Exception {
-		AdditionalServiceForHotel ad = new AdditionalServiceForHotel();
-		Hotel hotel = new Hotel();
-		ad.setName("Novi servis");
-		ad.setPrice(54.5);
-		ad.setHotel(hotel);
-		String json = TestUtil.json(ad);
-		this.mockMvc.perform(post("/addService/"+(long) 3).contentType(contentType).content(json)).andExpect(status().isOk());
-	}
+	
 }

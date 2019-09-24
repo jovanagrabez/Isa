@@ -116,6 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/rentalcars/**").permitAll()
 						.antMatchers("/friends/**").permitAll()
 						.antMatchers("/car/**").permitAll()
+						.antMatchers("/addServices/**").permitAll()
 						.antMatchers("/filijale/**").permitAll()
 						.antMatchers("/seatArrangement/**").permitAll()
 						.antMatchers("/seatArrangement").permitAll()
@@ -232,8 +233,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 					web.ignoring().antMatchers(HttpMethod.POST, "/hotels/deleteRoom/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/hotels/deleteService");
 					web.ignoring().antMatchers(HttpMethod.POST, "/hotels/deleteService/**");
-
-
+					web.ignoring().antMatchers(HttpMethod.POST, "/addServices/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/addServices");
+					web.ignoring().antMatchers(HttpMethod.GET, "/addServices/**");
+					web.ignoring().antMatchers(HttpMethod.DELETE, "/addServices/**");
 				//web.ignoring().antMatchers(HttpMethod.PUT, "/friends/**");
 
 
@@ -266,66 +269,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 				    argumentResolvers.add(deviceHandlerMethodArgumentResolver());
 				}
 	
-	  /*@Autowired
-	    UserDetailServiceImpl userDetailsService;
-
-	    @Autowired
-	    private JwtAuthEntryPoint unauthorizedHandler;
-
-	    @Bean
-	    public JwtAuthTokenFilter authenticationJwtTokenFilter() {
-	        return new JwtAuthTokenFilter();
-	    }
-
-	    @Override
-	    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-	        authenticationManagerBuilder
-	                .userDetailsService(userDetailsService)
-	                .passwordEncoder(passwordEncoder());
-	    }
-
-	    @Bean
-	    @Override
-	    public AuthenticationManager authenticationManagerBean() throws Exception {
-	        return super.authenticationManagerBean();
-	    }
-
-	    @Bean
-	    public PasswordEncoder passwordEncoder() {
-	        return new BCryptPasswordEncoder();
-	    }
-	    
-	    
-	    @Bean
-	    public CorsFilter corsFilter() {
-	        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-	        CorsConfiguration config = new CorsConfiguration();
-	        config.setAllowCredentials(true);
-	        config.addAllowedOrigin("*");
-	        config.addAllowedHeader("*");
-	        config.addAllowedMethod("OPTIONS");
-	        config.addAllowedMethod("GET");
-	        config.addAllowedMethod("POST");
-	        config.addAllowedMethod("PUT");
-	        config.addAllowedMethod("DELETE");
-	        source.registerCorsConfiguration("/**", config);
-	        return new CorsFilter(source);
-	    }
-	    
-	    @Override
-	    protected void configure(HttpSecurity http) throws Exception {
-	        http.cors().and().csrf().disable().
-	                authorizeRequests()
-	                .antMatchers("/api/auth/**").permitAll()
-	                .antMatchers("/api/users/**").permitAll()
-	                .antMatchers("/hapi/**").permitAll()
-	                
-	                //.anyRequest().authenticated()
-	                .and()
-	                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-	                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-	        
-	        http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-	    }*/
-
 }

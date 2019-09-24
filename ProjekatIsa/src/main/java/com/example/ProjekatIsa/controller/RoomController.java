@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.ProjekatIsa.DTO.CarReservationDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
 import com.example.ProjekatIsa.DTO.ReservationRoomDTO;
+import com.example.ProjekatIsa.DTO.RoomDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
 import com.example.ProjekatIsa.model.Discount;
@@ -96,6 +97,93 @@ public class RoomController {
 		
 		return roomService.getAll();
 	}
+	
+	@RequestMapping(
+			value = "/getAllRooms/{id}", 
+			method = RequestMethod.GET, 
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getRooms(@PathVariable("id") Long id) {
+		List<Room> returnList = new ArrayList<Room> ();
+		Hotel h = hotelRepository.findOneById(id);
+		returnList = roomRepository.findAllByHotel(h);
+		if (returnList!=null) {
+	        return new ResponseEntity<List<Room>>(returnList,HttpStatus.OK);
+		}
+		else {
+			return new ResponseEntity<>(null,HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@RequestMapping(value="/addRoom/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> addRoom(@RequestBody RoomDTO newRoom,
+										@PathVariable("id") Long id){
+		System.out.println("Dosao u add room hotel");
+		
+		Hotel hotel = hotelRepository.findOneById(id);
+		Room r =new Room(newRoom);
+		r.setNumber(hotel.getRooms().size()+1);
+		//dodavanje u model
+		hotel.addRoom(r);
+		r.setHotel(hotel);
+		
+		//cuvanje u bazu
+		this.roomRepository.save(r);
+		hotelRepository.save(hotel);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		
+	}
+	@RequestMapping(value="/deleteRoom/{id}",
+			method = RequestMethod.GET)
+	public ResponseEntity<?> deleteRoom(@PathVariable("id") Long id){
+		System.out.println("Dosao u delete room ");
+
+		Room rdel = roomRepository.findOneById(id);
+		try {
+			roomService.deleteRoom(rdel);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}catch(Exception e ) {
+			
+		}
+		
+	return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		
+	}
+	
+	@RequestMapping(value="/changeRoom/{id}",
+			method = RequestMethod.POST)
+	public ResponseEntity<?> changeRoom(@RequestBody RoomDTO room,
+										@PathVariable("id") Long id){
+		System.out.println("Dosao u change service");
+		Room r2 = new Room(room); 
+		
+
+		Room r = roomRepository.findOneById(id);
+
+		if (room.getCapacity()!=null) {
+			r.setCapacity(r2.getCapacity());
+		}
+		if  (room.getPrice()!=null) {
+			r.setPrice(r2.getPrice());
+		}
+		if(room.getRoom_description()!= null) {
+			System.out.println(r2.getRoom_description());
+
+			r.setRoom_description(r2.getRoom_description());
+		}
+		if (room.getRoom_average_rating()!=null) {
+			r.setRoom_average_rating(r2.getRoom_average_rating());
+		}
+		
+		try {
+			roomRepository.save(r);
+			return new ResponseEntity<>(null, HttpStatus.OK);
+		}catch(Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+		}
+	
+	}
+	
 	
 	@RequestMapping(value="/searchRooms/{id}/{cenaod}/{cenado}",
 			method = RequestMethod.POST,
