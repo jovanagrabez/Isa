@@ -26,27 +26,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.ProjekatIsa.DTO.AdditionalServiceForHotelDTO;
 import com.example.ProjekatIsa.DTO.HotelDTO;
-import com.example.ProjekatIsa.DTO.ReservationRoomDTO;
-import com.example.ProjekatIsa.DTO.RoomDTO;
-import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
-import com.example.ProjekatIsa.model.Aviocompany;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.RatingHotel;
-import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.model.SearchFormHotel;
-import com.example.ProjekatIsa.repository.AdditionalServiceForHotelRepository;
 import com.example.ProjekatIsa.repository.HotelRepository;
 import com.example.ProjekatIsa.repository.RatingHotelRepository;
 import com.example.ProjekatIsa.repository.ReservationRoomRepository;
 import com.example.ProjekatIsa.repository.RoomRepository;
-import com.example.ProjekatIsa.service.AdditionalServiceForHotelService;
 import com.example.ProjekatIsa.service.HotelService;
 import com.example.ProjekatIsa.service.ReservationRoomService;
-import com.example.ProjekatIsa.service.RoomService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -61,19 +52,13 @@ public class HotelController {
 	
 	@Autowired
 	private RoomRepository roomRepository;
-	
-	@Autowired
-	private RoomService roomService;
-	
-	@Autowired
-	private AdditionalServiceForHotelRepository addRepository;
-	
-	@Autowired
-	private AdditionalServiceForHotelService addService;
-	
+
 	@Autowired 
 	private ReservationRoomRepository reservationRoomRepository;
-		
+	
+	@Autowired 
+	private ReservationRoomService resRoomService;
+	
 	@Autowired
 	private RatingHotelRepository ratingHotelRepository;
 	//@Autowired
@@ -231,7 +216,7 @@ public class HotelController {
 	}
 	public boolean reserved(Room r, Date startDate, Date endDate) {
 		
-		List<ReservationRoom> resRoom = reservationRoomRepository.findAllByRoom(r);
+		List<ReservationRoom> resRoom = resRoomService.findAllByRoom(r);
 		
 		if(!resRoom.isEmpty()) {
 			for(ReservationRoom reservation : resRoom) {
@@ -248,13 +233,12 @@ public class HotelController {
 		return false;
 	}
 	
-	@PreAuthorize("hasAuthority('lastWeekReservations')")
+	//@PreAuthorize("hasAuthority('lastWeekReservations')")
 	@RequestMapping(value="/getLastWeekReservations/{id}/{dateToday}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ReservationRoom>>  getLastWeekReservations(@PathVariable("id") Long idHotela, @PathVariable("dateToday") String od) {
 		List<ReservationRoom> returnList = new ArrayList<ReservationRoom>();
-		List<ReservationRoom> pomList = new ArrayList<ReservationRoom>();
 		
 		Date today=new Date();
 		long ltime=today.getTime()-7*24*60*60*1000;
@@ -268,7 +252,7 @@ public class HotelController {
 		System.out.println("broj soba " + rooms.size());
 		if (!rooms.isEmpty()) {
 			for (Room r : rooms) {
-				resrooms = reservationRoomRepository.findAllByRoom(r);
+				resrooms = resRoomService.findAllByRoom(r);
 				System.out.println("broj rezervacija bilo kakvih " + resrooms.size());
 				//proba
 				if (!resrooms.isEmpty()) {
@@ -286,7 +270,7 @@ public class HotelController {
 	
 		return new ResponseEntity<List<ReservationRoom>>(returnList,HttpStatus.OK);
 	}
-	@PreAuthorize("hasAuthority('getAllReservations')")
+	//@PreAuthorize("hasAuthority('getAllReservations')")
 	@RequestMapping(value="/getAllReservations/{id}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -299,7 +283,7 @@ public class HotelController {
 		System.out.println("broj soba " + rooms.size());
 		if (!rooms.isEmpty()) {
 			for (Room r : rooms) {
-				resrooms = reservationRoomRepository.findAllByRoom(r);
+				resrooms = resRoomService.findAllByRoom(r);
 				System.out.println("broj rezervacija bilo kakvih " + resrooms.size());
 				//proba
 				if (!resrooms.isEmpty()) {
@@ -313,7 +297,7 @@ public class HotelController {
 		return new ResponseEntity<List<ReservationRoom>>(returnList,HttpStatus.OK);
 	}
 	
-	@PreAuthorize("hasAuthority('getAllRatingsHotel')")
+	//@PreAuthorize("hasAuthority('getAllRatingsHotel')")
 	@RequestMapping(value="/getAllRatingsHotel/{id}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -330,6 +314,7 @@ public class HotelController {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public Double  countAverageRating(@PathVariable("id") Long idHotela) {
+		System.out.println("dosau u izracunaj prosjek");
 		Double finalCount = 0.0;
 		int sum = 0;
 		List<RatingHotel> returnList = new ArrayList<RatingHotel>();
@@ -342,10 +327,12 @@ public class HotelController {
 		if (!returnList.isEmpty()) {
 			finalCount = (double) (sum/returnList.size());
 		}
+		System.out.println("prosjek je: "+finalCount);
+
 		return finalCount;
 	}
 	
-	@PreAuthorize("hasAuthority('getHotelRevenue')")
+	//@PreAuthorize("hasAuthority('getHotelRevenue')")
 	@RequestMapping(value="/getHotelRevenue/{idHotela}/{od}/{Do}",
 					method = RequestMethod.GET)
 	public double getHotelRevenue(@PathVariable Long idHotela,@PathVariable String od,@PathVariable String Do){

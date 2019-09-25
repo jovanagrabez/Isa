@@ -464,6 +464,8 @@ insert into reservation_room (reservation_room_id,start_date,end_date,total_pric
 	values (11,'2019-09-05','2019-09-06',200.5,'pending',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
 	values (12,'2019-09-05','2019-09-06',200.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (13,'2019-09-23','2019-09-24',200.5,'pending',null,1,1);
 
 
 insert into pricing(pricing_id,price,date_from,date_to,room_id) 
@@ -488,7 +490,7 @@ insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate)
 insert into rating_room (ratingroom_id,user_id,room_id,rate)
 	values (1,1,8,5);
 insert into rating_room (ratingroom_id,user_id,room_id,rate)
-	values (2,1,1,2);
+	values (2,1,1,1);
 insert into rating_room (ratingroom_id,user_id,room_id,rate)
 	values (3,1,2,3);
 

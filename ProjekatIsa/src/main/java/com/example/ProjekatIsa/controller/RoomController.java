@@ -67,9 +67,6 @@ public class RoomController {
 	private HotelRepository hotelRepository;
 	
 	@Autowired 
-	private ReservationRoomRepository reservationRoomRepository;
-	
-	@Autowired 
 	private ReservationRoomService reservationRoomService;
 	
 	@Autowired 
@@ -213,7 +210,7 @@ public class RoomController {
 		List<Room> returnList = new ArrayList<Room>();
 		
 		for (Room r : allRooms) {
-			List<ReservationRoom> reservationRoom = reservationRoomRepository.findAllByRoom(r);
+			List<ReservationRoom> reservationRoom = reservationRoomService.findAllByRoom(r);
 			boolean free = true;
 			
 			int reserved = 0;
@@ -318,60 +315,9 @@ public class RoomController {
 	}*/
 	
 	
-	@RequestMapping(value="/bookRoom",
-			method = RequestMethod.POST,
-			consumes =MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> bookRoom(@RequestBody ReservationRoomDTO roomRes){
-		System.out.println("Usao u bookRoom");
-		
-		Date startDate = null;
-		Date endDate = null;
-		
-		startDate = roomRes.getStartDate();
-		endDate = roomRes.getEndDate();
-		
-		Room room = roomRepository.findOneById(roomRes.getRoom().getId());
-		User user = userRepository.findOneById(roomRes.getUser().getId());
-		
-		ReservationRoom returnValue = new ReservationRoom();
-		
-		if (!reserved(room, startDate, endDate)) {
-			returnValue.setStartDate(roomRes.getStartDate());
-			returnValue.setEndDate(roomRes.getEndDate());
-			returnValue.setNumPeople(roomRes.getNumPeople());
-			returnValue.setUser(user);
-			returnValue.setTotalPrice(roomRes.getTotalPrice());
-			returnValue.setCategory(roomRes.getCategory());
-			returnValue.setRoom(room);
-			
-			reservationRoomService.save(returnValue);
-			return new ResponseEntity<>(HttpStatus.CREATED);
-			
-		}else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-		
+	
 
-	}
-public boolean reserved(Room r, Date startDate, Date endDate) {
-				
-		List<ReservationRoom> resRoom = reservationRoomRepository.findAllByRoom(r);
-		
-		for(ReservationRoom reservation : resRoom) {
-			
-			if(endDate.getTime() >= reservation.getStartDate().getTime() && endDate.getTime()<= reservation.getEndDate().getTime())
-			{
-				return true;
-			} else if(startDate.getTime() >= reservation.getStartDate().getTime() && startDate.getTime() <= reservation.getEndDate().getTime())
-			{
-				return true;
-			}
-		}
-		return false;
-	}
-
-	@PreAuthorize("hasAuthority('getRatingRoom')")
+	//@PreAuthorize("hasAuthority('getRatingRoom')")
 	@RequestMapping(value="/getRatingRoom/{id}",
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -388,6 +334,7 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 			method = RequestMethod.GET,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public Double countAverageRating(@PathVariable("id") Long idRoom) {
+		System.out.println("dosau u izracunaj prosjek");
 
 		Double finalCount = 0.0;
 		int sum = 0;
@@ -400,6 +347,8 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		if (!returnList.isEmpty()) {
 			finalCount = (double) (sum/returnList.size());
 		}
+		System.out.println("prosjek je: "+finalCount);
+
 		return finalCount;
 
 	}
@@ -413,7 +362,7 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 				
 		List<ReservationRoom> returnList = new ArrayList<ReservationRoom>();
 		Room room = roomService.findOneById(idRoom);
-		returnList = reservationRoomRepository.findAllByRoom(room);
+		returnList = reservationRoomService.findAllByRoom(room);
 		
 		if(!returnList.isEmpty()) {
 			for (ReservationRoom rr: returnList) {
@@ -457,56 +406,7 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 		return new ResponseEntity<List<DiscountHotel>>(returnValue, HttpStatus.OK);
 	}
 	
-	
-	
-	@RequestMapping(
-			value="/fastReservationsHotel/{idFlight}/{idRoom}/{startDate}/{endDate}/{idUser}",
-			method = RequestMethod.GET)
-	public ResponseEntity<ReservationRoom> fastReservationsHotel(@PathVariable Long idFlight, @PathVariable Long idRoom ,@PathVariable String startDate,
-			@PathVariable String endDate, @PathVariable Long idUser) {
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date preuzimanje = null;
-		Date vracanje = null;
-		
-		try {
-			preuzimanje = dateFormat.parse(startDate);
-			vracanje = dateFormat.parse(endDate);
 
-			
-		} catch (ParseException e) {
-			
-			e.printStackTrace();
-		}
-		
-		
-		
-		FlightReservation flightReservation = flightRepository.findByFlightId(idFlight);//nadji tu rezervaciju leta
-		//Car car = carRepository.findOneById(idCar);
-		Room room = roomRepository.findOneById(idRoom);
-		DiscountHotel disc = dhRepository.findOneByRoom(room); //nadjem tu sobu na popustu
-		User user = userRepository.findOneById(idUser);
-		
-		//CarReservation fastRes = new CarReservation(); //napravljena brza rezervacija
-		ReservationRoom fastRes = new ReservationRoom();
-		fastRes.setRoom(room);
-		fastRes.setEndDate(vracanje);
-		fastRes.setStartDate(preuzimanje);
-		double price = room.getPrice();
-		double discountPrice = disc.getDiscountprice();
-		double totalPrice = price - (price*discountPrice)/100;
-		
-		fastRes.setTotalPrice(totalPrice);
-		fastRes.setCategory(room.getRoom_description());
-		fastRes.setUser(user);
-		
-		reservationRoomService.save(fastRes);
-		//u flight res se treba postaviti i brza rez vozila
-		
-		return new ResponseEntity<ReservationRoom>(fastRes,HttpStatus.OK);
-		
-	}
-	
 	@RequestMapping(value="/searchFast",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
@@ -609,7 +509,7 @@ public boolean reserved(Room r, Date startDate, Date endDate) {
 	
 	}
 	
-public boolean checkforfreeDH(DiscountHotel res, Date endDate, Date startDate) {
+	public boolean checkforfreeDH(DiscountHotel res, Date endDate, Date startDate) {
 		
 		//provjeravamo datum koji smo unijeli za preuzimanje vozila
 		//ako je on nakon datuma vracanja vozila koji je registrovan -ok

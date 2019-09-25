@@ -1,7 +1,11 @@
 package com.example.ProjekatIsa.controller;
 
+import static org.hamcrest.Matchers.hasItem;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
@@ -19,8 +23,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.example.ProjekatIsa.DTO.UserDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.SystemDiscount;
+import com.example.ProjekatIsa.model.User;
+import com.example.ProjekatIsa.service.UserService;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
@@ -34,6 +41,7 @@ private static final String URL_PREFIX = "/discounts";
 	
 	private MockMvc mockMvc;
 	
+	
 	@Autowired
 	private WebApplicationContext webApplicationContext;
 	
@@ -41,8 +49,32 @@ private static final String URL_PREFIX = "/discounts";
 	public void setup() {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();	
 	}
+	
+	//kada u bazi postoji samo jedan
 	@Test
-	public void testIzmeniPopust() throws Exception {
+	public void testGetDiscount() throws Exception{
+		
+		mockMvc.perform(get(URL_PREFIX + "/getDiscount/2" )).andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.id").value(2));
+		
+	}
+	@Test
+	public void testAddPoints() throws Exception {
+		
+		UserDTO user = new UserDTO();
+		
+		user.setId((long)1);
+		user.setPoints((double) 3);
+
+		String json = TestUtil.json(user);
+		this.mockMvc.perform(get(URL_PREFIX + "/addPoints/1/3").contentType(contentType).content(json)).andExpect(status().isOk());
+		
+		
+	}
+	
+	@Test
+	public void testChangeDiscount() throws Exception {
 		SystemDiscount newSD = new SystemDiscount();
 		
 		newSD.setId((long)1);
