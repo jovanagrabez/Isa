@@ -1,5 +1,6 @@
 package com.example.ProjekatIsa.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -12,8 +13,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+
+import javax.transaction.Transactional;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,16 +27,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.Filijale;
 import com.example.ProjekatIsa.model.RentACar;
+import com.example.ProjekatIsa.model.SearchFormHotel;
+import com.example.ProjekatIsa.model.SearchFormServices;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
@@ -55,9 +64,9 @@ public class RentalCarControllerTest {
 	}
 	
 	
-	
+	@Transactional
+	@Rollback(true)
 	@Test
-	//@WithUserDetails("caradmin@gmail.com")
 	public void testDodajRentACar() throws Exception {
 		RentACar newCar = new RentACar();
 		
@@ -73,7 +82,8 @@ public class RentalCarControllerTest {
 		
 	}
 	
-	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testIzmeniRentACar() throws Exception {
 		RentACar service = new RentACar();
@@ -137,15 +147,71 @@ public class RentalCarControllerTest {
 		
 	}
 	
+	@Transactional
+	@Rollback(true)
+	@Test
+	public void testIzbrisiRentACar() throws Exception {
+		Long idRent = (long)3;
+		String json = TestUtil.json(idRent);
+		this.mockMvc.perform(post(URL_PREFIX + "/deleteService").contentType(contentType).content(json)).andExpect(status().isOk());
+
+
+	}
 	
+	@Test
+	public void testSearchService() throws Exception{
+		SearchFormServices newSF = new SearchFormServices();
+		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date   startDate       = format.parse ( "2019-09-28" );
+		Date   endDate       = format.parse ( "2009-09-29" );
+
+		newSF.setCity("Novi Sad");
+		newSF.setStartDate(startDate);
+		newSF.setEndDate(endDate);
+		newSF.setName("CarFlexi");
+		
+		String json = TestUtil.json(newSF);
+		this.mockMvc.perform(post(URL_PREFIX + "/searchService").contentType(contentType).content(json)).andExpect(status().isOk());
+		
+	}
 	
+	@Test
+	public void testGetAllReservations() throws Exception{
+		
+		//za hotel gdje je id = 1 ocekujem iduce rezervacije
+		this.mockMvc.perform(get(URL_PREFIX + "/getAllReservations/"+1L  )).andExpect(status().isOk());
+	}
 	
 	
 //	@Test
-//	public void testDeleteService() throws Exception{
+//	public void testGetAllRatingsService() throws Exception{
 //		
-//		
+//		//za hotel gdje je id = 1 ocekujem iduce ocjene
+//		this.mockMvc.perform(get(URL_PREFIX + "/getAllRatingsService/"+1L )).andExpect(status().isOk())
+//		.andExpect(content().contentType(contentType))
+//		.andExpect(jsonPath("$.[*].rate").value(hasItem(5)));
 //	}
+	
+	
+	// METODA KOJA VRACA PRIHODe ZA IZABRANI PERIOD
+		//izabrala sam prihod od 19 - 20 septebra sto je nula
+		@Test
+			public void testGetRevenuesRent() throws Exception {
+			MvcResult result = this.mockMvc.perform(get(URL_PREFIX + "/getServiceRevenue/1/2019-09-19 00:00:00.0/2019-09-20 00:00:00.0")).andExpect(status().isOk())
+			.andReturn();
+			String resultAsString = result.getResponse().getContentAsString();
+			double retVal = Double.parseDouble(resultAsString);
+			//System.out.println(retVal);
+			assertThat(retVal)
+			    .isEqualTo(0.00);
+		}
+	
+	
+	
+	
+	
+
 	
 	
 	

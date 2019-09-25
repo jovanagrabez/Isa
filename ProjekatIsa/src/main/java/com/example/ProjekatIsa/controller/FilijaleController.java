@@ -69,12 +69,12 @@ public class FilijaleController {
 }
 	
 	@RequestMapping(
-			value = "/getCars", 
+			value = "/getCars/{id}", 
 			method = RequestMethod.POST, 
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> getCars(@RequestBody Long Id) {
+	public ResponseEntity<?> getCars(@PathVariable("id") Long id) {
 		
-		Filijale fil = filService.findOneById(Id);
+		Filijale fil = filService.findOneById(id);
 		
 		List<Car> returnList = new ArrayList<Car>();
 		returnList = carRepository.findAllByFilijale(fil);
@@ -120,9 +120,9 @@ public class FilijaleController {
 	}
 	
 	
-	@RequestMapping(value="/deleteFil",
+	@RequestMapping(value="/deleteFil/{id}",
 			method = RequestMethod.POST)
-	public ResponseEntity<?> deleteFil(@RequestBody Long id){
+	public ResponseEntity<?> deleteFil(@PathVariable("id") Long id){
 		System.out.println("Usao u delete filijale");
 		
 		Filijale fil = filRepository.findOneById(id);

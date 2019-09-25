@@ -78,7 +78,7 @@ public class CarReservationController {
 		System.out.println("USAAAO");
 		
 		User user = userRepository.findOneById(id);
-		List<CarReservation> lista=carresRepository.findAllByUser(user);
+		List<CarReservation> lista=carReservationService.findAllByUser(user);
 		System.out.println(lista + "return lista rezervacija");
 		System.out.println("KORISNIK" + id + user);
 		
@@ -318,7 +318,7 @@ public class CarReservationController {
 		
 		//System.out.println("PRONADJI F AUTO" + carReservationService.allCarReservation(c.getId()));
 		
-		List<CarReservation> resCar = carresRepository.findAllByCar(c);
+		List<CarReservation> resCar = carReservationService.findAllByCar(c);
 		
 		for(CarReservation reservation : resCar) {
 			

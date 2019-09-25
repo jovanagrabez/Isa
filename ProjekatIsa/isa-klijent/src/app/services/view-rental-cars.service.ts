@@ -101,7 +101,7 @@ export class ViewRentalCarsService {
   };
     
   getServiceRevenue(id: number, od :string, Do : string) : Observable<any> {
-      return this.http.get('http://localhost:8080/rentalcars/getHotelRevenue/'+id +'/' + od +'/' + Do,{headers: this.auth.createAuthorizationTokenHeader()}); 
+      return this.http.get('http://localhost:8080/rentalcars/getServiceRevenue/'+id +'/' + od +'/' + Do,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
     
   getRatingCar(id: number): Observable<any> {

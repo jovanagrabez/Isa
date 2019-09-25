@@ -28,7 +28,7 @@ export class FilijaleServiceService {
         }
     getCars(id : number): Observable<any>{
   
-        return this.http.post('http://localhost:8080/filijale/getCars',id,{headers: this.auth.createAuthorizationTokenHeader()});
+        return this.http.post('http://localhost:8080/filijale/getCars/'+id,{headers: this.auth.createAuthorizationTokenHeader()});
         }
     
     changeFil(newFil: Filijale, id: number) : Observable<any> {
@@ -36,7 +36,7 @@ export class FilijaleServiceService {
         }
   
     deleteFil(id : number) : Observable<any> {
-        return this.http.post('http://localhost:8080/filijale/deleteFil',id,{headers: this.auth.createAuthorizationTokenHeader()}); 
+        return this.http.post('http://localhost:8080/filijale/deleteFil/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
 
         }
     addCar(newCar: Car, id:number,idKategorije): Observable<any>{

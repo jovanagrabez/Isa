@@ -560,7 +560,7 @@ public class RentalCarController {
 		
 		
 		
-		@RequestMapping(value="/getHotelRevenue/{idServisa}/{od}/{Do}",
+		@RequestMapping(value="/getServiceRevenue/{idServisa}/{od}/{Do}",
 				method = RequestMethod.GET)
 		public double getHotelRevenue(@PathVariable Long idServisa,@PathVariable String od,@PathVariable String Do){
 

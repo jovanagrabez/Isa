@@ -17,7 +17,7 @@ import org.springframework.data.jpa.repository.Query;
 @Repository
 public interface CarReservationRepository extends JpaRepository<CarReservation, Long> {
 	CarReservation save(CarReservation c);
-	List<CarReservation> findAllByCar(Car cr);
+	List<CarReservation> findAllByCar(Car car);
 	List<CarReservation> findAllByUser(User user);
 	@Query(value = "SELECT * FROM car_reservation c WHERE car_id=?1 and start_date >= ?2 and start_date<=?3", nativeQuery=true)
 	List<CarReservation> findAllForInterval(Long idCar, Date od, Date Do);

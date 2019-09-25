@@ -10,12 +10,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.nio.charset.Charset;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -24,6 +27,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.example.ProjekatIsa.model.Filijale;
+import com.example.ProjekatIsa.model.RentACar;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
@@ -46,6 +50,9 @@ private static final String URL_PREFIX = "/filijale";
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();	
 	}
 	
+	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testIzmeniFilijale() throws Exception {
 		Filijale fil = new Filijale();
@@ -67,6 +74,45 @@ private static final String URL_PREFIX = "/filijale";
 		.andExpect(jsonPath("$.[*].id").value(hasItem(1)))
 		.andExpect(jsonPath("$.[*].drzava").value(hasItem("Srbija")));		
 		
+	}
+	
+	
+	@Transactional
+	@Rollback(true)
+	@Test
+	public void testAddFilijale() throws Exception {
+		
+		Filijale newFil = new Filijale();
+		RentACar newR = new RentACar();
+		
+		newFil.setAdresa("Brace Jovandic 13");
+		newFil.setDrzava("Srbija");
+		newFil.setGrad("Novi Sad");
+		newFil.setRentACar(newR);
+		String json = TestUtil.json(newFil);
+		this.mockMvc.perform(post(URL_PREFIX + "/addFilijale" ).contentType(contentType).content(json)).andExpect(status().is2xxSuccessful());
+
+	}
+	
+	@Test
+	public void testGetAllCars() throws Exception{
+		mockMvc.perform(post(URL_PREFIX + "/getCars/" +1L )).andExpect(status().isOk())
+		.andExpect(content().contentType(contentType))
+		.andExpect(jsonPath("$.[*].id").value(hasItem(1)))
+		.andExpect(jsonPath("$.[*].name").value(hasItem("BMW")))
+		.andExpect(jsonPath("$.[*].car_number").value(hasItem("NS-0786")))
+		.andExpect(jsonPath("$.[*].price").value(hasItem(500)))
+		.andExpect(jsonPath("$.[*].average_rating").value(hasItem(4.1)))
+		.andExpect(jsonPath("$.[*].prod_year").value(hasItem(2011)));
+		
+	}
+	
+	
+	@Transactional
+	@Rollback(true)
+	@Test
+	public void testDeleteFol() throws Exception {
+		this.mockMvc.perform(post(URL_PREFIX + "/deleteFil/"+2L)).andExpect(status().isOk());
 	}
 
 }
