@@ -13,12 +13,15 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -53,16 +56,18 @@ public class AddServiceControllerTest {
 	
 	@Test
 	public void testGetAllServices() throws Exception{
-		mockMvc.perform(get(URL_PREFIX + "/getAllServices/" +1L)).andExpect(status().isOk())
+		mockMvc.perform(get(URL_PREFIX + "/getAllServices/1")).andExpect(status().isOk())
 
 		.andExpect(content().contentType(contentType))
-		.andExpect(jsonPath("$.[*].id").value(hasItem(2)))
-		.andExpect(jsonPath("$.[*].name").value(hasItem("Parking")))
-		.andExpect(jsonPath("$.[*].price").value(hasItem(30.0)));
+		.andExpect(jsonPath("$.[*].id").value(hasItem(1)))
+		.andExpect(jsonPath("$.[*].name").value(hasItem("Transfer do aerodorma")))
+		.andExpect(jsonPath("$.[*].price").value(hasItem((double) 50)));
 	}
 	
+	@Transactional
+	@Rollback(true)
 	@Test
-	public void testAddServices() throws Exception {
+	public void testAddService() throws Exception {
 		AdditionalServiceForHotel newAddService = new AdditionalServiceForHotel();
 		Hotel h = new Hotel();
 		newAddService.setName("Novi servis");
@@ -74,6 +79,8 @@ public class AddServiceControllerTest {
 		
 	}
 	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testChangeService() throws Exception {
 		AdditionalServiceForHotel newAddService = new AdditionalServiceForHotel();
@@ -85,6 +92,9 @@ public class AddServiceControllerTest {
 		String json = TestUtil.json(newAddService);
 		this.mockMvc.perform(post(URL_PREFIX + "/changeService/"+ 1L).contentType(contentType).content(json)).andExpect(status().isOk());
 	}
+	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testDeleteService() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/deleteService/"+5L)).andExpect(status().isOk());

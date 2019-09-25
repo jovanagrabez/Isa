@@ -46,7 +46,7 @@ insert into hotel (name,city,adress,description,average_rating) values ('Prezide
 insert into hotel (name,city,adress,description,average_rating) values ('Biser','Derventa','Kralja Petra I, Derventa, Bosna i Hercegovina ','Cu sit sint ignota, sit id scaevola.',4.5);
 
 insert into additional_service_hotel (name,price,hotel_id) values ('Transfer do aerodorma', 50.0,1);
-insert into additional_service_hotel (name,price,hotel_id) values ('Parking', 30.0,1);
+insert into additional_service_hotel (name,price,hotel_id) values ('Parking', 30,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Koristenje bazena', 20,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Restoran', 10,1);
 insert into additional_service_hotel (name,price,hotel_id) values ('Sobni servis', 50,1);

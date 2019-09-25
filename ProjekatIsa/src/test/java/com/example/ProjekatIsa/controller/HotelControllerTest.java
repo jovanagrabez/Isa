@@ -19,6 +19,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -76,6 +79,8 @@ public class HotelControllerTest {
 		.andExpect(jsonPath("$.[*].average_rating").value(hasItem(4.3)));
 	}
 	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testDodajHotel() throws Exception {
 		Hotel newHotel = new Hotel();
@@ -89,6 +94,9 @@ public class HotelControllerTest {
 		String json = TestUtil.json(newHotel);
 		this.mockMvc.perform(post(URL_PREFIX + "/addHotel" ).contentType(contentType).content(json)).andExpect(status().is2xxSuccessful());
 	}
+	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testChangeHotel() throws Exception {
 		HotelDTO hotel = new HotelDTO();
@@ -103,6 +111,8 @@ public class HotelControllerTest {
 		this.mockMvc.perform(post(URL_PREFIX + "/changeHotel/1").contentType(contentType).content(json)).andExpect(status().isOk());
 	}
 	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testDeleteHotel() throws Exception {
 
@@ -110,6 +120,7 @@ public class HotelControllerTest {
 		String json = TestUtil.json(idHotel);
 		this.mockMvc.perform(post(URL_PREFIX + "/deleteHotel").contentType(contentType).content(json)).andExpect(status().isOk());
 	}
+	
 	@Test
 	public void testSearchHotel() throws Exception{
 		SearchFormHotel newSF = new SearchFormHotel();
@@ -136,6 +147,7 @@ public class HotelControllerTest {
 		this.mockMvc.perform(get(URL_PREFIX + "/getLastWeekReservations/1/2019-09-25" )).andExpect(status().isOk())
 		.andExpect(jsonPath("$.[*].id").value(hasItem(13)));
 	}
+	
 	@Test
 	public void testGetAllReservations() throws Exception{
 		

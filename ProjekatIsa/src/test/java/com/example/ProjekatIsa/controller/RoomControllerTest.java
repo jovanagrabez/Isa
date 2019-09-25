@@ -14,12 +14,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.transaction.Transactional;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -68,6 +71,9 @@ private static final String URL_PREFIX = "/rooms";
 		.andExpect(jsonPath("$.[*].room_description").value(hasItem("Jednokrevetna")));
 		
 	}
+	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testAddRoom() throws Exception {
 		Room newRoom = new Room();
@@ -84,6 +90,8 @@ private static final String URL_PREFIX = "/rooms";
 		
 	}
 	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testChangeRoom() throws Exception {
 		Room newRoom = new Room();
@@ -99,6 +107,8 @@ private static final String URL_PREFIX = "/rooms";
 		this.mockMvc.perform(post(URL_PREFIX + "/changeRoom/"+ 1L).contentType(contentType).content(json)).andExpect(status().isOk());
 	}
 	
+	@Transactional
+	@Rollback(true)
 	@Test
 	public void testDeleteRoom() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/deleteRoom/"+5L)).andExpect(status().isOk());
