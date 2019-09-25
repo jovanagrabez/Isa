@@ -502,9 +502,9 @@ insert into system_discount (system_discount_id,amount,percent)
 	values (3,5,10);
 
 --sobe na popustu
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (1,'2019-09-05','2019-09-25',30.0,1,1);
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (2,'2019-09-05','2019-09-25',20.0,2,1);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (1,'2019-09-05','2019-09-30',30.0,1,1);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (2,'2019-09-05','2019-09-30',20.0,2,1);
 --sobe na popustu
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-25',30.0,1,3);
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (4,'2019-09-05','2019-09-25',20.0,2,4);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-30',30.0,8,3);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (4,'2019-09-05','2019-09-30',20.0,2,4);
 

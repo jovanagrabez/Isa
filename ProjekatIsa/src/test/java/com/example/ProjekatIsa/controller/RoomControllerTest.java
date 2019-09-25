@@ -36,6 +36,7 @@ import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.ReservationRoom;
 import com.example.ProjekatIsa.model.Room;
 import com.example.ProjekatIsa.model.SearchFormHotel;
+import com.example.ProjekatIsa.model.SearchFormServices;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration
@@ -149,5 +150,32 @@ private static final String URL_PREFIX = "/rooms";
 		assertThat(retVal)
 		    .isEqualTo(1.00);
 	}
-
+	//provjera da li je soba jedan rezervisana (jeste)
+	@Test
+	public void testCheckIfReserved() throws Exception {
+		MvcResult result = mockMvc.perform(get(URL_PREFIX + "/isReserved/1" )).andExpect(status().isOk()).andReturn();
+		String resultAsString = result.getResponse().getContentAsString();
+		boolean retVal = Boolean.parseBoolean(resultAsString);
+		//System.out.println(retVal);
+		assertThat(retVal)
+	      .isEqualTo(true);
+	}
+	
+	@Test
+	public void testSearchRoomsFast() throws Exception{
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date   startDate       = format.parse ( "2019-09-28" );
+		Date   endDate       = format.parse ( "2019-09-29" );
+		
+		SearchFormServices sfs = new SearchFormServices();
+		sfs.setStartDate(startDate);
+		sfs.setEndDate(endDate);
+		sfs.setNameHotel("Vojvodina");
+		sfs.setCity("Novi Sad");
+		
+		String json = TestUtil.json(sfs);
+		//vracam prvu sobu jer ce odgovarati datim parametrima
+		this.mockMvc.perform(post(URL_PREFIX + "/searchFast").contentType(contentType).content(json)).andExpect(status().isOk())
+		.andExpect(jsonPath("$.[*].id").value(hasItem(1)));
+	}
 }

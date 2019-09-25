@@ -9,4 +9,6 @@ public interface HotelService {
 	List<Hotel> getAll();
 	Hotel addHotel(Hotel h);
 	boolean deleteHotel(Hotel h);
+	Hotel findOneById(Long id);
+	List<Hotel> findAllByCity(String city);
 }

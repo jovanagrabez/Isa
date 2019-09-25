@@ -411,7 +411,7 @@ public class RoomController {
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm){
-		System.out.println("Dosao u search rooooom");
+		System.out.println("Dosao u search rooooom faaaaaaaaaast");
 		
 		List<DiscountHotel> povratna= new ArrayList<DiscountHotel>();
 		

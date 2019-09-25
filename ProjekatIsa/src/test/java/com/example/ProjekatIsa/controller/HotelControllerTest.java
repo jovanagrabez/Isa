@@ -127,7 +127,7 @@ public class HotelControllerTest {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		Date   startDate       = format.parse ( "2019-09-28" );
-		Date   endDate       = format.parse ( "2009-09-29" );
+		Date   endDate       = format.parse ( "2019-09-29" );
 
 		newSF.setCity("Novi Sad");
 		newSF.setStartDate(startDate);

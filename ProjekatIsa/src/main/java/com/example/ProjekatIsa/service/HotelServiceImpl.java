@@ -35,6 +35,18 @@ public class  HotelServiceImpl implements HotelService{
 			return false;
 		}
 	}
+
+	@Override
+	public Hotel findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return hotelRepository.findOneById(id);
+	}
+
+	@Override
+	public List<Hotel> findAllByCity(String city) {
+		// TODO Auto-generated method stub
+		return hotelRepository.findAllByCity(city);
+	}
 	
 
 }
