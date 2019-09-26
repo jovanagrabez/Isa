@@ -118,6 +118,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/car/**").permitAll()
 						.antMatchers("/addServices/**").permitAll()
 						.antMatchers("/reservationRoom/**").permitAll()
+						//.antMatchers("/reservationRoom/chekIfFlightIsBooked/**").permitAll()
+						.antMatchers("/reservationRoom/getAllMyFlights/**").permitAll()
+						//.antMatchers("/chekIfFlightIsBooked/**").permitAll()
+						.antMatchers("/getAllMyFlights/**").permitAll()
 						.antMatchers("/filijale/**").permitAll()
 						.antMatchers("/seatArrangement/**").permitAll()
 						.antMatchers("/seatArrangement").permitAll()
@@ -242,9 +246,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 					web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom");
 					web.ignoring().antMatchers(HttpMethod.GET, "/reservationRoom/**");
-
-
-
+					web.ignoring().antMatchers(HttpMethod.GET, "/reservationRoom/getAllMyFlights/**");
+					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/**");
+					web.ignoring().antMatchers(HttpMethod.GET, "/getAllMyFlights/**");
+					//web.ignoring().antMatchers(HttpMethod.POST, "/chekIfFlightIsBooked/**");
+					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/1");
+					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/2");
+					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/3");
 
 					web.ignoring().antMatchers(HttpMethod.GET, "/rentalcars/getAll");
 					web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js");

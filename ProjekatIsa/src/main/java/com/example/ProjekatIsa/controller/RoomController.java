@@ -1,8 +1,10 @@
 package com.example.ProjekatIsa.controller;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -33,6 +35,7 @@ import com.example.ProjekatIsa.model.Discount;
 import com.example.ProjekatIsa.model.DiscountHotel;
 import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.Pricing;
 import com.example.ProjekatIsa.model.RatingHotel;
 import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.RentACar;
@@ -51,6 +54,7 @@ import com.example.ProjekatIsa.repository.UserRepository;
 import com.example.ProjekatIsa.service.HotelService;
 import com.example.ProjekatIsa.service.ReservationRoomService;
 import com.example.ProjekatIsa.service.RoomService;
+import com.example.ProjekatIsa.service.PricingService;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -84,6 +88,9 @@ public class RoomController {
 	@Autowired
 	private FlightRepository fRepository;
 	
+	@Autowired 
+	private PricingService pricingService;
+	
 	@RequestMapping(
 			value = "/getAll", 
 			method = RequestMethod.GET, 
@@ -104,6 +111,11 @@ public class RoomController {
 		Hotel h = hotelRepository.findOneById(id);
 		returnList = roomRepository.findAllByHotel(h);
 		if (returnList!=null) {
+			for (Room r : returnList) {
+				if (countAveragePricing(r)>0.0) {
+					r.setPrice(countAveragePricing(r));
+				}
+			}
 	        return new ResponseEntity<List<Room>>(returnList,HttpStatus.OK);
 		}
 		else {
@@ -241,10 +253,21 @@ public class RoomController {
 				}
 			}
 		}
-		
+		//racunanjen totalne cijene
+		for(Room r: returnList) {
+			if (!returnList.isEmpty()) {
+				Double totalPrice = countPriceInSearchRooms(r,startDate,endDate);
+				System.out.println("totalna cijena je : "+ totalPrice);
+				r.setTotalPrice(totalPrice);
+			}
+		}
+		//izbacivanje soba sa popustom
+		returnList = nonDiscountRooms(returnList, startDate, endDate);
 		return new ResponseEntity<List<Room>>(returnList,HttpStatus.OK);
 	
 	}
+	
+
 	
 	public boolean checkforfree(ReservationRoom res, Date endDate, Date startDate) {
 		
@@ -264,58 +287,6 @@ public class RoomController {
 			}
 		}
 	}
-	//@PreAuthorize("hasAuthority('bookRoom')")
-/*@RequestMapping(value="/checkbookRoom/{id}",
-			method = RequestMethod.POST,
-			consumes =MediaType.APPLICATION_JSON_VALUE,
-			produces = MediaType.APPLICATION_JSON_VALUE)
-	public boolean checkbookRoom(@RequestBody ReservationRoomDTO roomRes,@PathVariable("id") Long id){
-		
-		System.out.println("Dosao u search rooms");
-		List<FlightReservation> frList =  flightRepository.findAllByUserId(id);
-		if (!frList.isEmpty()) {
-			System.out.println("postoji flajt");
-			DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-			SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",
-	                Locale.ENGLISH); 
-			   Date startDate = null;
-			   Date endDate = null;
-			   
-			   try {
-				   startDate = sdf.parse(roomRes.getStartDate().toString());
-				   endDate = sdf.parse(roomRes.getEndDate().toString());
-			   } catch (ParseException e) {
-				   e.printStackTrace();
-				   
-			   }
-			for(FlightReservation f : frList) {
-				if(endDate.getTime() >= f.getStartDate().getTime() && endDate.getTime()<= f.getEndDate().getTime())
-				{
-					return true;
-				} else if(startDate.getTime() >= f.getStartDate().getTime() && startDate.getTime() <= f.getEndDate().getTime())
-				{
-					return true;
-				}
-				
-				
-			}
-			
-			
-			
-			
-			
-			
-			
-		}
-		
-		
-		
-		
-		return true;
-	}*/
-	
-	
-	
 
 	//@PreAuthorize("hasAuthority('getRatingRoom')")
 	@RequestMapping(value="/getRatingRoom/{id}",
@@ -481,13 +452,6 @@ public class RoomController {
 
 
 		}
-		/*
-		if (!returnList.isEmpty()) {
-			for(Hotel hot: returnList) {
-				List<DiscountHotel> dh = dhRepository.findAllByHotel(hot);
-				povratna.addAll(dh);
-			}
-		}*/
 		
 		return new ResponseEntity<List<DiscountHotel>>(povratna, HttpStatus.OK);
 	}
@@ -526,5 +490,132 @@ public class RoomController {
 				return false;
 			}
 		}
+	}
+	
+	public Double countAveragePricing(Room r) {
+		
+		Double returnValue = 0.0;
+		Double suma = 0.0;
+		
+		List<Pricing> pomList = pricingService.findAllByRoom(r);
+		if(!pomList.isEmpty()) {
+			for (Pricing p : pomList) {
+				suma += p.getPrice();
+				System.out.println("suma " + suma);
+			}
+			System.out.println("djelim sa " + pomList.size());
+				returnValue = suma/pomList.size();
+			
+		}
+		System.out.println("dobio sam sa " + Double.parseDouble(new DecimalFormat("##.#").format(returnValue)));
+		return Double.parseDouble(new DecimalFormat("##.#").format(returnValue));
+		//return returnValue;
+	}
+	
+	//racunanje konacne cijene za pretrazene sobe
+	public Double countPriceInSearchRooms(Room r, Date startDate, Date endDate) {
+		Double returnValue = 0.0;
+		Double returnValue1 = 0.0;
+		//System.out.println("dosao u racunam prosjecnu cijenu za search room");
+		//System.out.println("start date " + startDate);
+		//System.out.println("end date " + endDate);
+		long brojDana = ChronoUnit.DAYS.between(startDate.toInstant(), endDate.toInstant());
+		System.out.println("broj dana " + brojDana);
+		List<Pricing> pomList = pricingService.findAllByRoom(r);
+		if(pomList!=null) {
+			for (Pricing p : pomList) {
+				//System.out.println("kroz jedan prajsing");
+				// pronasla cjenovnik u kome se nalazi pocetni datum
+				if (startDate.getTime()<=p.getDateTo().getTime() && startDate.getTime()>=p.getDateFrom().getTime()) {
+					if (endDate.getTime()<=p.getDateTo().getTime() && endDate.getTime()>=p.getDateFrom().getTime()) {
+						//ako se i kraj i pocetak nalaze u istom cjenovnkiku
+						System.out.println("Nalaze se u istom cjenovniku");
+						returnValue = brojDana * p.getPrice();
+						return Double.parseDouble(new DecimalFormat("##.##").format(returnValue));
+					}
+					else {
+						//ako se ne nalaze u isstom cjenovniku
+						//racunam za prvi cjenovnik
+						System.out.println(" ne Nalaze se u istom cjenovniku prvi");
+						long brojDanaPrviCj = ChronoUnit.DAYS.between(startDate.toInstant(), p.getDateTo().toInstant());
+						//System.out.println("broj dana 1 " + (brojDanaPrviCj+1));
+						returnValue1 = (brojDanaPrviCj+1) * p.getPrice();
+					//	System.out.println("cena1 "+ returnValue1);
+						
+					}
+					
+					
+				}
+				//racunam za drugi
+				if (endDate.getTime()<=p.getDateTo().getTime() && endDate.getTime()>=p.getDateFrom().getTime()) {
+					System.out.println("ne nalaze se u istom cjenovniku drugi ");
+					long brojDanaDrugiCj = ChronoUnit.DAYS.between(p.getDateFrom().toInstant(), endDate.toInstant());
+					//System.out.println("broj dana 2 " + (brojDanaDrugiCj));
+					Double returnValue2 = (brojDanaDrugiCj )* p.getPrice();
+					returnValue = returnValue1 + returnValue2;
+					//System.out.println("cena2 "+ returnValue2);
+				}
+			}
+		
+		}
+		System.out.println("cena "+ returnValue);
+		return Double.parseDouble(new DecimalFormat("##.##").format(returnValue));
+	}
+	
+	//Izbaci sobe koje su na popustu
+	List<Room> nonDiscountRooms (List<Room> rooms, Date startDate, Date endDate){
+		System.out.println("nonDiscountRooms ");
+		List<Room> returnList = new ArrayList<Room>();
+		returnList = rooms;
+		if (!returnList.isEmpty()) {
+			for (Room r : returnList) {
+				
+				System.out.println("kroz sobe ");
+				List<DiscountHotel> discountRoom = dhRepository.findAllByRoom(r);
+				if (!discountRoom.isEmpty()) {
+					System.out.println("postoji diskaunt ");
+					for(DiscountHotel d : discountRoom) {
+						if (d.getDateFrom().getTime()<startDate.getTime() && d.getDateTo().getTime()>endDate.getTime()) {
+							System.out.println("uklanjam sobu ");
+							returnList.remove(r);
+						}
+					}
+				}
+			}
+		}
+		return returnList;
+	}
+	
+	@RequestMapping(
+			value="/chekIfFlightIsBooked/{idRes}",
+			method = RequestMethod.POST,
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	public String chekIfFlightIsBooked(@RequestBody ReservationRoomDTO roomRes,
+										@PathVariable Long idRes){
+		
+		System.out.println("dosao u cekiraj jel bukiran flajt tad");
+		Date startDate = null;
+		startDate = roomRes.getStartDate();
+		
+		FlightReservation help = new FlightReservation();
+		
+		help = flightRepository.findOneById(idRes);
+		if (help!=null) {
+			
+			// provjeravamo da li je let prije rezervacije i provjeravamo broj putnika
+			//datum pocetka rez hotela mora biti veci ili jednak datumu leta
+			if (help.getDatum().getTime()>startDate.getTime()) {
+				 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+				return Boolean.TRUE.toString();
+			}
+			//broj ljudi u letu morra biti veci ili jednak broju gostiju u hotelu
+			if (roomRes.getNumPeople() > (double) help.getNumPass()) {
+				//return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+				return Boolean.TRUE.toString();
+			}
+		}
+		//return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		return Boolean.FALSE.toString();
+		
 	}
 }

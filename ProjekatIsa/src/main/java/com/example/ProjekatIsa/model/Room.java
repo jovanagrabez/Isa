@@ -41,6 +41,9 @@ public class Room implements Serializable{
 	@Column(name = "room_price", nullable = false)
 	private Double price;
 	
+	@Column(name = "total_price")
+	private Double totalPrice;
+	
 	@Column(name = "capacity", nullable = false)
 	private Double capacity;
 	
@@ -163,6 +166,14 @@ public class Room implements Serializable{
 
 	public void setCapacity(Double capacity) {
 		this.capacity = capacity;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 
 	/*public List<ReservationRoom> getReservationRoom() {

@@ -6,6 +6,6 @@ export class Room {
     room_description: string;
     room_average_rating : number;
     rate : number;
-    
+    totalPrice : number;
 
  }

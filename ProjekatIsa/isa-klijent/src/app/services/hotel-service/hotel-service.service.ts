@@ -56,6 +56,9 @@ export class HotelServiceService {
   searchRooms(res : ReservationRoom, id : number, cenaod : number, cenado: number) : Observable<any> {
       return this.http.post('http://localhost:8080/rooms/searchRooms/'+id + "/"+cenaod + "/" +cenado,res); 
   };
+  chekIfFlightIsBooked(res : ReservationRoom, id : number) : Observable<any> {
+      return this.http.post('http://localhost:8080/rooms/chekIfFlightIsBooked/'+id,res); 
+  };
   bookRoom(res : ReservationRoom) : Observable<any> {
       return this.http.post('http://localhost:8080/reservationRoom/bookRoom',res); 
   };
@@ -66,6 +69,9 @@ export class HotelServiceService {
   
   getAllReservations(id: number): Observable<any> {
       return this.http.get('http://localhost:8080/hotels/getAllReservations/'+id); 
+  };
+  getAllMyFlights(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/reservationRoom/getAllMyFlights/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
   };
   getAllRatingsHotel(id: number): Observable<any> {
       return this.http.get('http://localhost:8080/hotels/getAllRatingsHotel/'+id); 

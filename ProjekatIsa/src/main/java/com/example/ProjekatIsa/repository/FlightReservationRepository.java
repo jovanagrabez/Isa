@@ -12,6 +12,8 @@ import com.example.ProjekatIsa.model.User;
 @Repository
 public interface FlightReservationRepository extends JpaRepository<FlightReservation, Long> {
 
+	FlightReservation findOneById(Long id);
+	
 	FlightReservation findFlightReservationById(Long id);
 
 	List<FlightReservation> findAllByUserId(Long id);

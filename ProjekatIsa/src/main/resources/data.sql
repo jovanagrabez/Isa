@@ -8,7 +8,7 @@ delete from roles_privileges;
 insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
 	values (1,1,50,1,'Jednokrevetna',4.1,1);
 insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
-	values (2,2,50,1,'Dvokrevetna',4.2,1);
+	values (2,2,50,2,'Jednokrevetna',4.2,1);
 insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
 	values (3,3,50,2,'Jednokrevetna',4.4,2);
 insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
@@ -469,15 +469,39 @@ insert into reservation_room (reservation_room_id,start_date,end_date,total_pric
 
 
 insert into pricing(pricing_id,price,date_from,date_to,room_id) 
-	values (1,100,'2019-06-01','2019-07-01',1);
+	values (1,50,'2019-09-01','2019-09-30',1);
 insert into pricing (pricing_id,price,date_from,date_to,room_id) 
-	values (2,100,'2019-07-01','2019-08-01',1);
+	values (2,60,'2019-10-01','2019-10-31',1);
 insert into pricing (pricing_id,price,date_from,date_to,room_id) 
-	values (3,100,'2019-08-01','2019-09-01',1);	
+	values (3,70,'2019-11-01','2019-11-30',1);
+	
+insert into pricing(pricing_id,price,date_from,date_to,room_id) 
+	values (4,80,'2019-09-01','2019-09-30',2);
 insert into pricing (pricing_id,price,date_from,date_to,room_id) 
-	values (4,100,'2019-09-01','2019-10-01',1);
+	values (5,90,'2019-10-01','2019-10-31',2);
 insert into pricing (pricing_id,price,date_from,date_to,room_id) 
-	values (5,100,'2019-10-01','2019-11-01',1);
+	values (6,100,'2019-11-01','2019-11-30',2);	
+	
+insert into pricing(pricing_id,price,date_from,date_to,room_id) 
+	values (7,110,'2019-09-01','2019-09-30',8);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (8,120,'2019-10-01','2019-10-31',8);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (9,130,'2019-11-01','2019-11-30',8);	
+	
+insert into pricing(pricing_id,price,date_from,date_to,room_id) 
+	values (10,100,'2019-09-01','2019-09-30',10);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (11,110,'2019-10-01','2019-10-31',10);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (12,120,'2019-11-01','2019-11-30',10);	
+
+insert into pricing(pricing_id,price,date_from,date_to,room_id) 
+	values (13,100,'2019-09-01','2019-09-30',14);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (14,100,'2019-10-01','2019-10-31',14);
+insert into pricing (pricing_id,price,date_from,date_to,room_id) 
+	values (15,100,'2019-11-01','2019-11-30',14);	
 
 --primjeri za ocjene hotela
 insert into rating_hotel (ratinghotel_id,user_id,hotel_id,rate) 
@@ -508,3 +532,9 @@ insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_roo
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-30',30.0,8,3);
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (4,'2019-09-05','2019-09-30',20.0,2,4);
 
+
+--rezervacija 
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass)	
+	values (1,1,1,'2019-09-26',3);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass)	
+	values (2,1,1,'2019-10-12',3);

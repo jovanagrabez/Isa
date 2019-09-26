@@ -3,6 +3,7 @@ package com.example.ProjekatIsa.controller;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -156,4 +158,22 @@ public class ReservationRoomController {
 		return new ResponseEntity<ReservationRoom>(fastRes,HttpStatus.OK);
 		
 	}
+	//@PreAuthorize("hasAuthority('bookRoom')")
+	@RequestMapping(
+			value="/getAllMyFlights/{idUser}",
+			method = RequestMethod.GET,
+			consumes =MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getAllMyFlights(@PathVariable Long idUser){
+		System.out.println("dosao u sve moje rezervacije");
+		List<FlightReservation> helpList = new ArrayList<>();
+		
+		helpList = flightRepository.findAllByUserId(idUser);
+		if (helpList!=null) {
+			System.out.println("broj help liste+ " + helpList.size());
+			return new ResponseEntity<List<FlightReservation>>(helpList,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+	
 }

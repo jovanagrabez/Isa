@@ -46,6 +46,9 @@ public class FlightReservation implements Serializable{
 	    @ManyToOne( fetch = FetchType.LAZY)
 	    protected User user;
 
+	    @Column(name="num_pass")
+	    private int numPass;
+	    
 	    public FlightReservation() {
 
 	    	datum= new Date();
@@ -98,4 +101,15 @@ public class FlightReservation implements Serializable{
 	        this.passengersOnSeats = passengersOnSeats;
 	    }
 
+
+
+		public int getNumPass() {
+			return numPass;
+		}
+
+
+
+		public void setNumPass(int numPass) {
+			this.numPass = numPass;
+		}
 }

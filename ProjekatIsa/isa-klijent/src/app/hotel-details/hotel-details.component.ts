@@ -69,6 +69,10 @@ export class HotelDetailsComponent implements OnInit {
     pomocDva: string;
     minDatum : Date;
     
+    //za proveru leta
+    flightRes : any[] = [];
+    flightReservationId : number;
+    
     constructor(private datePipe: DatePipe,private router: Router,private sanitizer:DomSanitizer,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
             private hotelService : HotelServiceService,private ngZone : NgZone,
             private modalService: NgbModal ,  private sds : DiscountServiceService, private us: UserService) { }
@@ -116,7 +120,11 @@ export class HotelDetailsComponent implements OnInit {
                 }
                 console.log(data);
             });
-      	 
+            this.hotelService.getAllMyFlights(this.user.id).subscribe(data=>{
+                    this.flightRes  = data;
+                    console.log("moji letovi: ");
+                    console.log(data);
+            });
           
           });
           this.getAddress();
@@ -305,6 +313,13 @@ export class HotelDetailsComponent implements OnInit {
           else if(this.preuzeto>this.vraceno){
               alert("Neispravni datumi");
               }
+          
+          else if (this.token && (this.isBlank(this.flightReservationId))){
+              if(this.isBlank(this.flightReservationId)){
+              alert("Morate odabrati let");
+              }
+          }
+          
           else if (this.reservationRoom.category=="Jednokrevetna" && this.reservationRoom.numPeople>2
                   || this.reservationRoom.category=="Dvokrevetna" && this.reservationRoom.numPeople>4
                   || this.reservationRoom.category=="Trokrevetna" && this.reservationRoom.numPeople>6
@@ -313,7 +328,15 @@ export class HotelDetailsComponent implements OnInit {
           }
           else if(this.isBlank(this.cenaOd) && this.isBlank(this.cenaDo))
           { 
-              
+              console.log("printam id leta " + this.flightReservationId);
+              //provera za let
+              this.hotelService.chekIfFlightIsBooked(this.reservationRoom, this.flightReservationId).subscribe(data=>{
+                  console.log(data);
+                  /*if(data==true) {
+                      alert("Problemi zbog rezervacije leta. Provjerite da li je" +
+                      		"datum pocetka leta prije prijave u hotel. Provjerite broj ljudi.");    
+                  }*/
+              });
               this.hotelService.searchRooms(this.reservationRoom, this.currentHotel.id,-1,-1).subscribe(data=>{
                   this.rooms = data;
                   console.log("pronadjene sobe: ");
@@ -374,6 +397,10 @@ export class HotelDetailsComponent implements OnInit {
          alert("Morate biti ulogovani kako bi izvrsili proces rezervacije");
       }
       else{
+          if(this.isBlank(this.flightReservationId)){
+          alert("Morate odabrati let");
+          }else{
+
           this.reservationRoom.user = this.user;
           this.reservationRoom.room = r;
           //popust na dodatne servise
@@ -395,6 +422,7 @@ export class HotelDetailsComponent implements OnInit {
           }
           console.log(this.reservationRoom);
           console.log("rezervaciju je izvrsio: " + this.reservationRoom.user.email);
+
           this.hotelService.bookRoom(this.reservationRoom).subscribe(data=>{
               if (this.popust){
                   
@@ -418,7 +446,7 @@ export class HotelDetailsComponent implements OnInit {
               window.location.href="hotels";
           });
       }
-          
+    }   
     }
     inicijalizujMapu() {
             console.log("usao u mapu");

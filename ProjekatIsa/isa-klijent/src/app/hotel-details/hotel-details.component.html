@@ -150,6 +150,12 @@
                   <input  class="form-control" id="exampleInputEmail1" placeholder="Minimalna cena.." [(ngModel)]="cenaOd"  min="1"  name="city" type="number">
              	  <span id="errorCity"></span>
               </div>
+              <label>Izaberite let:</label>
+                <div class="form-group">
+				<select [(ngModel)]="flightReservationId" class="form-control"  id="fid">
+						<option  *ngFor="let f of flightRes"  value={{f.id}}>{{f.datum}}</option>
+					</select>	         
+				</div>
               <!-- /.form-group -->
             </div>
             <!-- /.col -->
@@ -236,7 +242,7 @@
                 <td>{{r.price}}€ <b>/</b> 1 noć</td>
                 <td><span *ngIf="!(r.room_average_rating == null)" class="price"> {{r.room_average_rating}} </span></td>               
                 <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">
-                	{{r.price * brojDana}} + {{reservationRoom.totalPrice}} = {{r.price*brojDana + reservationRoom.totalPrice}}€</span></td>               
+                	{{r.totalPrice}} + {{reservationRoom.totalPrice}} = {{r.totalPrice + reservationRoom.totalPrice}}€</span></td>               
                 <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="bookClick(r)">Book me</button></span></td> 
                 <td><span class="hidden-xs" id="changeRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changeRoomClick(r)">Izmeni</button></span></td>             
                 <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nohotelAdmin"><button type="button"  class="btn btn-outline-danger" (click)="deleteRoomClick(r)">Obrisi</button></span></td>

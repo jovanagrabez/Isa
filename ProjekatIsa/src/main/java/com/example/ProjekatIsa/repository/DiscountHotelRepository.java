@@ -15,4 +15,5 @@ public interface DiscountHotelRepository extends JpaRepository<DiscountHotel,Lon
 	DiscountHotel findOneById(Long id);
 	List<DiscountHotel> findAllByHotel(Hotel h);
 	DiscountHotel findOneByRoom(Room room);
+	List<DiscountHotel> findAllByRoom(Room r);
 }

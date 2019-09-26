@@ -10,7 +10,7 @@ public class RoomDTO {
 	private Double capacity;
 	private String room_description;
 	private Double room_average_rating;
-	
+	private Double totalPrice;
 	public RoomDTO() {
 		
 	}
@@ -75,6 +75,14 @@ public class RoomDTO {
 
 	public void setRoom_average_rating(Double room_average_rating) {
 		this.room_average_rating = room_average_rating;
+	}
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
 	}
 	
 	
