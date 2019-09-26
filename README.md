@@ -8,7 +8,7 @@ Spring Boot , MySQL, Angular 7
 
 mysql-connector-java-8.0.13 
 
-# Instaliranje
+# Instaliranje:
 
 Potrebno je instalirati:
 * npm
@@ -22,10 +22,12 @@ Potrebno je instalirati:
 * dodatni paketi (neophodni za prikaz google mapa i grafikona)
 
   npm install ng2-charts chart.js --save
+  
   npm install ol
+  
   npm install --save-dev parcel-bundler
 
-# Pokreanje: 
+# Pokretanje: 
 
 1. Klonirati repositorijum u Eclipse okruzenje
 2. Podesiti lozinku za MySQL bazu
