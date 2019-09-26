@@ -10,6 +10,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../models/User';
 import { Hotel } from '../models/Hotel';
 import { Room } from '../models/Room';
+import { Pricing } from '../models/Pricing';
 import { AdditionalServiceForHotel } from '../models/AdditionalServiceForHotel';
 import { ReservationRoom } from '../models/ReservationRoom';
 import Map from 'ol/Map';
@@ -72,6 +73,13 @@ export class HotelDetailsComponent implements OnInit {
     //za proveru leta
     flightRes : any[] = [];
     flightReservationId : number;
+    
+    //za pricing
+    pricingList : Pricing[];
+    newPricing : Pricing = new Pricing();
+    newPricing2 : Pricing = new Pricing();
+    changePricing : Pricing = new Pricing();
+    currentRoom : Room = new Room();
     
     constructor(private datePipe: DatePipe,private router: Router,private sanitizer:DomSanitizer,private auth: AuthServiceService, private viewHotelsService : ViewHotelsService,
             private hotelService : HotelServiceService,private ngZone : NgZone,
@@ -173,12 +181,42 @@ export class HotelDetailsComponent implements OnInit {
         }
         
     };
+    addPricingClick(){
+
+        document.getElementById('addPricingDiv').removeAttribute('hidden'); 
+    };
+    discardPricingClick(){
+        document.getElementById('addPricingDiv').setAttribute("hidden", "true");  
+    };
+    finalAddPricingClick(newPricing){
+        console.log(newPricing);
+        if (newPricing.price==null){
+            alert("Morate uneti cenu");
+        }else if( newPricing.dateTo==null){
+            alert("Morate uneti datum");
+        }else if( newPricing.dateFrom==null){
+            alert("Morate uneti datum");
+        }else{
+            this.hotelService.addPricing(newPricing, this.currentRoom.id).subscribe(data=>{
+                if(data==null){
+                    alert("Neuspjesno dodano! Izaberite validan datum!");  
+                }else{
+                    
+                
+                alert("Uspjesno dodan servis!");
+                window.location.href = 'http://localhost:4200/hotels'; 
+                }
+            });
+            document.getElementById('addPricingDiv').setAttribute("hidden", "true");  
+        }
+     };
     addServiceClick() {
         document.getElementById('addServiceDiv').removeAttribute('hidden');
     };
     discardServiceClick(){
         document.getElementById('addServiceDiv').setAttribute("hidden", "true");  
     };
+    
     finalAddServiceClick(newService){
         console.log(newService);
         if (newService.name==null){
@@ -199,6 +237,13 @@ export class HotelDetailsComponent implements OnInit {
      };
      discardRoomClick(){
          document.getElementById('addRoomDiv').setAttribute("hidden", "true");  
+     };
+     pricingRoomClick(r) {
+         this.hotelService.getAllPricing(r.id).subscribe(data=>{
+             this.pricingList = data;
+         });
+         this.currentRoom = r;
+         document.getElementById('showPricingDiv').removeAttribute('hidden'); 
      };
      finalAddRoomClick(newRoom){
          console.log(newRoom);
@@ -234,6 +279,7 @@ export class HotelDetailsComponent implements OnInit {
           document.getElementById('changeServiceDiv').removeAttribute('hidden');
 
       };
+
       finalChangeServiceClick(newService2) {
           
           console.log(newService2);
@@ -246,7 +292,22 @@ export class HotelDetailsComponent implements OnInit {
       discardChangeServiceClick(){
           document.getElementById('changeServiceDiv').setAttribute("hidden", "true");  
       };
-      
+      //rad sa pricingom
+      changePricingClick(p) {
+          this.changePricing = p;
+          document.getElementById('changePricingDiv').removeAttribute('hidden');
+      };
+      finalChangePricingClick(newPricing2){
+          console.log(newPricing2);
+          this.hotelService.changePricing(newPricing2, this.changePricing.id).subscribe(data=>{
+              document.getElementById('changePricingDiv').setAttribute("hidden", "true");
+              alert("uspjesno");
+          });
+          
+      };
+      discardChangePricingClick(){
+          document.getElementById('changePricingDiv').setAttribute("hidden", "true");  
+      };
       //rad sa sobama
       changeRoomClick(r){
           this.changeRoom = r;
@@ -278,6 +339,7 @@ export class HotelDetailsComponent implements OnInit {
           }
           
       };
+
       finalChangeRoomClick(newRoom2) {
           
           console.log(newRoom2);
@@ -332,10 +394,10 @@ export class HotelDetailsComponent implements OnInit {
               //provera za let
               this.hotelService.chekIfFlightIsBooked(this.reservationRoom, this.flightReservationId).subscribe(data=>{
                   console.log(data);
-                  /*if(data==true) {
+                  if(data==true) {
                       alert("Problemi zbog rezervacije leta. Provjerite da li je" +
                       		"datum pocetka leta prije prijave u hotel. Provjerite broj ljudi.");    
-                  }*/
+                  }
               });
               this.hotelService.searchRooms(this.reservationRoom, this.currentHotel.id,-1,-1).subscribe(data=>{
                   this.rooms = data;
@@ -354,6 +416,13 @@ export class HotelDetailsComponent implements OnInit {
               {
                   this.cenaOd = this.cenaOd;
               }
+              this.hotelService.chekIfFlightIsBooked(this.reservationRoom, this.flightReservationId).subscribe(data=>{
+                  console.log(data);
+                  if(data==true) {
+                      alert("Problemi zbog rezervacije leta. Provjerite da li je" +
+                            "datum pocetka leta prije prijave u hotel. Provjerite broj ljudi.");    
+                  }
+              });
               this.hotelService.searchRooms(this.reservationRoom, this.currentHotel.id,this.cenaOd,this.cenaDo).subscribe(data=>{
                   this.rooms = data;
                   console.log("pronadjene sobe: ");
@@ -409,8 +478,10 @@ export class HotelDetailsComponent implements OnInit {
               this.popust = true;
           }
           
-          this.reservationRoom.totalPrice = this.reservationRoom.totalPrice + this.brojDana*r.price;
-          
+         // this.reservationRoom.totalPrice = this.reservationRoom.totalPrice + this.brojDana*r.price;
+         //total price je vec izracunat pri pretrazi
+          this.reservationRoom.totalPrice = this.reservationRoom.totalPrice + r.totalPrice;
+
           //popust na rezervaciju hotela
           if (this.iskoristiPoene){
               console.log("dosao u iskoristi poene");

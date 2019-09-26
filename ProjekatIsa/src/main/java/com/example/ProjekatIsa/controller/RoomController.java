@@ -110,7 +110,7 @@ public class RoomController {
 		List<Room> returnList = new ArrayList<Room> ();
 		Hotel h = hotelRepository.findOneById(id);
 		returnList = roomRepository.findAllByHotel(h);
-		if (returnList!=null) {
+		if (!returnList.isEmpty()) {
 			for (Room r : returnList) {
 				if (countAveragePricing(r)>0.0) {
 					r.setPrice(countAveragePricing(r));

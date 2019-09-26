@@ -129,6 +129,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 						.antMatchers("/getDiscountRoomsid").permitAll()
 						.antMatchers("/rooms/**").permitAll()
 						.antMatchers("/rooms").permitAll()
+						.antMatchers("/pricing/**").permitAll()
+						.antMatchers("/pricing").permitAll()
 						.antMatchers("/discounts/**").permitAll()
 						.antMatchers("/discounts").permitAll()
 						.antMatchers("/rooms/getDiscountRoomsid/**").permitAll()
@@ -241,19 +243,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter implements W
 					web.ignoring().antMatchers(HttpMethod.POST, "/addServices/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/addServices");
 					web.ignoring().antMatchers(HttpMethod.GET, "/addServices/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/pricing/**");
+					web.ignoring().antMatchers(HttpMethod.POST, "/pricing");
+					web.ignoring().antMatchers(HttpMethod.GET, "/pricing/**");
+					web.ignoring().antMatchers(HttpMethod.GET, "/pricing/**");
 					web.ignoring().antMatchers(HttpMethod.DELETE, "/addServices/**");
-				//web.ignoring().antMatchers(HttpMethod.PUT, "/friends/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/**");
 					web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom");
 					web.ignoring().antMatchers(HttpMethod.GET, "/reservationRoom/**");
 					web.ignoring().antMatchers(HttpMethod.GET, "/reservationRoom/getAllMyFlights/**");
-					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/**");
 					web.ignoring().antMatchers(HttpMethod.GET, "/getAllMyFlights/**");
-					//web.ignoring().antMatchers(HttpMethod.POST, "/chekIfFlightIsBooked/**");
-					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/1");
-					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/2");
-					//web.ignoring().antMatchers(HttpMethod.POST, "/reservationRoom/chekIfFlightIsBooked/3");
-
 					web.ignoring().antMatchers(HttpMethod.GET, "/rentalcars/getAll");
 					web.ignoring().antMatchers(HttpMethod.GET, "/", "/webjars/**", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js");
 				}

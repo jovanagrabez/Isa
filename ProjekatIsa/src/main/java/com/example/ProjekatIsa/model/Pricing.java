@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.PricingDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -77,6 +78,17 @@ public class Pricing implements Serializable{
 	public void setRoom(Room room) {
 		this.room = room;
 	}
+
+	public Pricing() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
-	
+	public Pricing(PricingDTO p) {
+		setId(p.getId());
+		setDateFrom(p.getDateFrom());
+		setDateTo(p.getDateTo());
+		setPrice(p.getPrice());
+		
+	}
 }

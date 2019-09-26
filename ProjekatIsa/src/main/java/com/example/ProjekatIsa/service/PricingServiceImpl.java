@@ -27,5 +27,28 @@ public class PricingServiceImpl implements PricingService{
 		return pricingRepository.findAll();
 	}
 
+	@Override
+	public Pricing save(Pricing pricing) {
+		// TODO Auto-generated method stub
+		return pricingRepository.save(pricing);
+	}
+
+	@Override
+	public Pricing findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return pricingRepository.findOneById(id);
+	}
+
+	@Override
+	public boolean deletePricing(Pricing pricing) {
+		// TODO Auto-generated method stub
+		try {
+			pricingRepository.delete(pricing);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 	
 }

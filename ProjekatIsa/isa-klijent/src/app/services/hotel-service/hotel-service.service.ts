@@ -4,6 +4,8 @@ import {Router} from '@angular/router';
 import { Observable } from 'rxjs';
 import { Hotel } from '../../models/Hotel';
 import { Room } from '../../models/Room';
+import { Pricing } from '../../models/Pricing';
+
 import { ReservationRoom } from '../../models/ReservationRoom';
 import { SearchFormServices } from '../../models/SearchFormServices';
 
@@ -53,6 +55,16 @@ export class HotelServiceService {
   changeRoom(room: Room, id: number) : Observable<any> {
       return this.http.post('http://localhost:8080/rooms/changeRoom/'+id,room); 
   };
+  getAllPricing(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/pricing/getAllPricing/'+id); 
+  };
+  changePricing(pricing: Pricing, id: number) : Observable<any> {
+      return this.http.post('http://localhost:8080/pricing/changePricing/'+id,pricing); 
+  };
+  addPricing(newPricing: Pricing, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/pricing/addPricing/'+id,newPricing); 
+
+  }
   searchRooms(res : ReservationRoom, id : number, cenaod : number, cenado: number) : Observable<any> {
       return this.http.post('http://localhost:8080/rooms/searchRooms/'+id + "/"+cenaod + "/" +cenado,res); 
   };

@@ -12,4 +12,6 @@ import com.example.ProjekatIsa.model.Room;
 public interface PricingRepository extends JpaRepository<Pricing, Long>{
 	List<Pricing> findAll();
 	List<Pricing> findAllByRoom(Room r);
+	Pricing save(Pricing pricing);
+	Pricing findOneById(Long id);
 }

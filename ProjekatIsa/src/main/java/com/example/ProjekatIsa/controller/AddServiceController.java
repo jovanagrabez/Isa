@@ -47,7 +47,7 @@ public class AddServiceController {
 		List<AdditionalServiceForHotel> returnList = new ArrayList<AdditionalServiceForHotel> ();
 		Hotel h = hotelRepository.findOneById(id);
 		returnList = addRepository.findAllByHotel(h);
-		if (returnList!=null) {
+		if (!returnList.isEmpty()) {
 	        return new ResponseEntity<List<AdditionalServiceForHotel>>(returnList,HttpStatus.OK);
 		}
 		else {
