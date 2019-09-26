@@ -203,7 +203,7 @@ insert into rentacar (name,city,adress,description,average_rating) values ('Inex
 insert into rentacar (name,city,adress,description,average_rating) values ('Max Rent A Car','Novi Sad','Bulevar Evrope 10, Novi Sad, Srbija','luux',3.3);
 insert into rentacar (name,city,adress,description,average_rating) values ('Lux','London','London,Velika Britanija','luux',3.3);
 
-insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,'4.1',2011,1,4,1);
+insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW','NS-0786',500,4.1,2011,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi','BG-4875',450,3.9,2008,1,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Audi3','555-212',450,3.9,2008,2,4,1);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('BMW5','ZR-4875',450,3.9,2008,2,4,1);

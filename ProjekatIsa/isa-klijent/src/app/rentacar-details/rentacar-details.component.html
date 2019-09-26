@@ -162,6 +162,13 @@
              <div class="form-group">
 	                    <input id="cenaDo" name= "cenaDo" class="form-control" min="1" type="number" required placeholder="cenaDo..." [(ngModel)]="cenaDo">
 	         </div>
+	         
+	          <label>Izaberite let:</label>
+                <div class="form-group">
+				<select [(ngModel)]="flightReservationId" class="form-control"  id="fid">
+						<option  *ngFor="let f of flightRes"  value={{f.id}}>{{f.datum}}</option>
+					</select>	         
+				</div>
            
               <!-- /.form-group -->
               <div class="form-group">

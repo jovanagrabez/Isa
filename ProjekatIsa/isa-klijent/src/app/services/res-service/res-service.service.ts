@@ -50,7 +50,7 @@ export class ResServiceService {
   }
     
     fastReservations(idFlight: any, idCar: any ,  startDate: Date, endDate: Date,idUser): Observable<any> {
-        return this.http.post('http://localhost:8080/carReservation/fastReservations/'+idFlight+ "/" + idCar + "/" + startDate +"/" +endDate+"/"+idUser,{headers: this.auth.createAuthorizationTokenHeader()});
+        return this.http.get('http://localhost:8080/carReservation/fastReservations/'+idFlight+ "/" + idCar + "/" + startDate +"/" +endDate+"/"+idUser,{headers: this.auth.createAuthorizationTokenHeader()});
   }
     fastReservationsHotel(idFlight: any, idRoom: any ,  startDate: Date, endDate: Date,idUser :number): Observable<any> {
         return this.http.get('http://localhost:8080/reservationRoom/fastReservationsHotel/'+idFlight+ "/" + idRoom + "/" + startDate +"/" +endDate+"/"+idUser);

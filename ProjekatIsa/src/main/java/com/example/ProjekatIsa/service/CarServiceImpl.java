@@ -1,5 +1,7 @@
 package com.example.ProjekatIsa.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,6 +29,12 @@ public class CarServiceImpl implements CarService{
 	public Car findOneById(Long id) {
 		// TODO Auto-generated method stub
 		return carRepository.findOneById(id);
+	}
+	
+	@Override
+	public List<Car> getAll() {
+		// TODO Auto-generated method stub
+		return carRepository.findAll();
 	}
 
 }

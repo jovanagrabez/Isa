@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -339,7 +340,8 @@ public class CarReservationController {
 	}
 	
 	
-	@RequestMapping(value="/fastReservations/{idFlight}/{idCar}/{startDate}/{endDate}/{idUser}",method = RequestMethod.POST)
+	@RequestMapping(value="/fastReservations/{idFlight}/{idCar}/{startDate}/{endDate}/{idUser}",
+			method = RequestMethod.GET)
 	public ResponseEntity<CarReservation> fastReservations(@PathVariable Long idFlight, @PathVariable Long idCar ,@PathVariable String startDate,
 			@PathVariable String endDate, @PathVariable Long idUser) {
 		
@@ -368,6 +370,7 @@ public class CarReservationController {
 		fastRes.setCar(car);
 		fastRes.setEndDate(vracanje);
 		fastRes.setStartDate(preuzimanje);
+		fastRes.setDayRez(new Date());
 		double price = car.getPrice();
 		double discountPrice = disc.getDiscountprice();
 		double totalPrice = price - (price*discountPrice)/100;
@@ -381,6 +384,23 @@ public class CarReservationController {
 		
 		return new ResponseEntity<CarReservation>(fastRes,HttpStatus.OK);
 		
+	}
+	
+	@RequestMapping(
+			value="/getAllMyFlights/{idUser}",
+			method = RequestMethod.GET,
+			consumes =MediaType.APPLICATION_JSON_VALUE,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> getAllMyFlights(@PathVariable Long idUser){
+		System.out.println("dosao u sve moje rezervacije");
+		List<FlightReservation> helpList = new ArrayList<>();
+		
+		helpList = flightRepository.findAllByUserId(idUser);
+		if (helpList!=null) {
+			System.out.println("broj help liste+ " + helpList.size());
+			return new ResponseEntity<List<FlightReservation>>(helpList,HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
 

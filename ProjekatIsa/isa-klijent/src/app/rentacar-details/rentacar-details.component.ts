@@ -21,6 +21,7 @@ import Tile from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import { DomSanitizer} from '@angular/platform-browser';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -58,6 +59,10 @@ export class RentacarDetailsComponent implements OnInit {
     adresa = "";
     finalna = "";
     map;
+    
+     //za proveru leta
+    flightRes : any[] = [];
+    flightReservationId : number;
 
   constructor(private router: Router,private sanitizer:DomSanitizer,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,
   private filService : FilijaleServiceService,private auth: AuthServiceService,private categoryService : CategoryServiceService,
@@ -121,6 +126,12 @@ export class RentacarDetailsComponent implements OnInit {
               
                 //this.fil = this.pronadjenaVozila.filijale;
                 });
+                
+              this.carService.getAllMyFlights(this.user.id).subscribe(data=>{
+                    this.flightRes  = data;
+                    console.log("moji letovi: ");
+                    console.log(data);
+            });
 
         }
      );  
@@ -210,11 +221,27 @@ export class RentacarDetailsComponent implements OnInit {
         else if(this.preuzeto>this.vraceno){
             alert("Neispravni datumi");
             }
+            
+         else if (this.token && (this.isBlank(this.flightReservationId))){
+              if(this.isBlank(this.flightReservationId)){
+              alert("Morate odabrati let");
+              }
+          }
 //       else if(this.rez.pickupPlace != this.pronadjenaVozila.filijale.grad){
 //            alert("Morate uneti mesto preuzimanja");
 //            }
         else if(this.isBlank(this.cenaOd) && this.isBlank(this.cenaDo))
              { 
+         
+             console.log("printam id leta " + this.flightReservationId);
+              //provera za let
+              this.carService.chekIfFlightIsBooked(this.rez, this.flightReservationId).subscribe(data=>{
+                  console.log(data);
+                  /*if(data==true) {
+                      alert("Problemi zbog rezervacije leta. Provjerite da li je" +
+                            "datum pocetka leta prije prijave u hotel. Provjerite broj ljudi.");    
+                  }*/
+              });
             
             var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
             this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 

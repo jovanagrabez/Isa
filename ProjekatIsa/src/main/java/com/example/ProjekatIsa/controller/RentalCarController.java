@@ -106,7 +106,7 @@ public class RentalCarController {
 			produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> getAllCars(@PathVariable("id") Long id) {
 		List<Car> returnList = new ArrayList<Car> ();
-		RentACar h = rentalcarRepository.findOneById(id);
+		RentACar h = rentalcarService.findOneById(id);
 		returnList = carRepository.findAllByRentacar(h);
 		if (returnList!=null) {
 	        return new ResponseEntity<List<Car>>(returnList,HttpStatus.OK);
@@ -190,7 +190,7 @@ public class RentalCarController {
 	public ResponseEntity<?> deleteService(@RequestBody Long id) {
 		System.out.println("Usao u delete service");
 		
-		RentACar r = rentalcarRepository.findOneById(id);
+		RentACar r = rentalcarService.findOneById(id);
 		rentalcarRepository.delete(r);
 		return new ResponseEntity<>(HttpStatus.OK);
 
@@ -202,7 +202,7 @@ public class RentalCarController {
 	public ResponseEntity<?> addFil(@RequestBody FilijaleDTO newFil, @PathVariable("id") Long id){
 		System.out.println("Usao u add filijale");
 		
-		RentACar r = rentalcarRepository.findOneById(id);
+		RentACar r = rentalcarService.findOneById(id);
 		Filijale f = new Filijale(newFil);
 		
 		//dodavanje u model
@@ -510,7 +510,7 @@ public class RentalCarController {
 			Date today_7=new Date(ltime);
 			System.out.println("pocetak: " + today_7);
 			
-			RentACar services = rentalcarRepository.findOneById(idServisa);
+			RentACar services = rentalcarService.findOneById(idServisa);
 			List<Car> cars = carRepository.findAllByRentacar(services);
 			System.out.println("broj soba " + cars.size());
 			if (!cars.isEmpty()) {
@@ -540,7 +540,7 @@ public class RentalCarController {
 		public ResponseEntity<List<CarReservation>>  getAllReservations(@PathVariable("id") Long idServisa) {
 			List<CarReservation> returnList = new ArrayList<CarReservation>();
 			
-			RentACar services = rentalcarRepository.findOneById(idServisa);
+			RentACar services = rentalcarService.findOneById(idServisa);
 			List<Car> cars = carRepository.findAllByRentacar(services);
 			System.out.println("broj soba " + cars.size());
 			if (!cars.isEmpty()) {
@@ -581,7 +581,7 @@ public class RentalCarController {
 				}
 					System.out.println("od od " + dOd.toString() + dDo.toString());
 					System.out.println("od od sql " + sqlOD.toString() + sqlDO.toString());
-					RentACar service = rentalcarRepository.findOneById(idServisa);
+					RentACar service = rentalcarService.findOneById(idServisa);
 					List<Car> cars = carRepository.findAllByRentacar(service);
 					System.out.println("broj soba " + cars.size());
 					if (!cars.isEmpty()) {
@@ -613,7 +613,7 @@ public class RentalCarController {
 		public ResponseEntity<List<RatingRentACar>>  getAllRatingsService(@PathVariable("id") Long idServisa) {
 			
 			List<RatingRentACar> returnList = new ArrayList<RatingRentACar>();
-			RentACar service = rentalcarRepository.findOneById(idServisa);
+			RentACar service = rentalcarService.findOneById(idServisa);
 			
 			returnList = ratingRentACarRepository.findAllByRentacar(service);
 			System.out.println("Id servisa "+ idServisa);

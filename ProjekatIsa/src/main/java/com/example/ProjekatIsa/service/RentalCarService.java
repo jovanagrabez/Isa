@@ -13,6 +13,7 @@ public interface RentalCarService {
 	List<RentACar> getAll();
 	RentACar findOneById(Long id);
 	RentACar addService(RentACar rentACar);
+	List<RentACar> findAllByCity(String city);
 
 
 }

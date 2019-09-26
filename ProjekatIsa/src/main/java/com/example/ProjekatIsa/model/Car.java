@@ -44,6 +44,9 @@ public class Car implements Serializable {
 	@Column(name = "price", nullable = false)
 	private int price;
 	
+	@Column(name = "total_price")
+	private Double totalPrice;
+	
 	@Column(name ="average_rating")
 	private Double average_rating;
 	
@@ -294,6 +297,23 @@ public class Car implements Serializable {
 		setAverage_rating(c.getAverage_rating());
 		//setCategory(c.getCategory());
 	}
+
+
+
+
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+
+
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+	
+	
 	
 	
 	

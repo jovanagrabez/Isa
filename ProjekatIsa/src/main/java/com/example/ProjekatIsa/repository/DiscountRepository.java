@@ -14,10 +14,9 @@ import com.example.ProjekatIsa.model.RentACar;
 public interface DiscountRepository extends JpaRepository<Discount,Long> {
 
 	Discount findOneById(Long id);
-
-	ArrayList<Discount> findAllByRentacar(RentACar rent);
-
+	List<Discount> findAllByRentacar(RentACar rent);
 	List<Car> findAllCarByRentacar(RentACar rent);
 	Discount findOneByCar(Car car);
+	List<Discount> findAllByCar(Car r);
 
 }

@@ -1,8 +1,10 @@
 package com.example.ProjekatIsa.controller;
 
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -21,23 +23,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ProjekatIsa.DTO.CarDTO;
+import com.example.ProjekatIsa.DTO.CarReservationDTO;
+import com.example.ProjekatIsa.DTO.ReservationRoomDTO;
 import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
 import com.example.ProjekatIsa.model.Discount;
+import com.example.ProjekatIsa.model.DiscountHotel;
 import com.example.ProjekatIsa.model.Filijale;
+import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.Hotel;
+import com.example.ProjekatIsa.model.Pricing;
+import com.example.ProjekatIsa.model.PricingCar;
 import com.example.ProjekatIsa.model.RatingCar;
 import com.example.ProjekatIsa.model.RatingRoom;
 import com.example.ProjekatIsa.model.RentACar;
 import com.example.ProjekatIsa.model.Room;
+import com.example.ProjekatIsa.model.SearchFormServices;
 import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.CarReservationRepository;
 import com.example.ProjekatIsa.repository.DiscountRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
+import com.example.ProjekatIsa.repository.FlightReservationRepository;
+import com.example.ProjekatIsa.repository.PricingCarRepository;
 import com.example.ProjekatIsa.repository.RatingCarRepository;
 import com.example.ProjekatIsa.repository.RentalCarRepository;
 import com.example.ProjekatIsa.service.CarService;
 import com.example.ProjekatIsa.service.FilijaleService;
+import com.example.ProjekatIsa.service.PricingCarService;
 import com.example.ProjekatIsa.service.RentalCarService;
 @CrossOrigin(origins = "*")
 @RestController
@@ -71,7 +83,11 @@ public class CarController {
 	@Autowired 
 	CarReservationRepository carResRepository;
 	
+	@Autowired
+	private FlightReservationRepository flightRepository;
 	
+	@Autowired
+	private PricingCarService pricingService;
 	
 	@RequestMapping(
 			value = "/getDiscountCars/{id}", 
@@ -335,7 +351,16 @@ public class CarController {
 //		   }
 //		   
 //		   
-//		    System.out.println("pronadjena vozila" + carsfromService.size());		
+//		    System.out.println("pronadjena vozila" + carsfromService.size());	
+				//racunanjen totalne cijene
+				for(Car r: returnList) {
+					if (!returnList.isEmpty()) {
+						Double totalPrice = countPriceInSearchCars(r,startDate,endDate);
+						System.out.println("totalna cijena je : "+ totalPrice);
+						r.setTotalPrice(totalPrice);
+					}
+				}
+		    returnList = nonDiscountCars(returnList, startDate, endDate);
 		    return new ResponseEntity<List<Car>>(returnList,HttpStatus.OK);
 	}
 	
@@ -372,6 +397,232 @@ public class CarController {
 		return new ResponseEntity<List<RatingCar>>(returnList,HttpStatus.OK);
 
 	}
+	
+	@RequestMapping(value="/searchFast",
+			method = RequestMethod.POST,
+			produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm){
+		System.out.println("Dosao u search faaaaaaaaaast");
+		
+		List<Discount> povratna= new ArrayList<Discount>();
+		List<RentACar> all = rentRepository.findAll();
+		List<RentACar> returnList = new ArrayList<RentACar>();
+		
+		List<RentACar> returnList2 = new ArrayList<RentACar>();
+		List<RentACar> returnList3 = new ArrayList<RentACar>();
+		List<Discount> pomocna1= new ArrayList<Discount>();
+
+		//ako se pretrazuje po nazivu
+				if (searchForm.getName() != null) {
+					for (RentACar h : all) {
+						if (h.getName().contains(searchForm.getName())) {
+							returnList.add(h);
+						}
+						returnList3 = returnList;
+					}
+					//ako se pretrazuje i po nazivu i po gradu
+					if (searchForm.getCity() != null) {
+						for (RentACar h : returnList) {
+							if (h.getCity().equals(searchForm.getCity())) {
+								returnList2.add(h);
+							}
+						}
+						returnList3 = returnList2;
+					}
+				}
+				//ako se ne pretrazuje po nazivu nego samo gradu 
+				else {
+					if (searchForm.getCity() != null) {
+    					for (RentACar h : all) {
+							if (h.getCity().equals(searchForm.getCity())) {
+								returnList.add(h);	
+							}
+						}
+						returnList3 = returnList;
+					}
+					
+					//ni po nazivu ni po gradu
+					returnList3 = all;
+				}
+		
+		//pretraga po datumu
+		
+		if (searchForm.getStartDate()!=null && searchForm.getEndDate()!=null) {
+			System.out.println("u trecoj lisri ima servisa: " +returnList3.size() );
+			for (RentACar hot : returnList3) {
+				 boolean free = true;
+				 
+				System.out.println("usao u prvu petlju : svih servisa");
+				//pronalazim sve sobe hotela
+				pomocna1 = discountRepository.findAllByRentacar(hot);
+				int reserved = pomocna1.size();
+				
+				if (!pomocna1.isEmpty()) {			
+					for(Discount dh : pomocna1) {
+						free = checkforfreeDH(dh, searchForm.getEndDate(), searchForm.getStartDate());
+						if (!free) {
+							povratna.add(dh);
+						}
+					}
+				}
+
+			}
+
+
+		}
+
+		
+		return new ResponseEntity<List<Discount>>(povratna, HttpStatus.OK);
+	}
+	
+	
+		public boolean checkforfreeDH(Discount res, Date endDate, Date startDate) {
+				
+				//provjeravamo datum koji smo unijeli za preuzimanje vozila
+				//ako je on nakon datuma vracanja vozila koji je registrovan -ok
+				if(startDate.getTime() >= res.getDateTo().getTime()) {
+					return true;
+					
+				}
+				else {
+					if(endDate.getTime() <= res.getDateFrom().getTime())
+					{
+						return true;
+					}
+					else {
+						return false;
+					}
+				}
+			}
+		
+		
+		//Izbaci sobe koje su na popustu
+			List<Car> nonDiscountCars (List<Car> cars, Date startDate, Date endDate){
+				System.out.println("nonDiscountCars ");
+				List<Car> returnList = new ArrayList<Car>();
+				returnList = cars;
+				if (!returnList.isEmpty()) {
+					for (Car r : returnList) {
+						
+						System.out.println("kroz sobe ");
+						List<Discount> discount = discountRepository.findAllByCar(r);
+						if (!discount.isEmpty()) {
+							System.out.println("postoji diskaunt ");
+							for(Discount d : discount) {
+								if (d.getDateFrom().getTime()<startDate.getTime() && d.getDateTo().getTime()>endDate.getTime()) {
+									System.out.println("uklanjam vozilo ");
+									returnList.remove(r);
+								}
+							}
+						}
+					}
+				}
+				return returnList;
+			}
+		
+		@RequestMapping(
+				value="/chekIfFlightIsBooked/{idRes}",
+				method = RequestMethod.POST,
+				produces = MediaType.TEXT_PLAIN_VALUE)
+		public String chekIfFlightIsBooked(@RequestBody CarReservationDTO carRes,
+											@PathVariable Long idRes){
+			
+			System.out.println("dosao u cekiraj jel bukiran flajt tad");
+			Date startDate = null;
+			startDate = carRes.getStartDate();
+			
+			FlightReservation help = new FlightReservation();
+			
+			help = flightRepository.findOneById(idRes);
+			if (help!=null) {
+				
+				// provjeravamo da li je let prije rezervacije i provjeravamo broj putnika
+				//datum pocetka rez hotela mora biti veci ili jednak datumu leta
+				if (help.getDatum().getTime()>startDate.getTime()) {
+					 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+					return Boolean.TRUE.toString();
+				}
+				//broj ljudi u letu morra biti veci ili jednak broju gostiju u hotelu
+				if (carRes.getNumPeople() > (double) help.getNumPass()) {
+					//return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+					return Boolean.TRUE.toString();
+				}
+			}
+			//return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+			return Boolean.FALSE.toString();
+			
+		}
+		
+		
+		public Double countAveragePricing(Car r) {
+			
+			Double returnValue = 0.0;
+			Double suma = 0.0;
+			
+			List<PricingCar> pomList = pricingService.findAllByCar(r);
+			if(!pomList.isEmpty()) {
+				for (PricingCar p : pomList) {
+					suma += p.getPrice();
+					System.out.println("suma " + suma);
+				}
+				System.out.println("djelim sa " + pomList.size());
+					returnValue = suma/pomList.size();
+				
+			}
+			System.out.println("dobio sam sa " + Double.parseDouble(new DecimalFormat("##.#").format(returnValue)));
+			return Double.parseDouble(new DecimalFormat("##.#").format(returnValue));
+			//return returnValue;
+		}
+		
+		
+		
+		//racunanje konacne cijene za pretrazena vozila
+		public Double countPriceInSearchCars(Car r, Date startDate, Date endDate) {
+			Double returnValue = 0.0;
+			Double returnValue1 = 0.0;
+
+			long brojDana = ChronoUnit.DAYS.between(startDate.toInstant(), endDate.toInstant());
+			System.out.println("broj dana " + brojDana);
+			List<PricingCar> pomList = pricingService.findAllByCar(r);
+			if(pomList!=null) {
+				for (PricingCar p : pomList) {
+					//System.out.println("kroz jedan prajsing");
+					// pronasla cjenovnik u kome se nalazi pocetni datum
+					if (startDate.getTime()<=p.getDateTo().getTime() && startDate.getTime()>=p.getDateFrom().getTime()) {
+						if (endDate.getTime()<=p.getDateTo().getTime() && endDate.getTime()>=p.getDateFrom().getTime()) {
+							//ako se i kraj i pocetak nalaze u istom cjenovnkiku
+							System.out.println("Nalaze se u istom cjenovniku");
+							returnValue = brojDana * p.getPrice();
+							return Double.parseDouble(new DecimalFormat("##.##").format(returnValue));
+						}
+						else {
+							//ako se ne nalaze u isstom cjenovniku
+							//racunam za prvi cjenovnik
+							System.out.println(" ne Nalaze se u istom cjenovniku prvi");
+							long brojDanaPrviCj = ChronoUnit.DAYS.between(startDate.toInstant(), p.getDateTo().toInstant());
+							//System.out.println("broj dana 1 " + (brojDanaPrviCj+1));
+							returnValue1 = (brojDanaPrviCj+1) * p.getPrice();
+						//	System.out.println("cena1 "+ returnValue1);
+							
+						}
+						
+						
+					}
+					//racunam za drugi
+					if (endDate.getTime()<=p.getDateTo().getTime() && endDate.getTime()>=p.getDateFrom().getTime()) {
+						System.out.println("ne nalaze se u istom cjenovniku drugi ");
+						long brojDanaDrugiCj = ChronoUnit.DAYS.between(p.getDateFrom().toInstant(), endDate.toInstant());
+						//System.out.println("broj dana 2 " + (brojDanaDrugiCj));
+						Double returnValue2 = (brojDanaDrugiCj )* p.getPrice();
+						returnValue = returnValue1 + returnValue2;
+						//System.out.println("cena2 "+ returnValue2);
+					}
+				}
+			
+			}
+			System.out.println("cena "+ returnValue);
+			return Double.parseDouble(new DecimalFormat("##.##").format(returnValue));
+		}
 	
 	
 	

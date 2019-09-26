@@ -30,4 +30,10 @@ public class RentalCarServiceImpl implements RentalCarService {
 		return rentalcarRepository.save(rentACar);
 	}
 
+	@Override
+	public List<RentACar> findAllByCity(String city) {
+		// TODO Auto-generated method stub
+		return rentalcarRepository.findAllByCity(city);
+	}
+
 }

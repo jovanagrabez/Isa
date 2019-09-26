@@ -1,9 +1,7 @@
 package com.example.ProjekatIsa.service;
 
-import static org.assertj.core.api.Assertions.assertThatIllegalStateException;
 
 import java.util.Date;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
