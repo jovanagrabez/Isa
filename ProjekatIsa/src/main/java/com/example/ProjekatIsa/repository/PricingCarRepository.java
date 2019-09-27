@@ -12,5 +12,7 @@ import com.example.ProjekatIsa.model.PricingCar;
 public interface PricingCarRepository extends JpaRepository<PricingCar, Long>{
 	List<PricingCar> findAll();
 	List<PricingCar> findAllByCar(Car c);
+	PricingCar save(PricingCar c);
+	PricingCar findOneById(Long id);
 
 }

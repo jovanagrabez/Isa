@@ -263,8 +263,8 @@ public class CarReservationController {
 	
 	
 	
-	@RequestMapping(value="/reserveCar",method = RequestMethod.POST)
-	ResponseEntity<CarReservationDTO> reserve(@RequestBody CarReservationDTO carRes){
+	@RequestMapping(value="/reserveCar/{id}",method = RequestMethod.POST)
+	ResponseEntity<CarReservationDTO> reserve(@RequestBody CarReservationDTO carRes,@PathVariable Long id){
 		
 		System.out.println("Usao u kontroler rezervacije");
 		CarReservation res = new CarReservation();
@@ -286,25 +286,37 @@ public class CarReservationController {
 			User user = userRepository.findOneById(carRes.getUser().getId());
 			System.out.println(user.getFirstName() + "Korisnik");
 			
+			
+			CarReservation returnValue = new CarReservation();
+			
 			if(!reserved(car,startDate,endDate)) {
 				
-				res.setPickupPlace(carRes.getPickupPlace());
-				res.setReturnPlace(carRes.getReturnPlace());
-				res.setNumPeople(carRes.getNumPeople());
-				res.setNumDays(carRes.getNumDays());
-				res.setCategory(carRes.getCategory());
-				res.setDayRez(new Date());
+				returnValue.setStartDate(carRes.getStartDate());
+				returnValue.setEndDate(carRes.getEndDate());
+				returnValue.setPickupPlace(carRes.getPickupPlace());
+				returnValue.setReturnPlace(carRes.getReturnPlace());
+				returnValue.setNumPeople(carRes.getNumPeople());
+				returnValue.setNumDays(carRes.getNumDays());
+				returnValue.setCategory(carRes.getCategory());
+				returnValue.setDayRez(new Date());
 				Long razlika = getDateDiff(startDate,endDate,TimeUnit.DAYS);
 				Long ukupno = null;
 				ukupno = razlika*car.getPrice();
-				res.setTotalPrice(ukupno);
-				res.setNumDays(razlika.intValue());
-				res.setUser(user);
-				res.setCar(car);
+				returnValue.setTotalPrice(ukupno);
+				returnValue.setNumDays(razlika.intValue());
+				returnValue.setUser(user);
+				returnValue.setCar(car);
 				
-				carReservationService.save(res);
+				returnValue = carReservationService.save(returnValue);
 				
-				return new ResponseEntity<>(new CarReservationDTO(res),HttpStatus.CREATED);
+				//cuvam u let id rez
+				FlightReservation help = new FlightReservation();	
+				help = flightRepository.findOneById(id);
+				System.out.println("mozes ocitati id :? "+returnValue.getId());
+				help.setResRoomId(returnValue.getId());
+				flightRepository.save(help);
+				
+				return new ResponseEntity<>(HttpStatus.CREATED);
 				
 				
 			}else

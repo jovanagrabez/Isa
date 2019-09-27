@@ -223,11 +223,11 @@ insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Citroen','AR-4875',350,3.1,'2004',9,2,6);
 insert into car (car_name,car_number,price,average_rating,prod_year,filijale_id,category_id,rentacar_id) values ('Jeep','KG-4875',350,3.1,'2004',9,2,6);
 
-insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (1,'2019-09-05','2019-09-25',30.0,1,1);
-insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (2,'2019-09-05','2019-09-25',20.0,2,1);
-insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (3,'2019-09-05','2019-09-25',30.0,19,6);
-insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (4,'2019-09-05','2019-09-25',30.0,20,6);
-insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (5,'2019-09-05','2019-09-25',30.0,21,6);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (1,'2019-09-05','2019-09-30',30.0,1,1);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (2,'2019-09-05','2019-09-30',20.0,2,1);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (3,'2019-09-05','2019-09-30',30.0,19,6);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (4,'2019-09-05','2019-09-30',30.0,20,6);
+insert into discount(discount_id,date_from,date_to,discount_price,car_car_id,rentacar_rentacar_id) values (5,'2019-09-05','2019-09-30',30.0,21,6);
 
 
 
@@ -434,6 +434,41 @@ insert into rating_car (ratingcar_id,user_user_id,car_id,rate)
 	values (3,1,14,3);
 
 
+insert into pricingcar(pricing_id,price,date_from,date_to,car_id) 
+	values (1,50,'2019-09-01','2019-09-30',1);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (2,60,'2019-10-01','2019-10-31',1);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (3,70,'2019-11-01','2019-11-30',1);
+	
+insert into pricingcar(pricing_id,price,date_from,date_to,car_id) 
+	values (4,80,'2019-09-01','2019-09-30',2);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (5,90,'2019-10-01','2019-10-31',2);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (6,100,'2019-11-01','2019-11-30',2);	
+	
+insert into pricingcar(pricing_id,price,date_from,date_to,car_id) 
+	values (7,110,'2019-09-01','2019-09-30',3);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (8,120,'2019-10-01','2019-10-31',3);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (9,130,'2019-11-01','2019-11-30',3);	
+	
+insert into pricingcar(pricing_id,price,date_from,date_to,car_id) 
+	values (10,100,'2019-09-01','2019-09-30',4);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (11,110,'2019-10-01','2019-10-31',4);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (12,120,'2019-11-01','2019-11-30',4);	
+
+insert into pricingcar(pricing_id,price,date_from,date_to,car_id) 
+	values (13,100,'2019-09-01','2019-09-30',5);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (14,100,'2019-10-01','2019-10-31',5);
+insert into pricingcar (pricing_id,price,date_from,date_to,car_id) 
+	values (15,100,'2019-11-01','2019-11-30',5);	
+
 
 
 
@@ -537,9 +572,9 @@ insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_roo
 
 
 --rezervacija 
-insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id)	
-	values (1,1,1,'2019-09-26',3,null);
-insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id)	
-	values (2,1,1,'2019-10-12',3,null);
-insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id)	
-	values (3,1,1,'2018-10-12',3,1);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id,res_car_id)	
+	values (1,1,1,'2019-09-26',3,null,null);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id,res_car_id)	
+	values (2,1,1,'2019-10-12',3,null,null);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id,res_car_id)	
+	values (3,1,1,'2018-10-12',3,1,1);

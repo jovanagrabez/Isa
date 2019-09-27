@@ -68,7 +68,7 @@ public class Car implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="car")
-    protected List<PricingCar> pricingCar;
+    protected List<PricingCar> pricingcar;
 	
 //	@JsonIgnore
 //	@OneToMany(mappedBy="car", fetch = FetchType.LAZY)
@@ -237,14 +237,14 @@ public class Car implements Serializable {
 
 
 	public List<PricingCar> getPricingCar() {
-		return pricingCar;
+		return pricingcar;
 	}
 
 
 
 
-	public void setPricingCar(List<PricingCar> pricingCar) {
-		this.pricingCar = pricingCar;
+	public void setPricingCar(List<PricingCar> pricingcar) {
+		this.pricingcar = pricingcar;
 	}
 
 
@@ -265,7 +265,7 @@ public class Car implements Serializable {
 
 
 	public Car(Long id, String car_number, String name, int price, Double average_rating, int prod_year,
-			RentACar rentacar, Filijale filijale, Category category, List<PricingCar> pricingCar,
+			RentACar rentacar, Filijale filijale, Category category, List<PricingCar> pricingcar,
 			Set<RatingCar> ratings, List<CarReservation> reservation) {
 		super();
 		this.id = id;
@@ -277,7 +277,7 @@ public class Car implements Serializable {
 		this.rentacar = rentacar;
 		this.filijale = filijale;
 		this.category = category;
-		this.pricingCar = pricingCar;
+		this.pricingcar = pricingcar;
 		//this.ratings = ratings;
 		this.reservation = reservation;
 	}
@@ -298,6 +298,24 @@ public class Car implements Serializable {
 		//setCategory(c.getCategory());
 	}
 
+
+
+
+
+	public Car(long id, String car_number, String name, int price, double average_rating, int prod_year, Filijale fil, Category cat,
+			RentACar service) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.car_number = car_number;
+		this.name = name;
+		this.price = price;
+		this.average_rating = average_rating;
+		this.prod_year = prod_year;
+		this.filijale = fil;
+		this.category = cat;
+		this.rentacar = service;
+		
+	}
 
 
 

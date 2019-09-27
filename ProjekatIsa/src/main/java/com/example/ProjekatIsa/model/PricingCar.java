@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.example.ProjekatIsa.DTO.PricingCarDTO;
+import com.example.ProjekatIsa.DTO.PricingDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -93,6 +95,16 @@ public class PricingCar implements Serializable {
 	public void setCar(Car car) {
 		this.car = car;
 	}
+	
+	
+	public PricingCar(PricingCarDTO p) {
+		setId(p.getId());
+		setDateFrom(p.getDateFrom());
+		setDateTo(p.getDateTo());
+		setPrice(p.getPrice());
+		
+	}
+	
 	
 	
 

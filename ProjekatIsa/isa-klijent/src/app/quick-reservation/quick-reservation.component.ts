@@ -33,6 +33,9 @@ export class QuickReservationComponent implements OnInit {
   pomoc: string;
   pomocDva: string;
   minDatum : Date;
+  //za proveru leta
+  flightRes : any[] = [];
+  flightReservationId : number;
 
 
 
@@ -64,7 +67,12 @@ export class QuickReservationComponent implements OnInit {
             console.log(data);
             
             
-             });            
+             }); 
+       this.carService.getAllMyFlights(this.user.id).subscribe(data=>{
+              this.flightRes  = data;
+              console.log("moji letovi: ");
+              console.log(data);
+          });           
             
             
             });
@@ -76,10 +84,15 @@ export class QuickReservationComponent implements OnInit {
     
     
    pretraga(){
+       
+      if(this.isBlank(this.flightReservationId)){
+          alert("Morate odabrati let");
+      }
+      else{
 
       this.searchFormServices.city = this.currentRentACar.city;
       this.searchFormServices.name = this.currentRentACar.name;
-      this.carService.searchDiscountCars(this.searchFormServices).subscribe(data=>{
+      this.carService.searchDiscountCars(this.searchFormServices,this.flightReservationId).subscribe(data=>{
           console.log('pretrazenii');
           this.discount=data;
           console.log(data);
@@ -87,7 +100,7 @@ export class QuickReservationComponent implements OnInit {
       this.rez.startDate = this.searchFormServices.startDate;
       this.rez.endDate = this.searchFormServices.endDate;
       this.canBook = true;
-
+      }
     }
     
     reserve(id: number){
@@ -101,6 +114,10 @@ export class QuickReservationComponent implements OnInit {
           this.router.navigateByUrl('/rentalCars');
         });
       }
+    
+     isBlank(str) {
+      return (!str || /^\s*$/.test(str));
+    }
 
 
 }

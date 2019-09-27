@@ -398,12 +398,20 @@ public class CarController {
 
 	}
 	
-	@RequestMapping(value="/searchFast",
+	@RequestMapping(value="/searchFast/{id}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm){
+	public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm,@PathVariable("id") Long id){
 		System.out.println("Dosao u search faaaaaaaaaast");
 		
+		FlightReservation help = new FlightReservation();
+		help = flightRepository.findOneById(id);
+		if (help!=null) {
+			if (help.getDatum().getTime()>searchForm.getStartDate().getTime()) {
+				 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+				return new ResponseEntity<>(null, HttpStatus.OK);
+			}
+		}
 		List<Discount> povratna= new ArrayList<Discount>();
 		List<RentACar> all = rentRepository.findAll();
 		List<RentACar> returnList = new ArrayList<RentACar>();

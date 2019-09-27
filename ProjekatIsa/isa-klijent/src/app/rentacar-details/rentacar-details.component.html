@@ -259,7 +259,9 @@
                 <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook">{{c.price * brojDana}}</span></td>
                 <td>{{c.prod_year}}</td>               
                               
-                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="reserve(c)">Book me</button></span></td> 
+                <td><span class="hidden-xs" id="bookRoomId" [hidden]="canBook"><button type="button"  class="btn btn-outline-primary" (click)="reserve(c)">Book me</button></span></td>
+                <td><span class="hidden-xs" id="pricingRoomId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-danger" (click)="pricingCarClick(c)">Cenovnik</button></span></td>
+                 
                 </tr>
              </tbody>
 
@@ -269,6 +271,105 @@
           </div>
 					</div>
 				</div>
+				
+				
+				<div class="col-xs-10" id = "showPricingDiv" hidden="true">
+		<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<h4>Cenovnik</h4>
+						<p>Pregled cena selektovanog vozila za dati vremenski period</p>
+		</div>
+       	<div class="box">
+ 
+            <!-- /.box-header -->
+            <div class="box-body table-responsive no-padding">
+              <table id="lista" class="table table-hover">
+              <thead>
+               	<tr>
+            	<th>Datum pocetka</th>
+            	<th>Datum kraja</th>
+            	<th>Cena €<b>/</b> 1 noć</th>
+            	<th></th>
+            	<th></th>
+            	</tr>
+       		 </thead>
+       		 
+       		 <tbody>
+                <tr *ngFor="let p of pricingList">
+                <td>{{p.dateFrom}} </td>                
+                <td>{{p.dateTo}}</td> 
+                <td>{{p.price}}€</td>
+                <td><span class="hidden-xs" id="changeRoomId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-primary" (click)="changePricingClick(p)">Izmeni</button></span></td>             
+                <td><span class="hidden-xs" id="deleteRoomId" [hidden]="nocarAdmin"><button type="button"  class="btn btn-outline-primary" (click)="addPricingClick()">Dodaj</button></span></td>
+                </tr>
+             </tbody>
+
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+		</div>
+		
+		
+		<div class="col-xs-6" id = "addPricingDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Dodaj novu stavku u cenovnik</h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            <label>Unesite datum pocetka:</label>
+			              <div class="form-group">
+			                <input type="date" class="form-control" id="datMin" min={{pomoc}} placeholder="Unesite datum pocetka.." value='newPricing.dateFrom' [(ngModel)]="newPricing.dateFrom">
+			              </div>
+			               <label>Unesite datum kraja:</label>
+			              <div class="form-group">
+			                <input type="date" class="form-control" min={{pomocDva}} placeholder="Unesite datum kraja.." value='newPricing.dateTo' [(ngModel)]="newPricing.dateTo" >
+			   			  </div>
+			   			   <label>Unesite cenu:</label>
+			   			  <div class="form-group">
+			                <input type="number" class="form-control" min="1" placeholder="Unesite cenu .." value='newPricing.price' [(ngModel)]="newPricing.price" >
+			   			  </div>
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalAddPricingClick(newPricing)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardPricingClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
+              		
+              		
+              		<div class="col-xs-6" id = "changePricingDiv" hidden="true">
+		              	<div class="box box-primary">
+			            <div class="box-header with-border ">
+			              <h3 class="box-title">Izmeni cenu za selektovani period: </h3>
+			            </div>
+			            <!-- /.box-header -->
+			            <div class="box-body no-padding">
+			            
+			              <div class="form-group">
+			                <input type="number" class="form-control" placeholder="Unesite novu cenu.." value='newPricing2.price' [(ngModel)]="newPricing2.price">
+			              </div>
+
+			            </div>
+			            <!-- /.box-body -->
+			            <div class="box-footer">
+			              <div class="pull-right">
+			                <button type="submit" class="btn btn-primary" (click)="finalChangePricingClick(newPricing2)" ><i class="fa fa-envelope-o" ></i> Potvrdi</button>
+			              	<button type="reset" class="btn btn-default" (click)="discardChangePricingClick()"><i class="fa fa-times" ></i> Odustani</button>
+			              	
+			              </div>
+			              <br/>
+			            </div>
+			            <!-- /.box-footer -->
+			          </div>
+              		</div> 
    
 </section>
 				

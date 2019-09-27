@@ -140,7 +140,7 @@ public class RatingController {
 		
 		System.out.println("OCJENA" + dodavanje.getRate());
 		//dodavanje ocene
-		RatingCar o = ratingCarRepository.save(dodavanje);
+		RatingCar o = ratingCarService.save(dodavanje);
 		//azuriranje ocene vozila
 		List<RatingCar> noveOcene = ratingCarService.getAll();
 		//Car ocenaVozila = carRepository.findOneById(id)

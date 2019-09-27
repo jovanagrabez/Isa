@@ -24,7 +24,7 @@ public class CarReservation {
 	@Column(name = "start_date", nullable=false)
     protected Date startDate;
     
-	@Column(name = "end_date", nullable=false)
+	@Column(name = "end_date")
     protected Date endDate;
 	
 	@Column(name="pickup_place")

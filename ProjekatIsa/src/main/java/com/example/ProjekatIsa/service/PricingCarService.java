@@ -11,5 +11,8 @@ import com.example.ProjekatIsa.model.PricingCar;
 public interface PricingCarService {
 	List<PricingCar> findAllByCar(Car c);
 	List<PricingCar> findAll();
+	PricingCar save(PricingCar pricing);
+	PricingCar findOneById(Long id);
+	boolean deletePricing(PricingCar pricing);
 
 }

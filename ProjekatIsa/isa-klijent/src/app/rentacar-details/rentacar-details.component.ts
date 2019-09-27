@@ -22,6 +22,7 @@ import OSM from 'ol/source/OSM';
 import View from 'ol/View';
 import { DomSanitizer} from '@angular/platform-browser';
 import { DatePipe } from '@angular/common';
+import { PricingCar } from '../models/PricingCar';
 
 
 @Component({
@@ -63,6 +64,13 @@ export class RentacarDetailsComponent implements OnInit {
      //za proveru leta
     flightRes : any[] = [];
     flightReservationId : number;
+    
+    //za pricing
+    pricingList : PricingCar[];
+    newPricing : PricingCar = new PricingCar();
+    newPricing2 : PricingCar = new PricingCar();
+    changePricing : PricingCar = new PricingCar();
+    currentCar : Car = new Car();
 
   constructor(private router: Router,private sanitizer:DomSanitizer,private service : ViewRentalCarsService,private ngZone : NgZone, private modalService: NgbModal,
   private filService : FilijaleServiceService,private auth: AuthServiceService,private categoryService : CategoryServiceService,
@@ -305,7 +313,7 @@ export class RentacarDetailsComponent implements OnInit {
            this.rez.car = c;
            this.rez.user = this.user;
            console.log("rezervaciju je izvrsio" + this.rez.user.email);
-            this.resService.reserveCar(this.rez).subscribe(data=>{
+            this.resService.reserveCar(this.rez,this.flightReservationId).subscribe(data=>{
                 alert("rezervacija uspesna");
                 window.location.href="rentalCars/";
 
@@ -364,5 +372,63 @@ export class RentacarDetailsComponent implements OnInit {
 
             this.router.navigateByUrl('/serviceReport');
          }
+    
+     addPricingClick(){
+
+        document.getElementById('addPricingDiv').removeAttribute('hidden'); 
+        };
+    discardPricingClick(){
+        document.getElementById('addPricingDiv').setAttribute("hidden", "true");  
+         };
+    
+    finalAddPricingClick(newPricing){
+        console.log(newPricing);
+        if (newPricing.price==null){
+            alert("Morate uneti cenu");
+        }else if( newPricing.dateTo==null){
+            alert("Morate uneti datum");
+        }else if( newPricing.dateFrom==null){
+            alert("Morate uneti datum");
+        }else{
+            this.carService.addPricing(newPricing, this.currentCar.id).subscribe(data=>{
+                if(data==null){
+                    alert("Neuspjesno dodano! Izaberite validan datum!");  
+                }else{
+                    
+                
+                alert("Uspjesno dodana stavka u cenovnik!");
+                window.location.href = 'http://localhost:4200/rentalCars'; 
+                }
+            });
+            document.getElementById('addPricingDiv').setAttribute("hidden", "true");  
+        }
+     };
+    
+    pricingCarClick(r : Car) {
+         this.carService.getAllPricing(r.id).subscribe(data=>{
+             this.pricingList = data;
+             console.log(data);
+         });
+         this.currentCar = r;
+         document.getElementById('showPricingDiv').removeAttribute('hidden'); 
+     };
+    
+    
+     //rad sa pricingom
+      changePricingClick(p) {
+          this.changePricing = p;
+          document.getElementById('changePricingDiv').removeAttribute('hidden');
+      };
+      finalChangePricingClick(newPricing2){
+          console.log(newPricing2);
+          this.carService.changePricing(newPricing2, this.changePricing.id).subscribe(data=>{
+              document.getElementById('changePricingDiv').setAttribute("hidden", "true");
+              alert("uspjesno");
+          });
+          
+      };
+      discardChangePricingClick(){
+          document.getElementById('changePricingDiv').setAttribute("hidden", "true");  
+      };
 
 }

@@ -20,6 +20,16 @@ public class RatingCarService {
 	public List<RatingCar> getAll() {
 		return ratingCarRepository.findAll();
 	}
+
+	public RatingCar save(RatingCar dodavanje) {
+		// TODO Auto-generated method stub
+		return ratingCarRepository.save(dodavanje);
+	}
+	
+	public RatingCar addRC(RatingCar rc) {
+		return ratingCarRepository.save(rc);
+
+	}
 }
 
 

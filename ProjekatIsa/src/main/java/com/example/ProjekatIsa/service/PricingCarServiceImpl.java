@@ -28,4 +28,27 @@ public class PricingCarServiceImpl implements PricingCarService {
 		return pricingRepository.findAll();
 	}
 
+	@Override
+	public PricingCar save(PricingCar pricing) {
+		// TODO Auto-generated method stub
+		return pricingRepository.save(pricing);
+	}
+
+	@Override
+	public PricingCar findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return pricingRepository.findOneById(id);
+	}
+
+	@Override
+	public boolean deletePricing(PricingCar pricing) {
+		// TODO Auto-generated method stub
+		try {
+			pricingRepository.delete(pricing);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
 }

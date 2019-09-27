@@ -6,6 +6,7 @@ import { Car } from '../../models/Car';
 import { CarReservation } from '../../models/CarReservation';
 import { AuthServiceService } from '../auth-service.service';
 import { SearchFormServices } from '../../models/SearchFormServices';
+import { PricingCar } from '../../models/PricingCar';
 
 @Injectable({
   providedIn: 'root'
@@ -53,17 +54,28 @@ export class CarServiceService {
         return this.http.post('http://localhost:8080/car/getCarById',id,{headers: this.auth.createAuthorizationTokenHeader()});
         }
     
-    searchDiscountCars(ss : SearchFormServices): Observable<any>{
-      return this.http.post('http://localhost:8080/car/searchFast',ss);
+    searchDiscountCars(ss : SearchFormServices, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/car/searchFast/'+id,ss);
         }
     
     getAllMyFlights(id: number): Observable<any> {
       return this.http.get('http://localhost:8080/carReservation/getAllMyFlights/'+id,{headers: this.auth.createAuthorizationTokenHeader()}); 
         };
     
-      chekIfFlightIsBooked(res : CarReservation, id : number) : Observable<any> {
+    chekIfFlightIsBooked(res : CarReservation, id : number) : Observable<any> {
       return this.http.post('http://localhost:8080/car/chekIfFlightIsBooked/'+id,res); 
         };
+    
+    getAllPricing(id: number): Observable<any> {
+      return this.http.get('http://localhost:8080/pricingcar/getAllPricing/'+id); 
+        };
+    changePricing(pricing: PricingCar, id: number) : Observable<any> {
+      return this.http.post('http://localhost:8080/pricingcar/changePricing/'+id,pricing); 
+        };
+    addPricing(newPricing: PricingCar, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/pricingcar/addPricing/'+id,newPricing); 
+
+  }
     
     
     

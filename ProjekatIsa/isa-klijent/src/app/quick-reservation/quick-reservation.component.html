@@ -26,6 +26,13 @@
 	                      <input class="form-control" type="date" name="endDate" id="endDate" min={{pomocDva}} name="endDate" id="endDate" required="required"  data-placeholder="Check out" [(ngModel)]="searchFormServices.endDate">
 	                      <span id="errorEnd"></span>
 	           </div>
+	           
+	           	  <label>Izaberite let:</label>
+                <div class="form-group">
+				<select [(ngModel)]="flightReservationId" class="form-control"  id="fid">
+						<option  *ngFor="let f of flightRes"  value={{f.id}}>{{f.datum}}</option>
+					</select>	         
+				</div>
 	                         </div>
 	                         
     <div class="col-xs-6">

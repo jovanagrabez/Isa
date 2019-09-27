@@ -13,8 +13,8 @@ export class ResServiceService {
 
   constructor(private http : HttpClient, private router : Router,private auth: AuthServiceService) { }
     
-    reserveCar(car : CarReservation) : Observable<any> {
-        return this.http.post('http://localhost:8080/carReservation/reserveCar',car,{headers: this.auth.createAuthorizationTokenHeader()}); 
+    reserveCar(car : CarReservation,id: number) : Observable<any> {
+        return this.http.post('http://localhost:8080/carReservation/reserveCar/'+id,car,{headers: this.auth.createAuthorizationTokenHeader()}); 
         }
     
     getUserRes(id : number) : Observable<any> {
