@@ -378,12 +378,22 @@ public class RoomController {
 	}
 	
 
-	@RequestMapping(value="/searchFast",
+	@RequestMapping(value="/searchFast/{idRes}",
 			method = RequestMethod.POST,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm){
+	public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm, 
+										@PathVariable("idRes") Long idRes){
 		System.out.println("Dosao u search rooooom faaaaaaaaaast");
 		
+		FlightReservation help = new FlightReservation();
+		
+		help = flightRepository.findOneById(idRes);
+		if (help!=null) {
+			if (help.getDatum().getTime()>searchForm.getStartDate().getTime()) {
+				 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+				return new ResponseEntity<>(null, HttpStatus.OK);
+			}
+		}
 		List<DiscountHotel> povratna= new ArrayList<DiscountHotel>();
 		
 		//List<RentACar> all = rentalcarService.getAll();
@@ -396,14 +406,16 @@ public class RoomController {
 
 		//ako se pretrazuje po nazivu
 				if (searchForm.getNameHotel() != null) {
+					System.out.println("pretragap po naz");
 					for (Hotel h : all) {
-						if (h.getName().contains(searchForm.getNameHotel())) {
+						if (h.getName().equals(searchForm.getNameHotel())) {
 							returnList.add(h);
 						}
 						returnList3 = returnList;
 					}
 					//ako se pretrazuje i po nazivu i po gradu
 					if (searchForm.getCity() != null) {
+						System.out.println("pretragap po gradu i naz");
 						for (Hotel h : returnList) {
 							if (h.getCity().equals(searchForm.getCity())) {
 								returnList2.add(h);
@@ -415,6 +427,7 @@ public class RoomController {
 				//ako se ne pretrazuje po nazivu nego samo gradu 
 				else {
 					if (searchForm.getCity() != null) {
+						System.out.println("pretragap po gradu samo");
 						for (Hotel h : all) {
 							if (h.getCity().equals(searchForm.getCity())) {
 								returnList.add(h);	
@@ -568,8 +581,10 @@ public class RoomController {
 		List<Room> returnList = new ArrayList<Room>();
 		returnList = rooms;
 		if (!returnList.isEmpty()) {
+			
+				System.out.println("broj soba " + returnList.size());
 			for (Room r : returnList) {
-				
+				if(returnList.size()>0) {
 				System.out.println("kroz sobe ");
 				List<DiscountHotel> discountRoom = dhRepository.findAllByRoom(r);
 				if (!discountRoom.isEmpty()) {
@@ -583,39 +598,8 @@ public class RoomController {
 				}
 			}
 		}
+		}
 		return returnList;
 	}
-	
-	@RequestMapping(
-			value="/chekIfFlightIsBooked/{idRes}",
-			method = RequestMethod.POST,
-			produces = MediaType.TEXT_PLAIN_VALUE)
-	public String chekIfFlightIsBooked(@RequestBody ReservationRoomDTO roomRes,
-										@PathVariable Long idRes){
-		
-		System.out.println("dosao u cekiraj jel bukiran flajt tad");
-		Date startDate = null;
-		startDate = roomRes.getStartDate();
-		
-		FlightReservation help = new FlightReservation();
-		
-		help = flightRepository.findOneById(idRes);
-		if (help!=null) {
-			
-			// provjeravamo da li je let prije rezervacije i provjeravamo broj putnika
-			//datum pocetka rez hotela mora biti veci ili jednak datumu leta
-			if (help.getDatum().getTime()>startDate.getTime()) {
-				 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-				return Boolean.TRUE.toString();
-			}
-			//broj ljudi u letu morra biti veci ili jednak broju gostiju u hotelu
-			if (roomRes.getNumPeople() > (double) help.getNumPass()) {
-				//return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-				return Boolean.TRUE.toString();
-			}
-		}
-		//return new ResponseEntity<Boolean>(false, HttpStatus.OK);
-		return Boolean.FALSE.toString();
-		
-	}
+
 }

@@ -30,6 +30,9 @@ public class FlightReservation implements Serializable{
 
 	    @Column
 	    private Long flightId;
+	    
+	    @Column
+	    private Long resRoomId;
 
 	    @Column
 	    private Long userId;    
@@ -112,4 +115,17 @@ public class FlightReservation implements Serializable{
 		public void setNumPass(int numPass) {
 			this.numPass = numPass;
 		}
+
+
+
+		public Long getResRoomId() {
+			return resRoomId;
+		}
+
+
+
+		public void setResRoomId(Long resRoomId) {
+			this.resRoomId = resRoomId;
+		}
+		
 }

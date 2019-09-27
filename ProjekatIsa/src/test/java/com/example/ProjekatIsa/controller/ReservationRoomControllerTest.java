@@ -76,7 +76,7 @@ private static final String URL_PREFIX = "/reservationRoom";
 		newResRoom.setTotalPrice(222.3);
 		
 		String json = TestUtil.json(newResRoom);
-		this.mockMvc.perform(post(URL_PREFIX + "/bookRoom" ).contentType(contentType).content(json)).andExpect(status().is2xxSuccessful());
+		this.mockMvc.perform(post(URL_PREFIX + "/bookRoom/1" ).contentType(contentType).content(json)).andExpect(status().is2xxSuccessful());
 	}
 
 }

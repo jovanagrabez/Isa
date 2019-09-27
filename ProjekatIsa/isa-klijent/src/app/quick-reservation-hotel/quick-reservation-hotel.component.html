@@ -12,7 +12,7 @@
               		<label>Datum pocetka:</label>
                 	<div class="input-group">
 	                	<span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
-		                <input class="form-control"  (change)="intervalDatuma()" type="date" min={{pomoc}}  name="endDate" id="endDate" required="required"  data-placeholder="Check out" [(ngModel)]="searchFormServices.startDate">
+		                <input class="form-control" id="datMin"  (change)="intervalDatuma()" type="date" min={{pomoc}}  required="required"  data-placeholder="Check out" [(ngModel)]="searchFormServices.startDate">
 		                <span id="errorEnd"></span>
 	           		</div>
 	            </div>
@@ -23,6 +23,12 @@
 	                 <input class="form-control" type="date" name="endDate" id="endDate" min={{pomocDva}}  required="required"  data-placeholder="Check out" [(ngModel)]="searchFormServices.endDate">
 	                 <span id="errorEnd"></span>
 	            </div>
+	            <label>Izaberite let:</label>
+                <div class="form-group">
+				<select [(ngModel)]="flightReservationId" class="form-control"  id="fid">
+						<option  *ngFor="let f of flightRes"  value={{f.id}}>{{f.datum}}</option>
+					</select>	         
+				</div>
 	            </div>
 	                         
 			    <div class="col-xs-6">
@@ -63,9 +69,9 @@
                 <td>{{r.dateFrom}}</td>
                 <td>{{r.dateTo}}</td>
                 <td>{{r.room.capacity}}</td>
-                <td>{{r.room.price}}</td>
-                <td>{{r.discountprice}}</td>
-                <td>{{r.room.price - (r.discountprice*r.room.price)/100}}</td>                
+                <td>{{r.room.price}}€ </td>
+                <td>{{r.discountprice}}%</td>
+                <td>{{r.room.price - (r.discountprice*r.room.price)/100}}€</td>                
         		<button  *ngIf="canBook" class="btn btn-primary" (click)="reserve(r.room.id)">Rezervisi</button>
                 </tr>
              </tbody>

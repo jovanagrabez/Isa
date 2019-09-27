@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.ProjekatIsa.model.AdditionalServiceForHotel;
+import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.repository.AdditionalServiceForHotelRepository;
 
 @Service
@@ -34,6 +35,18 @@ public class AdditionalServiceForHotelServiceImpl implements AdditionalServiceFo
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	@Override
+	public List<AdditionalServiceForHotel> findAllByHotel(Hotel h) {
+		// TODO Auto-generated method stub
+		return rep.findAllByHotel(h);
+	}
+
+	@Override
+	public AdditionalServiceForHotel findOneById(Long id) {
+		// TODO Auto-generated method stub
+		return rep.findOneById(id);
 	}
 
 }

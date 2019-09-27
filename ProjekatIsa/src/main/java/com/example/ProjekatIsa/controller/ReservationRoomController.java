@@ -58,11 +58,12 @@ public class ReservationRoomController {
 	@Autowired 
 	private UserRepository userRepository;
 	
-	@RequestMapping(value="/bookRoom",
+	@RequestMapping(value="/bookRoom/{idRes}",
 			method = RequestMethod.POST,
 			consumes =MediaType.APPLICATION_JSON_VALUE,
 			produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<?> bookRoom(@RequestBody ReservationRoomDTO roomRes){
+	public ResponseEntity<?> bookRoom(@RequestBody ReservationRoomDTO roomRes,
+										@PathVariable Long idRes){
 		System.out.println("Usao u bookRoom");
 		
 		Date startDate = null;
@@ -85,7 +86,14 @@ public class ReservationRoomController {
 			returnValue.setCategory(roomRes.getCategory());
 			returnValue.setRoom(room);
 			
-			reservationRoomService.save(returnValue);
+			returnValue = reservationRoomService.save(returnValue);
+			
+			//cuvam u let id rez
+			FlightReservation help = new FlightReservation();	
+			help = flightRepository.findOneById(idRes);
+			System.out.println("mozes ocitati id :? "+returnValue.getId());
+			help.setResRoomId(returnValue.getId());
+			flightRepository.save(help);
 			return new ResponseEntity<>(HttpStatus.CREATED);
 			
 		}else {
@@ -114,10 +122,12 @@ public class ReservationRoomController {
 	
 	
 	@RequestMapping(
-			value="/fastReservationsHotel/{idFlight}/{idRoom}/{startDate}/{endDate}/{idUser}",
+			value="/fastReservationsHotel/{idFlight}/{idRoom}/{startDate}/{endDate}/{idUser}/{idRes}",
 			method = RequestMethod.GET)
-	public ResponseEntity<ReservationRoom> fastReservationsHotel(@PathVariable Long idFlight, @PathVariable Long idRoom ,@PathVariable String startDate,
-			@PathVariable String endDate, @PathVariable Long idUser) {
+	public ResponseEntity<ReservationRoom> fastReservationsHotel(@PathVariable Long idFlight, 
+																@PathVariable Long idRoom ,@PathVariable String startDate,
+																@PathVariable String endDate, @PathVariable Long idUser,
+																@PathVariable Long idRes) {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date preuzimanje = null;
@@ -152,8 +162,18 @@ public class ReservationRoomController {
 		fastRes.setCategory(room.getRoom_description());
 		fastRes.setUser(user);
 		
-		reservationRoomService.save(fastRes);
+		fastRes = reservationRoomService.save(fastRes);
 		//u flight res se treba postaviti i brza rez vozila
+		if(idRes>0) {
+			FlightReservation help = new FlightReservation();	
+			
+			help = flightRepository.findOneById(idRes);
+			System.out.println("mozes ocitati id :? "+fastRes.getId());
+			help.setResRoomId(fastRes.getId());
+			flightRepository.save(help);
+		}
+		
+		
 		
 		return new ResponseEntity<ReservationRoom>(fastRes,HttpStatus.OK);
 		
@@ -167,13 +187,50 @@ public class ReservationRoomController {
 	public ResponseEntity<?> getAllMyFlights(@PathVariable Long idUser){
 		System.out.println("dosao u sve moje rezervacije");
 		List<FlightReservation> helpList = new ArrayList<>();
+		List<FlightReservation> returnList = new ArrayList<>();
 		
 		helpList = flightRepository.findAllByUserId(idUser);
-		if (helpList!=null) {
-			System.out.println("broj help liste+ " + helpList.size());
-			return new ResponseEntity<List<FlightReservation>>(helpList,HttpStatus.OK);
+		if (!helpList.isEmpty()) {
+			for(FlightReservation f : helpList)
+				if (f.getResRoomId()==null) {
+					System.out.println("dodajem flight rez!");
+					returnList.add(f);
+				}
+			System.out.println("broj help liste+ " + returnList.size());
+			return new ResponseEntity<List<FlightReservation>>(returnList,HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
-	
+	@RequestMapping(
+			value="/chekIfFlightIsBooked/{idRes}",
+			method = RequestMethod.POST,
+			produces = MediaType.TEXT_PLAIN_VALUE)
+	public String chekIfFlightIsBooked(@RequestBody ReservationRoomDTO roomRes,
+										@PathVariable Long idRes){
+		
+		System.out.println("dosao u cekiraj jel bukiran flajt tad");
+		Date startDate = null;
+		startDate = roomRes.getStartDate();
+		
+		FlightReservation help = new FlightReservation();
+		
+		help = flightRepository.findOneById(idRes);
+		if (help!=null) {
+			
+			// provjeravamo da li je let prije rezervacije i provjeravamo broj putnika
+			//datum pocetka rez hotela mora biti veci ili jednak datumu leta
+			if (help.getDatum().getTime()>startDate.getTime()) {
+				 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+				return Boolean.TRUE.toString();
+			}
+			//broj ljudi u letu morra biti veci ili jednak broju gostiju u hotelu
+			if (roomRes.getNumPeople() > (double) help.getNumPass()) {
+				//return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+				return Boolean.TRUE.toString();
+			}
+		}
+		//return new ResponseEntity<Boolean>(false, HttpStatus.OK);
+		return Boolean.FALSE.toString();
+		
+	}
 }

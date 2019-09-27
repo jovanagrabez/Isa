@@ -33,15 +33,13 @@ insert into room (room_id,room_number,room_price,capacity,room_description,hotel
 	values (13,23,200,7,'Apartman',2);
 insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
 	values (14,24,200,6,'Apartman',4.8,1);
-insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
-	values (15,25,200,5,'Apartman',1);
 
 insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
 	values (16,26,260,5,'Apartman',3);
 
 insert into hotel (name,city,adress,description,average_rating) values ('Vojvodina','Novi Sad','Trg slobode 2, Novi Sad, Srbija','U samom centru grada. Stara arhitektura',4.3);
 insert into hotel (name,city,adress,description,average_rating) values ('Grand hotel','Beograd','Bulevar Nikole Tesle 3, Beograd, Srbija','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
-insert into hotel (name,city,adress,description,average_rating) values ('Butique','Beograd','Trg Republike 3, Beograd, Srbija','Pro eu dolore vivendo ponderum.',4.3);
+insert into hotel (name,city,adress,description,average_rating) values ('Paris','Pariz','2 Avenue du Professeur André Lemierre, 75020 Paris, France','Pro eu dolore vivendo ponderum.',4.3);
 insert into hotel (name,city,adress,description,average_rating) values ('Prezident','Novi Sad','Futoška 109, Novi Sad, Srbija',' Eos ad oblique adolescens moderatius.',3.9);
 insert into hotel (name,city,adress,description,average_rating) values ('Biser','Derventa','Kralja Petra I, Derventa, Bosna i Hercegovina ','Cu sit sint ignota, sit id scaevola.',4.5);
 
@@ -517,11 +515,13 @@ insert into rating_room (ratingroom_id,user_id,room_id,rate)
 	values (2,1,1,1);
 insert into rating_room (ratingroom_id,user_id,room_id,rate)
 	values (3,1,2,3);
-
+--popust sa id = 1 je za dodatne servise (preko 200 dobija se 10 posto popusta)
 insert into system_discount (system_discount_id,amount,percent)
 	values (1,200,10);
+--popust sa id = 2 je za bonus poene (rezervacijom leta dobija se 3 bonus poena)
 insert into system_discount (system_discount_id,amount,percent)
 	values (2,200,3);
+--popust sa id = 3 je za hotele (za 5 poena dobijas 10 posto popusta)
 insert into system_discount (system_discount_id,amount,percent)
 	values (3,5,10);
 
@@ -529,12 +529,17 @@ insert into system_discount (system_discount_id,amount,percent)
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (1,'2019-09-05','2019-09-30',30.0,1,1);
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (2,'2019-09-05','2019-09-30',20.0,2,1);
 --sobe na popustu
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-30',30.0,8,3);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-30',30.0,8,1);
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (4,'2019-09-05','2019-09-30',20.0,2,4);
+--soba u parizu
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) 
+	values (5,'2019-09-05','2019-10-30',20.0,16,3);
 
 
 --rezervacija 
-insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass)	
-	values (1,1,1,'2019-09-26',3);
-insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass)	
-	values (2,1,1,'2019-10-12',3);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id)	
+	values (1,1,1,'2019-09-26',3,null);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id)	
+	values (2,1,1,'2019-10-12',3,null);
+insert into flight_reservation (flight_reservation_id,flight_id,user_id,datum,num_pass,res_room_id)	
+	values (3,1,1,'2018-10-12',3,1);

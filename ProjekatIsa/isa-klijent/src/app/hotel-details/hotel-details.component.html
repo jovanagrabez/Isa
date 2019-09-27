@@ -335,17 +335,17 @@
 				<div class="col-xs-6" id = "addPricingDiv" hidden="true">
 		              	<div class="box box-primary">
 			            <div class="box-header with-border ">
-			              <h3 class="box-title">Dodaj novi servis</h3>
+			              <h3 class="box-title">Dodaj novu stavku u cenovnik</h3>
 			            </div>
 			            <!-- /.box-header -->
 			            <div class="box-body no-padding">
 			            <label>Unesite datum pocetka:</label>
 			              <div class="form-group">
-			                <input type="date" class="form-control" placeholder="Unesite datum pocetka.." value='newPricing.dateFrom' [(ngModel)]="newPricing.dateFrom">
+			                <input type="date" class="form-control" (change)="intervalDatuma()" id="datMin" min={{pomoc}} placeholder="Unesite datum pocetka.." value='newPricing.dateFrom' [(ngModel)]="newPricing.dateFrom">
 			              </div>
 			               <label>Unesite datum kraja:</label>
 			              <div class="form-group">
-			                <input type="date" class="form-control" placeholder="Unesite datum kraja.." value='newPricing.dateTo' [(ngModel)]="newPricing.dateTo" >
+			                <input type="date" class="form-control" min={{pomocDva}} placeholder="Unesite datum kraja.." value='newPricing.dateTo' [(ngModel)]="newPricing.dateTo" >
 			   			  </div>
 			   			   <label>Unesite cenu:</label>
 			   			  <div class="form-group">

@@ -114,7 +114,7 @@ public class PricingController {
 		try {
 			System.out.println("cuvam");
 			pricingService.save(p);
-			return new ResponseEntity<>(null, HttpStatus.OK);
+			return new ResponseEntity<>(pp, HttpStatus.OK);
 		}catch(Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
 		}

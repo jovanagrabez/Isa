@@ -29,10 +29,14 @@ export class QuickReservationHotelComponent implements OnInit {
     user : User = new User();
     searchFormServices : SearchFormServices = new SearchFormServices();
     canBook : boolean;
-//za datume
-pomoc: string;
-pomocDva: string;
-minDatum : Date;
+
+    //za proveru leta
+    flightRes : any[] = [];
+    flightReservationId : number;
+    //za datume
+    pomoc: string;
+    pomocDva: string;
+    minDatum : Date;
 
   constructor(private datePipe: DatePipe,private resService : ResServiceService,private router: Router,private hotelService : HotelServiceService,private service : ViewHotelsService) { }
 
@@ -54,6 +58,11 @@ minDatum : Date;
               this.discount=data;
               console.log(data);
           });
+          this.hotelService.getAllMyFlights(this.user.id).subscribe(data=>{
+              this.flightRes  = data;
+              console.log("moji letovi: ");
+              console.log(data);
+          });
        });
   }
   //kontrola datum
@@ -62,29 +71,44 @@ minDatum : Date;
   }
   pretraga(){
 
+     if(this.isBlank(this.flightReservationId)){
+          alert("Morate odabrati let");
+     }
+     else{
+ 
       this.searchFormServices.city = this.currentHotel.city;
       this.searchFormServices.nameHotel = this.currentHotel.name;
       console.log(this.searchFormServices.nameHotel);
-      this.hotelService.searchDiscountRooms(this.searchFormServices).subscribe(data=>{
+      this.hotelService.searchDiscountRooms(this.searchFormServices,this.flightReservationId).subscribe(data=>{
           console.log('pretrazeni hoteli');
-          this.discount=data;
           console.log(data);
+          if (data==null){
+              alert("Datum pocetka rezervacije mora biti jednak ili veci od datuma pocetka leta!")
+          }else{
+              this.discount=data;
+          }
+          
+          
       });
       this.rez.startDate = this.searchFormServices.startDate;
       this.rez.endDate = this.searchFormServices.endDate;
       this.canBook = true;
 
     }
-  
+  }
   reserve(id: number){
       const startDate = this.rez.startDate;
       console.log(this.rez.startDate.getTime);
       const endDate = this.rez.endDate;
       console.log('rezervacija je uspjesno izvrsena');
-      this.resService.fastReservationsHotel(-1, id , startDate, endDate,this.user.id).subscribe(data =>{
+      this.resService.fastReservationsHotel(-1, id , startDate, endDate,this.user.id,this.flightReservationId).subscribe(data =>{
           alert("Uspjesno rezervisan hotel!");
           this.router.navigateByUrl('/home');
         });
   }
+  
+  isBlank(str) {
+      return (!str || /^\s*$/.test(str));
+    }
 
 }

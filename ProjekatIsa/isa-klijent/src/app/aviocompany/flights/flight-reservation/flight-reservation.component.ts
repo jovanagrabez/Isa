@@ -150,7 +150,7 @@ export class FlightReservationComponent implements OnInit {
      // console.log(this.rez.startDate.getTime);
       const endDate = this.searchFormServices.endDate;
       //console.log('rezervacija je uspjesno izvrsena');
-      this.resServise.fastReservationsHotel(-1, id , startDate, endDate,this.user.id).subscribe(data =>{
+      this.resServise.fastReservationsHotel(-1, id , startDate, endDate,this.user.id,-1).subscribe(data =>{
           alert("Uspjesno rezervisan hotel!");
           //this.router.navigateByUrl('/home');
         });
@@ -159,10 +159,15 @@ export class FlightReservationComponent implements OnInit {
 
   pretraga(){
 
+      if(this.searchFormServices.startDate==null) {
+          alert("Morate uneti datum dolaska!")
+      }else if(this.searchFormServices.startDate==null){
+          alert("Morate uneti datum odaska!")
+      }else{
     console.log(this.searchFormServices.city);
     console.log(this.searchFormServices.name);
-    console.log(this.searchFormServices.nameHotel);
-    this.hotelService.searchDiscountRooms(this.searchFormServices).subscribe(data=>{
+    console.log(this.searchFormServices);
+    this.hotelService.searchDiscountRooms(this.searchFormServices,1).subscribe(data=>{
         console.log('pretrazeni hoteli');
         this.discounts2=data;
         console.log(data);
@@ -173,7 +178,7 @@ export class FlightReservationComponent implements OnInit {
       console.log('pretrazeni servisi');
       console.log(data);
     });
-
+      }
   }
 
 

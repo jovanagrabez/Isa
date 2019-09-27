@@ -46,7 +46,7 @@ public class HotelServiceTest {
 		ArrayList<Hotel> list1 = new ArrayList<>();
 		list1.add(new Hotel(1L,"Vojvodina","Novi Sad", "Trg slobode 2, Novi Sad, Srbija","U samom centru grada. Stara arhitektura",4.3));
 		list1.add(new Hotel(2L,"Grand hotel","Beograd","Bulevar Nikole Tesle 3, Beograd, Srbija","Lorem ipsum dolor sit amet, pri ei duis natum.",4.9));
-		list1.add(new Hotel(1L,"Butique","Beograd","Trg Republike 3, Beograd, Srbija","Pro eu dolore vivendo ponderum.",4.3));
+		list1.add(new Hotel(1L,"Paris","Pariz","2 Avenue du Professeur André Lemierre, 75020 Paris, France","Pro eu dolore vivendo ponderum.",4.3));
 		list1.add(new Hotel(1L,"Prezident","Novi Sad","Futoška 109, Novi Sad, Srbija"," Eos ad oblique adolescens moderatius.",3.9));
 		list1.add(new Hotel(1L,"Biser","Derventa","Kralja Petra I, Derventa, Bosna i Hercegovina ","Cu sit sint ignota, sit id scaevola.",4.5));
 

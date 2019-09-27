@@ -203,7 +203,7 @@ export class HotelDetailsComponent implements OnInit {
                 }else{
                     
                 
-                alert("Uspjesno dodan servis!");
+                alert("Uspjesno dodana stavka u cenovnik!");
                 window.location.href = 'http://localhost:4200/hotels'; 
                 }
             });
@@ -494,7 +494,7 @@ export class HotelDetailsComponent implements OnInit {
           console.log(this.reservationRoom);
           console.log("rezervaciju je izvrsio: " + this.reservationRoom.user.email);
 
-          this.hotelService.bookRoom(this.reservationRoom).subscribe(data=>{
+          this.hotelService.bookRoom(this.reservationRoom,this.flightReservationId).subscribe(data=>{
               if (this.popust){
                   
                   if (this.iskoristiPoene){

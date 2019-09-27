@@ -69,10 +69,10 @@ export class HotelServiceService {
       return this.http.post('http://localhost:8080/rooms/searchRooms/'+id + "/"+cenaod + "/" +cenado,res); 
   };
   chekIfFlightIsBooked(res : ReservationRoom, id : number) : Observable<any> {
-      return this.http.post('http://localhost:8080/rooms/chekIfFlightIsBooked/'+id,res); 
+      return this.http.post('http://localhost:8080/reservationRoom/chekIfFlightIsBooked/'+id,res); 
   };
-  bookRoom(res : ReservationRoom) : Observable<any> {
-      return this.http.post('http://localhost:8080/reservationRoom/bookRoom',res); 
+  bookRoom(res : ReservationRoom, id: number) : Observable<any> {
+      return this.http.post('http://localhost:8080/reservationRoom/bookRoom/'+id,res); 
   };
   
   getLastWeekReservations(id: number, dateToday : string): Observable<any> {
@@ -106,8 +106,8 @@ export class HotelServiceService {
   getDiscountRoomsid(id:number): Observable<any>{
       return this.http.get('http://localhost:8080/rooms/getDiscountRoomsid/'+id);
   };
-  searchDiscountRooms(ss : SearchFormServices): Observable<any>{
-      return this.http.post('http://localhost:8080/rooms/searchFast',ss);
+  searchDiscountRooms(ss : SearchFormServices, id:number): Observable<any>{
+      return this.http.post('http://localhost:8080/rooms/searchFast/'+id,ss);
   };
   
   isReserved(id:number): Observable<any>{
