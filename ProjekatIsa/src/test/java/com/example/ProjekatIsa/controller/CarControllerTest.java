@@ -125,7 +125,7 @@ public class CarControllerTest {
 //	@Test
 //	public void testGetRatingCar() throws Exception{
 //		
-//		//za sobu gdje je id = 1 ocekujem iduce ocjene
+//		
 //		this.mockMvc.perform(get(URL_PREFIX + "/getRatingCar/8" )).andExpect(status().isOk())
 //		.andExpect(jsonPath("$.[*].id").value(hasItem(1)))
 //		.andExpect(jsonPath("$.[*].rate").value(hasItem(5)));

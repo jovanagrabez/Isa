@@ -30,6 +30,7 @@ import com.example.ProjekatIsa.model.Car;
 import com.example.ProjekatIsa.model.CarReservation;
 import com.example.ProjekatIsa.model.Discount;
 import com.example.ProjekatIsa.model.Filijale;
+import com.example.ProjekatIsa.model.FlightReservation;
 import com.example.ProjekatIsa.model.Hotel;
 import com.example.ProjekatIsa.model.RatingHotel;
 import com.example.ProjekatIsa.model.RatingRentACar;
@@ -42,6 +43,7 @@ import com.example.ProjekatIsa.repository.CarRepository;
 import com.example.ProjekatIsa.repository.CarReservationRepository;
 import com.example.ProjekatIsa.repository.DiscountRepository;
 import com.example.ProjekatIsa.repository.FilijaleRepository;
+import com.example.ProjekatIsa.repository.FlightReservationRepository;
 import com.example.ProjekatIsa.repository.RatingCarRepository;
 import com.example.ProjekatIsa.repository.RatingRentACarRepository;
 import com.example.ProjekatIsa.repository.RentalCarRepository;
@@ -76,6 +78,9 @@ public class RentalCarController {
 	private RatingCarRepository ratingCarRepository;
 	
 	@Autowired DiscountRepository discountRepository;
+	
+	@Autowired
+	private FlightReservationRepository flightRepository;
 	
 	@RequestMapping(
 			value = "/getAll", 
@@ -296,16 +301,25 @@ public class RentalCarController {
 		
 		
 		
-		@RequestMapping(value="/searchFast",
+		@RequestMapping(value="/searchFast/{id}",
 				method = RequestMethod.POST,
 				produces = MediaType.APPLICATION_JSON_VALUE)
-		public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm){
+		public ResponseEntity<?> searchFast(@RequestBody SearchFormServices searchForm, @PathVariable("id") Long id){
 			System.out.println("Dosao u search ");
 			
+			FlightReservation help = new FlightReservation();
+			
+			help = flightRepository.findOneById(id);
+			if (help!=null) {
+				if (help.getDatum().getTime()>searchForm.getStartDate().getTime()) {
+					 //return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+					return new ResponseEntity<>(null, HttpStatus.OK);
+				}
+			}
 			List<Discount> povratna= new ArrayList<Discount>();
 			
 			List<RentACar> all = rentalcarService.getAll();
-			Set<RentACar> returnList = new HashSet<RentACar>();
+			List<RentACar> returnList = new ArrayList<RentACar>();
 			List<RentACar> returnList2 = new ArrayList<RentACar>();
 			List<RentACar> returnList3 = new ArrayList<RentACar>();
 
@@ -365,10 +379,16 @@ public class RentalCarController {
 							returnList.add(h);
 						}
 					}
-			//		return new ResponseEntity<Set<RentACar>>(returnList, HttpStatus.OK);
+					
+					returnList3 = returnList;
+					
+			
 				}
-				//ako ne pretrazuje ni po nazivu ni po gradu
-			//	return new ResponseEntity<Set<RentACar>>(all, HttpStatus.OK);
+				
+				else {
+					returnList3 = all;
+				}
+				
 			}
 			
 			

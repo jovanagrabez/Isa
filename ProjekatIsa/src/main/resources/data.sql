@@ -418,6 +418,12 @@ insert into car_reservation (reservation_id,start_date,end_date,pickup_place,ret
 	values (14,'2019-09-05','2019-09-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
 insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
 	values (15,'2019-09-05','2019-09-06','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
+	values (16,'2019-09-25','2019-09-28','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
+	values (17,'2019-09-25','2019-09-26','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
+insert into car_reservation (reservation_id,start_date,end_date,pickup_place,return_place,category,num_people,num_days,total_price,day_rez,car_id,user_user_id,flag)
+	values (18,'2019-09-24','2019-09-26','Novi Sad','Beograd','B',3,10,250,'2018-10-15',12,1,true);
 
 insert into rating_rentacarservice (ratingcar_id,user_user_id,rentacar_id,rate)
 	values (1,1,4,5);

@@ -13,13 +13,8 @@ import com.example.ProjekatIsa.model.User;
 @Service
 public interface CarReservationService {
 	
-	@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
-	public CarReservation save(CarReservation carReservation);
-	
-	@Transactional(readOnly = true)
+	public CarReservation save(CarReservation carReservation);	
 	public List<CarReservation> findAllByUser(User user);
-	
-	@Transactional(readOnly = true)
-	public List<CarReservation> findAllByCar(Car car);
+    public List<CarReservation> findAllByCar(Car car);
 
 }

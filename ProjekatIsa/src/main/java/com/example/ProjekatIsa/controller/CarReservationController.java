@@ -352,10 +352,10 @@ public class CarReservationController {
 	}
 	
 	
-	@RequestMapping(value="/fastReservations/{idFlight}/{idCar}/{startDate}/{endDate}/{idUser}",
+	@RequestMapping(value="/fastReservations/{idFlight}/{idCar}/{startDate}/{endDate}/{idUser}/{idRes}",
 			method = RequestMethod.GET)
 	public ResponseEntity<CarReservation> fastReservations(@PathVariable Long idFlight, @PathVariable Long idCar ,@PathVariable String startDate,
-			@PathVariable String endDate, @PathVariable Long idUser) {
+			@PathVariable String endDate, @PathVariable Long idUser,@PathVariable Long idRes) {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date preuzimanje = null;
@@ -393,7 +393,14 @@ public class CarReservationController {
 		
 		carReservationService.save(fastRes);
 		//u flight res se treba postaviti i brza rez vozila
-		
+		if(idRes>0) {
+			FlightReservation help = new FlightReservation();	
+			
+			help = flightRepository.findOneById(idRes);
+			System.out.println("mozes ocitati id :? "+fastRes.getId());
+			help.setResCarId(fastRes.getId());
+			flightRepository.save(help);
+		}
 		return new ResponseEntity<CarReservation>(fastRes,HttpStatus.OK);
 		
 	}
@@ -407,10 +414,17 @@ public class CarReservationController {
 		System.out.println("dosao u sve moje rezervacije");
 		List<FlightReservation> helpList = new ArrayList<>();
 		
+		List<FlightReservation> returnList = new ArrayList<>();
+		
 		helpList = flightRepository.findAllByUserId(idUser);
-		if (helpList!=null) {
-			System.out.println("broj help liste+ " + helpList.size());
-			return new ResponseEntity<List<FlightReservation>>(helpList,HttpStatus.OK);
+		if (!helpList.isEmpty()) {
+			for(FlightReservation f : helpList)
+				if (f.getResCarId()==null) {
+					System.out.println("dodajem flight rez!");
+					returnList.add(f);
+				}
+			System.out.println("broj help liste+ " + returnList.size());
+			return new ResponseEntity<List<FlightReservation>>(returnList,HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}

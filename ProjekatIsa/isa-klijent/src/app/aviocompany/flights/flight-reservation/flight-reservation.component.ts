@@ -35,6 +35,9 @@ export class FlightReservationComponent implements OnInit {
   reservationHotel: any;
   discount : any;
   discounts : Array<Discount>;
+  brojDana : number;
+  preuzeto  : Date; 
+  vraceno : Date;
   private searchFormServices: SearchFormServices = new SearchFormServices();
 
   discounts2 : Array<DiscountHotel>;
@@ -138,7 +141,7 @@ export class FlightReservationComponent implements OnInit {
  //   console.log(this.rez.startDate.getTime);
     const endDate = this.searchFormServices.endDate;
     console.log('rezervacija je uspjesno izvrsena');
-    this.resServise.fastReservations(-1, id , startDate, endDate, this.user.id).subscribe(data =>{
+    this.resServise.fastReservations(-1, id , startDate, endDate, this.user.id,-1).subscribe(data =>{
       this.reservation.carReservation = data;
       alert('Uspjesno ste rezervisali vozilo');
 
@@ -173,12 +176,16 @@ export class FlightReservationComponent implements OnInit {
         console.log(data);
     });
 
-    this.rentalCarsService.searchServiceFast(this.searchFormServices).subscribe(data=>{
+    this.rentalCarsService.searchServiceFast(this.searchFormServices,1).subscribe(data=>{
       this.discounts = data;
       console.log('pretrazeni servisi');
       console.log(data);
     });
       }
+      this.vraceno = new Date(this.searchFormServices.endDate);
+      this.preuzeto = new Date(this.searchFormServices.startDate);
+      var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+      this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
   }
 
 

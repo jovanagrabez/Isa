@@ -279,7 +279,7 @@ public class CarController {
 		
 		   RentACar servis = rentcarService.findOneById(id);
 		   List<Car> allCars = carRepository.findAllByRentacar(servis);   
-		   List<Car> returnList = new ArrayList<>();
+		   List<Car> returnList = new ArrayList<Car>();
 		   
 		   
 		   List<CarDTO> carsfromServiceDTO = new ArrayList<>();
@@ -504,27 +504,40 @@ public class CarController {
 			}
 		
 		
-		//Izbaci sobe koje su na popustu
-			List<Car> nonDiscountCars (List<Car> cars, Date startDate, Date endDate){
+		//Izbaci vozila koje su na popustu
+		 List<Car> nonDiscountCars (List<Car> cars, Date startDate, Date endDate){
 				System.out.println("nonDiscountCars ");
 				List<Car> returnList = new ArrayList<Car>();
 				returnList = cars;
-				if (!returnList.isEmpty()) {
-					for (Car r : returnList) {
+				if (returnList.size()>0) {
+					System.out.println("broj" + returnList.size());
+
+				for (int i = 0; i < returnList.size(); i++) {
+					Car r = returnList.get(i);
+					 if(returnList.size()>0) {
+						System.out.println("kroz vozila ");
 						
-						System.out.println("kroz sobe ");
 						List<Discount> discount = discountRepository.findAllByCar(r);
 						if (!discount.isEmpty()) {
 							System.out.println("postoji diskaunt ");
+							System.out.println("DISCOUNT" + discount.size());
 							for(Discount d : discount) {
 								if (d.getDateFrom().getTime()<startDate.getTime() && d.getDateTo().getTime()>endDate.getTime()) {
 									System.out.println("uklanjam vozilo ");
 									returnList.remove(r);
+									returnList.iterator().next();
+									if(returnList.isEmpty()) {
+										System.out.println("PRAZNA JE");
+										return returnList;
+
+									}
+								
 								}
 							}
 						}
 					}
 				}
+		    }	
 				return returnList;
 			}
 		

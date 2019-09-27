@@ -238,6 +238,8 @@
                     <th>Cena po danu</th>
                     <th>Popust</th>
                     <th>Cena nakon popusta</th>
+                    <th>Ukupna cena za {{brojDana}} dana</th>
+                    
                     <th></th>
                   </tr>
                   </thead>
@@ -251,6 +253,8 @@
                     <td>{{c.car.price}}</td>
                     <td>{{c.discountprice}}</td>
                     <td>{{c.car.price - (c.discountprice*c.car.price)/100}}</td>
+                    <td><span  id="bookId">{{(c.car.price - (c.discountprice*c.car.price)/100) * brojDana}}</span></td>
+                    
                     <button class="btn btn-primary" (click)="reserveCar(c.car.id)">Rezervisi</button>
                   </tr>
                   </tbody>
@@ -276,6 +280,8 @@
             	<th>Cena po danu</th>
             	<th>Popust</th>
             	<th>Cena nakon popusta</th>
+                <th>Ukupna cena za {{brojDana}} dana</th>
+            	
             	<th></th>
             	</tr>
        		 </thead>
@@ -288,7 +294,9 @@
                 <td>{{r.dateTo}}</td>
                 <td>{{r.room.price}}</td>
                 <td>{{r.discountprice}}</td>
-                <td>{{r.room.price - (r.discountprice*r.room.price)/100}}</td>                
+                <td>{{r.room.price - (r.discountprice*r.room.price)/100}}</td>  
+                <td><span class="hidden-xs" id="bookId">{{(r.room.price - (r.discountprice*r.room.price)/100) * brojDana}}</span></td>
+                              
         		<button class="btn btn-primary" (click)="reserveRoom(r.room.id)">Rezervisi</button>
                 </tr>
              </tbody>

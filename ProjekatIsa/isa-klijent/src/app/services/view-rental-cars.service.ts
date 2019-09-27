@@ -113,8 +113,8 @@ export class ViewRentalCarsService {
   };
 
 
-  searchServiceFast(searchForm: SearchFormServices): Observable<any> {
-    return this.http.post('http://localhost:8080/rentalcars/searchFast/', searchForm);
+  searchServiceFast(searchForm: SearchFormServices,id:number): Observable<any> {
+    return this.http.post('http://localhost:8080/rentalcars/searchFast/'+id, searchForm);
 
 
   }

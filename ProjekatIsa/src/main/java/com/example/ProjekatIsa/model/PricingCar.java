@@ -104,6 +104,14 @@ public class PricingCar implements Serializable {
 		setPrice(p.getPrice());
 		
 	}
+
+  public PricingCar(Long id, Double price, Date dateFrom, Date dateTo) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+	}
 	
 	
 	

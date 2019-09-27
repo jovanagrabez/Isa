@@ -36,6 +36,9 @@ export class QuickReservationComponent implements OnInit {
   //za proveru leta
   flightRes : any[] = [];
   flightReservationId : number;
+  brojDana : number;
+  preuzeto  : Date; 
+  vraceno : Date;
 
 
 
@@ -100,6 +103,10 @@ export class QuickReservationComponent implements OnInit {
       this.rez.startDate = this.searchFormServices.startDate;
       this.rez.endDate = this.searchFormServices.endDate;
       this.canBook = true;
+      this.vraceno = new Date(this.rez.endDate);
+      this.preuzeto = new Date(this.rez.startDate);
+      var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+            this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24)); 
       }
     }
     
@@ -109,7 +116,7 @@ export class QuickReservationComponent implements OnInit {
         console.log(this.rez.startDate.getTime);
         const endDate = this.rez.endDate;
         console.log('rezervacija je uspjesno izvrsena');
-        this.resService.fastReservations(-1, id , startDate, endDate,this.user.id).subscribe(data =>{
+        this.resService.fastReservations(-1, id , startDate, endDate,this.user.id,this.flightReservationId).subscribe(data =>{
           alert("Uspjesno rezervisano vozilo!");
           this.router.navigateByUrl('/rentalCars');
         });

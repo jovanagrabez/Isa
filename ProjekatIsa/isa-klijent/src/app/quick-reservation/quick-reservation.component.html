@@ -62,6 +62,8 @@
             	<th>Cena po danu</th>
             	<th>Popust</th>
             	<th>Cena nakon popusta</th>
+            	<th>Ukupna cena za {{brojDana}} dana</th>
+            	
             	<th></th>
             	</tr>
        		 </thead>
@@ -74,7 +76,9 @@
                 <td>{{c.dateTo}}</td>
                 <td>{{c.car.price}}</td>
                 <td>{{c.discountprice}}</td>
-                <td>{{c.car.price - (c.discountprice*c.car.price)/100}}</td>                
+                <td>{{c.car.price - (c.discountprice*c.car.price)/100}}</td> 
+                <td><span class="hidden-xs" id="bookId" *ngIf="canBook">{{(c.car.price - (c.discountprice*c.car.price)/100) * brojDana}}</span></td>
+                               
         		<button *ngIf="canBook" class="btn btn-primary" (click)="reserve(c.car.id)">Rezervisi</button>
                 </tr>
              </tbody>
