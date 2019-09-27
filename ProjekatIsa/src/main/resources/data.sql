@@ -32,7 +32,7 @@ insert into room (room_id,room_number,room_price,capacity,room_description,room_
 insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
 	values (13,23,200,7,'Apartman',2);
 insert into room (room_id,room_number,room_price,capacity,room_description,room_average_rating,hotel_id) 
-	values (14,24,200,6,'Apartman',4.8,1);
+	values (14,24,200,2,'Jednokrevetna',4.8,1);
 
 insert into room (room_id,room_number,room_price,capacity,room_description,hotel_id) 
 	values (16,26,260,5,'Apartman',3);
@@ -499,6 +499,10 @@ insert into reservation_room (reservation_room_id,start_date,end_date,total_pric
 	values (12,'2019-09-05','2019-09-06',200.5,'pending',null,1,1);
 insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
 	values (13,'2019-09-23','2019-09-24',200.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (14,'2019-09-25','2019-09-27',200.5,'pending',null,1,1);
+insert into reservation_room (reservation_room_id,start_date,end_date,total_price,reservation_status,reservation_rating,user_id,room_id)	
+	values (15,'2019-09-26','2019-09-27',200.5,'pending',null,1,1);
 
 
 insert into pricing(pricing_id,price,date_from,date_to,room_id) 
@@ -561,11 +565,14 @@ insert into system_discount (system_discount_id,amount,percent)
 	values (3,5,10);
 
 --sobe na popustu
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (1,'2019-09-05','2019-09-30',30.0,1,1);
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (2,'2019-09-05','2019-09-30',20.0,2,1);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) 
+	values (1,'2019-09-05','2019-09-30',30.0,1,1);
+insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id)
+	values (2,'2019-09-05','2019-09-30',20.0,2,1);
 --sobe na popustu
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (3,'2019-09-05','2019-09-30',30.0,8,1);
-insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) values (4,'2019-09-05','2019-09-30',20.0,2,4);
+--insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id)
+--	values (3,'2019-09-05','2019-09-30',30.0,8,1);
+
 --soba u parizu
 insert into discount_hotel(discount_id,date_from,date_to,discount_price,room_room_id,hotel_hotel_id) 
 	values (5,'2019-09-05','2019-10-30',20.0,16,3);

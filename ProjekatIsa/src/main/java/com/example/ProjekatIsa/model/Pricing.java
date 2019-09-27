@@ -91,4 +91,13 @@ public class Pricing implements Serializable{
 		setPrice(p.getPrice());
 		
 	}
+
+	public Pricing(Long id, Double price, Date dateFrom, Date dateTo) {
+		super();
+		this.id = id;
+		this.price = price;
+		this.dateFrom = dateFrom;
+		this.dateTo = dateTo;
+	}
+	
 }

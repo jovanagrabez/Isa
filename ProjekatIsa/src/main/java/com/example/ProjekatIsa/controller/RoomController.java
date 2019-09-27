@@ -217,10 +217,25 @@ public class RoomController {
 			   
 		   }
 		Hotel hotel = hotelRepository.findOneById(id);
-		List<Room> allRooms = roomRepository.findAllByHotel(hotel);
-		
+		List<Room> allRooms = new ArrayList<Room>();
+		List<Room> allRoomsPom = roomRepository.findAllByHotel(hotel);
 		List<Room> returnList = new ArrayList<Room>();
 		
+		//izbacivanje na osnovu kapaciteta
+		
+		for(Room r: allRoomsPom) {
+				if (!allRoomsPom.isEmpty()) {
+					if ((double)r.getCapacity()!=roomReservation.getNumPeople()) {
+					System.out.println("kapacitet problem izbacujem sobu : ");
+					}
+					else {
+						System.out.println("kapacitet problem nije");
+						allRooms.add(r);
+					}
+			}
+		}
+		
+		//provjera po datumu i kategoriji
 		for (Room r : allRooms) {
 			List<ReservationRoom> reservationRoom = reservationRoomService.findAllByRoom(r);
 			boolean free = true;
@@ -254,6 +269,7 @@ public class RoomController {
 			}
 		}
 		//racunanjen totalne cijene
+		
 		for(Room r: returnList) {
 			if (!returnList.isEmpty()) {
 				Double totalPrice = countPriceInSearchRooms(r,startDate,endDate);
@@ -261,8 +277,13 @@ public class RoomController {
 				r.setTotalPrice(totalPrice);
 			}
 		}
+		
+		
 		//izbacivanje soba sa popustom
-		returnList = nonDiscountRooms(returnList, startDate, endDate);
+		if (!returnList.isEmpty()) {
+			returnList = nonDiscountRooms(returnList, startDate, endDate);
+
+		}
 		return new ResponseEntity<List<Room>>(returnList,HttpStatus.OK);
 	
 	}
@@ -580,10 +601,12 @@ public class RoomController {
 		System.out.println("nonDiscountRooms ");
 		List<Room> returnList = new ArrayList<Room>();
 		returnList = rooms;
-		if (!returnList.isEmpty()) {
-			
+		//if (!returnList.isEmpty()) {
+			if (returnList.size()>0) {
 				System.out.println("broj soba " + returnList.size());
-			for (Room r : returnList) {
+		//	for (Room r : returnList) {
+			for(int i = 0; i<returnList.size(); i++){	
+				Room r = returnList.get(i);
 				if(returnList.size()>0) {
 				System.out.println("kroz sobe ");
 				List<DiscountHotel> discountRoom = dhRepository.findAllByRoom(r);
@@ -593,6 +616,10 @@ public class RoomController {
 						if (d.getDateFrom().getTime()<startDate.getTime() && d.getDateTo().getTime()>endDate.getTime()) {
 							System.out.println("uklanjam sobu ");
 							returnList.remove(r);
+							if (returnList.isEmpty()) {
+								System.out.println("prazna je ");
+								return returnList;
+							}
 						}
 					}
 				}

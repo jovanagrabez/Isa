@@ -66,7 +66,6 @@ private static final String URL_PREFIX = "/rooms";
 		.andExpect(content().contentType(contentType))
 		.andExpect(jsonPath("$.[*].id").value(hasItem(1)))
 		.andExpect(jsonPath("$.[*].number").value(hasItem(1)))
-		.andExpect(jsonPath("$.[*].price").value(hasItem((double)50)))
 		.andExpect(jsonPath("$.[*].capacity").value(hasItem((double)1)))
 		.andExpect(jsonPath("$.[*].room_average_rating").value(hasItem(4.1)))
 		.andExpect(jsonPath("$.[*].room_description").value(hasItem("Jednokrevetna")));
@@ -130,7 +129,7 @@ private static final String URL_PREFIX = "/rooms";
 		String json = TestUtil.json(newResRoom);
 		//vracam prvu sobu jer ce odgovarati datim parametrima
 		this.mockMvc.perform(post(URL_PREFIX + "/searchRooms/1/-1/-1").contentType(contentType).content(json)).andExpect(status().isOk())
-		.andExpect(jsonPath("$.[*].id").value(hasItem(1)));
+		.andExpect(jsonPath("$.[*].id").value(hasItem(2)));
 	}
 	
 	@Test
@@ -175,7 +174,7 @@ private static final String URL_PREFIX = "/rooms";
 		
 		String json = TestUtil.json(sfs);
 		//vracam prvu sobu jer ce odgovarati datim parametrima
-		this.mockMvc.perform(post(URL_PREFIX + "/searchFast").contentType(contentType).content(json)).andExpect(status().isOk())
+		this.mockMvc.perform(post(URL_PREFIX + "/searchFast/1").contentType(contentType).content(json)).andExpect(status().isOk())
 		.andExpect(jsonPath("$.[*].id").value(hasItem(1)));
 	}
 }

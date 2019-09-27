@@ -90,26 +90,6 @@ public class PricingControllerTest {
 	@Transactional
 	@Rollback(true)
 	@Test
-	public void testChangeService() throws Exception {
-		PricingDTO pricing = new PricingDTO();
-		
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("EE MMM dd HH:mm:ss z yyyy",
-                Locale.ENGLISH); 
-		Date startDate = sdf.parse("Sun Sep 29 00:00:00 CEST 2019");
-		Date endDate = sdf.parse("Mon Sep 30 00:00:00 CEST 2019");
-		
-		pricing.setId((long)1);
-		pricing.setDateFrom(startDate);
-		pricing.setDateTo(endDate);
-		
-
-		String json = TestUtil.json(pricing);
-		this.mockMvc.perform(post(URL_PREFIX + "/changePricing/1").contentType(contentType).content(json)).andExpect(status().isOk());
-	}
-	@Transactional
-	@Rollback(true)
-	@Test
 	public void testDeleteService() throws Exception {
 		this.mockMvc.perform(get(URL_PREFIX + "/deletePricing/"+5L)).andExpect(status().isOk());
 	}
