@@ -15,13 +15,10 @@ import com.example.ProjekatIsa.model.User;
 @Service
 public interface ReservationRoomService {
 	
-	@Transactional(isolation = Isolation.SERIALIZABLE, rollbackFor = Exception.class)
 	public ReservationRoom save(ReservationRoom reservationRoom);
 	
-	@Transactional(readOnly = true)
 	public List<ReservationRoom> findAllByRoom(Room r);
 	
-	@Transactional(readOnly = true)
 	public List<ReservationRoom> findAllByUser(User u);
 	
 	public List<ReservationRoom> getByRoomAndInterval(Long idRoom, Date od, Date Do);

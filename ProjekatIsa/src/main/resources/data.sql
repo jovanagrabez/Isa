@@ -39,7 +39,7 @@ insert into room (room_id,room_number,room_price,capacity,room_description,hotel
 
 insert into hotel (name,city,adress,description,average_rating) values ('Vojvodina','Novi Sad','Trg slobode 2, Novi Sad, Srbija','U samom centru grada. Stara arhitektura',4.3);
 insert into hotel (name,city,adress,description,average_rating) values ('Grand hotel','Beograd','Bulevar Nikole Tesle 3, Beograd, Srbija','Lorem ipsum dolor sit amet, pri ei duis natum.',4.9);
-insert into hotel (name,city,adress,description,average_rating) values ('Paris','Pariz','2 Avenue du Professeur André Lemierre, 75020 Paris, France','Pro eu dolore vivendo ponderum.',4.3);
+insert into hotel (name,city,adress,description,average_rating) values ('London','London','51 Bedford St, Covent Garden, London WC2R 0PZ, United Kingdom','Pro eu dolore vivendo ponderum.',4.3);
 insert into hotel (name,city,adress,description,average_rating) values ('Prezident','Novi Sad','Futoška 109, Novi Sad, Srbija',' Eos ad oblique adolescens moderatius.',3.9);
 insert into hotel (name,city,adress,description,average_rating) values ('Biser','Derventa','Kralja Petra I, Derventa, Bosna i Hercegovina ','Cu sit sint ignota, sit id scaevola.',4.5);
 

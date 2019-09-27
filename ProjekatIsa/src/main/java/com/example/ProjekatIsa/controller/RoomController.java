@@ -456,9 +456,10 @@ public class RoomController {
 						}
 						returnList3 = returnList;
 					}
-					
+					else {
 					//ni po nazivu ni po gradu
 					returnList3 = all;
+					}
 				}
 		
 		//pretraga po datumu

@@ -38,6 +38,11 @@ export class QuickReservationHotelComponent implements OnInit {
     pomocDva: string;
     minDatum : Date;
 
+    //za broj dana
+    brojDana : number;
+    totalPrice : number;
+    vraceno: Date;
+    preuzeto : Date;
   constructor(private datePipe: DatePipe,private resService : ResServiceService,private router: Router,private hotelService : HotelServiceService,private service : ViewHotelsService) { }
 
   ngOnInit() {
@@ -70,12 +75,17 @@ export class QuickReservationHotelComponent implements OnInit {
       this.pomocDva = (<HTMLInputElement>document.getElementById("datMin")).value;
   }
   pretraga(){
-
+      this.vraceno = new Date(this.searchFormServices.endDate);
+      this.preuzeto = new Date(this.searchFormServices.startDate);
+      
      if(this.isBlank(this.flightReservationId)){
           alert("Morate odabrati let");
      }
      else{
  
+      var proba = Math.abs(this.vraceno.getTime() - this.preuzeto.getTime())
+      this.brojDana =  Math.ceil(proba / (1000 * 3600 * 24));    
+      
       this.searchFormServices.city = this.currentHotel.city;
       this.searchFormServices.nameHotel = this.currentHotel.name;
       console.log(this.searchFormServices.nameHotel);
