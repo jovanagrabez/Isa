@@ -1,18 +1,18 @@
 <body>
 	<div class="fh5co-hero">
-			<div class="fh5co-overlay"></div>             
-		
+			<div class="fh5co-overlay"></div>
+
 <div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(assets/images/pic.png);">
   <div class="login-page">
 	<div class="form">
-   
+
     <form  class="registration" (submit)="validateUser()" method="POST">
       <div class="form-group">
       <section>
 		    <select [(ngModel)]="type" class="form-control"  name="type" id="type">
 			<option value="1">Avio admin</option>
 			<option value="2">Hotel admin</option>
-			<option value="3">Car admin</option>
+			<option value="3">Car adminn</option>
 			</select>
 		</section>
 		</div>
@@ -29,18 +29,18 @@
       <input id="userPassword"  name="userPassword" class="form-control" type="password" data-validation="required" #userPassword placeholder="Potvrdi lozinku">
       <div class="alert alert-danger" *ngIf="password.required==false && password.touched"> Password is required! </div>
       <div class="alert alert-danger" [hidden] = "passwordError">{{passwordErrorMessage}} </div>
-    
+
       <span id="error_userPassword" class="text-danger"></span>
-     
-       
-      
+
+
+
       <input id="userPhoneNumber" [(ngModel)]="user.phoneNumber" #phoneNumber="ngModel" name="phoneNumber" class="form-control" type="text" data-validation="required" #userPhoneNumber placeholder="Broj telefona"/>
       <span id="error_userPhoneNumber" class="text-danger"></span>
       <input id="userCity" [(ngModel)]="user.city" #city="ngModel" name="city" class="form-control" type="text" data-validation="required" #userCity placeholder="Grad stanovanja"/>
       <span id="error_userCity" class="text-danger"></span>
 
       <div class="form-group row" [hidden]="hideError">
-        <div class="col-xs-6">	
+        <div class="col-xs-6">
           <div class="alert alert-danger" >
             <label> {{errorMessage}} </label>
           </div>
@@ -51,7 +51,7 @@
   </div>
 </div>
 </div>
-</div>  
+</div>
 </body>
 
 
