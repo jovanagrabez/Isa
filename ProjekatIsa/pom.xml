@@ -85,9 +85,9 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<!-- <version>8.0.13</version> -->
+			<!-- <version>8.0.28</version> -->
 			<scope>runtime</scope>
-			<version>8.0.13</version><!--$NO-MVN-MAN-VER$-->
+			<version>8.0.28</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 		
 		<!-- https://mvnrepository.com/artifact/org.owasp.encoder/encoder -->
